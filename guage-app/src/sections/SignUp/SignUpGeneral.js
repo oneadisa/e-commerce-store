@@ -1,29 +1,41 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import HeaderSignUp from './SignUpComponents/HeaderSignUp-Login';
+import People from '../../images/Gaged-images/Group 3577.png';
+// import {Link}from 'react-router-dom';
+
 
 function SignUpGeneral(){
 
     return(
-
-<div class="p-20 h-screen w-screen flex flex-col-reverse md:flex-row items-center justify-center bg-gray-200">
-  <div class="content text-3xl text-center md:text-left">
-    <h1 class="text-5xl text-blue-500 font-bold">Facebook</h1>
-    <p>Connect with friends and the world around you on Facebook.</p>
-  </div>
-  <div class="container mx-auto flex flex-col items-center">
-    <form class="shadow-lg w-80 p-4 flex flex-col bg-white rounded-lg">
-      <input type="text" placeholder="Email or Phone Number" class="mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500" />
-      <input type="text" placeholder="Pasword" class="mb-3 py-3 px-4 border border-gray-400 focus:outline-none rounded-md focus:ring-1 ring-cyan-500" />
-      <button class="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold text-lg">Login</button>
-      <a class="text-blue-400 text-center my-2">Forgot Pasword?</a>
-      <hr />
-      <button class="w-full bg-green-400 mt-8 mb-4 text-white p-3 rounded-lg font-semibold text-lg">Create New Account</button>
-    </form>
-    <p class="text-center text-sm my-4">
-      <span class="font-semibold text-center w-full">Create a Page</span> for a celebrity, band or business
-    </p>
-  </div>
-</div>
+      <>
+      <HeaderSignUp />
+      <div class="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
+        <div class=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform translate-x-32 -translate-y-32 scale-150">
+          <img src= {People}>
+          </img>
+          
+        </div>
+        <div class="container mx-auto flex flex-col md:text-left transform translate-x-64 -translate-y-16 ">
+          <h1 className='text-4xl lg:text-5xl font-medium font-poppins text-black'>Select your account type</h1>
+          <p class="font-poppins text-left text-lg my-4 md:text-xl">
+             Choose your account type to help us tailor your experience
+          </p>
+          <div class="flex justify-left space-x-7">
+            <button class='font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white'>
+                Individual
+            </button >
+            <button class='font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium r hover:bg-Dark-blue hover:text-white'
+ Up>
+                Business
+            </button>
+          </div>
+          <p className='text-lg md:text-xl leading-6 md:leading-7 my-40'>
+          Already have an account? <a class='text-blue-600'>Sign In </a>
+          </p>
+        </div>
+      </div></>
     )
 }
 

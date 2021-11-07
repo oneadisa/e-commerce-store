@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react'
-import Logoh from '../../images/logo-header.jpg'
+import React, { useState } from 'react';
+import Logo from '../../../images/Gaged-images/Blue Logo.png';
+
+
+
 
 function Mobile() {
     const [open, setOpen] = useState(false)
@@ -11,8 +14,8 @@ function Mobile() {
 	}
 
     return (
-        <div className='bg-light-blue mx-auto flex items-center p-5 flex-wrap '>
-            <img src={Logoh} className=''/>
+        <div className='bg-white mx-auto flex items-center p-5 flex-wrap '>
+            <img src={Logo} className=''/>
             <button
                 className='ml-auto'
                 onClick={HandleNav}
