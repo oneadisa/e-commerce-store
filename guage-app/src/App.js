@@ -1,10 +1,11 @@
 import React from 'react';
+import LandingPage from './componenets/landing-pages-components/LandingPage';
 
 
 function App() {
   return (
     <div className="App">
-      <h1 className='font-bold'>hello world</h1>
+      <LandingPage />
     </div>
   );
 }
