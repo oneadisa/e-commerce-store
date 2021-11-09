@@ -1,10 +1,12 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Logof from '../../images/logo-footer.jpg'
 
 function Footer() {
     return (
         <div className='px-5 md:px-10 lg:px-20 pt-20 pb-10 md:py-10 bg-Dark-blue'>
-            <img src={Logof} />
+            <img src
+            ={Logof} />
             <div className='flex flex-col gap-20 md:gap-0 md:flex-row justify-between my-14'>
                 <div className='flex flex-col gap-6 justify-between'>
                     <p className='text-white text-base font-medium'>
