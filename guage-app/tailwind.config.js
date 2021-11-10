@@ -8,6 +8,8 @@ module.exports = {
         "Dark-blue" : "rgba(5, 43, 150, 1)",
         "medium-blue" : "rgba(5, 49, 173, 1)",
         "faded-blue" : "rgba(128, 158, 242, 1)",
+        "magenta-blue" : "rgba(234, 234, 255, 1)",
+        "Dark-grey" : "rgba(112, 112, 112, 1)",
       }
     },
   },

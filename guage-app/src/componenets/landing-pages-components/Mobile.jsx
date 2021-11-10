@@ -25,27 +25,27 @@ function Mobile() {
                 <ul
                 className='flex flex-col space-y-5 text-center'
                 >
-                    <li class='text-black text-2xl font-semibold'>
+                    <li class='text-black text-2xl font-semibold hover:text-Dark-blue'>
                         <a href='#' >
                             Campaigns
                         </a>
                     </li>
-                    <li class='text-black text-2xl font-semibold'>
+                    <li class='text-black text-2xl font-semibold hover:text-Dark-blue'>
                         <a href='#' >
                             Stores
                         </a>
                     </li>
-                    <li class='text-black text-2xl font-semibold'>
+                    <li class='text-black text-2xl font-semibold hover:text-Dark-blue'>
                         <a href='#' >
                             About
                         </a>
                     </li>
-                    <li class='py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold font-medium rounded'>
+                    <li class='py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold font-medium rounded hover:bg-Dark-blue hover:text-white'>
                         <a href='#' >
                             Log in
                         </a>
                     </li>
-                    <li class='py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-semibold font-medium rounded'>
+                    <li class='py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-semibold font-medium rounded hover:bg-white hover:text-Dark-blue'>
                         <a href='#' >
                             Sign up
                         </a>
