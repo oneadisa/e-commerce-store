@@ -12,9 +12,13 @@ function Desktop() {
                 <li>About</li>
             </ul>
             <div className='flex md:gap-2 lg:gap-3 ml-auto' >
+                <form action="/login" method="post" 
+              className="form flex md:gap-2 lg:gap-3 ml-auto">
                 <button className='py-2 md:px-5 lg:px-7 border border-Dark-blue text-Dark-blue font-medium rounded hover:bg-Dark-blue hover:text-white'>Log in</button>
+                </form>
                 <button className='py-2 md:px-5 lg:px-7 border border-Dark-blue bg-Dark-blue text-white font-medium rounded hover:bg-white hover:text-Dark-blue'>Sign up</button>
-            </div>
+
+                        </div>
         </div>
     )
 }

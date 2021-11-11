@@ -21,7 +21,7 @@ function App() {
     <div className="App">
 
       {/* <LandingPage /> */}
-      <ProductsNew />
+      {/* <ProductsNew /> */}
 
       <Routes>
         <Route path='/' element={<LandingPage/>} />
@@ -29,7 +29,10 @@ function App() {
         <Route path='/signup/1' element={<SetUpProfile1/>} />
         <Route path='/signup/2/individual' element={<SetUpProfile2Individual/>} />
         <Route path='/signup/2/business' element={<SetUpProfile2Business/>} />
-        <Route path='/login' element={<Login/>} />
+        <Route path='guage/login' element={<Login/>} />
+        <Route path='/store/products/all' element={<ProductsAll/>} />
+        <Route path='/store/products/new' element={<ProductsNew/>} />
+        <Route path='/store/products/orders' element={<ProductsOrders/>} />
 
       </Routes>
       
