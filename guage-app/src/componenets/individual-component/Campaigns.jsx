@@ -70,7 +70,7 @@ function Campaigns() {
                             <div className='grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8'>
                                 <div className='flex flex-col'>
                                     <div className='mb-20'>
-                                        <img src={vibe} className='w-full h-fit' />
+                                        <img src={vibe} className='w-full' />
                                         <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
