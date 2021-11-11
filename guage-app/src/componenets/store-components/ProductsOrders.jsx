@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState } from 'react'
 import Logof from '../../images/logo-footer.jpg'
 import analytics from '../../images/analytics.png'
@@ -22,6 +25,7 @@ function ProductsOrders() {
                         <div className='text-2xl lg:hidden text-white' onClick = {handleNav}>
                             {open === true ? (<i class="fas fa-times"></i>) : (<i class="fas fa-bars"></i>) }
                         </div>
+                        
                         <img src={Logof} className='w-4/5 lg:w-full' />
                     </div>
                     <input className='w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5' />
@@ -116,5 +120,6 @@ function ProductsOrders() {
         </div>
     )
 }
+
 
 export default ProductsOrders
