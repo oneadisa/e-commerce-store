@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import Logof from '../../images/logo-footer.jpg'
 import alot from '../../images/alot.png'
@@ -7,6 +10,8 @@ import password from '../../images/password.png'
 import settings from '../../images/settings.png'
 import dashboard from '../../images/dashboard.png'
 import campaign from '../../images/campaign.png'
+import store from '../../images/store.png'
+import analytics from '../../images/analytics.png'
 
 function Campaigns() {
     const [open, setOpen] = useState(false)
@@ -50,6 +55,19 @@ function Campaigns() {
                                 <p>Campaigns</p>
                             </a>
                         </li>
+                        <li className='my-3 p-3  mr-10 lg:mr-0'>
+                            <a href='#' className='flex gap-3'>
+                                <img src={store} className='w-5 h-5 mt-1' />
+                                <p>Store</p>
+                            </a>
+                        </li>
+                        <li className='my-3 p-3'>
+                            <a href='#' className='flex gap-3'>
+                                <img src={analytics} className='w-5 h-5 mt-1' />
+                                <p>Analytics</p>
+                            </a>
+                        </li>
+                        
                         <li className='my-3 p-3'>
                             <a href='#' className='flex gap-3'>
                                 <img src={wallet} className='w-5 h-5 mt-1' />

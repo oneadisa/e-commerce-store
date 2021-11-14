@@ -4,6 +4,7 @@ import React,  {useState} from 'react';
 import HeaderSignUp from './SignUpComponents/HeaderSignUp-Login';
 import People from '../../images/Gaged-images/Group 3577.png';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 // import {Link}from 'react-router-dom';
 
@@ -41,7 +42,7 @@ const [credentials, setCredentials] = useState({
                 password: credentials.password,
             }
 
-            axios.post('http://localhost:8080/app/signup', registered)
+            axios.post('http://localhost:8080/app/signup/2/individual', registered)
             .then(response => console.log(response.data)
             )
 
@@ -82,6 +83,7 @@ const [credentials, setCredentials] = useState({
         </div>
     </div>
 </div>
+
                     <div class="flex -mx-3">
                         <div class="w-1/2 px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1"></label>
@@ -140,7 +142,7 @@ const [credentials, setCredentials] = useState({
       </label>
     </div>
        
-        <p class='mb-5'>By creating an account, you agree to the <a class='text-indigo-400'>Terms of Service</a></p>
+        <p class='mb-5'>By creating an account, you agree to the <Link to="" class='text-indigo-400'>Terms of Service</Link></p>
     </div>
 
                     
@@ -148,6 +150,10 @@ const [credentials, setCredentials] = useState({
                         <div class="w-full px-3 mb-5 place-items-start">
                             <button onClick={handleClick} class="block w-full max-w-xs mx-auto bg-blue-700 hover:bg-blue-800  text-white  px-3 py-3 font-semibold">CREATE ACCOUNT</button>
                         </div>
+                    </div>
+
+                    <div class="text-start">
+                        <p class='mb-5 font-poppins'>Already on Gaged?<Link to="/login" class='text-indigo-400'> Login Here</Link></p>
                     </div>
                     </form>
         </div>

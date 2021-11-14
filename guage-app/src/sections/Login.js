@@ -1,41 +1,76 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, {useState, } from 'react';
 import HeaderSignUp from './SignUp/SignUpComponents/HeaderSignUp-Login';
 import People from '../images/Gaged-images/Group 3577.png';
-// import {Link}from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
+import Loader from '../componenets/Loader'
+// import { log } from 'console';
 
 
 function Login(){
 
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const submitHandler = async (event) => {
+    event.preventDefault()
+
+    try {
+      const config ={
+        headers:{
+          "Content-type":"application/json"
+        }
+      }
+setLoading(true)
+
+const {data} = await axios.post("http://localhost:8080/app/loginUser",
+{email, password},
+config)
+console.log(data)
+localStorage.setItem('signedUpUser', JSON.stringify(data))
+
+setLoading(false)
+
+    } catch (error) {
+      setError(error.response.data.message)
+    }
+  }
+
     return(
       <>
       <HeaderSignUp />
-      <div class="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
-        <div class=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
+      <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
+        <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
           <img src= {People}>
           </img>
-          
-        </div>
-        <div class="transform -translate-y-32 ">
+          </div>
+          {loading && <Loader/>}
+        <form >
+        <div className="transform -translate-y-32 ">
           <h1 className='text-4xl lg:text-5xl font-medium font-poppins text-black'>Welcome Back!</h1>
-          <p class="text-left text-lg my-4 md:text-xl font-poppins">
+          <p className="text-left text-lg my-4 md:text-xl font-poppins">
              We missed you, sign in to get more of the "Gaged" experience.
           </p>
           <div>
-            <input typ='email' class=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
+            <input typ='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
                 
             
             <br/>
-            <input type="password" class=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7' placeholder="Password"/> 
+            <input type="password" onChange={(e)=>setPassword(e.target.value)} value={password} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7' placeholder="Password"/> 
           </div>
-          <p class="font-poppins my-8">Forgot Password? <span class="font-poppins text-blue-700 space-y-7">Reset Here</span></p>
-          <button class=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white flex justify-left space-y-7'>
+          <p className="font-poppins my-8">Forgot Password? <span className="font-poppins text-blue-700 space-y-7">Reset Here</span></p>
+          <button onClick={submitHandler} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white flex justify-left space-y-7'>
             Login
           </button>
-            <p class="font-poppins my-8">Don't have an account? <span class="font-poppins text-blue-700 space-y-7">Sign Up</span></p>
+            <p className="font-poppins my-8">Don't have an account? <Link to="/signup" className="font-poppins text-blue-700 space-y-7">Sign Up</Link></p>
 
         </div>
+        </form>
       </div></>
     )
 }
