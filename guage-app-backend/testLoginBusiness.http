@@ -1,0 +1,7 @@
+POST http://localhost:8080/app/loginBusiness
+Content-Type: application/json
+
+{
+    "email": "abdul@hello.com", 
+    "password": "qwerty"
+}

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
 import { Switch } from '@headlessui/react'
 import Logof from '../../images/logo-footer.jpg'
@@ -111,7 +113,7 @@ function ProductsNew() {
                                                 <p className='text-lg font-normal text-Dark-grey mb-3'>Product status</p>
                                                 <div className="pb-5 flex gap-3">
                                                     <Switch checked={enabled} onChange={setEnabled}
-                                                        className={`block bg-gray-400 rounded-full shadow border-2 border-transparent h-6 w-12 transition duration-200 flex ${ enabled ? "" : "justify-end bg-Dark-blue"}`}
+                                                        className={`block bg-gray-400 rounded-full shadow border-2 border-transparent h-6 w-12 transition duration-200 ${ enabled ? "" : "justify-end bg-Dark-blue"}`}
                                                     >
                                                         <span
                                                         className="block h-full w-6 rounded-full bg-white"

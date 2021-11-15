@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
 import Logo from '../../../images/Gaged-images/Blue Logo.png';
-
+import {Link} from 'react-router-dom';
 
 
 
@@ -15,7 +15,7 @@ function Mobile() {
 
     return (
         <div className='bg-white mx-auto flex items-center p-5 flex-wrap '>
-            <img src={Logo} className=''/>
+            <Link to='/'><img src={Logo} className=''/></Link>
             <button
                 className='ml-auto'
                 onClick={HandleNav}

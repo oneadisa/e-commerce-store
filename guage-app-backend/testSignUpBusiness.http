@@ -1,0 +1,11 @@
+POST http://localhost:8080/app/signup/2/business
+Content-Type: application/json
+
+{
+    "businessName": "Maryam",
+    "accountHolderName": "Ibrahim",
+    "email": "abdul@hello.com",
+    "phoneNumber": "12345",
+    "password": "qwerty"
+
+}

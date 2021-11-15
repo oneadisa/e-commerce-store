@@ -1,0 +1,11 @@
+POST http://localhost:8080/app/signup/2/individual
+Content-Type: application/json
+
+{
+    "firstName": "Uniquer",
+    "lastName": "Ibrahim",
+    "email": "abdul10@hello.com",
+    "phoneNumber": "12345",
+    "password": "qwerty",
+
+}
