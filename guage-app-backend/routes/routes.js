@@ -5,7 +5,7 @@ const router = express.Router();
 // const bcrypt = require('bcrypt')
 const { registerUser, authUser } = require('../controllers/userController')
 const { registerBusiness, authBusiness } = require('../controllers/businessController')
-const {} = require('')
+
 
 router.route('/signup/2/individual').post(registerUser)
 router.route('/loginUser').post(authUser);

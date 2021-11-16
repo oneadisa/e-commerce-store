@@ -1,21 +1,32 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState, } from 'react';
+import React, {useState } from 'react';
 import HeaderSignUp from './SignUp/SignUpComponents/HeaderSignUp-Login';
-import People from '../images/Gaged-images/Group 3577.png';
+import People from '../images/Gaged-images/Group 3577.png'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../componenets/Loader'
+import ErrorMessage from '../componenets/ErrorMessage';
 // import { log } from 'console';
 
 
-function Login(){
+function LoginUser({history}){
 
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  // useEffect(() => { 
+    // const signedUpUserInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
+
+    // if (signedUpUserInfo) {
+      // history.push('/')
+    // }
+  // 
+// }, [history])
 
   const submitHandler = async (event) => {
     event.preventDefault()
@@ -28,29 +39,34 @@ function Login(){
       }
 setLoading(true)
 
-const {data} = await axios.post("http://localhost:8080/app/loginUser",
+const {data} = await axios.post("/app/loginUser",
 {email, password},
 config)
 console.log(data)
-localStorage.setItem('signedUpUser', JSON.stringify(data))
+localStorage.setItem('signedUpUserInfo', JSON.stringify(data))
 
 setLoading(false)
 
     } catch (error) {
       setError(error.response.data.message)
+      setLoading(false)
+
     }
   }
 
     return(
       <>
       <HeaderSignUp />
+       {error && <ErrorMessage/>}
       <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
         <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
           <img src= {People}>
           </img>
           </div>
-          {loading && <Loader/>}
+          
+          
         <form >
+          {loading && <Loader/>}
         <div className="transform -translate-y-32 ">
           <h1 className='text-4xl lg:text-5xl font-medium font-poppins text-black'>Welcome Back!</h1>
           <p className="text-left text-lg my-4 md:text-xl font-poppins">
@@ -71,8 +87,9 @@ setLoading(false)
 
         </div>
         </form>
+        
       </div></>
     )
 }
 
-export default Login;
+export default LoginUser;

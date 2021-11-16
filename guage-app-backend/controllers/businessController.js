@@ -7,14 +7,14 @@ const generateToken = require('../utils/generateToken')
 
 
 
-const registerUser = asyncHandler(async(req, res) => {
+const registerBusiness = asyncHandler(async(req, res) => {
 
 
     // const saltPassword = await bcrypt.genSalt(10)
     // const securePassword = await bcrypt.hash(req.body.password, saltPassword)
 
 
-    // const signedUpUser = new signUpTemplateCopy({
+    // const signedUpBusiness = new signUpTemplateCopy({
     // businessName: req.body.businessName,
     // accountHolderName: req.body.accountHolderName,
     // email: req.body.email,
@@ -22,33 +22,35 @@ const registerUser = asyncHandler(async(req, res) => {
     // password: securePassword
     // })
 
-    const { businessName, accountHolderName, email, phoneNumber, password } = req.body
+    const { businessName, accountHolderName, email, phoneNumber, password, pic, isAdmin } = req.body
 
-    const userExists = await signedUpUser.findOne({ email })
+    const userExists = await signedUpBusiness.findOne({ email })
 
     if (userExists) {
         res.status(400);
-        throw new Error('User Already Exists')
+        throw new Error('Business Already Exists')
     }
-    const user = await signedUpUser.create({
+    const user = await signedUpBusiness.create({
 
         businessName,
         accountHolderName,
         email,
         phoneNumber,
         password,
-        // isAdmin,
-        // pic
+        isAdmin,
+        pic
 
     })
     if (user) {
         res.status(201).json({
-            // _id: user._id,
+            _id: user._id,
             businessName: user.businessName,
             accountHolderName: user.accountHolderName,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            // isAdmin: user.isAdmin,
+            isAdmin: user.isAdmin,
+            pic: user.pic,
+            token: generateToken(user._id)
 
 
         })
@@ -57,16 +59,16 @@ const registerUser = asyncHandler(async(req, res) => {
         throw new Error('Error occured')
     }
 
-    signedUpUser.save()
+    signedUpBusiness.save()
         .then(data => {
-            res.json(data)
+            res.json.stingify(data)
         })
         .catch(error => {
-            res.json(error)
+            res.json.stringify(error)
         })
 })
 
-const authUser = asyncHandler(async(req, res) => {
+const authBusiness = asyncHandler(async(req, res) => {
     const { email, password } = req.body
 
     const user = await signedUpBusiness.findOne({ email });
@@ -77,9 +79,9 @@ const authUser = asyncHandler(async(req, res) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             password: user.password,
-            // isAdmin: user.isAdmin,
-            // pic: user.pic,
-            // token: generateToken(user.phoneNumber)
+            isAdmin: user.isAdmin,
+            pic: user.pic,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)

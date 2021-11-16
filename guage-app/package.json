@@ -1,6 +1,6 @@
 {
-    "homepage": "http://oneadisa.github.io/guage",
-    "name": "guage-app",
+    "homepage": "http://oneadisa.github.io/gaged",
+    "name": "gaged-app",
     "version": "0.1.0",
     "private": true,
     "proxy": "http://localhost:8080",

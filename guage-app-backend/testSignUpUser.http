@@ -4,8 +4,8 @@ Content-Type: application/json
 {
     "firstName": "Uniquer",
     "lastName": "Ibrahim",
-    "email": "abdul10@hello.com",
+    "email": "abdulw@hellog.com",
     "phoneNumber": "12345",
-    "password": "qwerty",
+    "password": "qwerty"
 
 }

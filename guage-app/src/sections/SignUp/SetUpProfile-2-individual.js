@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React,  {useState} from 'react';
 import HeaderSignUp from './SignUpComponents/HeaderSignUp-Login';
 import People from '../../images/Gaged-images/Group 3577.png';
 import axios from 'axios';
+import ErrorMessage from '../../componenets/ErrorMessage';
+import Loader from '../../componenets/Loader';
 import {Link} from 'react-router-dom';
 
 // import {Link}from 'react-router-dom';
@@ -11,12 +14,18 @@ import {Link} from 'react-router-dom';
 
 function SetUpProfile2Individual(){
 
+    const [error, setError] = useState(false)
+    const [picMessage, setPicMessage] = useState(null)
+    const [message, setMessage] = useState(null)
+    const [loading, setLoading] = useState(false)
+
 const [credentials, setCredentials] = useState({
     firstName: '',
     lastName: '',
     email: '',
     phoneNumber: '',
-    password: ''
+    password: '',
+    pic: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
 })
         function handlechange(event){
         
@@ -31,7 +40,8 @@ const [credentials, setCredentials] = useState({
 
         }
 
-        function handleClick(event){
+        
+        const handleClick = async (event) => {
             event.preventDefault();
 
             const registered = {
@@ -40,8 +50,32 @@ const [credentials, setCredentials] = useState({
                 email: credentials.email,
                 phoneNumber: credentials.phoneNumber,
                 password: credentials.password,
+                pic: credentials.pic
             }
 
+                    // if (registered.password !== registered.confirmPassword) {
+            // setMessage('Passswords do not match!')
+            //    } else {
+                //    setMessage(null)
+                //    try {
+                    //    const config = {
+                        //    headers: {
+                            //    "Content-type": "application/json",
+
+                        //    }
+                    //    }
+                    //    const {data} = await axios.post("/app/signup/2/individual",
+                        // {firstName, lastName, email, phoneNumber, password, pic},
+                        // config)
+                        // console.log(data)
+                        // localStorage.setItem('signedUpBusinessInfo', JSON.stringify(data))
+
+                        // setLoading(false)
+                                            // }
+                        // catch (error) {
+                        // setError(error.response.data.message)
+                        // setLoading(false) }
+            //    }
             axios.post('http://localhost:8080/app/signup/2/individual', registered)
             .then(response => console.log(response.data)
             )
@@ -53,7 +87,8 @@ const [credentials, setCredentials] = useState({
                     lastName: '',
                     email: '',
                     phoneNumber: '',
-                    password: ''
+                    password: '',
+                    pic: ''
                 }
             )
         }
@@ -61,6 +96,7 @@ const [credentials, setCredentials] = useState({
     return(
       <>
       <HeaderSignUp />
+      {error && setError}
       <div class="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
         <div class=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform  -translate-y-16 ">
           <img src= {People}>
@@ -72,8 +108,10 @@ const [credentials, setCredentials] = useState({
                     <h1 class="font-bold font-poppins text-3xl text-gray-900">Let us set up your profile</h1>
                     <p class='font-poppins'>Please provide correct information while setting up an account.</p>
                 </div>
-
+                {message && <ErrorMessage/> }
+                
                 <form onSubmit={handleClick}>
+                    {loading && <Loader/> }
                     <div class="flex -mx-3">
     <div class="w-1/2 px-3 mb-5">
         <label for="" class="text-xs font-semibold px-1"></label>
@@ -126,11 +164,17 @@ const [credentials, setCredentials] = useState({
     </div>
     
     <div class="w-1/2 px-3 mb-5">
-        <label for="" class="text-xs font-semibold px-1"></label>
-        <div class="flex">
+        <label for="" class="text-xs  font-semibold shadow-lg tracking-wide cursor-pointer px-1">
+        <div class="flex transform  -translate-y-1">
+            
             <div class="w-10 z-1 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-black text-lg"></i></div>
-            <button type="text" class="w-full -ml-10 pl-10 pr-3 py-2 text-left bg-indigo-300 outline-none hover:bg-indigo-500" placeholder="Add your Profile Image">Add your Profile Image</button>
+            {/* <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> */}
+            {/* <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" /> */}
+                 {/* </svg> */}
+            <span type="text" class="w-full mt-2 text-base leading-normal -ml-10 pl-10 pr-3 py-2 text-left bg-indigo-300 outline-none hover:bg-indigo-500" placeholder="Add your Profile Image">Add your Profile Image</span>
+            {/* <input onChange={handlechange} name='pic' type='file' class="hidden" value={credentials.pic}  /> */}
         </div>
+        </label>
     </div>
 </div>
             
