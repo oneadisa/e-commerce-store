@@ -19,7 +19,7 @@ function ExploreStores() {
                     <div>
                         <img src={Logof} className='w-4/5 lg:w-full h-full' />
                     </div>
-                    <input className='w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5' />
+                    <input className='w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
                 <div className='flex gap-2 lg:gap-10 lg:pr-28 ml-auto'>
                     <div>
@@ -28,7 +28,7 @@ function ExploreStores() {
                     <div className='w-4 h-4 lg:w-7 lg:h-7 rounded-full bg-Dark-grey mt-3 lg:mt-1' />
                 </div>
             </head>
-            <div className='bg-magenta-blue py-14 px-3 items-center text-center'>
+            <div className='bg-magenta-blue py-14 px-3 lg:px-20 items-center text-center'>
                 <h1 className='text-2xl md:text-3xl lg:text-3xl font-bold'>Explore  Stores</h1>
                 <p className='text-base md:text-lg lg:text-lg my-3'>Search and discover the digital stores of businesses near you</p>
                 <div>
@@ -78,7 +78,7 @@ function ExploreStores() {
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
                             <img src={akhlaq} className='w-full' />
-                            <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
+                            <h4 className='text-lg font-bold my-2'>Alat Gadgets</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
                             </p>
@@ -88,9 +88,9 @@ function ExploreStores() {
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
                             <img src={queen} className='w-full' />
-                            <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
+                            <h4 className='text-lg font-bold my-2'>password</h4>
                             <p className='text-base leading-5'>
-                                Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
+                            Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
                             </p>
                         </div>
                         <button className='w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue'>Shop</button>
