@@ -6,7 +6,7 @@ import People from '../images/Gaged-images/Group 3577.png'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../componenets/Loader'
-import ErrorMessage from '../componenets/ErrorMessage';
+import ErrorMessage from '../componenets/LoginErrorMessage';
 // import { log } from 'console';
 
 

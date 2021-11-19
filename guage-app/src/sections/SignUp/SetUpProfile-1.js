@@ -5,7 +5,7 @@ import HeaderSignUp from './SignUpComponents/HeaderSignUp-Login';
 import People from '../../images/Gaged-images/Group 3577.png';
 // import {Link}from 'react-router-dom';
 
-
+ 
 function SetUpProfile1(){
 
     return(

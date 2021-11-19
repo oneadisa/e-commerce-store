@@ -2,15 +2,23 @@ import React from 'react'
 import Desktop from './Desktop'
 import Mobile from './Mobile'
 
-function HeaderSignUp() {
+function HeaderSignUp({children, title}) {
     return (
         <>
             <div className='md:hidden lg:hidden'>
-                <Mobile />
+                <Mobile  > {title && (<>
+                <h1 className="heading">{title}</h1>
+                <hr />
+              </>)} </Mobile>
             </div>
 
             <div className='hidden md:block lg:block'>
-                <Desktop />
+                <Desktop> {title && (
+              <>
+                <h1 className="heading">{title}</h1>
+                <hr />
+              </>
+            )} </Desktop>
             </div>
         </>
     )

@@ -7,7 +7,7 @@ import People from '../images/Gaged-images/Group 3577.png'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../componenets/Loader'
-import ErrorMessage from '../componenets/ErrorMessage';
+import ErrorMessage from '../componenets/LoginErrorMessage';
 // import { log } from 'console';
 
 
@@ -55,7 +55,7 @@ setLoading(false)
 
     return(
       <>
-      <HeaderSignUp />
+      <HeaderSignUp children={undefined} title={undefined} />
       {error && <ErrorMessage/>}
       <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
         <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
@@ -71,7 +71,7 @@ setLoading(false)
              We missed you, sign in to get more of the "Gaged" experience.
           </p>
           <div>
-            <input typ='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
+            <input type='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
                 
             
             <br/>
