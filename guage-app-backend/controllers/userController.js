@@ -22,7 +22,7 @@ const registerUser = asyncHandler(async(req, res) => {
     // password: securePassword
     // })
 
-    const { firstName, lastName, email, phoneNumber, password } = req.body
+    const { firstName, lastName, email, phoneNumber, password, pic, isAdmin } = req.body
 
     const userExists = await signedUpUser.findOne({ email })
 
@@ -37,18 +37,20 @@ const registerUser = asyncHandler(async(req, res) => {
         email,
         phoneNumber,
         password,
-        // isAdmin,
-        // pic
+        isAdmin,
+        pic
 
     })
     if (user) {
         res.status(201).json({
-            // _id: user._id,
+            _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            // isAdmin: user.isAdmin,
+            isAdmin: user.isAdmin,
+            pic: user.pic,
+            token: generateToken(user._id)
 
 
         })
@@ -77,9 +79,9 @@ const authUser = asyncHandler(async(req, res) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             password: user.password,
-            // isAdmin: user.isAdmin,
-            // pic: user.pic,
-            // token: generateToken(user.phoneNumber)
+            isAdmin: user.isAdmin,
+            pic: user.pic,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)

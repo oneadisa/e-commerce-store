@@ -10,8 +10,9 @@ const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
 
 dotenv.config()
-mongoose.connect(process.env.USERDATABASE_ACCESS, () => console.log("User Database connected"))
-    // mongoose.connect(process.env.BUSINESSDATABASE_ACCESS, () => console.log("Business Database connected"))
+mongoose.connect(process.env.USERDATABASE_ACCESS, () => console.log("Databases connected"))
+
+// mongoose.connect(process.env.BUSINESSDATABASE_ACCESS, () => console.log("Business Database connected"))
 
 
 // const db = mongoose.connection;

@@ -1,7 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
 import Logoh from '../../images/logo-header.jpg'
+import {Link} from 'react-router-dom'
+
+
+// const history = useHistory();
+
+
+
 
 function Mobile() {
     const [open, setOpen] = useState(false)
@@ -12,7 +21,7 @@ function Mobile() {
 
     return (
         <div className='bg-light-blue mx-auto flex items-center p-5 flex-wrap '>
-            <img src={Logoh} className=''/>
+            <Link to="/"><img src={Logoh} className=''/></Link>
             <button
                 className='ml-auto'
                 onClick={HandleNav}
@@ -28,41 +37,45 @@ function Mobile() {
                 className='flex flex-col space-y-5 text-center'
                 >
                     <li class='text-black text-2xl font-semibold hover:text-Dark-blue'>
-                        <a href='#' >
+                        <Link to="/" >
                             Campaigns
-                        </a>
+                        </Link>
                     </li>
                     <li class='text-black text-2xl font-semibold hover:text-Dark-blue'>
-                        <a href='#' >
+                        <Link to="store/products/all" >
                             Stores
-                        </a>
+                        </Link>
                     </li>
                     <li class='text-black text-2xl font-semibold hover:text-Dark-blue'>
-                        <a href='#' >
+                        <Link to="/about" >
                             About
-                        </a>
+                        </Link>
                     </li>
 
                     {/* <li class='py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded hover:bg-Dark-blue hover:text-white'> */}
 
                     <li class='py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded'>
 
-                        <a href='#' >
+                        <Link to="/loginUser" >
                             Log in
-                        </a>
+                        </Link>
                     </li>
 
                     <li class='py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded hover:bg-white hover:text-Dark-blue'>
 
                     <li class='py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded'>
 
-                        <a href='#' >
+                        <Link to="/signup" >
                             Sign up
-                        </a>
+                        </Link>
                         </li>
                     </li>
                 </ul>
             </div>) : null}
+            {/* logout functionality */}
+             {/* <Link to="/" onClick={()=> {localStorage.removeItem('signedUpBusinessInfo','signedUpUserInfo'); history.push("/")}}>  */}
+        {/* Logout  */}
+    {/* </Link>  */}
         </div>
     )
 }

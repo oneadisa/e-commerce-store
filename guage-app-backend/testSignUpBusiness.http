@@ -2,10 +2,9 @@ POST http://localhost:8080/app/signup/2/business
 Content-Type: application/json
 
 {
-    "businessName": "Maryam",
+    "businessName": "Marya",
     "accountHolderName": "Ibrahim",
-    "email": "abdul@hello.com",
+    "email": "abdu6@hello.co",
     "phoneNumber": "12345",
     "password": "qwerty"
-
 }

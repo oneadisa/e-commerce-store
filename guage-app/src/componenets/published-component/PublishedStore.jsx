@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Logof from '../../images/logo-footer.jpg'
 import drink1 from '../../images/drink1.png'
@@ -10,7 +11,7 @@ function PublishedStore() {
             <head className='flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2'>
                 <div className='flex space-x-5 lg:space-x-40 h-10'>
                     <div>
-                        <img src={Logof} className='w-4/5 lg:w-full h-full' />
+                        <img src={Logof} alt="" className='w-4/5 lg:w-full h-full' />
                     </div>
                     <input className='w-28 md:w-60 lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
