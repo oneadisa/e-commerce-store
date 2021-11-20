@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import Logof from '../../images/logo-footer.jpg'
 import vibe from '../../images/vibe.png'

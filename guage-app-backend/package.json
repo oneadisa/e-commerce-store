@@ -1,0 +1,39 @@
+{
+    "name": "guage",
+    "version": "1.0.0",
+    "description": "Guage Application",
+    "main": "Server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon Server.js",
+        "dev": "nodemon Server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/oneadisa/guage.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/oneadisa/guage/issues"
+    },
+    "homepage": "https://github.com/oneadisa/guage#readme",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-async-handler": "^1.2.0",
+        "jshint": "^2.13.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.0.12",
+        "nodemon": "^2.0.15",
+        "request": "^2.88.2"
+    },
+    "devDependencies": {
+        "@types/node": "^16.11.7"
+    }
+}

@@ -1,12 +1,60 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, {useState} from 'react';
 import HeaderSignUp from './SignUpComponents/HeaderSignUp-Login';
 import People from '../../images/Gaged-images/Group 3577.png';
+import axios from 'axios';
 // import {Link}from 'react-router-dom';
 
 
 function SetUpProfile2Business(){
+
+const [credentials, setCredentials] = useState({
+    businessName: '',
+    accountHolderName: '',
+    email: '',
+    phoneNumber: '',
+    password: ''
+})
+        function handlechange(event){
+        
+        const {value, name} = event.target;
+
+        setCredentials((prevValue) => {
+                return {
+                    ...prevValue,
+                    [name]: value
+                };
+        });
+
+        }
+
+        function handleClick(event){
+            event.preventDefault();
+
+            const registered = {
+                businessName: credentials.businessName,
+                accountHolderName: credentials.accountHolderName,
+                email: credentials.email,
+                phoneNumber: credentials.phoneNumber,
+                password: credentials.password,
+            }
+
+            axios.post('http://localhost:8080/app/signup/2/business', registered)
+            .then(res => console.log(res.data)
+            )
+
+            // window.location = "/"
+            setCredentials(
+                {
+                     businessName: '',
+                    accountHolderName: '',
+                    email: '',
+                    phoneNumber: '',
+                    password: '' 
+                }
+            )
+        }
 
     return(
       <>
@@ -17,12 +65,14 @@ function SetUpProfile2Business(){
           </img>
           
         </div>
+        <form onSubmit={handleClick}>
         <div className='transform -translate-y-10 '>
             <div class="text-start mb-10">
                     <h1 class="font-bold font-poppins text-3xl text-gray-900">Let us set up your profile</h1>
                     <p class='font-poppins'>Please provide correct information while setting up an account.</p>
                 </div>
-                    <div class="flex -mx-3">
+
+    <div class="flex -mx-3">
     <div class="w-1/2 px-3 mb-5">
         <label for="" class="text-xs font-semibold px-1"></label>
         <div class="flex">
@@ -31,19 +81,20 @@ function SetUpProfile2Business(){
         </div>
     </div>
 </div>
+                    
                     <div class="flex -mx-3">
                         <div class="w-1/2 px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1"></label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-black text-lg"></i></div>
-                                <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Business name"/>
+                                <input onChange={handlechange} name='businessName' type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Business name" value={credentials.businessName} />
                             </div>
                         </div>
                         <div class="w-1/2 px-3 mb-5">
                             <label for="" class="text-xs font-semibold px-1"></label>
                             <div class="flex">
                                 <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-start"><i class="mdi mdi-account-outline text-black text-lg"></i></div>
-                                <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Account holder name"/>
+                                <input onChange={handlechange} name='accountHolderName' type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Account holder name" value={credentials.accountHolderName} />
                             </div>
                         </div>
                     </div>
@@ -52,14 +103,14 @@ function SetUpProfile2Business(){
         <label for="" class="text-xs font-semibold px-1"></label>
         <div class="flex">
             <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-black text-lg"></i></div>
-            <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Email"/>
+            <input onChange={handlechange} name='email' type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Email"  value={credentials.email} />
         </div>
     </div>
     <div class="w-1/2 px-3 mb-5">
         <label for="" class="text-xs font-semibold px-1"></label>
         <div class="flex">
             <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-black text-lg"></i></div>
-            <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Phone"/>
+            <input onChange={handlechange} name='phoneNumber' type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Phone" value={credentials.phoneNumber}/>
         </div>
     </div>
 </div>
@@ -68,7 +119,7 @@ function SetUpProfile2Business(){
         <label for="" class="text-xs font-semibold px-1"></label>
         <div class="flex">
             <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-black text-lg"></i></div>
-            <input type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Password"/>
+            <input onChange={handlechange} name='password' type="text" class="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500" placeholder="Password" value={credentials.password} />
         </div>
     </div>
     <div class="w-1/2 px-3 mb-5">
@@ -97,17 +148,10 @@ function SetUpProfile2Business(){
                             <button class="block w-full max-w-xs mx-auto bg-blue-700 hover:bg-blue-800  text-white  px-3 py-3 font-semibold  place-items-start">CREATE ACCOUNT</button>
                         </div>
                     </div>
+
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-          
-        
+        </form>
+
       </div></>
     )
 }
