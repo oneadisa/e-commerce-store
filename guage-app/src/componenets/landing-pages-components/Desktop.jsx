@@ -1,18 +1,33 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/alt-text */
-import React from 'react'
+import {React} from 'react'
 import Logoh from '../../images/logo-header.jpg'
 import {Link} from 'react-router-dom'
+// import { useDispatch, useSelector } from "react-redux";
+// import logout from '../'
 
-// const history = useHistory()
-//logout functionality
+
+
 
 
 
 function Desktop() {
 
-    
+    // const history = useHistory()
+//logout functionality
+
+    //  const dispatch = useDispatch();
+
+    // const userLogin = useSelector((state) => state.userLogin);
+    // const { signedUpUserInfo } = userLogin;
+
+    // const logoutHandler = () => {
+    // dispatch(logout());
+            // };
+
+        // useEffect(() => {}, [signedUpUserInfo]);
+
     return (
         <div className='flex justify-between items-center mx-auto py-4 md:px-10 lg:px-20 bg-light-blue'>
             <Link to="/"><img src={Logoh} className='' /></Link>

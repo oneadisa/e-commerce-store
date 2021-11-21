@@ -28,7 +28,7 @@ const registerBusiness = asyncHandler(async(req, res) => {
 
     if (userExists) {
         res.status(400);
-        throw new Error('Business Already Exists')
+        throw new Error('Business Already Exists. Please Log In.')
     }
     const user = await signedUpBusiness.create({
 

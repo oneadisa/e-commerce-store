@@ -4,10 +4,11 @@ import React, {useState } from 'react';
 import HeaderSignUp from './SignUp/SignUpComponents/HeaderSignUp-Login';
 import People from '../images/Gaged-images/Group 3577.png'
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import Loader from '../componenets/Loader'
 import ErrorMessage from '../componenets/LoginErrorMessage';
-// import { log } from 'console';
+import { useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux'
+import {userLogin} from '../actions/userActions'
 
 
 function LoginUser({history}){
@@ -16,8 +17,6 @@ function LoginUser({history}){
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   // eslint-disable-next-line no-unused-vars
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(false)
 
   // useEffect(() => { 
     // const signedUpUserInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
@@ -28,35 +27,26 @@ function LoginUser({history}){
   // 
 // }, [history])
 
+  const dispatch = useDispatch()
+
+  const signedUpUserLogin = useSelector(state => state.signedUpUserLogin)
+  const {loading, error, signedUpUserInfo} = signedUpUserLogin
+
+  useEffect(() => {
+    if  (signedUpUserInfo) {
+      history.push('/')
+    }
+  }, [history, signedUpUserInfo])
+
   const submitHandler = async (event) => {
     event.preventDefault()
 
-    try {
-      const config ={
-        headers:{
-          "Content-type":"application/json"
-        }
-      }
-setLoading(true)
-
-const {data} = await axios.post("/app/loginUser",
-{email, password},
-config)
-console.log(data)
-localStorage.setItem('signedUpUserInfo', JSON.stringify(data))
-
-setLoading(false)
-
-    } catch (error) {
-      setError(error.response.data.message)
-      setLoading(false)
-
-    }
+    dispatch(userLogin(email, password))
   }
 
     return(
       <>
-      <HeaderSignUp />
+      <HeaderSignUp children={undefined} title={undefined} />
        {error && <ErrorMessage/>}
       <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
         <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
@@ -73,7 +63,7 @@ setLoading(false)
              We missed you, sign in to get more of the "Gaged" experience.
           </p>
           <div>
-            <input typ='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
+            <input type='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
                 
             
             <br/>

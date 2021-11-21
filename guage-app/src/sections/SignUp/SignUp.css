@@ -1,0 +1,10 @@
+i {
+    position: relative;
+    right: 15%;
+    bottom: 20%
+}
+
+i:hover {
+    color: #3700fcf8;
+    cursor: pointer;
+}

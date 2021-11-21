@@ -5,52 +5,45 @@ import React, {useState, useEffect } from 'react';
 import HeaderSignUp from './SignUp/SignUpComponents/HeaderSignUp-Login';
 import People from '../images/Gaged-images/Group 3577.png'
 import {Link} from 'react-router-dom';
-import axios from 'axios';
 import Loader from '../componenets/Loader'
 import ErrorMessage from '../componenets/LoginErrorMessage';
-// import { log } from 'console';
+import {useDispatch, useSelector} from 'react-redux'
+import {businessLogin} from '../actions/businessActions'
+// import { log } from 'console'
 
 
-function LoginBusiness(){
+function LoginBusiness({history}){
 
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   // eslint-disable-next-line no-unused-vars
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(false)
+  
+  
 
   // useEffect(() => { 
-  // const signedUpUserInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
-  // if (signedUpUserInfo) {
+  // const signedUpBusinessInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
+  // if (signedUpBusinessInfo) {
     // history.push('/')
   // }
 // 
  // }, [history])
 
+    const dispatch = useDispatch()
+    const signedUpBusinessLogin = useSelector(state => state.signedUpBusinessLogin)
+    const {loading, error, signedUpBusinessInfo} = signedUpBusinessLogin
+    useEffect(() => {
+      if  (signedUpBusinessInfo) {
+        history.push('/')
+      }
+    }, [history, signedUpBusinessInfo])
+
+
+
   const submitHandler = async (event) => {
     event.preventDefault()
 
-    try {
-      const config ={
-        headers:{
-          "Content-type":"application/json"
-        }
-      }
-setLoading(true)
-
-const {data} = await axios.post("/app/loginBusiness",
-{email, password},
-config)
-console.log(data)
-localStorage.setItem('signedUpBusinessInfo', JSON.stringify(data))
-
-setLoading(false)
-
-    } catch (error) {
-      setError(error.response.data.message)
-      setLoading(false)
-    }
+       dispatch(businessLogin(email, password))
   }
 
     return(

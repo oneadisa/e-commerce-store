@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+}
+
+from 'react-router-dom';
 
 import LandingPage from './componenets/landing-pages-components/LandingPage';
 
@@ -29,38 +36,87 @@ import PublishedStore from './componenets/published-component/PublishedStore';
 
 
 function App() {
-  return (
-    <Router>
-    <div className="App">
+  return (<Router> <div className="App"> {
+      /* <LandingPage /> */
+    }
 
-      {/* <LandingPage /> */}
-      {/* <ProductsNew /> */}
+      {
+      /* <ProductsNew /> */
+    }
 
-      <Routes>
-        <Route path='/' element={<LandingPage/>} />
-         <Route path='/gaged' element={<LandingPage/>} />
-        <Route path='/signup' element={<SignUpGeneral/>} />
-        <Route path='/signup/1' element={<SetUpProfile1/>} />
-        <Route path='/signup/2/individual' element={<SetUpProfile2Individual/>} />
-        <Route path='/signup/2/business' element={<SetUpProfile2Business/>} />
-        <Route path='/userLogin' element={<LoginUser history={undefined}/>} />
-        <Route path='/businessLogin' element={<LoginBusiness/>} />
-        <Route path='/store/products/all' element={<ProductsAll/>} />
-        <Route path='/store/products/new' element={<ProductsNew/>} />
-        <Route path='/store/products/orders' element={<ProductsOrders/>} />
-        <Route path='/explore' element={<ExploreStores/>} />
-        <Route path='/campaigns/explore' element={<Campaigns/>} />
-        <Route path='/settings/general' element={<SettingsGeneral/>} />
-        <Route path='/settings/bank' element={<SettingsBank/>} />
-        <Route path='/settings/store' element={<SettingsStore/>} />
-        <Route path='/published' element={<PublishedStore/>} />
+    <Routes> <Route path='/'element= {
+      <LandingPage/>
+    }
 
-      </Routes>
-      
+    /> <Route path='/gaged'element= {
+      <LandingPage/>
+    }
 
-    </div>
-    </Router>
-  );
+    /> <Route path='/signup'element= {
+      <SignUpGeneral/>
+    }
+
+    /> <Route path='/signup/1'element= {
+      <SetUpProfile1/>
+    }
+
+    /> <Route path='/signup/2/individual'element= {
+      <SetUpProfile2Individual/>
+    }
+
+    /> <Route path='/signup/2/business'element= {
+      <SetUpProfile2Business/>
+    }
+
+    /> <Route path='/userLogin'element= {
+      <LoginUser history= {
+        undefined
+      }
+
+      />
+    }
+
+    /> <Route path='/businessLogin'element= {
+      <LoginBusiness/>
+    }
+
+    /> <Route path='/store/products/all'element= {
+      <ProductsAll/>
+    }
+
+    /> <Route path='/store/products/new'element= {
+      <ProductsNew/>
+    }
+
+    /> <Route path='/store/products/orders'element= {
+      <ProductsOrders/>
+    }
+
+    /> <Route path='/explore'element= {
+      <ExploreStores/>
+    }
+
+    /> <Route path='/campaigns/explore'element= {
+      <Campaigns/>
+    }
+
+    /> <Route path='/settings/general'element= {
+      <SettingsGeneral/>
+    }
+
+    /> <Route path='/settings/bank'element= {
+      <SettingsBank/>
+    }
+
+    /> <Route path='/settings/store'element= {
+      <SettingsStore/>
+    }
+
+    /> <Route path='/published'element= {
+      <PublishedStore/>
+    }
+
+    /> </Routes> </div> </Router>);
 }
 
 export default App;
