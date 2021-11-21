@@ -56,39 +56,33 @@ setLoading(false)
 
     return(
       <>
-      <HeaderSignUp />
-       {error && <ErrorMessage/>}
-      <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
-        <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
-          <img src= {People}>
-          </img>
+        <HeaderSignUp />
+        {error && <ErrorMessage/>}
+        <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
+          <div className="">
+            <img src= {People}/>
           </div>
-          
-          
-        <form >
-          {loading && <Loader/>}
-        <div className="transform -translate-y-32 ">
-          <h1 className='text-4xl lg:text-5xl font-medium font-poppins text-black'>Welcome Back!</h1>
-          <p className="text-left text-lg my-4 md:text-xl font-poppins">
-             We missed you, sign in to get more of the "Gaged" experience.
-          </p>
-          <div>
-            <input typ='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium    flex justify-left space-x-7' placeholder="Email"/>
-                
-            
-            <br/>
-            <input type="password" onChange={(e)=>setPassword(e.target.value)} value={password} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7' placeholder="Password"/> 
-          </div>
-          <p className="font-poppins my-8">Forgot Password? <span className="font-poppins text-blue-700 space-y-7">Reset Here</span></p>
-          <button onClick={submitHandler} className=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white flex justify-left space-y-7'>
-            Login
-          </button>
-            <p className="font-poppins my-8">Don't have an account? <Link to="/signup" className="font-poppins text-blue-700 space-y-7">Sign Up</Link></p>
-
+      
+          <form >
+            {loading && <Loader/>}
+            <div className="flex flex-col md:w-4/5 lg:mt-24 justify-center">
+              <h1 className='text-2xl md:text-3xl font-semibold font-poppins'>Welcome Back!</h1>
+              <p className="text-lg my-4 md:text-lg font-poppins">
+                We missed you, sign in to get more of the "Gaged" experience.
+              </p>
+              <div className='flex flex-col gap-2 mt-5'>
+                <input type='email' onChange={(e)=>setEmail(e.target.value)} value={email} className=' w-full h-12 pl-8 font-poppins border-2 border-gray-500 text-black text-base md:text-lg outline-none' placeholder="Email"/>
+                <input type="password" onChange={(e)=>setPassword(e.target.value)} value={password} className='w-full h-12 pl-8 font-poppins border-2 border-gray-500 text-black text-base md:text-lg outline-none' placeholder="Password"/> 
+              </div>
+              <p className="font-poppins my-3">Forgot Password? <span className="font-poppins text-blue-700 space-y-7">Reset Here</span></p>
+              <button onClick={submitHandler} className='h-12 mt-2 font-poppins border-2 border-Dark-blue bg-Dark-blue text-white text-base md:text-lg font-medium hover:bg-white hover:text-black'>
+                Login
+              </button>
+              <p className="font-poppins my-5 font-medium">Don't have an account? <Link to="/signup" className="font-poppins text-blue-700 space-y-7">Sign Up</Link></p>
+            </div>
+          </form>
         </div>
-        </form>
-        
-      </div></>
+      </>
     )
 }
 
