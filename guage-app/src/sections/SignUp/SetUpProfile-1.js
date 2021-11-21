@@ -25,7 +25,7 @@ function SetUpProfile1(){
           <div>
             <button class=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white flex justify-left space-x-7'>
                 Sign Up with Facebook
-            </button >
+            </button>
             <br/>
             <button class=' font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium r hover:bg-Dark-blue hover:text-white flex justify-left space-x-7'>
                 Sign Up With Email
