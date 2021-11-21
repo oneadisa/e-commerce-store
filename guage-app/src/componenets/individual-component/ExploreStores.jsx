@@ -17,7 +17,7 @@ function ExploreStores() {
             <head className='flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2'>
                 <div className='flex space-x-5 lg:space-x-40 h-10'>
                     <div>
-                        <img src={Logof} className='w-4/5 lg:w-full h-full' />
+                        <img alt='' src={Logof} className='w-4/5 lg:w-full h-full' />
                     </div>
                     <input className='w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
@@ -37,7 +37,7 @@ function ExploreStores() {
                 <div className='grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-10 text-left my-10'>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={vibe} className='w-full' />
+                            <img alt='' src={vibe} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -47,7 +47,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={alot} className='w-full' />
+                            <img alt='' src={alot} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -57,7 +57,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={password} className='w-full' />
+                            <img alt='' src={password} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -67,7 +67,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={sincerity} className='w-full' />
+                            <img alt='' src={sincerity} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -77,7 +77,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={akhlaq} className='w-full' />
+                            <img alt='' src={akhlaq} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Alat Gadgets</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -87,7 +87,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={queen} className='w-full' />
+                            <img alt='' src={queen} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>password</h4>
                             <p className='text-base leading-5'>
                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -97,7 +97,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={foodsupply} className='w-full' />
+                            <img alt='' src={foodsupply} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>foodsupply</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -107,7 +107,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={volunteer} className='w-full' />
+                            <img alt='' src={volunteer} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Volunteer</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -117,7 +117,7 @@ function ExploreStores() {
                     </div>
                     <div className='flex flex-col p-2 bg-white rounded'>
                         <div className='mb-20'>
-                            <img src={duties} className='w-full' />
+                            <img alt='' src={duties} className='w-full' />
                             <h4 className='text-lg font-bold my-2'>Duties</h4>
                             <p className='text-base leading-5'>
                                 Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.

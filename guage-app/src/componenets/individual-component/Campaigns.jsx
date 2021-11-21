@@ -29,7 +29,7 @@ function Campaigns() {
                         <div className='text-2xl lg:hidden text-white' onClick = {handleNav}>
                             {open === true ? (<i class="fas fa-times"></i>) : (<i class="fas fa-bars"></i>) }
                         </div>
-                        <img src={Logof} className='w-4/5 lg:w-full' />
+                        <img alt='' src={Logof} className='w-4/5 lg:w-full' />
                     </div>
                     <input className='w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
@@ -45,38 +45,38 @@ function Campaigns() {
                     <ul className={"w-2/3 lg:w-32 min-h-screen lg:min-h-0 absolute transition duration-200 bg-magenta-blue text-Dark-grey lg:static flex flex-col text-lg font-medium lg:block" + ( open === true ? ' ' : ' hidden ' ) }>
                         <li className='my-3 p-3'>
                             <a href='#' className='flex gap-3'>
-                                <img src={dashboard} className='w-5 h-5 mt-1' />
+                                <img alt='' src={dashboard} className='w-5 h-5 mt-1' />
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         <li className='my-3 p-3 bg-white rounded text-Dark-blue mr-10 lg:-mr-5'>
                             <a href='#' className='flex gap-3'>
-                                <img src={campaign} className='w-5 h-5 mt-1' />
+                                <img alt='' src={campaign} className='w-5 h-5 mt-1' />
                                 <p>Campaigns</p>
                             </a>
                         </li>
                         <li className='my-3 p-3  mr-10 lg:mr-0'>
                             <a href='#' className='flex gap-3'>
-                                <img src={store} className='w-5 h-5 mt-1' />
+                                <img alt='' src={store} className='w-5 h-5 mt-1' />
                                 <p>Store</p>
                             </a>
                         </li>
                         <li className='my-3 p-3'>
                             <a href='#' className='flex gap-3'>
-                                <img src={analytics} className='w-5 h-5 mt-1' />
+                                <img alt='' src={analytics} className='w-5 h-5 mt-1' />
                                 <p>Analytics</p>
                             </a>
                         </li>
                         
                         <li className='my-3 p-3'>
                             <a href='#' className='flex gap-3'>
-                                <img src={wallet} className='w-5 h-5 mt-1' />
+                                <img alt='' src={wallet} className='w-5 h-5 mt-1' />
                                 <p>Wallet</p>
                             </a>
                         </li>
                         <li className='my-3 p-3'>
                             <a href='#' className='flex gap-3'>
-                                <img src={settings} className='w-5 h-5 mt-1' />
+                                <img alt='' src={settings} className='w-5 h-5 mt-1' />
                                 <p>Settings</p>
                             </a>
                         </li>
@@ -88,7 +88,7 @@ function Campaigns() {
                             <div className='grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8'>
                                 <div className='flex flex-col'>
                                     <div className='mb-20'>
-                                        <img src={vibe} className='w-full' />
+                                        <img alt='' src={vibe} className='w-full' />
                                         <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -98,7 +98,7 @@ function Campaigns() {
                                 </div>
                                 <div className='flex flex-col'>
                                     <div className='mb-20'>
-                                        <img src={alot} className='w-full' />
+                                        <img alt='' src={alot} className='w-full' />
                                         <h4 className='text-lg font-bold my-2'>Alat Gadgets</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -108,7 +108,7 @@ function Campaigns() {
                                 </div>
                                 <div className='flex flex-col'>
                                     <div className='mb-20'>
-                                        <img src={password} className='w-full' />
+                                        <img alt='' src={password} className='w-full' />
                                         <h4 className='text-lg font-bold my-2'>password</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -127,7 +127,7 @@ function Campaigns() {
                             <div className='grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8'>
                                 <div className='flex flex-col'>
                                     <div className='mb-3'>
-                                        <img src={vibe} className='w-full h-fit' />
+                                        <img alt='' src={vibe} className='w-full h-fit' />
                                         <h4 className='text-lg font-bold my-2'>Vibes Store</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -149,7 +149,7 @@ function Campaigns() {
                                 </div>
                                 <div className='flex flex-col'>
                                     <div className='mb-3'>
-                                        <img src={alot} className='w-full' />
+                                        <img alt='' src={alot} className='w-full' />
                                         <h4 className='text-lg font-bold my-2'>Alat Gadgets</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.
@@ -171,7 +171,7 @@ function Campaigns() {
                                 </div>
                                 <div className='flex flex-col'>
                                     <div className='mb-3'>
-                                        <img src={password} className='w-full' />
+                                        <img alt='' src={password} className='w-full' />
                                         <h4 className='text-lg font-bold my-2'>password</h4>
                                         <p className='text-base leading-5'>
                                             Brewed for every occassion. Introduce vibes drinks at your event, get your guests vibing.

@@ -26,12 +26,18 @@ import LoginBusiness from './sections/LoginBusiness';
 
 import Campaigns from './componenets/individual-component/Campaigns';
 import ExploreStores from './componenets/individual-component/ExploreStores';
+import CampaignsFirst from './componenets/individual-component/CampaignsFirst';
+import CampaignsSecond from './componenets/individual-component/CampaignsSecond';
+import CampaignsThird from './componenets/individual-component/Campaigns';
+import ExploreCampaigns from './componenets/individual-component/ExploreCampaigns';
 
 import SettingsBank from './componenets/setting-components/SettingsBank';
 import SettingsGeneral from './componenets/setting-components/SettingsGeneral';
 import SettingsStore from './componenets/setting-components/SettingsStore';
 
 import PublishedStore from './componenets/published-component/PublishedStore';
+
+import Cart from './componenets/cart-component/Cart';
 
 
 
@@ -48,11 +54,13 @@ function App() {
       <LandingPage/>
     }
 
-    /> <Route path='/gaged'element= {
+    /> 
+    <Route path='/gaged'element= {
       <LandingPage/>
     }
 
-    /> <Route path='/signup'element= {
+    /> 
+    <Route path='/signup'element= {
       <SignUpGeneral/>
     }
 
@@ -96,7 +104,7 @@ function App() {
       <ExploreStores/>
     }
 
-    /> <Route path='/campaigns/explore'element= {
+    /> <Route path='/campaigns'element= {
       <Campaigns/>
     }
 
@@ -115,8 +123,33 @@ function App() {
     /> <Route path='/published'element= {
       <PublishedStore/>
     }
+    />
+    <Route path='/campaigns/first'element= {
+  <CampaignsFirst/>
+      }
+    /> 
 
-    /> </Routes> </div> </Router>);
+    <Route path='/campaigns/second'element= {
+      <CampaignsSecond/>
+      }
+      /> 
+
+      <Route path='/campaigns/third'element= {
+        <CampaignsThird/>
+      }
+      /> 
+
+      <Route path='/campaigns/explore'element= {
+        <ExploreCampaigns/>
+      }
+      /> 
+
+      <Route path='/cart'element= {
+        <Cart/>
+      }
+      /> 
+    
+     </Routes> </div> </Router>);
 }
 
 export default App;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react'
 import Logof from '../../images/logo-footer.jpg'
 import fundraiser from '../../images/fundraiser.png'
@@ -13,7 +14,7 @@ function CampaignsThird() {
             <head className='flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2'>
                 <div className='flex space-x-5 lg:space-x-40 h-10'>
                     <div>
-                        <img src={Logof} className='w-4/5 lg:w-full h-full' />
+                        <img alt='' src={Logof} className='w-4/5 lg:w-full h-full' alt=''/>
                     </div>
                     <input className='w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
@@ -32,16 +33,16 @@ function CampaignsThird() {
                             <div className='flex flex-col gap-5 w-full'>
                                 <div>
                                 {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                                    <img src={fundraiser} />
+                                    <img alt='' src={fundraiser} alt=""/>
                                 </div>
                                 <div className='flex md:flex-row md:gap-0 justify-between px-0 lg:px-5'>
                                     <div className='flex gap-1'>
-                                        <img src={twitter} className='h-8 w-8' />
-                                        <img src={facebook} className='h-8 w-8' />
-                                        <img src={whatsapp} className='h-8 w-8' />
+                                        <img alt='' src={twitter} className='h-8 w-8' alt=""/>
+                                        <img alt=''  src={facebook} className='h-8 w-8' alt=""/>
+                                        <img alt='' src={whatsapp} className='h-8 w-8' />
                                     </div>
                                     <div className='flex gap-1'>
-                                        <img src={tags}/>
+                                        <img alt='' src={tags}/>
                                         <p className='text-base font-normal'>Business,Technology</p>
                                     </div>
                                 </div>
@@ -151,7 +152,7 @@ function CampaignsThird() {
                             <div className='my-12'>
                                 <button className='py-2 border-2 border-Dark-blue text-Dark-blue text-base
                                     font-medium rounded hover:bg-Dark-blue hover:text-white flex '>
-                                    <img src={left} />
+                                    <img alt='' src={left} />
                                     <div className='px-5'>
                                         Back
                                     </div>

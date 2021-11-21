@@ -13,7 +13,7 @@ function CampaignsFirst() {
             <head className='flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2'>
                 <div className='flex space-x-5 lg:space-x-40 h-10'>
                     <div>
-                        <img src={Logof} className='w-4/5 lg:w-full h-full' />
+                        <img src={Logof} className='w-4/5 lg:w-full h-full' alt="" />
                     </div>
                     <input className='w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
@@ -32,16 +32,16 @@ function CampaignsFirst() {
                             <div className='flex flex-col gap-5 w-full'>
                                 <div>
                                 {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                                    <img src={fundraiser} />
+                                    <img src={fundraiser} alt=""/>
                                 </div>
                                 <div className='flex md:flex-row md:gap-0 justify-between px-0 lg:px-5'>
                                     <div className='flex gap-1'>
-                                        <img src={twitter} className='h-8 w-8' />
-                                        <img src={facebook} className='h-8 w-8' />
-                                        <img src={whatsapp} className='h-8 w-8' />
+                                        <img src={twitter} className='h-8 w-8'  alt=""/>
+                                        <img src={facebook} className='h-8 w-8' alt="" />
+                                        <img src={whatsapp} className='h-8 w-8' alt=""/>
                                     </div>
                                     <div className='flex gap-1'>
-                                        <img src={tags}/>
+                                        <img src={tags} alt=''/>
                                         <p className='text-base font-normal'>Business,Technology</p>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@ function CampaignsFirst() {
                                     <div className='flex justify-between my-12 text-center'>
                                         <button className='py-2 border-2 border-Dark-blue text-Dark-blue text-base font-medium rounded
                                          w-1/3 lg:w-1/4 hover:bg-Dark-blue hover:text-white flex gap-3 md:gap-6'>
-                                            <img src={left} />
+                                            <img src={left} alt=""/>
                                             <div>
                                                 Back
                                             </div>

@@ -9,7 +9,7 @@ function Cart() {
             <head className='flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2'>
                 <div className='flex space-x-5 lg:space-x-40 h-10'>
                     <div>
-                        <img alt='' src={Logof} className='w-4/5 lg:w-full h-full' />
+                        <img  src={Logof} className='w-4/5 lg:w-full h-full' alt=''/>
                     </div>
                     <input className='w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5' />
                 </div>
@@ -30,7 +30,7 @@ function Cart() {
                             <div className='flex flex-col'>
                                 <div className='flex gap-2 md:gap-5 py-3'>
                                     <div>
-                                        <img alt='' src={noimage} />
+                                        <img  src={noimage} alt=''/>
                                     </div>
                                     <div className='flex gap-10 lg:gap-24 border-b-2 border-gray-400 pb-5'>
                                         <div className='flex flex-col gap-5 md:gap-10'>
@@ -263,7 +263,7 @@ function Cart() {
                                 </div>
                                 <div className='flex gap-2 md:gap-5 py-3'>
                                     <div>
-                                        <img alt='' src={noimage} />
+                                        <img  src={noimage} alt='' />
                                     </div>
                                     <div className='flex gap-10 lg:gap-24 border-b-2 border-gray-400 pb-5'>
                                         <div className='flex flex-col gap-5 md:gap-10'>
