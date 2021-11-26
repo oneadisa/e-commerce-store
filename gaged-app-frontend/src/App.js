@@ -29,7 +29,14 @@ import SettingsStore from "./componenets/setting-components/SettingsStore";
 
 import PublishedStore from "./componenets/published-component/PublishedStore";
 
+import Comments from "./componenets/managecampaign-component/Comments";
+import Lenders from "./componenets/managecampaign-component/Lenders";
+import OverviewDonation from "./componenets/managecampaign-component/OverviewDonation";
+import OverviewEquity from "./componenets/managecampaign-component/OverviewEquity";
+import OverviewLoan from "./componenets/managecampaign-component/OverviewLoan";
+
 import Cart from "./componenets/cart-component/Cart";
+import Dashboard from "./componenets/dashboard-component/Dashboard";
 
 function App() {
   return (
@@ -42,6 +49,21 @@ function App() {
         <Routes>
           {" "}
           <Route path="/" element={<LandingPage />} />
+          <Route path="/business/dashboard" element={<Dashboard />} />
+          <Route
+            path="/business/campaign/overviewDonation"
+            element={<OverviewDonation />}
+          />
+          <Route
+            path="/business/campaign/overviewEquity"
+            element={<OverviewEquity />}
+          />
+          <Route
+            path="/business/campaign/overviewLoan"
+            element={<OverviewLoan />}
+          />
+          <Route path="/business/campaign/lenders" element={<Lenders />} />
+          <Route path="/business/campaign/comments" element={<Comments />} />
           <Route path="/gaged" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpGeneral />} />{" "}
           <Route path="/signup/1" element={<SetUpProfile1 />} />{" "}
