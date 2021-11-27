@@ -6,7 +6,7 @@ import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
 import People from "../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
 import Loader from "../componenets/Loader";
-import GeneralErrorMessage from "../componenets/GeneralErrorMessage";
+import ErrorMessage from "../componenets/LoginErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { businessLogin } from "../actions/businessActions";
 // import { log } from 'console'
@@ -31,7 +31,7 @@ function LoginBusiness({ history }) {
   const { loading, error, signedUpBusinessInfo } = signedUpBusinessLogin;
   useEffect(() => {
     if (signedUpBusinessInfo) {
-      history.push("/");
+      history.push("/business/dashboard");
     }
   }, [history, signedUpBusinessInfo]);
 
@@ -44,15 +44,14 @@ function LoginBusiness({ history }) {
   return (
     <>
       <HeaderSignUp children={undefined} title={undefined} />
-      {error && (
-        <GeneralErrorMessage variant="danger">{error}</GeneralErrorMessage>
-      )}
+      {!error && <ErrorMessage />}
       <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
         <div className="">
           <img src={People} />
         </div>
-        {loading && <Loader />}
+
         <form>
+          {loading && <Loader />}
           <div className="flex flex-col md:w-4/5 lg:mt-24 justify-center">
             <h1 className="text-2xl md:text-3xl font-semibold font-poppins">
               Welcome Back!

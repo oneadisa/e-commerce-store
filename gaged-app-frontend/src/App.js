@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -39,6 +39,8 @@ import Cart from "./componenets/cart-component/Cart";
 import Dashboard from "./componenets/dashboard-component/Dashboard";
 
 function App() {
+  const [search, setSearch] = useState("");
+
   return (
     <Router>
       {" "}
@@ -49,7 +51,10 @@ function App() {
         <Routes>
           {" "}
           <Route path="/" element={<LandingPage />} />
-          <Route path="/business/dashboard" element={<Dashboard />} />
+          <Route
+            path="/business/dashboard"
+            element={<Dashboard search={search} history="" />}
+          />
           <Route
             path="/business/campaign/overviewDonation"
             element={<OverviewDonation />}

@@ -1,26 +1,31 @@
-import { BUSINESS_SIGN_UP_FAIL, BUSINESS_SIGN_UP_REQUEST, BUSINESS_SIGN_UP_SUCCESS, SIGNED_UP_BUSINESS_LOGIN_FAIL, SIGNED_UP_BUSINESS_LOGIN_REQUEST, SIGNED_UP_BUSINESS_LOGIN_SUCCESS, SIGNED_UP_BUSINESS_LOGOUT } from "../constants/businessConstants";
+import {
+  BUSINESS_SIGN_UP_FAIL,
+  BUSINESS_SIGN_UP_REQUEST,
+  BUSINESS_SIGN_UP_SUCCESS,
+  SIGNED_UP_BUSINESS_LOGIN_FAIL,
+  SIGNED_UP_BUSINESS_LOGIN_REQUEST,
+  SIGNED_UP_BUSINESS_LOGIN_SUCCESS,
+  SIGNED_UP_BUSINESS_LOGOUT,
+} from "../constants/businessConstants";
 
-export const signedUpBusinessLoginReducer = (state = {}, action) =>{
+export const signedUpBusinessLoginReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SIGNED_UP_BUSINESS_LOGIN_REQUEST:
+      return { loading: true };
 
-    switch (action.type) {
-        case SIGNED_UP_BUSINESS_LOGIN_REQUEST:
-            return{}
-    
-        case SIGNED_UP_BUSINESS_LOGIN_FAIL:
-            return {loading: false, SignedUpBusinessInfo: action.payload}
+    case SIGNED_UP_BUSINESS_LOGIN_FAIL:
+      return { loading: false, SignedUpBusinessInfo: action.payload };
 
-        case SIGNED_UP_BUSINESS_LOGIN_SUCCESS:
-            return {loading: false, error: action.payload}
+    case SIGNED_UP_BUSINESS_LOGIN_SUCCESS:
+      return { loading: false, error: action.payload };
 
-        case SIGNED_UP_BUSINESS_LOGOUT:
-            return{}
+    case SIGNED_UP_BUSINESS_LOGOUT:
+      return {};
 
-        default:
-            return state;
-    
-        
-    }
-}
+    default:
+      return state;
+  }
+};
 
 export const businessSignUpReducer = (state = {}, action) => {
   switch (action.type) {
