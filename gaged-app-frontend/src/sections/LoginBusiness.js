@@ -6,19 +6,22 @@ import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
 import People from "../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
 import Loader from "../componenets/Loader";
+// import GeneralErrorMessage from "../componenets/GeneralErrorMessage";
 import ErrorMessage from "../componenets/LoginErrorMessage";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { businessLogin } from "../actions/businessActions";
-// import { log } from 'console'
+import { useNavigate } from "react-router-dom";
 
-function LoginBusiness({ history }) {
+function LoginBusiness() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
+
   // eslint-disable-next-line no-unused-vars
 
   // useEffect(() => {
-  // const signedUpBusinessInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
-  // if (signedUpBusinessInfo) {
+  // const ignedUpBusinessInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
+  // if (ignedUpBusinessInfo) {
   // history.push('/')
   // }
   //
@@ -26,25 +29,24 @@ function LoginBusiness({ history }) {
 
   const dispatch = useDispatch();
   const signedUpBusinessLogin = useSelector(
-    (state) => state.signedUpBusinessLogin
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
   );
   const { loading, error, signedUpBusinessInfo } = signedUpBusinessLogin;
   useEffect(() => {
     if (signedUpBusinessInfo) {
-      history.push("/business/dashboard");
+      navigate("/business/dashboard");
     }
-  }, [history, signedUpBusinessInfo]);
+  }, [navigate, signedUpBusinessInfo]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
     dispatch(businessLogin(email, password));
   };
 
   return (
     <>
       <HeaderSignUp children={undefined} title={undefined} />
-      {!error && <ErrorMessage />}
+      {error && <ErrorMessage />}
       <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
         <div className="">
           <img src={People} />

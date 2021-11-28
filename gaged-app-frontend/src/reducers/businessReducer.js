@@ -13,10 +13,10 @@ export const signedUpBusinessLoginReducer = (state = {}, action) => {
     case SIGNED_UP_BUSINESS_LOGIN_REQUEST:
       return { loading: true };
 
-    case SIGNED_UP_BUSINESS_LOGIN_FAIL:
-      return { loading: false, SignedUpBusinessInfo: action.payload };
-
     case SIGNED_UP_BUSINESS_LOGIN_SUCCESS:
+      return { loading: false, signedUpBusinessInfo: action.payload };
+
+    case SIGNED_UP_BUSINESS_LOGIN_FAIL:
       return { loading: false, error: action.payload };
 
     case SIGNED_UP_BUSINESS_LOGOUT:
@@ -32,7 +32,7 @@ export const businessSignUpReducer = (state = {}, action) => {
     case BUSINESS_SIGN_UP_REQUEST:
       return { loading: true };
     case BUSINESS_SIGN_UP_SUCCESS:
-      return { loading: false, SignedUpBusinessInfo: action.payload };
+      return { loading: false, signedUpBusinessInfo: action.payload };
     case BUSINESS_SIGN_UP_FAIL:
       return { loading: false, error: action.payload };
     default:

@@ -9,20 +9,22 @@ import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../actions/userActions";
 import ErrorMessage from "../componenets/LoginErrorMessage";
+import { useNavigate } from "react-router-dom";
 
-function LoginUser({ history }) {
+function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
 
   // useEffect(() => {
   // const signedUpUserInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
 
   // if (signedUpUserInfo) {
-  // history.push('/')
+  // navigate.push('/')
   // }
   //
-  // }, [history])
+  // }, [navigate])
 
   const dispatch = useDispatch();
 
@@ -33,9 +35,9 @@ function LoginUser({ history }) {
 
   useEffect(() => {
     if (signedUpUserInfo) {
-      history.push("/individual/dashboard");
+      navigate("/individual/dashboard");
     }
-  }, [history, signedUpUserInfo]);
+  }, [navigate, signedUpUserInfo]);
 
   const submitHandler = async (event) => {
     event.preventDefault();

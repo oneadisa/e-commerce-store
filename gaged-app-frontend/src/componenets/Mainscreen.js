@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import "./Screens.css";
 
 const Mainscreen = ({ children, title }) => {
   return (
@@ -10,7 +9,9 @@ const Mainscreen = ({ children, title }) => {
           <div className="page">
             {title && (
               <>
-                <h1 className="heading">{title}</h1>
+                <h1 className="heading text-xl font-semibold my-10 text-gray-500 text-left">
+                  {title}
+                </h1>
                 <hr />
               </>
             )}

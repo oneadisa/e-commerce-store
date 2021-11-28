@@ -1,21 +1,22 @@
-const express = require('express')
+const express = require("express");
 const router = express.Router();
 // const signUpTemplateCopy = require('../models/signUpModels')
 // const signUpBusinessTemplateCopy = require('../models/signUpBusinessModels')
 // const bcrypt = require('bcrypt')
-const { registerUser, authUser } = require('../controllers/userController')
-const { registerBusiness, authBusiness } = require('../controllers/businessController')
+const { registerUser, authUser } = require("../controllers/userController");
+const {
+  registerBusiness,
+  authBusiness,
+} = require("../controllers/businessController");
 
+router.route("/signup/2/individual").post(registerUser);
+router.route("/loginUser").post(authUser);
 
-router.route('/signup/2/individual').post(registerUser)
-router.route('/loginUser').post(authUser);
-
-router.route('/signUp/2/business').post(registerBusiness)
-router.route('/loginBusiness').post(authBusiness);
-
+router.route("/signUp/2/business").post(registerBusiness);
+router.route("/loginBusiness").post(authBusiness);
 
 // router.post('/signup/2/individual', async(req, res) => {
-// 
+//
 // const saltPassword = await bcrypt.genSalt(10)
 // const securePassword = await bcrypt.hash(req.body.password, saltPassword)
 
@@ -35,23 +36,7 @@ router.route('/loginBusiness').post(authBusiness);
 // })
 // })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 
+//
 // const authUser =
 // , asyncHandler(async(req, res) => {
 // const { email, password } = req.body;
@@ -70,12 +55,12 @@ router.route('/loginBusiness').post(authBusiness);
 // }
 // })
 // )
-// 
+//
 // router.post('/signup/2/business', async(req, res) => {
-// 
+//
 // const saltPassword = await bcrypt.genSalt(10)
 // const securePassword = await bcrypt.hash(req.body.password, saltPassword)
-// 
+//
 // const signedUpBusiness = new signUpBusinessTemplateCopy({
 // businessName: req.body.businessName,
 // accountHolderName: req.body.accountHolderName,
@@ -90,11 +75,9 @@ router.route('/loginBusiness').post(authBusiness);
 // .catch(error => {
 // res.json(error)
 // })
-// 
-// 
+//
+//
 // })
-// 
+//
 
-
-
-module.exports = router
+module.exports = router;

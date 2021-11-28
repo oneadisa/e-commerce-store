@@ -11,12 +11,13 @@ import PictureErrorMessage from "../../componenets/PictureErrorMessage";
 import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
 import { Link } from "react-router-dom";
 import { signUpBusiness } from "../../actions/businessActions";
-import { useDispatch, useSelector } from "react-redux";
-
-function SetUpProfile2Business({ history }) {
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+function SetUpProfile2Business() {
   // const [error, setError] = useState(false)
   // const [picMessage, setPicMessage] = useState(null)
   const [message, setMessage] = useState(null);
+  let navigate = useNavigate();
   //  const [loading, setLoading] = useState(false)
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -44,7 +45,9 @@ function SetUpProfile2Business({ history }) {
     });
   }
   const dispatch = useDispatch();
-  const businessSignUp = useSelector((state) => state.businessSignUp);
+  const businessSignUp = useSelector(
+    (state: RootStateOrAny) => state.businessSignUp
+  );
   const { loading, error, signedUpBusinessInfo } = businessSignUp;
   //
   // function postDetails (pics): any
@@ -77,9 +80,9 @@ function SetUpProfile2Business({ history }) {
 
   useEffect(() => {
     if (signedUpBusinessInfo) {
-      history.push("/");
+      navigate("/business/dashboard");
     }
-  }, [history, signedUpBusinessInfo]);
+  }, [navigate, signedUpBusinessInfo]);
 
   const handleClick = async (event) => {
     event.preventDefault();

@@ -13,10 +13,10 @@ export const signedUpUserLoginReducer = (state = {}, action) => {
     case SIGNED_UP_USER_LOGIN_REQUEST:
       return { loading: true };
 
-    case SIGNED_UP_USER_LOGIN_FAIL:
-      return { loading: false, SignedUpUserInfo: action.payload };
-
     case SIGNED_UP_USER_LOGIN_SUCCESS:
+      return { loading: false, signedUpUserInfo: action.payload };
+
+    case SIGNED_UP_USER_LOGIN_FAIL:
       return { loading: true, error: action.payload };
 
     case SIGNED_UP_USER_LOGOUT:
@@ -32,7 +32,7 @@ export const userSignUpReducer = (state = {}, action) => {
     case USER_SIGN_UP_REQUEST:
       return { loading: true };
     case USER_SIGN_UP_SUCCESS:
-      return { loading: false, SignedUpUserInfo: action.payload };
+      return { loading: false, signedUpUserInfo: action.payload };
     case USER_SIGN_UP_FAIL:
       return { loading: false, error: action.payload };
     default:
