@@ -50,11 +50,16 @@ function BusinessDashboard({ navigate }) {
               <img alt="" src={Logof} className="w-4/5 lg:w-full" />
             </Link>
           </div>
-          <input className="w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5" />
+          <input className="w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5 focus:outline-none focus:ring focus:border-blue-300" />
         </div>
         <div className="flex gap-2 lg:gap-10 lg:pr-28 ml-auto">
           <div>
-            <p className="text-lg font-medium text-white mt-2">Cart</p>
+            <Link
+              to="/cart"
+              className="text-lg font-medium text-white mt-2 hover:text-blue-200 "
+            >
+              Cart
+            </Link>
           </div>
           <div className="w-4 h-4 lg:w-7 lg:h-7 rounded-full bg-Dark-grey mt-3 lg:mt-1" />
         </div>
@@ -68,40 +73,40 @@ function BusinessDashboard({ navigate }) {
             }
           >
             <li className="mt-0 mb-3 pt-5 lg:pt-2 p-3 bg-white rounded text-Dark-blue mr-10 lg:-mr-8">
-              <a href="#" className="flex gap-3">
+              <Link to="" className="flex gap-3">
                 <img alt="" src={dashboard} className="w-5 h-5 mt-1" />
                 <p>Dashboard</p>
-              </a>
+              </Link>
             </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
+            <li className="my-3 p-3 hover:bg-white rounded hover:text-Dark-blue lg:pt-2 lg:-mr-8">
+              <Link to="" className="flex gap-3">
                 <img alt="" src={campaign} className="w-5 h-5 mt-1" />
                 <p>Campaigns</p>
-              </a>
+              </Link>
             </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
+            <li className="my-3 p-3 hover:bg-white rounded hover:text-Dark-blue lg:pt-2 lg:-mr-8">
+              <Link to="/store/products/all" className="flex gap-3">
                 <img alt="" src={store} className="w-5 h-5 mt-1" />
                 <p>Store</p>
-              </a>
+              </Link>
             </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
+            <li className="my-3 p-3 hover:bg-white rounded hover:text-Dark-blue lg:pt-2 lg:-mr-8">
+              <Link to="" className="flex gap-3">
                 <img alt="" src={analytics} className="w-5 h-5 mt-1" />
                 <p>Analytics</p>
-              </a>
+              </Link>
             </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
+            <li className="my-3 p-3 hover:bg-white rounded hover:text-Dark-blue lg:pt-2 lg:-mr-8">
+              <Link to="" className="flex gap-3">
                 <img alt="" src={wallet} className="w-5 h-5 mt-1" />
                 <p>Wallet</p>
-              </a>
+              </Link>
             </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
+            <li className="my-3 p-3 hover:bg-white rounded hover:text-Dark-blue lg:pt-2 lg:-mr-8">
+              <Link to="/settings/general" className="flex gap-3">
                 <img alt="" src={settings} className="w-5 h-5 mt-1" />
                 <p>Settings</p>
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="lg:my-10 lg:space-y-10 lg:w-4/5 lg:h-2/5">
@@ -111,7 +116,7 @@ function BusinessDashboard({ navigate }) {
                   signedUpBusinessInfo && signedUpBusinessInfo.businessName
                 }..`}
               >
-                <button className="bg-white w-40 m-4 h-12 border-2 border-black py-3 rounded">
+                <button className="bg-white text-black w-40 m-4 h-12 border-2 border-black py-3 rounded hover:bg-blue-800 hover: hover:text-gray-100">
                   Explore
                 </button>
               </Mainscreen>
@@ -160,9 +165,11 @@ function BusinessDashboard({ navigate }) {
                   {/* </button> */}
                   {/* </div> */}
                   {/* </div> */}
-                  <button className="text-base font-medium text-Dark-blue">
-                    see more
-                  </button>
+                  <Link to="/explore/stores">
+                    <button className="text-base font-medium text-Dark-blue">
+                      see more
+                    </button>
+                  </Link>
                 </div>
               </div>
               <div className="bg-white my-10 lg:pl-8 lg:pr-5 py-6">
@@ -245,9 +252,11 @@ function BusinessDashboard({ navigate }) {
                   {/* </button> */}
                   {/* </div> */}
                   {/* </div> */}
-                  <button className="text-base font-medium text-Dark-blue">
-                    see more
-                  </button>
+                  <Link to="/explore/campaigns">
+                    <button className="text-base font-medium text-Dark-blue">
+                      see more
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

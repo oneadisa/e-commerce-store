@@ -14,6 +14,7 @@ import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
 import SetUpProfile1 from "./sections/SignUp/SetUpProfile-1";
 import SetUpProfile2Individual from "./sections/SignUp/SetUpProfile-2-individual";
 import SetUpProfile2Business from "./sections/SignUp/SetUpProfile-2-business";
+import LoginGeneral from "./sections/LoginGeneral";
 import LoginUser from "./sections/LoginUser";
 import LoginBusiness from "./sections/LoginBusiness";
 
@@ -80,6 +81,7 @@ function App() {
           <Route path="/gaged" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpGeneral />} />{" "}
           <Route path="/signup/1" element={<SetUpProfile1 />} />{" "}
+          <Route path="/login" element={<LoginGeneral />} />{" "}
           <Route
             path="/signup/2/individual"
             element={<SetUpProfile2Individual />}
