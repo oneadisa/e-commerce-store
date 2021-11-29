@@ -23,12 +23,12 @@ function SignUpGeneral() {
             Choose your account type to help us tailor your experience
           </p>
           <div className="flex gap-8 mt-3">
-            <Link to="/signup/1">
+            <Link to="/signup/1/individual">
               <button className="h-14 w-36 font-poppins border-2 border-Dark-blue bg-Dark-blue text-white text-base md:text-lg font-medium hover:bg-white hover:text-black">
                 Individual
               </button>
             </Link>
-            <Link to="to='/signup/1">
+            <Link to="to='/signup/1/business">
               <button className="h-14 w-36 font-poppins border-2 border-Dark-blue bg-white text-Dark-blue text-base md:text-lg font-medium hover:bg-Dark-blue hover:text-white">
                 Business
               </button>

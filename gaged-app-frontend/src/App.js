@@ -11,7 +11,8 @@ import ProductsNew from "./componenets/store-components/ProductsNew";
 import ProductsOrders from "./componenets/store-components/ProductsOrders";
 
 import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
-import SetUpProfile1 from "./sections/SignUp/SetUpProfile-1";
+import SetUpProfile1individual from "./sections/SignUp/SetUpProfile-1-individual";
+import SetUpProfile1Business from "./sections/SignUp/SetUpProfile-1-business";
 import SetUpProfile2Individual from "./sections/SignUp/SetUpProfile-2-individual";
 import SetUpProfile2Business from "./sections/SignUp/SetUpProfile-2-business";
 import LoginGeneral from "./sections/LoginGeneral";
@@ -80,7 +81,14 @@ function App() {
           <Route path="/business/campaign/comments" element={<Comments />} />
           <Route path="/gaged" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpGeneral />} />{" "}
-          <Route path="/signup/1" element={<SetUpProfile1 />} />{" "}
+          <Route
+            path="/signup/1/business"
+            element={<SetUpProfile1Business />}
+          />{" "}
+          <Route
+            path="/signup/1/individual"
+            element={<SetUpProfile1individual />}
+          />{" "}
           <Route path="/login" element={<LoginGeneral />} />{" "}
           <Route
             path="/signup/2/individual"
