@@ -101,8 +101,8 @@ function SettingsBank() {
                                     </div>
                                 </div>
                                 <div className='mt-12 md:mt-16'>
-                                <button className='px-10 md:px-16 py-2 bg-Dark-blue text-white border-2 rounded-md hover:bg-white hover:text-Dark-blue'>Verify account</button>
-                                <p className='mt-2 text-sm font-medium'>Verification may take 2-3 days business days</p>
+                                    <button className='px-10 md:px-16 py-2 bg-Dark-blue text-white border-2 rounded-md hover:bg-white hover:text-Dark-blue'>Verify account</button>
+                                    <p className='mt-2 text-sm font-medium'>Verification may take 2-3 days business days</p>
                                 </div>
                             </div>
                         </div>
