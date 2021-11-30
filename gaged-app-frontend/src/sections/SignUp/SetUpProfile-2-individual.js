@@ -13,12 +13,14 @@ import { signUpUser } from "../../actions/userActions";
 // import { useForm } from "react-hook-form";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
-function SetUpProfile2Individual({ history }) {
+function SetUpProfile2Individual() {
   // const [error, setError] = useState(false)
   // const [picMessage, setPicMessage] = useState(null)
   const [message, setMessage] = useState(null);
+  let navigate = useNavigate();
   // const [loading, setLoading] = useState(false)
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -82,9 +84,9 @@ function SetUpProfile2Individual({ history }) {
 
   useEffect(() => {
     if (signedUpUserInfo) {
-      history.push("/");
+      navigate("/individual/dashboard");
     }
-  }, [history, signedUpUserInfo]);
+  }, [navigate, signedUpUserInfo]);
 
   const handleClick = (event) => {
     event.preventDefault();

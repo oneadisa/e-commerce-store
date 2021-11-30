@@ -1,6 +1,7 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-empty-pattern */
 /* eslint-disable no-unused-vars */
-import React from "react";
-
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./componenets/landing-pages-components/LandingPage";
@@ -10,9 +11,11 @@ import ProductsNew from "./componenets/store-components/ProductsNew";
 import ProductsOrders from "./componenets/store-components/ProductsOrders";
 
 import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
-import SetUpProfile1 from "./sections/SignUp/SetUpProfile-1";
+import SetUpProfile1individual from "./sections/SignUp/SetUpProfile-1-individual";
+import SetUpProfile1Business from "./sections/SignUp/SetUpProfile-1-business";
 import SetUpProfile2Individual from "./sections/SignUp/SetUpProfile-2-individual";
 import SetUpProfile2Business from "./sections/SignUp/SetUpProfile-2-business";
+import LoginGeneral from "./sections/LoginGeneral";
 import LoginUser from "./sections/LoginUser";
 import LoginBusiness from "./sections/LoginBusiness";
 
@@ -29,9 +32,21 @@ import SettingsStore from "./componenets/setting-components/SettingsStore";
 
 import PublishedStore from "./componenets/published-component/PublishedStore";
 
+import Comments from "./componenets/managecampaign-component/Comments";
+import Lenders from "./componenets/managecampaign-component/Lenders";
+import OverviewDonation from "./componenets/managecampaign-component/OverviewDonation";
+import OverviewEquity from "./componenets/managecampaign-component/OverviewEquity";
+import OverviewLoan from "./componenets/managecampaign-component/OverviewLoan";
+
 import Cart from "./componenets/cart-component/Cart";
+import BusinessDashboard from "./componenets/dashboard-component/Business-dashboard";
+
+import ErrorPage from "./componenets/ErroPage";
+import UserDashboard from "./componenets/dashboard-component/User-dashboard";
 
 function App() {
+  const [search, setSearch] = useState("");
+
   return (
     <Router>
       {" "}
@@ -42,25 +57,49 @@ function App() {
         <Routes>
           {" "}
           <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/business/dashboard"
+            element={<BusinessDashboard navigate={undefined} />}
+          />
+          <Route
+            path="/individual/dashboard"
+            element={<UserDashboard navigate={undefined} />}
+          />
+          <Route
+            path="/business/campaign/overviewDonation"
+            element={<OverviewDonation />}
+          />
+          <Route
+            path="/business/campaign/overviewEquity"
+            element={<OverviewEquity />}
+          />
+          <Route
+            path="/business/campaign/overviewLoan"
+            element={<OverviewLoan />}
+          />
+          <Route path="/business/campaign/lenders" element={<Lenders />} />
+          <Route path="/business/campaign/comments" element={<Comments />} />
           <Route path="/gaged" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpGeneral />} />{" "}
-          <Route path="/signup/1" element={<SetUpProfile1 />} />{" "}
+          <Route
+            path="/signup/1/business"
+            element={<SetUpProfile1Business />}
+          />{" "}
+          <Route
+            path="/signup/1/individual"
+            element={<SetUpProfile1individual />}
+          />{" "}
+          <Route path="/login" element={<LoginGeneral />} />{" "}
           <Route
             path="/signup/2/individual"
-            element={<SetUpProfile2Individual history={undefined} />}
+            element={<SetUpProfile2Individual />}
           />{" "}
           <Route
             path="/signup/2/business"
-            element={<SetUpProfile2Business history={undefined} />}
+            element={<SetUpProfile2Business />}
           />{" "}
-          <Route
-            path="/userLogin"
-            element={<LoginUser history={undefined} />}
-          />{" "}
-          <Route
-            path="/businessLogin"
-            element={<LoginBusiness history={undefined} />}
-          />{" "}
+          <Route path="/individualLogin" element={<LoginUser />} />{" "}
+          <Route path="/businessLogin" element={<LoginBusiness />} />{" "}
           <Route path="/store/products/all" element={<ProductsAll />} />{" "}
           <Route path="/store/products/new" element={<ProductsNew />} />{" "}
           <Route path="/store/products/orders" element={<ProductsOrders />} />{" "}
@@ -75,6 +114,7 @@ function App() {
           <Route path="/campaigns/third" element={<CampaignsThird />} />
           <Route path="/explore/campaigns" element={<ExploreCampaigns />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<ErrorPage />}></Route>
         </Routes>{" "}
       </div>{" "}
     </Router>

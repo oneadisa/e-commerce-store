@@ -5,35 +5,39 @@ import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
 import People from "../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
 import Loader from "../componenets/Loader";
-import GeneralErrorMessage from "../componenets/GeneralErrorMessage";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../actions/userActions";
+import ErrorMessage from "../componenets/LoginErrorMessage";
+import { useNavigate } from "react-router-dom";
 
-function LoginUser({ history }) {
+function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
 
   // useEffect(() => {
   // const signedUpUserInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
 
   // if (signedUpUserInfo) {
-  // history.push('/')
+  // navigate.push('/')
   // }
   //
-  // }, [history])
+  // }, [navigate])
 
   const dispatch = useDispatch();
 
-  const signedUpUserLogin = useSelector((state) => state.signedUpUserLogin);
+  const signedUpUserLogin = useSelector(
+    (state: RootStateOrAny) => state.signedUpUserLogin
+  );
   const { loading, error, signedUpUserInfo } = signedUpUserLogin;
 
   useEffect(() => {
     if (signedUpUserInfo) {
-      history.push("/");
+      navigate("/individual/dashboard");
     }
-  }, [history, signedUpUserInfo]);
+  }, [navigate, signedUpUserInfo]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -44,9 +48,7 @@ function LoginUser({ history }) {
   return (
     <>
       <HeaderSignUp children={undefined} title={undefined} />
-      {error && (
-        <GeneralErrorMessage variant="danger">{error}</GeneralErrorMessage>
-      )}
+      {error && <ErrorMessage />}
 
       <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
         <div className="">
