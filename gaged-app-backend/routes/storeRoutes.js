@@ -1,8 +1,9 @@
 const express = require("express");
-
 const router = express.Router();
-router.route("/").get();
-router.route("/create/store").post();
-router.route("/:id").get().put().delete();
+const registerStore = require("../controllers/storeController");
+
+router.route("/create").post();
+// router.route("/create/store").post();
+// router.route("/:id").get().put().delete();
 
 module.exports = router;
