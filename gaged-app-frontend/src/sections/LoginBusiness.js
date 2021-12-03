@@ -47,37 +47,38 @@ function LoginBusiness() {
     <>
       <HeaderSignUp children={undefined} title={undefined} />
       {error && <ErrorMessage />}
-      <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
+      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10">
         <div className="">
           <img src={People} />
         </div>
 
-        <form>
+        <div className='lg:mt-40'>
           {loading && <Loader />}
-          <div className="flex flex-col md:w-4/5 lg:mt-24 justify-center">
+          <form className="flex flex-col md:w-4/5 justify-center">
             <h1 className="text-2xl md:text-3xl font-semibold font-poppins">
               Welcome Back!
             </h1>
             <p className="text-lg my-4 md:text-lg font-poppins">
               We missed you, sign in to get more of the "Gaged" experience.
             </p>
-            <div className="flex flex-col gap-2 mt-5">
+            <div className="flex flex-col gap-3 mt-5">
               <input
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7"
+                className="font-poppins h-12 pl-8 border-2 border-gray-400 text-black font-medium placeholder-gray-400"
                 placeholder="Email"
               />
-              <br />
+              
               <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7"
+                className="font-poppins h-12 pl-8 border-2 border-gray-400 text-black font-medium placeholder-gray-400"
                 placeholder="Password"
               />
             </div>
+
             <p className="font-poppins my-3">
               Forgot Password?{" "}
               <span className="font-poppins text-blue-700 space-y-7">
@@ -90,7 +91,11 @@ function LoginBusiness() {
             >
               Login
             </button>
-            <p className="font-poppins my-5 font-medium">
+          </form>
+
+
+          <div className='my-5'>
+            <p className="font-poppins font-medium">
               Don't have an account?{" "}
               <Link
                 to="/signup"
@@ -100,7 +105,7 @@ function LoginBusiness() {
               </Link>
             </p>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

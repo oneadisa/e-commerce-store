@@ -9,7 +9,7 @@ function Footer() {
       <Link to="/">
         <img src={Logof} />
       </Link>
-      <div className="flex flex-col gap-20 md:gap-0 md:flex-row justify-between my-14">
+      <div className="flex flex-col gap-10 lg:gap-0 lg:flex-row justify-between my-14">
         <div className="flex flex-col gap-6 justify-between">
           <p className="text-white text-base font-medium">
             Join our email newsletter to recieve tips on how to get more out of

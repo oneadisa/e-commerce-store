@@ -16,11 +16,11 @@ function Mobile() {
   };
 
   return (
-    <div className="bg-light-blue mx-auto flex items-center p-5 flex-wrap ">
+    <div className="bg-light-blue mx-auto flex items-center p-5 flex-wrap">
       <Link to="/">
         <img src={Logoh} className="" />
       </Link>
-      <button className="ml-auto" onClick={HandleNav}>
+      <button className="ml-auto text-Dark-blue" onClick={HandleNav}>
         {open === true ? (
           <i class="far fa-window-close fa-2x"></i>
         ) : (
@@ -28,8 +28,8 @@ function Mobile() {
         )}
       </button>
       {open === true ? (
-        <div class="top-nav w-full pt-5 left-0 right-0 min-h-screen tranform transition duration-200">
-          <ul className="flex flex-col space-y-5 text-center">
+        <div className="absolute w-full bg-gray-500 opacity-95 px-8 py-10 top-20 right-0 left-0">
+          <ul className="flex flex-col space-y-7 text-center">
             <li class="text-black text-2xl font-semibold hover:text-Dark-blue">
               <Link to="/">Campaigns</Link>
             </li>
@@ -42,14 +42,12 @@ function Mobile() {
 
             {/* <li class='py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded hover:bg-Dark-blue hover:text-white'> */}
 
-            <li class="py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded">
+            <li class="py-3 w-full border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded hover:bg-Dark-blue hover:border-Dark-blue hover:text-white">
               <Link to="/login">Log in</Link>
             </li>
 
-            <li class="py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded hover:bg-white hover:text-Dark-blue">
-              <li class="py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded">
-                <Link to="/signup">Sign up</Link>
-              </li>
+            <li class="py-3 w-full border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded hover:bg-white hover:text-Dark-blue">
+              <Link to="/signup">Sign up</Link>
             </li>
           </ul>
         </div>

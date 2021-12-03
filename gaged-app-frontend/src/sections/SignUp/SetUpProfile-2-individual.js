@@ -167,160 +167,164 @@ function SetUpProfile2Individual() {
       {error && (
         <GeneralErrorMessage variant="danger">{error}</GeneralErrorMessage>
       )}
-      <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
-        <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform  -translate-y-16 ">
+      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10">
+        <div className="">
           <img src={People}></img>
         </div>
-        <div className="transform -translate-y-10 ">
-          <div className="text-start mb-10">
-            <h1 className="font-bold font-poppins text-3xl text-gray-900">
+
+        <div className="flex flex-col gap-5 lg:mt-16">
+          <div className="flex flex-col gap-1">
+            <h1 className="font-normal font-poppins text-3xl">
               Let us set up your profile
             </h1>
-            <p className="font-poppins">
+            <p className="font-poppins text-base lg:w-3/4">
               Please provide correct information while setting up an account.
             </p>
           </div>
           {/* {message && <ErrorMessage/> } */}
 
-          <form onSubmit={handleClick}>
+          <form onSubmit={handleClick} className='flex flex-col gap-5 md:gap-2'>
             {loading && <Loader />}
-            <div className="flex -mx-3">
-              <div className="w-1/2 px-3 mb-5">
-                <label
-                  htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-start pointer-events-none flex ">
-                    <i className="mdi mdi-account-outline text-black  text-lg"></i>
-                  </div>
-                  <button className="w-full text-left -ml-10 pl-10 pr-3 py-2 bg-indigo-300 border-2 border-none outline-none text-black hover:bg-indigo-500 text-start ">
+            <div className="mb-4">
+                {/* <label htmlFor="" className="text-xs font-semibold px-1"></label> */}
+                <div className="">
+                  {/* <div className="w-10 z-10 pl-1 text-start pointer-events-none flex ">
+                    <i className="mdi mdi-account-outline text-black text-lg"></i>
+                  </div> */}
+                  <button className="w-44 text-base font-medium h-9 bg-indigo-200 hover:bg-indigo-500">
                     Sign up with email
                   </button>
                 </div>
-              </div>
             </div>
 
-            <div className="flex -mx-3">
-              <div className="w-1/2 px-3 mb-5">
-                <label
+            <div className="flex flex-col md:flex-row gap-2 md:gap-3">
+              <div className="">
+                {/* <label
                   htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                  className="text-xs font-semibold"
+                ></label> */}
+                <div className="">
+                  {/* <div className="z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div>
+                  </div> */}
                   <input
                     onChange={handlechange}
                     name="firstName"
                     type="text"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500"
+                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
                     placeholder="First name"
                     value={credentials.firstName}
                   />
                 </div>
               </div>
-              <div className="w-1/2 px-3 mb-5">
-                <label
+
+              <div className="">
+                {/* <label
                   htmlFor=""
                   className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-start">
+                ></label> */}
+                <div className="">
+                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-start">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div>
+                  </div> */}
                   <input
                     onChange={handlechange}
                     name="lastName"
                     type="text"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500"
-                    placeholder="Last Name"
+                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                    placeholder="Last name"
                     value={credentials.lastName}
                   />
                 </div>
               </div>
             </div>
-            <div className="flex -mx-3">
-              <div className="w-1/2 px-3 mb-5">
-                <label
+
+
+
+            <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full">
+              <div className="">
+                {/* <label
                   htmlFor=""
                   className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                ></label> */}
+                <div className="">
+                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div>
+                  </div> */}
                   <input
                     onChange={handlechange}
                     name="email"
                     type="text"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500"
+                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
                     placeholder="Email"
                     value={credentials.email}
                   />
                 </div>
               </div>
-              <div className="w-1/2 px-3 mb-5">
-                <label
+
+              <div className="">
+                {/* <label
                   htmlFor=""
                   className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                ></label> */}
+                <div className="">
+                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div>
+                  </div> */}
                   <input
                     onChange={handlechange}
                     name="phoneNumber"
                     type="number"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500"
+                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
                     placeholder="Phone"
                     value={credentials.phoneNumber}
                   />
                 </div>
               </div>
             </div>
-            <div className="flex -mx-3">
-              <div className="w-1/2 px-3 mb-5">
-                <label
+
+
+            <div className="flex flex-col md:flex-row gap-2 md:gap-3">
+              <div className="">
+                {/* <label
                   htmlFor=""
                   className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                ></label> */}
+                <div className="">
+                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div>
+                  </div> */}
                   <input
                     onChange={handlechange}
                     name="password"
                     type={passwordShown ? "text" : "password"}
-                    className="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500"
+                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
                     placeholder="Password"
                     value={credentials.password}
                   />
                   {/* <i className="fa fa-eye transform translate-y-4 translate-x-3" onClick={togglePasswordVisiblity}/> */}
                 </div>
               </div>
-              <div className="w-1/2 px-3 mb-5">
-                <label
+
+              <div className="">
+                {/* <label
                   htmlFor=""
                   className="text-xs font-semibold px-1"
-                ></label>
-                <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                ></label> */}
+                <div className="">
+                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div>
+                  </div> */}
                   <input
                     onChange={handlechange}
                     name="confirmPassword"
                     type={passwordShown ? "text" : "password"}
-                    className="w-full -ml-10 pl-10 pr-3 py-2 border-2 border-black outline-none focus:border-blue-500"
+                    className="h-12 w-full md:w-auto pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
                     placeholder="Confirm Password"
                     value={credentials.confirmPassword}
                   />
                   <i
-                    className="fas fa-eye transform translate-y-4 translate-x-4 "
+                    className="fas fa-eye"
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
@@ -340,50 +344,56 @@ function SetUpProfile2Individual() {
             {/* </div> */}
             {/* </label> */}
             {/* </div> */}
+          </form>
 
-            <div className="text-start ">
-              <div className="">
-                <label className=" ">
-                  <input type="checkbox" className="form-checkbox h-5 w-5" />
-                  <span className="font-poppins">
-                    {" "}
-                    Subscribe to our newsletter and receive tips on how to
-                    launch a successful campaign.
-                  </span>
-                </label>
+          <div className='flex flex-col gap-8 w-full lgw-3/4'>
+            <div className='flex flex-col'>
+              <div className="flex gap-2">
+                <input type="checkbox" className="h-8 w-8 md:h-5 md:w-5 lg:h-8 lg:w-8" />
+                <span className="font-poppins text-sm leading-4 lg:w-4/5">
+                  {" "}
+                  Subscribe to our newsletter and receive tips on how to
+                  launch a successful campaign.
+                </span>
               </div>
-
-              <p className="mb-5 font-poppins">
-                By creating an account, you agree to the{" "}
-                <Link to="" className="text-indigo-400">
-                  Terms of Service
-                </Link>
-              </p>
-            </div>
-
-            <div className="flex -mx-3  place-items-start ">
-              <div className="w-full px-3 mb-5 place-items-start">
-                <button
-                  onClick={handleClick}
-                  className="block w-full max-w-xs mx-auto bg-blue-700 hover:bg-blue-800  text-white  px-3 py-3 font-semibold"
-                >
-                  CREATE ACCOUNT
-                </button>
+              
+              <div className=''>
+                <p className="font-poppins text-sm">
+                  By creating an account, you agree to the{" "}
+                  <Link to="" className="text-indigo-400">
+                    Terms of Service
+                  </Link>
+                </p>
               </div>
             </div>
+            
 
-            <div className="text-start">
-              <p className="mb-5 font-poppins">
+            
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={handleClick}
+                className="h-10 w-full md:w-2/5 text-sm text-white font-normal bg-Dark-blue text-whitefont-semibold hover:bg-blue-800"
+              >
+                Create account
+              </button>
+            
+            
+
+            
+              <p className="font-poppins text-sm font-normal">
                 Already on Gaged?
                 <Link to="/userLogin" className="text-indigo-400">
                   {" "}
                   Login Here
                 </Link>
               </p>
-              <i calssName="fa fa-eye password-icon " />
             </div>
-          </form>
+          </div>
         </div>
+        
+
+
+
       </div>
     </>
   );

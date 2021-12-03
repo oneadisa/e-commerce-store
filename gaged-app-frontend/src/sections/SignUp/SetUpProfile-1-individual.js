@@ -10,31 +10,37 @@ const SetUpProfile1individual = () => {
   return (
     <div>
       <HeaderSignUp children={undefined} title={undefined} />
-      <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
-        <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
+      <div className="flex flex-col lg:flex-row gap-7 md:gap-10 lg:gap-12 px-2 pb-10 lg:px-7 lg:pb-10">
+        <div className="">
           <img src={People}></img>
         </div>
-        <div className="transform -translate-y-32">
-          <h1 className="text-4xl lg:text-5xl font-medium font-poppins text-black">
-            Let us set up your profile
-          </h1>
-          <p className="text-left text-lg my-4 md:text-xl font-poppins">
-            Please provide correct information while signing up for an account
-          </p>
-          <div>
-            <Link to="/">
-              <button className=" font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white flex justify-left space-x-7">
-                Sign Up with Facebook
-              </button>
-            </Link>
-            <br />
-            <Link to="/signup/2/individual">
-              <button className=" font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium r hover:bg-Dark-blue hover:text-white flex justify-left space-x-7">
-                Sign Up With Email
-              </button>
-            </Link>
+
+
+        <div className='lg:mt-52'>
+          <div className="flex flex-col gap-2 lg:w-4/5">
+            <h1 className="text-3xl md:text-4xl font-medium font-poppins">
+              Let us set up your profile
+            </h1>
+            <p className="text-lg font-poppins leading-5 md:w-4/5">
+              Please provide correct information while signing up for an account
+            </p>
+            <div className='flex flex-col gap-3 mt-9'>
+              <Link to="/">
+                <button className="font-poppins text-lg h-12 w-full border-2 font-medium  hover:bg-Dark-blue hover:text-white hover:border-Dark-blue">
+                  Sign Up with Facebook
+                </button>
+              </Link>
+              <Link to="/signup/2/individual">
+                <button className=" font-poppins text-lg h-12 w-full border-2 font-medium hover:bg-Dark-blue hover:text-white hover:border-Dark-blue">
+                  Sign Up With Email
+                </button>
+              </Link>
+              
+            </div>
           </div>
         </div>
+
+
       </div>
     </div>
   );

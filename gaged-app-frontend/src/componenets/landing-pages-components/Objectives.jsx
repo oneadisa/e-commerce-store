@@ -14,12 +14,12 @@ function Objectives() {
       </p>
       <div className="flex flex-col md:flex-row lg:flex-row gap-4 md:gap-7 my-3 md:my-5">
         <Link to="/signup">
-          <button className="py-3 px-20 text-white border border-Dark-blue font-semibold text-lg bg-Dark-blue rounded hover:bg-white hover:text-Dark-blue">
+          <button className="h-12 w-56 md:w-44 text-white border border-Dark-blue font-semibold text-lg bg-Dark-blue rounded hover:bg-white hover:text-Dark-blue">
             Get started
           </button>
         </Link>
         <Link to="/explore/campaigns">
-          <button className="py-3 px-20 text-Dark-blue font-semibold text-lg border border-Dark-blue rounded hover:bg-Dark-blue hover:text-white">
+          <button className="h-12 w-56 md:w-44 text-Dark-blue font-semibold text-lg border border-Dark-blue rounded hover:bg-Dark-blue hover:text-white">
             Explore
           </button>
         </Link>
