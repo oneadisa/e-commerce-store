@@ -26,31 +26,31 @@ function Mobile() {
                     <i class='fas fa-bars fa-2x'></i>
                 )}
             </button>
-            {open === true ? (<div class='top-nav w-full pt-5 left-0 right-0 min-h-screen tranform transition duration-200'>
+            {open === true ? (<div className='absolute w-full bg-gray-500 opacity-95 px-8 py-10 top-20 right-0 left-0'>
                 <ul
                 className='flex flex-col space-y-5 text-center'
                 >
-                    <li class='text-black text-2xl font-semibold'>
+                    <li className='text-black text-2xl font-semibold'>
                         <a href='#' >
                             Campaigns
                         </a>
                     </li>
-                    <li class='text-black text-2xl font-semibold'>
+                    <li className='text-black text-2xl font-semibold'>
                         <a href='#' >
                             Stores
                         </a>
                     </li>
-                    <li class='text-black text-2xl font-semibold'>
+                    <li className='text-black text-2xl font-semibold'>
                         <a href='#' >
                             About
                         </a>
                     </li>
-                    <li class='py-2 px-14 border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded'>
+                    <li className='py-3 w-full border border-Dark-blue text-Dark-blue text-2xl font-semibold rounded hover:bg-Dark-blue hover:border-Dark-blue hover:text-white'>
                         <a href='#' >
                             Log in
                         </a>
                     </li>
-                    <li class='py-2 px-14 border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded'>
+                    <li className='py-3 w-full border border-Dark-blue bg-Dark-blue text-white text-2xl font-medium rounded hover:bg-white hover:text-Dark-blue'>
                         <a href='#' >
                             Sign up
                         </a>
