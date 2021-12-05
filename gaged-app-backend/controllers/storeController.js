@@ -1,12 +1,13 @@
 const newStore = require("../models/storeModels");
 const asyncHandler = require("express-async-handler");
+const generateToken = require("../utils/generateToken");
 
 const registerStore = asyncHandler(async (req, res) => {
-  const { storeName, tagline, description, link, logo, business } = req.body;
+  const { storeName, tagLine, description, link, logo, business } = req.body;
 
   const store = await newStore.create({
     storeName,
-    tagline,
+    tagLine,
     description,
     link,
     logo,
@@ -16,7 +17,7 @@ const registerStore = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: store._id,
       storeName: store.storeName,
-      tagline: store.tagline,
+      tagLine: store.tagLine,
       description: store.description,
       link: store.link,
       logo: store.logo,

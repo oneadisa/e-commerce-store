@@ -10,7 +10,7 @@ import {
   signedUpBusinessLoginReducer,
 } from "./reducers/businessReducer";
 
-import setUpStoreReducer from "./reducers/storeReducer";
+import { setUpStoreReducer } from "./reducers/storeReducer";
 
 const reducer = combineReducers({
   //this will contain our reducers

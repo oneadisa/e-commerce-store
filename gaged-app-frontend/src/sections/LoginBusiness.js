@@ -52,7 +52,7 @@ function LoginBusiness() {
           <img src={People} />
         </div>
 
-        <div className='lg:mt-40'>
+        <div className="lg:mt-40">
           {loading && <Loader />}
           <form className="flex flex-col md:w-4/5 justify-center">
             <h1 className="text-2xl md:text-3xl font-semibold font-poppins">
@@ -69,7 +69,7 @@ function LoginBusiness() {
                 className="font-poppins h-12 pl-8 border-2 border-gray-400 text-black font-medium placeholder-gray-400"
                 placeholder="Email"
               />
-              
+
               <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -93,8 +93,7 @@ function LoginBusiness() {
             </button>
           </form>
 
-
-          <div className='my-5'>
+          <div className="my-5">
             <p className="font-poppins font-medium">
               Don't have an account?{" "}
               <Link

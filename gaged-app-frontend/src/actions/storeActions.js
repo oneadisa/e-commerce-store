@@ -6,7 +6,7 @@ import {
 import axios from "axios";
 
 export const createStore =
-  (storeName, tagline, description, link, logo) => async (dispatch) => {
+  (storeName, tagLine, description, link, logo) => async (dispatch) => {
     try {
       dispatch({
         type: STORE_CREATION_REQUEST,
@@ -19,10 +19,10 @@ export const createStore =
       };
 
       const { data } = await axios.post(
-        "/app/store/create",
+        "/app/store/createStore",
         {
           storeName,
-          tagline,
+          tagLine,
           description,
           link,
           logo,

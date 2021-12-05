@@ -35,6 +35,6 @@
         "request": "^2.88.2"
     },
     "devDependencies": {
-        "@types/node": "^16.11.7"
+        "@types/node": "^16.11.11"
     }
 }
