@@ -1,10 +1,8 @@
-declare var require: any;
-
 const mongoose = require("mongoose");
 
 const storeProductSchema = new mongoose.Schema(
   {
-    ProductTitle: {
+    productTitle: {
       type: String,
       required: true,
     },
@@ -38,7 +36,7 @@ const storeProductSchema = new mongoose.Schema(
     },
     productSKU: {
       type: Number,
-      required: true,
+      required: false,
     },
     productImageOne: {
       type: String,
@@ -48,13 +46,13 @@ const storeProductSchema = new mongoose.Schema(
     },
     productImageTwo: {
       type: String,
-      required: true,
+      required: false,
       default:
         "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
     },
     productImageThree: {
       type: String,
-      required: true,
+      required: false,
       default:
         "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
     },
@@ -62,9 +60,9 @@ const storeProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    business: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: "mySignedUpBusinessTable",
     },
   },

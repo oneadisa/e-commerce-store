@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const StoreProduct = require("../models/storeProductModels.js");
+const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 
 const protect = asyncHandler(async (req, res, next) => {
@@ -15,7 +15,9 @@ const protect = asyncHandler(async (req, res, next) => {
       //decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = await StoreProduct.findById(decoded.id).select("-password");
+      req.user = await signedUpBusiness
+        .findById(decoded.id)
+        .select("-password");
 
       next();
     } catch (error) {
