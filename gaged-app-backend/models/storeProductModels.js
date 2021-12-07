@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
+const mongooseSerial = require("mongoose-serial");
 
 const storeProductSchema = new mongoose.Schema(
   {
+    serialNumber: {
+      type: String,
+      required: false,
+    },
     productTitle: {
       type: String,
       required: true,
@@ -72,5 +77,11 @@ const storeProductSchema = new mongoose.Schema(
 );
 
 const StoreProduct = mongoose.model("StoreProduct", storeProductSchema);
+storeProductSchema.plugin(mongooseSerial, {
+  field: "serialNumber",
+  initCount: "monthly",
+  separator: "-",
+  digits: 3,
+});
 
 module.exports = StoreProduct;
