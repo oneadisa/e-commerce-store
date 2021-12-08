@@ -72,6 +72,7 @@ const authBusiness = asyncHandler(async (req, res) => {
   const user = await signedUpBusiness.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({
+      _id: user._id,
       businessName: user.businessName,
       accountHolderName: user.accountHolderName,
       email: user.email,

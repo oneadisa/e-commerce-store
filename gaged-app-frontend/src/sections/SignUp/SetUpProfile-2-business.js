@@ -4,10 +4,8 @@
 import React, { useState, useEffect } from "react";
 import HeaderSignUp from "./SignUpComponents/HeaderSignUp-Login";
 import People from "../../images/Gaged-images/Group 3577.png";
-import axios from "axios";
 // import ErrorMessage from '../../componenets/LoginErrorMessage';
 import Loader from "../../componenets/Loader";
-import PictureErrorMessage from "../../componenets/PictureErrorMessage";
 import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
 import { Link } from "react-router-dom";
 import { signUpBusiness } from "../../actions/businessActions";
@@ -169,8 +167,6 @@ function SetUpProfile2Business() {
           <img src={People}></img>
         </div>
 
-        
-          
         <div className="flex flex-col gap-5 lg:mt-16">
           <div className="flex flex-col gap-1">
             <h1 className="font-normal font-poppins text-3xl">
@@ -180,9 +176,8 @@ function SetUpProfile2Business() {
               Please provide correct information while setting up an account.
             </p>
           </div>
-        
 
-          <form onSubmit={handleClick} className='flex flex-col gap-5 md:gap-2'>
+          <form onSubmit={handleClick} className="flex flex-col gap-5 md:gap-2">
             {loading && <Loader />}
             <div className="mb-4">
               <div className="">
@@ -222,7 +217,6 @@ function SetUpProfile2Business() {
                 </div>
               </div>
 
-
               <div className="">
                 {/* <label
                   htmlFor=""
@@ -243,8 +237,6 @@ function SetUpProfile2Business() {
                 </div>
               </div>
             </div>
-
-
 
             <div className="flex flex-col md:flex-row gap-2 md:gap-3">
               <div className="">
@@ -267,7 +259,6 @@ function SetUpProfile2Business() {
                 </div>
               </div>
 
-
               <div className="">
                 {/* <label
                   htmlFor=""
@@ -288,8 +279,6 @@ function SetUpProfile2Business() {
                 </div>
               </div>
             </div>
-
-
 
             <div className="flex flex-col md:flex-row gap-2 md:gap-3">
               <div className="">
@@ -353,21 +342,21 @@ function SetUpProfile2Business() {
             {/* </div> */}
           </form>
 
-
-          <div className='flex flex-col gap-8 w-full lgw-3/4'>
+          <div className="flex flex-col gap-8 w-full lgw-3/4">
             <div className="flex flex-col">
               <div className="flex gap-2">
-                <input type="checkbox" className="h-8 w-8 md:h-5 md:w-5 lg:h-8 lg:w-8" />
+                <input
+                  type="checkbox"
+                  className="h-8 w-8 md:h-5 md:w-5 lg:h-8 lg:w-8"
+                />
                 <span className="font-poppins text-sm leading-4 lg:w-4/5">
                   {" "}
-                  Subscribe to our newsletter and receive tips on how to
-                  launch a successful campaign.
+                  Subscribe to our newsletter and receive tips on how to launch
+                  a successful campaign.
                 </span>
               </div>
-              
 
-
-              <div className=''>
+              <div className="">
                 <p className="font-poppins text-sm">
                   By creating an account, you agree to the{" "}
                   <Link to="/" className="text-indigo-400">
@@ -383,7 +372,7 @@ function SetUpProfile2Business() {
                   CREATE ACCOUNT
                 </button>
               </div>
-            
+
               <p className="font-poppins text-sm font-normal">
                 Already on Gaged?
                 <Link to="/businessLogin" className="text-indigo-400">
@@ -394,10 +383,6 @@ function SetUpProfile2Business() {
             </div>
           </div>
         </div>
-
-
-
-
       </div>
     </>
   );

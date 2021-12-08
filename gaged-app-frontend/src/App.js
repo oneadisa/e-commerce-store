@@ -26,6 +26,10 @@ import CampaignsSecond from "./componenets/individual-component/CampaignsSecond"
 import CampaignsThird from "./componenets/individual-component/Campaigns";
 import ExploreCampaigns from "./componenets/individual-component/ExploreCampaigns";
 
+import Campaign1 from "./componenets/campaign-components/Campaign1";
+import Campaign2 from "./componenets/campaign-components/Campaign2";
+import Campaign3 from "./componenets/campaign-components/Campaign3";
+
 import SettingsBank from "./componenets/setting-components/SettingsBank";
 import SettingsGeneral from "./componenets/setting-components/SettingsGeneral";
 import SettingsStore from "./componenets/setting-components/SettingsStore";
@@ -114,6 +118,9 @@ function App() {
           <Route path="/campaigns/third" element={<CampaignsThird />} />
           <Route path="/explore/campaigns" element={<ExploreCampaigns />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/campaigns/all" element={<Campaign1 />} />{" "}
+          <Route path="/campaigns/live" element={<Campaign2 />} />{" "}
+          <Route path="/campaigns/completed" element={<Campaign3 />} />{" "}
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>{" "}
       </div>{" "}
