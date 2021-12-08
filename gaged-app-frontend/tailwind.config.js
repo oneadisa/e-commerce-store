@@ -15,6 +15,9 @@ module.exports = {
 
                 "magenta-blue": "rgba(234, 234, 255, 1)",
                 "Dark-grey": "rgba(112, 112, 112, 1)",
+            },
+            width: {
+                '52.5/100': '52.5%',
             }
 
         },
