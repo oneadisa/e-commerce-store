@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 // import { Accordion, Badge, Button, Card } from "react-bootstrap";
+import {Button} from 'react-bootstrap'
 import Logof from "../../images/logo-footer.jpg";
 import analytics from "../../images/analytics.png";
 import wallet from "../../images/wallet.png";
@@ -19,10 +20,10 @@ import { useNavigate } from "react-router-dom";
 
 import {
   listStoreProducts,
-  // deleteStoreProductAction,
+  deleteStoreProductAction,
 } from "../../actions/storeProductsActions";
 
-function ProductsAll({ search }) {
+function ProductsAll() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -69,11 +70,11 @@ function ProductsAll({ search }) {
     successUpdate,
   ]);
 
-  // const deleteHandler = (id) => {
-  // if (window.confirm("Are you sure?")) {
-  // dispatch(deleteStoreProductAction(id));
-  // }
-  // };
+  const deleteHandler = (id) => {
+  if (window.confirm("Are you sure?")) {
+  dispatch(deleteStoreProductAction(id));
+  }
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -209,7 +210,7 @@ function ProductsAll({ search }) {
                 </p>{" "}
               </div>
               <div>
-                {storeProducts?.map((storeProduct) => (
+                {storeProducts?.reverse().map((storeProduct) => (
                   <>
                     <div key={storeProduct._id}>
                       <p>{storeProduct.productTitle}</p>
@@ -225,6 +226,22 @@ function ProductsAll({ search }) {
                       <p>{storeProduct.productImageTwo}</p>
                       <p>{storeProduct.productImageThree}</p>
                       <p>{storeProduct.category}</p>
+                      <div>
+                    <Button href={`/store/products/${storeProduct._id}`}>Edit</Button>
+                    <Button
+                      variant="danger"
+                      className="mx-2"
+                      onClick={() => deleteHandler(storeProduct._id)}
+                    >
+                      Delete
+                    </Button>
+                    <footer className="blockquote-footer">
+                        Created on{" "}
+                        <cite title="Source Title">
+                          {storeProduct.createdAt.substring(0, 10)}
+                        </cite>
+                      </footer>
+                  </div>
                     </div>
                   </>
                 ))}
@@ -248,133 +265,4 @@ export default ProductsAll;
 // )
 // .reverse()
 
-{
-  /* <Accordion> */
-}
-{
-  /* <Card style={{ margin: 10 }} key={storeProduct._id}> */
-}
-{
-  /* <> */
-}
-{
-  /* <Card.Header style={{ display: "flex" }}> */
-}
-{
-  /* <> */
-}
-{
-  /* <span */
-}
-// style={{
-// color: "black",
-// textDecoration: "none",
-// flex: 1,
-// cursor: "pointer",
-// alignSelf: "center",
-// fontSize: 18,
-// }}
-// >
-{
-  /* <Accordion.Collapse as={Card.Text} bg="link" eventKey="0"> */
-}
-{
-  /* {storeProduct.Productitle} */
-}
-{
-  /* </Accordion.Collapse> */
-}
-{
-  /* </span> */
-}
-{
-  /* <div> */
-}
-{
-  /* <> */
-}
-{
-  /* <Button href={`/store/products/${storeProduct._id}`}>Edit</Button> */
-}
-{
-  /* <Button */
-}
-// variant="danger"
-// className="mx-2"
-// onClick={() => deleteHandler(storeProduct._id)}
-// >
-{
-  /* Delete */
-}
-{
-  /* </Button> */
-}
-{
-  /* </> */
-}
-{
-  /* </div> */
-}
-{
-  /* </> */
-}
-{
-  /* </Card.Header> */
-}
-{
-  /* <Accordion.Collapse eventKey="0"> */
-}
-{
-  /* <Card.Body> */
-}
-{
-  /* <> */
-}
-{
-  /* <h4> */
-}
-{
-  /* <Badge bg="success">Category - {storeProduct.category}</Badge> */
-}
-{
-  /* </h4> */
-}
-{
-  /* <blockquote className="blockquote mb-0"> */
-}
-{
-  /* <ReactMarkdown>{storeProduct.content}</ReactMarkdown> */
-}
-{
-  /* <footer className="blockquote-footer"> */
-}
-{
-  /* Created on{" "} */
-}
-{
-  /* <cite title="">{storeProduct.createdAt.substring(0, 10)}</cite> */
-}
-{
-  /* </footer> */
-}
-{
-  /* </blockquote> */
-}
-{
-  /* </> */
-}
-{
-  /* </Card.Body> */
-}
-{
-  /* </Accordion.Collapse> */
-}
-{
-  /* </> */
-}
-{
-  /* </Card> */
-}
-{
-  /* </Accordion>; */
-}
+
