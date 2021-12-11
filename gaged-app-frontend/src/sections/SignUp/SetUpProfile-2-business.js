@@ -156,12 +156,8 @@ function SetUpProfile2Business() {
   return (
     <>
       <HeaderSignUp children={undefined} title="Business SignUp" />
-      {message && (
-        <GeneralErrorMessage variant="danger">{message}</GeneralErrorMessage>
-      )}
-      {error && (
-        <GeneralErrorMessage variant="danger">{error}</GeneralErrorMessage>
-      )}
+      {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
+      {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
       <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10">
         <div className="">
           <img src={People}></img>

@@ -9,7 +9,7 @@ import LandingPage from "./componenets/landing-pages-components/LandingPage";
 import ProductsAll from "./componenets/store-components/ProductsAll";
 import ProductsNew from "./componenets/store-components/ProductsNew";
 import ProductsOrders from "./componenets/store-components/ProductsOrders";
-import SingleStoreProduct from "./componenets/store-components/SingleStoreProduct"
+import SingleStoreProduct from "./componenets/store-components/SingleStoreProduct";
 
 import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
 import SetUpProfile1individual from "./sections/SignUp/SetUpProfile-1-individual";
@@ -57,8 +57,9 @@ import BusinessDashboard from "./componenets/dashboard-component/Business-dashbo
 import ErrorPage from "./componenets/ErroPage";
 import UserDashboard from "./componenets/dashboard-component/User-dashboard";
 
-function App() {
+function App(): JSX.Element {
   const [search, setSearch] = useState("");
+  // let { id } = useParams();
 
   return (
     <Router>
@@ -113,7 +114,7 @@ function App() {
           />{" "}
           <Route path="/individualLogin" element={<LoginUser />} />{" "}
           <Route path="/businessLogin" element={<LoginBusiness />} />{" "}
-           <Route path="/store/products/:id" element={<SingleStoreProduct/>} />{" "}
+          <Route path="/store/products/:id" element={<SingleStoreProduct />} />{" "}
           <Route path="/store/products/all" element={<ProductsAll />} />{" "}
           <Route path="/store/products/new" element={<ProductsNew />} />{" "}
           <Route path="/store/products/orders" element={<ProductsOrders />} />{" "}
@@ -146,3 +147,6 @@ function App() {
 }
 
 export default App;
+function props(props: any) {
+  throw new Error("Function not implemented.");
+}

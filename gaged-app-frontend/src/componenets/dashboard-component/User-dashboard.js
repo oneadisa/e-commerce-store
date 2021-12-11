@@ -13,7 +13,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 // import alot from "../../images/alot.png";
 // import { useEffect } from "react";
 
-function UserDashboard({ navigate }) {
+function UserDashboard() {
   // const dispatch = useDispatch();
 
   const signedUpUserLogin = useSelector(

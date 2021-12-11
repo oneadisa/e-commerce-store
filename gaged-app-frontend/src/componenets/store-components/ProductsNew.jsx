@@ -31,13 +31,103 @@ function ProductsNew() {
     productUnitCount: "",
     productSKU: "",
     productImageOne:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      "https://icon-library.com/icon/icon-image-file-29.html.html",
     productImageTwo:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      "https://icon-library.com/icon/icon-image-file-29.html.html",
     productImageThree:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      "https://icon-library.com/icon/icon-image-file-29.html.html",
     category: "",
   });
+
+  const [picMessage, setPicMessage] = useState(null);
+
+  //https://icon-library.com/icon/icon-image-file-18.html.html
+
+  function postFirstImageDetails(pics): any {
+    if (pics === "https://icon-library.com/icon/icon-image-file-29.html.html") {
+      return setPicMessage("Please select at least one image.");
+    }
+    setPicMessage(null);
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "gagedio");
+      data.append("cloud_name", "gaged");
+      fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setProductCredentials.productImageOne(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please select at least one image.");
+    }
+  }
+
+  function postSecondImageDetails(pics): any {
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "gagedio");
+      data.append("cloud_name", "gaged");
+      fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setProductCredentials.productImageTwo(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // return setPicMessage("Please select at least one image.");
+    }
+  }
+
+  function postThirdImageDetails(pics): any {
+    setPicMessage(null);
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "gagedio");
+      data.append("cloud_name", "gaged");
+      fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setProductCredentials.productImageThree(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // return setPicMessage("Please select at least one image.");
+    }
+  }
 
   function handlechange(event) {
     const { value, name } = event.target;
@@ -102,13 +192,13 @@ function ProductsNew() {
       !productCredentials.discountedPrice ||
       !productCredentials.costPrice ||
       !productCredentials.productUnitCount ||
-      // !productCredentials.productImageOne ||
+      !productCredentials.productImageOne ||
       !productCredentials.category
     )
       return;
 
     resetHandler();
-    navigate("/store/products/all"); 
+    navigate("/store/products/all");
   };
 
   useEffect(() => {}, []);
@@ -406,10 +496,15 @@ function ProductsNew() {
                   </div>
                 </div>
               </div>
+              {picMessage && (
+                <GeneralErrorMessage variant="danger">
+                  {picMessage}
+                </GeneralErrorMessage>
+              )}
               <div className="border-2 my-5 lg:w-2/3 px-6 pt-6">
                 <h2 className="text-lg font-medium">Product images</h2>
 
-                <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
+                <div className="flex  bg-grey-lighter">
                   <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                     <svg
                       className="w-8 h-8"
@@ -423,16 +518,15 @@ function ProductsNew() {
                       Select a file
                     </span>
                     <input
-                      onChange={handlechange}
-                      name="productImageOne"
-                      value={productCredentials.productImageOne}
-                      // type="file"
+                      onChange={(e) => postFirstImageDetails(e.target.files[0])}
+                      id="custom-file"
+                      type="file"
                       className="hidden"
                     />
                   </label>
                 </div>
 
-                <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
+                <div className="flex  bg-grey-lighter">
                   <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                     <svg
                       className="w-8 h-8"
@@ -446,16 +540,17 @@ function ProductsNew() {
                       Select a file
                     </span>
                     <input
-                      onChange={handlechange}
-                      name="productImageTwo"
-                      value={productCredentials.productImageTwo}
-                      // type="file"
+                      onChange={(e) =>
+                        postSecondImageDetails(e.target.files[0])
+                      }
+                      id="custom-file"
+                      type="file"
                       className="hidden"
                     />
                   </label>
                 </div>
 
-                <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
+                <div className="flex  bg-grey-lighter">
                   <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                     <svg
                       className="w-8 h-8"
@@ -469,14 +564,14 @@ function ProductsNew() {
                       Select a file
                     </span>
                     <input
-                      onChange={handlechange}
-                      name="productImageThree"
-                      value={productCredentials.productImageThree}
-                      // type="file"
+                      onChange={(e) => postThirdImageDetails(e.target.files[0])}
+                      id="custom-file"
+                      type="file"
                       className="hidden"
                     />
                   </label>
                 </div>
+
                 <button
                   onClick={resetHandler}
                   className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white "
@@ -484,8 +579,8 @@ function ProductsNew() {
                   RESET FIELDS
                 </button>
                 <footer className="text-muted">
-          Creating on - {new Date().toLocaleDateString()}
-        </footer>
+                  Creating on - {new Date().toLocaleDateString()}
+                </footer>
               </div>
             </div>
           </div>

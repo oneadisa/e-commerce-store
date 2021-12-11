@@ -1,4 +1,3 @@
-
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
@@ -10,37 +9,126 @@ import store from "../../images/store.png";
 import settings from "../../images/settings.png";
 import dashboard from "../../images/dashboard.png";
 import campaign from "../../images/campaign.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // import { Fragment } from "react";
 // import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import Loader from "../../componenets/Loader";
 import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
-import { deleteStoreProductAction, updateStoreProductAction } from "../../actions/storeProductsActions";
+import {
+  deleteStoreProductAction,
+  updateStoreProductAction,
+} from "../../actions/storeProductsActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import "./toggle.css";
-function SingleStoreProduct({match}) {
+function SingleStoreProduct() {
   let navigate = useNavigate();
-  const [productCredentials, setProductCredentials] = useState(
-    //   {
-    // productTitle: "",
-    // shortDescription:(),
-    // productDetails:(),
-    // standardPrice:(),
-    // discountedPrice:(),
-    // costPrice:(),
-    // productStockCount:(),
-    // productUnitCount:(),
-    // productSKU:(),
-    // productImageOne:(),
-    // productImageTwo:(),
-    // productImageThree:(),
-    // category:()
-//   }
-  );
+  let params = useParams();
+  const [productCredentials, setProductCredentials] = useState({
+    productTitle: null,
+    shortDescription: null,
+    productDetails: null,
+    standardPrice: null,
+    discountedPrice: null,
+    costPrice: null,
+    productStockCount: null,
+    productUnitCount: null,
+    productSKU: null,
+    productImageOne: null,
+    productImageTwo: null,
+    productImageThree: null,
+    category: null,
+  });
 
   const [date, setDate] = useState("");
+
+  const [picMessage, setPicMessage] = useState(null);
+  //https://icon-library.com/icon/icon-image-file-18.html.html
+  function postFirstImageDetails(pics): any {
+    if (pics === "https://icon-library.com/icon/icon-image-file-29.html.html") {
+      return setPicMessage("Please select at least one image.");
+    }
+    setPicMessage(null);
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "gagedio");
+      data.append("cloud_name", "gaged");
+      fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // setProductCredentials.productImageOne(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please select at least one image.");
+    }
+  }
+  function postSecondImageDetails(pics): any {
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "gagedio");
+      data.append("cloud_name", "gaged");
+      fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // setProductCredentials.productImageTwo(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // return setPicMessage("Please select at least one image.");
+    }
+  }
+  function postThirdImageDetails(pics): any {
+    setPicMessage(null);
+    if (
+      pics.type === "image/jpeg" ||
+      pics.type === "image/png" ||
+      pics.type === "image/jpg"
+    ) {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "gagedio");
+      data.append("cloud_name", "gaged");
+      fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          // setProductCredentials.productImageThree(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      productCredentials.productImageThree();
+      // return setPicMessage("Please select at least one image.");
+    }
+  }
 
   function handlechange(event) {
     const { value, name } = event.target;
@@ -54,47 +142,50 @@ function SingleStoreProduct({match}) {
 
   const dispatch = useDispatch();
 
-
-  const storeProductUpdate = useSelector((state: RootStateOrAny) => state.storeProductUpdate);
+  const storeProductUpdate = useSelector(
+    (state: RootStateOrAny) => state.storeProductUpdate
+  );
   const { loading, error } = storeProductUpdate;
 
-  const storeProductDelete = useSelector((state: RootStateOrAny) => state.storeProductDelete);
+  const storeProductDelete = useSelector(
+    (state: RootStateOrAny) => state.storeProductDelete
+  );
   const { loading: loadingDelete, error: errorDelete } = storeProductDelete;
 
   const deleteHandler = (id) => {
-if (window.confirm("Are you sure?")) {
-dispatch(deleteStoreProductAction(id));
-}
-navigate("/store/products/all");
-};
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteStoreProductAction(id));
+    }
+    navigate("/store/products/all");
+  };
 
- useEffect(() => {
+  useEffect(() => {
     const fetching = async () => {
-      const { data } = await axios.get(`/app/store/products/${match.params.id}`);
+      const { data } = await axios.get(`/app/store/products/${params.id}`);
 
       setProductCredentials({
-  productTitle: data.productTitle,
-  shortDescription: data.shortDescription,
-  productDetails: data.productDetails,
-  standardPrice: data.standardPrice,
-  discountedPrice: data.discountedPrice,
-  costPrice: data.costPrice,
-  productStockCount: data.productStockCount,
-  productUnitCount: data.productUnitCount,
-  productSKU: data.productSKU,
-  productImageOne: data.productImageOne,
-  productImageTwo: data.productImageTwo,
-  productImageThree: data.productImageThree,
-  category: data.category,
-});
+        productTitle: data.productTitle,
+        shortDescription: data.shortDescription,
+        productDetails: data.productDetails,
+        standardPrice: data.standardPrice,
+        discountedPrice: data.discountedPrice,
+        costPrice: data.costPrice,
+        productStockCount: data.productStockCount,
+        productUnitCount: data.productUnitCount,
+        productSKU: data.productSKU,
+        productImageOne: data.productImageOne,
+        productImageTwo: data.productImageTwo,
+        productImageThree: data.productImageThree,
+        category: data.category,
+      });
       setDate(data.updatedAt);
     };
 
     fetching();
-  }, [match.params.id, date]);
+  }, [params.id, date]);
 
-
-//   console.log(storeProduct);
+  //   console.log(storeProduct);
+  //console.log(match.params.id);
 
   const resetHandler = () => {
     setProductCredentials({
@@ -118,7 +209,7 @@ navigate("/store/products/all");
     e.preventDefault();
     dispatch(
       updateStoreProductAction(
-        match.params.id,
+        params.id,
         productCredentials.productTitle,
         productCredentials.shortDescription,
         productCredentials.productDetails,
@@ -142,13 +233,13 @@ navigate("/store/products/all");
       !productCredentials.discountedPrice ||
       !productCredentials.costPrice ||
       !productCredentials.productUnitCount ||
-      // !productCredentials.productImageOne ||
+      !productCredentials.productImageOne ||
       !productCredentials.category
     )
       return;
 
     resetHandler();
-    navigate("/store/products/all"); 
+    navigate("/store/products/all");
   };
 
   useEffect(() => {}, []);
@@ -172,7 +263,9 @@ navigate("/store/products/all");
                 <i className="fas fa-bars"></i>
               )}
             </div>
-            <img src={Logof} className="w-4/5 lg:w-full" />
+            <Link to="/">
+              <img src={Logof} className="w-4/5 lg:w-full" />
+            </Link>
           </div>
           <input
             name=""
@@ -256,10 +349,12 @@ navigate("/store/products/all");
               </button>
             </div>
             {error && (
-  <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
-)}
+              <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
+            )}
             {errorDelete && (
-              <GeneralErrorMessage bg="danger">{errorDelete}</GeneralErrorMessage>
+              <GeneralErrorMessage bg="danger">
+                {errorDelete}
+              </GeneralErrorMessage>
             )}
             {loadingDelete && <Loader />}
             {loading && <Loader />}
@@ -329,7 +424,7 @@ navigate("/store/products/all");
                         {/* </div> */}
                         <div className="pb-5 flex gap-3">
                           <label
-                            for="toggleB"
+                            htmlFor="toggleB"
                             className="flex items-center
                         bg-gray-400 rounded-full shadow border-2
                         border-transparent h-6 w-12 transition duration-200
@@ -450,6 +545,9 @@ navigate("/store/products/all");
                   </div>
                 </div>
               </div>
+              {picMessage && (
+                <GeneralErrorMessage>{picMessage}</GeneralErrorMessage>
+              )}
               <div className="border-2 my-5 lg:w-2/3 px-6 pt-6">
                 <h2 className="text-lg font-medium">Product images</h2>
 
@@ -467,16 +565,15 @@ navigate("/store/products/all");
                       Select a file
                     </span>
                     <input
-                      onChange={handlechange}
-                      name="productImageOne"
-                      value={productCredentials.productImageOne}
-                      // type="file"
+                      onChange={(e) => postFirstImageDetails(e.target.files[0])}
+                      id="custom-file"
+                      type="file"
                       className="hidden"
                     />
                   </label>
                 </div>
 
-                <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
+                <div className="flex  bg-grey-lighter">
                   <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                     <svg
                       className="w-8 h-8"
@@ -490,16 +587,17 @@ navigate("/store/products/all");
                       Select a file
                     </span>
                     <input
-                      onChange={handlechange}
-                      name="productImageTwo"
-                      value={productCredentials.productImageTwo}
-                      // type="file"
+                      onChange={(e) =>
+                        postSecondImageDetails(e.target.files[0])
+                      }
+                      id="custom-file"
+                      type="file"
                       className="hidden"
                     />
                   </label>
                 </div>
 
-                <div className="flex w-full h-screen items-center justify-center bg-grey-lighter">
+                <div className="flex bg-grey-lighter">
                   <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                     <svg
                       className="w-8 h-8"
@@ -513,10 +611,9 @@ navigate("/store/products/all");
                       Select a file
                     </span>
                     <input
-                      onChange={handlechange}
-                      name="productImageThree"
-                      value={productCredentials.productImageThree}
-                      // type="file"
+                      onChange={(e) => postThirdImageDetails(e.target.files[0])}
+                      id="custom-file"
+                      type="file"
                       className="hidden"
                     />
                   </label>
@@ -528,14 +625,14 @@ navigate("/store/products/all");
                   RESET FIELDS
                 </button>
                 <button
-  onClick={() => deleteHandler(match.params.id)}
-  className="border py-2 px-2 bg-white text-red hover:bg-Dark-red hover:text-white "
->
-  D
-</button>
-                          <footer className="text-muted">
-    Updating on - {date.substring(0, 10)}
-  </footer>
+                  onClick={() => deleteHandler(params.id)}
+                  className="border py-2 px-2 bg-white text-red hover:bg-Dark-red hover:text-white "
+                >
+                  DELETE
+                </button>
+                <footer className="text-muted">
+                  Last Updated on - {date.substring(0, 10)}
+                </footer>
               </div>
             </div>
           </div>
