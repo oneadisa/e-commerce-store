@@ -9,6 +9,7 @@ import LandingPage from "./componenets/landing-pages-components/LandingPage";
 import ProductsAll from "./componenets/store-components/ProductsAll";
 import ProductsNew from "./componenets/store-components/ProductsNew";
 import ProductsOrders from "./componenets/store-components/ProductsOrders";
+import SingleStoreProduct from "./componenets/store-components/SingleStoreProduct"
 
 import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
 import SetUpProfile1individual from "./sections/SignUp/SetUpProfile-1-individual";
@@ -41,6 +42,14 @@ import Lenders from "./componenets/managecampaign-component/Lenders";
 import OverviewDonation from "./componenets/managecampaign-component/OverviewDonation";
 import OverviewEquity from "./componenets/managecampaign-component/OverviewEquity";
 import OverviewLoan from "./componenets/managecampaign-component/OverviewLoan";
+
+import Demographics from "./componenets/addnew-campaign-component/Demographics";
+import Finance from "./componenets/addnew-campaign-component/Finance";
+import Organisation from "./componenets/addnew-campaign-component/Organisation";
+import Review from "./componenets/addnew-campaign-component/Review";
+import SetSchedule from "./componenets/addnew-campaign-component/SetSchedule";
+import Target from "./componenets/addnew-campaign-component/Target";
+import TargetII from "./componenets/addnew-campaign-component/TargetII";
 
 import Cart from "./componenets/cart-component/Cart";
 import BusinessDashboard from "./componenets/dashboard-component/Business-dashboard";
@@ -104,6 +113,7 @@ function App() {
           />{" "}
           <Route path="/individualLogin" element={<LoginUser />} />{" "}
           <Route path="/businessLogin" element={<LoginBusiness />} />{" "}
+           <Route path="/store/products/:id" element={<SingleStoreProduct/>} />{" "}
           <Route path="/store/products/all" element={<ProductsAll />} />{" "}
           <Route path="/store/products/new" element={<ProductsNew />} />{" "}
           <Route path="/store/products/orders" element={<ProductsOrders />} />{" "}
@@ -121,6 +131,13 @@ function App() {
           <Route path="/campaigns/all" element={<Campaign1 />} />{" "}
           <Route path="/campaigns/live" element={<Campaign2 />} />{" "}
           <Route path="/campaigns/completed" element={<Campaign3 />} />{" "}
+          <Route path="/new-campaign/demographics" element={<Demographics />} />{" "}
+          <Route path="/new-campaign/finance" element={<Finance />} />{" "}
+          <Route path="/new-campaign/organisation" element={<Organisation />} />{" "}
+          <Route path="/new-campaign/review" element={<Review />} />{" "}
+          <Route path="/new-campaign/set-schedule" element={<SetSchedule />} />{" "}
+          <Route path="/new-campaign/target" element={<Target />} />{" "}
+          <Route path="/new-campaign/target-II" element={<TargetII />} />{" "}
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>{" "}
       </div>{" "}

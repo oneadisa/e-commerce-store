@@ -33,8 +33,8 @@ const CreateStoreProduct = asyncHandler(async (req, res) => {
     !standardPrice ||
     !discountedPrice ||
     !productStockCount ||
-    !productUnitCount ||
-    !productImageOne
+    !productUnitCount 
+    // || !productImageOne
   ) {
     res.status(400);
     throw new Error("Please fill all required feilds");

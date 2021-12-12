@@ -1,3 +1,4 @@
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
@@ -13,31 +14,33 @@ import { Link, useNavigate } from "react-router-dom";
 // import { Fragment } from "react";
 // import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
+import axios from "axios";
 import Loader from "../../componenets/Loader";
 import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
-import { createStoreProductAction } from "../../actions/storeProductsActions";
+import { deleteStoreProductAction, updateStoreProductAction } from "../../actions/storeProductsActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import "./toggle.css";
-function ProductsNew() {
+function SingleStoreProduct({match}) {
   let navigate = useNavigate();
-  const [productCredentials, setProductCredentials] = useState({
-    productTitle: "",
-    shortDescription: "",
-    productDetails: "",
-    standardPrice: "",
-    discountedPrice: "",
-    costPrice: "",
-    productStockCount: "",
-    productUnitCount: "",
-    productSKU: "",
-    productImageOne:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
-    productImageTwo:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
-    productImageThree:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
-    category: "",
-  });
+  const [productCredentials, setProductCredentials] = useState(
+    //   {
+    // productTitle: "",
+    // shortDescription:(),
+    // productDetails:(),
+    // standardPrice:(),
+    // discountedPrice:(),
+    // costPrice:(),
+    // productStockCount:(),
+    // productUnitCount:(),
+    // productSKU:(),
+    // productImageOne:(),
+    // productImageTwo:(),
+    // productImageThree:(),
+    // category:()
+//   }
+  );
+
+  const [date, setDate] = useState("");
 
   function handlechange(event) {
     const { value, name } = event.target;
@@ -50,12 +53,48 @@ function ProductsNew() {
   }
 
   const dispatch = useDispatch();
-  const storeProductCreate = useSelector(
-    (state: RootStateOrAny) => state.storeProductCreate
-  );
-  const { loading, error, storeProduct } = storeProductCreate;
 
-  console.log(storeProduct);
+
+  const storeProductUpdate = useSelector((state: RootStateOrAny) => state.storeProductUpdate);
+  const { loading, error } = storeProductUpdate;
+
+  const storeProductDelete = useSelector((state: RootStateOrAny) => state.storeProductDelete);
+  const { loading: loadingDelete, error: errorDelete } = storeProductDelete;
+
+  const deleteHandler = (id) => {
+if (window.confirm("Are you sure?")) {
+dispatch(deleteStoreProductAction(id));
+}
+navigate("/store/products/all");
+};
+
+ useEffect(() => {
+    const fetching = async () => {
+      const { data } = await axios.get(`/app/store/products/${match.params.id}`);
+
+      setProductCredentials({
+  productTitle: data.productTitle,
+  shortDescription: data.shortDescription,
+  productDetails: data.productDetails,
+  standardPrice: data.standardPrice,
+  discountedPrice: data.discountedPrice,
+  costPrice: data.costPrice,
+  productStockCount: data.productStockCount,
+  productUnitCount: data.productUnitCount,
+  productSKU: data.productSKU,
+  productImageOne: data.productImageOne,
+  productImageTwo: data.productImageTwo,
+  productImageThree: data.productImageThree,
+  category: data.category,
+});
+      setDate(data.updatedAt);
+    };
+
+    fetching();
+  }, [match.params.id, date]);
+
+
+//   console.log(storeProduct);
 
   const resetHandler = () => {
     setProductCredentials({
@@ -75,10 +114,11 @@ function ProductsNew() {
     });
   };
 
-  const submitHandler = (e) => {
+  const updateHandler = (e) => {
     e.preventDefault();
     dispatch(
-      createStoreProductAction(
+      updateStoreProductAction(
+        match.params.id,
         productCredentials.productTitle,
         productCredentials.shortDescription,
         productCredentials.productDetails,
@@ -216,8 +256,12 @@ function ProductsNew() {
               </button>
             </div>
             {error && (
-              <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
+  <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
+)}
+            {errorDelete && (
+              <GeneralErrorMessage bg="danger">{errorDelete}</GeneralErrorMessage>
             )}
+            {loadingDelete && <Loader />}
             {loading && <Loader />}
             <div className="px-3 lg:px-8 py-0 lg:py-5 mt-4 lg:mt-10 bg-white">
               <h2 className="text-lg font-medium">New Product</h2>
@@ -313,7 +357,7 @@ function ProductsNew() {
                           Preview
                         </button>
                         <button
-                          onClick={submitHandler}
+                          onClick={updateHandler}
                           className="border py-2 px-2 bg-Dark-blue text-white hover:bg-white hover:text-Dark-blue"
                         >
                           Save product
@@ -483,9 +527,15 @@ function ProductsNew() {
                 >
                   RESET FIELDS
                 </button>
-                <footer className="text-muted">
-          Creating on - {new Date().toLocaleDateString()}
-        </footer>
+                <button
+  onClick={() => deleteHandler(match.params.id)}
+  className="border py-2 px-2 bg-white text-red hover:bg-Dark-red hover:text-white "
+>
+  D
+</button>
+                          <footer className="text-muted">
+    Updating on - {date.substring(0, 10)}
+  </footer>
               </div>
             </div>
           </div>
@@ -495,4 +545,4 @@ function ProductsNew() {
   );
 }
 
-export default ProductsNew;
+export default SingleStoreProduct;

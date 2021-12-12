@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
-import { Accordion, Badge, Button, Card } from "react-bootstrap";
+// import { Accordion, Badge, Button, Card } from "react-bootstrap";
+import {Button} from 'react-bootstrap'
 import Logof from "../../images/logo-footer.jpg";
 import analytics from "../../images/analytics.png";
 import wallet from "../../images/wallet.png";
@@ -11,7 +12,7 @@ import dashboard from "../../images/dashboard.png";
 import campaign from "../../images/campaign.png";
 import Loader from "../../componenets/Loader";
 import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,7 @@ import {
   deleteStoreProductAction,
 } from "../../actions/storeProductsActions";
 
-function ProductsAll({ search }) {
+function ProductsAll() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -70,9 +71,9 @@ function ProductsAll({ search }) {
   ]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteStoreProductAction(id));
-    }
+  if (window.confirm("Are you sure?")) {
+  dispatch(deleteStoreProductAction(id));
+  }
   };
 
   const [open, setOpen] = useState(false);
@@ -204,82 +205,46 @@ function ProductsAll({ search }) {
                 <p className="border-b border-black lg:border-0 py-2">STOCK</p>
                 <p className="border-b border-black lg:border-0 py-2">PRICE</p>
                 <p className="border-b border-black lg:border-0 py-2">STATUS</p>
-                <p className="border-b border-black lg:border-0 py-2">ACTION</p>
-                {storeProducts
-                  ? storeProducts
-                      // &&
-                      // storeProducts
-                      // .filter((filteredstoreProduct) =>
-                      // filteredstoreProduct.productTitle
-                      // .toLowerCase()
-                      // .includes(search.toLowerCase())
-                      // )
-                      // .reverse()
-                      .map((storeProduct) => (
-                        <Accordion>
-                          <Card style={{ margin: 10 }} key={storeProduct._id}>
-                            <Card.Header style={{ display: "flex" }}>
-                              <span
-                                // onClick={() => ModelShow(storeProduct)}
-                                style={{
-                                  color: "black",
-                                  textDecoration: "none",
-                                  flex: 1,
-                                  cursor: "pointer",
-                                  alignSelf: "center",
-                                  fontSize: 18,
-                                }}
-                              >
-                                <Accordion.Collapse
-                                  as={Card.Text}
-                                  bg="link"
-                                  eventKey="0"
-                                >
-                                  {storeProduct.Productitle}
-                                </Accordion.Collapse>
-                              </span>
-
-                              <div>
-                                <Button
-                                  href={`/store/products/${storeProduct._id}`}
-                                >
-                                  Edit
-                                </Button>
-                                <Button
-                                  variant="danger"
-                                  className="mx-2"
-                                  onClick={() =>
-                                    deleteHandler(storeProduct._id)
-                                  }
-                                >
-                                  Delete
-                                </Button>
-                              </div>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey="0">
-                              <Card.Body>
-                                <h4>
-                                  <Badge bg="success">
-                                    Category - {storeProduct.category}
-                                  </Badge>
-                                </h4>
-                                <blockquote className="blockquote mb-0">
-                                  <ReactMarkdown>
-                                    {storeProduct.content}
-                                  </ReactMarkdown>
-                                  <footer className="blockquote-footer">
-                                    Created on{" "}
-                                    <cite title="Source Title">
-                                      {storeProduct.createdAt.substring(0, 10)}
-                                    </cite>
-                                  </footer>
-                                </blockquote>
-                              </Card.Body>
-                            </Accordion.Collapse>
-                          </Card>
-                        </Accordion>
-                      ))
-                  : ""}
+                <p className="border-b border-black lg:border-0 py-2">
+                  ACTION
+                </p>{" "}
+              </div>
+              <div>
+                {storeProducts?.reverse().map((storeProduct) => (
+                  <>
+                    <div key={storeProduct._id}>
+                      <p>{storeProduct.productTitle}</p>
+                      <p>{storeProduct.shortDescription}</p>
+                      <p>{storeProduct.productDetails}</p>
+                      <p>{storeProduct.standardPrice}</p>
+                      <p>{storeProduct.discountedPrice}</p>
+                      <p>{storeProduct.costPrice}</p>
+                      <p>{storeProduct.productStockCount}</p>
+                      <p>{storeProduct.productUnitCount}</p>
+                      <p>{storeProduct.productSKU}</p>
+                      <p>{storeProduct.productImageOne}</p>
+                      <p>{storeProduct.productImageTwo}</p>
+                      <p>{storeProduct.productImageThree}</p>
+                      <p>{storeProduct.category}</p>
+                      <div>
+                    <Button href={`/store/products/${storeProduct._id}`}>Edit</Button>
+                    <Button
+                      variant="danger"
+                      className="mx-2"
+                      onClick={() => deleteHandler(storeProduct._id)}
+                    >
+                      Delete
+                    </Button>
+                    <footer className="blockquote-footer">
+                        Created on{" "}
+                        <cite title="Source Title">
+                          {storeProduct.createdAt.substring(0, 10)}
+                        </cite>
+                      </footer>
+                  </div>
+                    </div>
+                  </>
+                ))}
               </div>
             </div>
           </div>
@@ -290,3 +255,14 @@ function ProductsAll({ search }) {
 }
 
 export default ProductsAll;
+
+// &&
+// storeProducts
+// .filter((filteredstoreProduct) =>
+// filteredstoreProduct.productTitle
+// .toLowerCase()
+// .includes(search.toLowerCase())
+// )
+// .reverse()
+
+

@@ -45,7 +45,7 @@ const storeProductSchema = new mongoose.Schema(
     },
     productImageOne: {
       type: String,
-      required: true,
+      required: false,
       default:
         "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
     },
