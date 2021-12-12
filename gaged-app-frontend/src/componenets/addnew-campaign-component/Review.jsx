@@ -17,6 +17,7 @@ function Review() {
         setOpen(!open);
     };
 
+
     return (
         <div className="mx-auto">
             <head className="flex justify-between bg-medium-blue px-2 md:px-4 lg:px-4 py-2">
