@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logof from "../../images/logo-footer.jpg";
 import analytics from "../../images/analytics.png";
 import wallet from "../../images/wallet.png";
@@ -9,7 +9,6 @@ import dashboard from "../../images/dashboard.png";
 import campaign from "../../images/campaign.png";
 import Mainscreen from "../Mainscreen";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 // import vibe from "../../images/vibe.png";
 // import password from "../../images/password.png";
 // import alot from "../../images/alot.png";
@@ -18,12 +17,16 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
+import { useDispatch, useSelector } from "react-redux";
+import {} from "react-router-dom";
+import { logout } from "../../actions/businessActions";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function BusinessDashboard() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   const signedUpBusinessLogin = useSelector(
@@ -35,6 +38,13 @@ function BusinessDashboard() {
   // if (!signedUpBusinessInfo) {
   // }
   // }, [dispatch, navigate, signedUpBusinessInfo]);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
+  useEffect(() => {}, [signedUpBusinessInfo]);
 
   const [open, setOpen] = useState(false);
 
@@ -147,10 +157,7 @@ function BusinessDashboard() {
                               : "text-gray-700",
                             "block w-full text-left px-4 py-2 text-sm"
                           )}
-                          onClick={() => {
-                            localStorage.removeItem("signedUpBusinessInfo");
-                            navigate("/");
-                          }}
+                          onClick={logoutHandler}
                         >
                           Log out
                         </button>
