@@ -5,14 +5,14 @@ import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
 import { Link } from "react-router-dom";
 
-function Demographics() {
+function Demographics({handleNav}) {
 
   return (
     <div className="mx-auto">
-      <Header />
+      <Header handleNav={handleNav} />
       <div className="lg:bg-magenta-blue lg:px-4">
         <div className="block lg:flex lg:space-x-32">
-          <DashboardCamp />
+          <DashboardCamp handleNav={handleNav} />
           <div className="bg-white lg:mt-3 lg:mb-8 pb-24 lg:w-3/4">
             <div className="flex flex-col px-2 md:px-4 py-2">
               <h2 className="text-lg font-semibold">2 of 6</h2>

@@ -4,6 +4,7 @@ import file from "../../images/file.png";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
 import { Link } from "react-router-dom";
+import { Dropdown } from 'semantic-ui-react'
 
 function Organisation() {
 
@@ -168,10 +169,25 @@ function Organisation() {
                       </label>
                       <div className="flex">
                         <div className="flex gap-1 items-center border-2 border-gray-400 border-r px-2">
-                          <h6 className="text-base text-gray-400 font-medium">
+                          {/* <h6 className="text-base text-gray-400 font-medium">
                             +234
                           </h6>
-                          <img alt="" src={down} />
+                          <img alt="" src={down} /> */}
+                          <Dropdown text='+234'>
+                            <Dropdown.Menu>
+                              <Dropdown.Item text='New' />
+                              <Dropdown.Item text='Open...' description='ctrl + o' />
+                              <Dropdown.Item text='Save as...' description='ctrl + s' />
+                              <Dropdown.Item text='Rename' description='ctrl + r' />
+                              <Dropdown.Item text='Make a copy' />
+                              <Dropdown.Item icon='folder' text='Move to folder' />
+                              <Dropdown.Item icon='trash' text='Move to trash' />
+                              <Dropdown.Divider />
+                              <Dropdown.Item text='Download As...' />
+                              <Dropdown.Item text='Publish To Web' />
+                              <Dropdown.Item text='E-mail Collaborators' />
+                            </Dropdown.Menu>
+                          </Dropdown>
                         </div>
                         <input className="border-2 border-l border-gray-400 h-10 w-full pl-3 outline-none" />
                       </div>
