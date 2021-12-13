@@ -8,7 +8,7 @@ import settings from "../../images/settings.png";
 import dashboard from "../../images/dashboard.png";
 import campaign from "../../images/campaign.png";
 import Mainscreen from "../Mainscreen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import vibe from "../../images/vibe.png";
 // import password from "../../images/password.png";
@@ -22,8 +22,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function BusinessDashboard({ navigate }) {
+function BusinessDashboard() {
   // const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const signedUpBusinessLogin = useSelector(
     (state) => state.signedUpBusinessLogin
@@ -146,8 +147,12 @@ function BusinessDashboard({ navigate }) {
                               : "text-gray-700",
                             "block w-full text-left px-4 py-2 text-sm"
                           )}
+                          onClick={() => {
+                            localStorage.removeItem("signedUpBusinessInfo");
+                            navigate("/");
+                          }}
                         >
-                          Sign out
+                          Log out
                         </button>
                       )}
                     </Menu.Item>

@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
 // import { Accordion, Badge, Button, Card } from "react-bootstrap";
-import {Button} from 'react-bootstrap'
+import { Button } from "react-bootstrap";
 import Logof from "../../images/logo-footer.jpg";
 import analytics from "../../images/analytics.png";
 import wallet from "../../images/wallet.png";
@@ -71,10 +71,13 @@ function ProductsAll() {
   ]);
 
   const deleteHandler = (id) => {
-  if (window.confirm("Are you sure?")) {
-  dispatch(deleteStoreProductAction(id));
-  }
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteStoreProductAction(id));
+    }
   };
+
+  const [search, setSearch] = useState("");
+  console.log(search);
 
   const [open, setOpen] = useState(false);
 
@@ -96,7 +99,11 @@ function ProductsAll() {
             </div>
             <img src={Logof} className="w-4/5 lg:w-full" />
           </div>
-          <input className="w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5" />
+          <input
+            placeHolder="Search Product Titles"
+            className="w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5"
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className="flex gap-2 lg:gap-10 lg:pr-28 ml-auto">
           <div>
@@ -210,41 +217,50 @@ function ProductsAll() {
                 </p>{" "}
               </div>
               <div>
-                {storeProducts?.reverse().map((storeProduct) => (
-                  <>
-                    <div key={storeProduct._id}>
-                      <p>{storeProduct.productTitle}</p>
-                      <p>{storeProduct.shortDescription}</p>
-                      <p>{storeProduct.productDetails}</p>
-                      <p>{storeProduct.standardPrice}</p>
-                      <p>{storeProduct.discountedPrice}</p>
-                      <p>{storeProduct.costPrice}</p>
-                      <p>{storeProduct.productStockCount}</p>
-                      <p>{storeProduct.productUnitCount}</p>
-                      <p>{storeProduct.productSKU}</p>
-                      <p>{storeProduct.productImageOne}</p>
-                      <p>{storeProduct.productImageTwo}</p>
-                      <p>{storeProduct.productImageThree}</p>
-                      <p>{storeProduct.category}</p>
-                      <div>
-                    <Button href={`/store/products/${storeProduct._id}`}>Edit</Button>
-                    <Button
-                      variant="danger"
-                      className="mx-2"
-                      onClick={() => deleteHandler(storeProduct._id)}
-                    >
-                      Delete
-                    </Button>
-                    <footer className="blockquote-footer">
-                        Created on{" "}
-                        <cite title="Source Title">
-                          {storeProduct.createdAt.substring(0, 10)}
-                        </cite>
-                      </footer>
-                  </div>
-                    </div>
-                  </>
-                ))}
+                {storeProducts
+                  ?.reverse()
+                  .filter((filteredstoreProduct) =>
+                    filteredstoreProduct.productTitle
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
+                  )
+                  .map((storeProduct) => (
+                    <>
+                      <div key={storeProduct._id}>
+                        <p>{storeProduct.productTitle}</p>
+                        <p>{storeProduct.shortDescription}</p>
+                        <p>{storeProduct.productDetails}</p>
+                        <p>{storeProduct.standardPrice}</p>
+                        <p>{storeProduct.discountedPrice}</p>
+                        <p>{storeProduct.costPrice}</p>
+                        <p>{storeProduct.productStockCount}</p>
+                        <p>{storeProduct.productUnitCount}</p>
+                        <p>{storeProduct.productSKU}</p>
+                        <p>{storeProduct.productImageOne}</p>
+                        <p>{storeProduct.productImageTwo}</p>
+                        <p>{storeProduct.productImageThree}</p>
+                        <p>{storeProduct.category}</p>
+                        <div>
+                          <a href={"/store/products/" + storeProduct._id}>
+                            Edit
+                          </a>
+                          <Button
+                            variant="danger"
+                            className="mx-2"
+                            onClick={() => deleteHandler(storeProduct._id)}
+                          >
+                            Delete
+                          </Button>
+                          <footer className="blockquote-footer">
+                            Created on{" "}
+                            <cite title="Source Title">
+                              {storeProduct.createdAt.substring(0, 10)}
+                            </cite>
+                          </footer>
+                        </div>
+                      </div>
+                    </>
+                  ))}
               </div>
             </div>
           </div>
@@ -264,5 +280,3 @@ export default ProductsAll;
 // .includes(search.toLowerCase())
 // )
 // .reverse()
-
-
