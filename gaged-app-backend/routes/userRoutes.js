@@ -7,13 +7,16 @@ const { registerUser, authUser } = require("../controllers/userController");
 const {
   registerBusiness,
   authBusiness,
+  updateBusinessProfile,
 } = require("../controllers/businessController");
+const { protect } = require("../middlewares/authMiddleware");
 
 router.route("/signup/2/individual").post(registerUser);
 router.route("/loginUser").post(authUser);
 
 router.route("/signUp/2/business").post(registerBusiness);
 router.route("/loginBusiness").post(authBusiness);
+router.route("/profile/business").post(protect, updateBusinessProfile);
 
 // router.post('/signup/2/individual', async(req, res) => {
 //

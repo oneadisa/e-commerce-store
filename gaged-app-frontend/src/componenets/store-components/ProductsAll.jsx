@@ -85,6 +85,10 @@ function ProductsAll() {
     setOpen(!open);
   };
 
+  // photos.forEach((photo, index) => {
+  // photo.serial = index + 1;
+  // });
+
   return (
     <div className="mx-auto">
       <head className="flex justify-between bg-medium-blue px-2 lg:px-5 py-2">

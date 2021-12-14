@@ -23,6 +23,14 @@ const registerBusiness = asyncHandler(async (req, res) => {
     password,
     pic,
     isAdmin,
+    meansOfID,
+    IDpic,
+    regNum,
+    natureOfBusiness,
+    businessEmail,
+    businessAddress,
+    cacCertificate,
+    formCO7,
   } = req.body;
 
   const userExists = await signedUpBusiness.findOne({ email });
@@ -39,6 +47,14 @@ const registerBusiness = asyncHandler(async (req, res) => {
     password,
     isAdmin,
     pic,
+    meansOfID,
+    IDpic,
+    regNum,
+    natureOfBusiness,
+    businessEmail,
+    businessAddress,
+    cacCertificate,
+    formCO7,
   });
   if (user) {
     res.status(201).json({
@@ -50,6 +66,14 @@ const registerBusiness = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       pic: user.pic,
       token: generateToken(user._id),
+      meansOfID: user.meansOfID,
+      IDpic: user.IDpic,
+      regNum: user.regNum,
+      natureOfBusiness: user.natureOfBusiness,
+      businessEmail: user.businessEmail,
+      businessAddress: user.businessAddress,
+      cacCertificate: user.cacCertificate,
+      formCO7: user.formCO7,
     });
   } else {
     res.status(400);
@@ -81,6 +105,14 @@ const authBusiness = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       pic: user.pic,
       token: generateToken(user._id),
+      meansOfID: user.meansOfID,
+      IDpic: user.IDpic,
+      regNum: user.regNum,
+      natureOfBusiness: user.natureOfBusiness,
+      businessEmail: user.businessEmail,
+      businessAddress: user.businessAddress,
+      cacCertificate: user.cacCertificate,
+      formCO7: user.formCO7,
     });
   } else {
     res.status(400);
@@ -89,3 +121,53 @@ const authBusiness = asyncHandler(async (req, res) => {
 });
 
 module.exports = { registerBusiness, authBusiness };
+
+const updateBusinessProfile = asyncHandler(async (req, res) => {
+  const user = await signedUpBusiness.findById(req.user._id);
+
+  if (user) {
+    user.businessName = req.body.businessName || user.businessName;
+    user.accountHolderName =
+      req.body.accountHolderName || user.accountHolderName;
+    user.email = req.body.email || user.email;
+    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+    user.pic = req.body.pic || user.pic;
+    user.meansOfID = req.body.meansOfID || user.meansOfID;
+    user.IDpic = req.body.IDpic || user.IDpic;
+    user.regNum = req.body.regNum || user.regNum;
+    user.natureOfBusiness = req.body.natureOfBusiness || user.natureOfBusiness;
+    user.businessEmail = req.body.businessEmail || user.businessEmail;
+    user.businessAddress = req.body.businessAddress || user.businessAddress;
+    user.cacCertificate = req.body.cacCertificate || user.cacCertificate;
+    user.formCO7 = req.body.formCO7 || user.formCO7;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedBusiness = await user.save();
+
+    res.json({
+      _id: updatedBusiness._id,
+      businessName: updatedBusiness.businessName,
+      accountHolderName: updatedBusiness.accountHolderName,
+      phoneNumber: updatedBusiness.phoneNumber,
+      email: updatedBusiness.email,
+      pic: updatedBusiness.pic,
+      isAdmin: updatedBusiness.isAdmin,
+      token: generateToken(updatedBusiness._id),
+      meansOfID: updatedBusiness.meansOfID,
+      IDpic: updatedBusiness.IDpic,
+      regNum: updatedBusiness.regNum,
+      natureOfBusiness: updatedBusiness.natureOfBusiness,
+      businessEmail: updatedBusiness.businessEmail,
+      businessAddress: updatedBusiness.businessAddress,
+      cacCertificate: updatedBusiness.cacCertificate,
+      formCO7: updatedBusiness.formCO7,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
+});
+
+module.exports = { registerBusiness, authBusiness, updateBusinessProfile };

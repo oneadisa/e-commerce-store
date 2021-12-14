@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function SignUpGeneral() {
   return (
     <>
-      <HeaderSignUp />
+      <HeaderSignUp children={undefined} title={undefined} />
       <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
         <div className="">
           <img src={People} />
