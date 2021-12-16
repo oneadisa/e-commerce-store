@@ -5,6 +5,7 @@ import App from "./App";
 // import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./store";
+// import "semantic-ui-css/semantic.min.css";
 // import Organisaction from "./componenets/addnew-campaign-component/Organisation";
 // import Demographics from "./componenets/addnew-campaign-component/Demographics";
 // import Target from "./componenets/addnew-campaign-component/Target";

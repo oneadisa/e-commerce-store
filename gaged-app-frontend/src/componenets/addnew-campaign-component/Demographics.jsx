@@ -1,14 +1,22 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import left from "../../images/left.svg";
 import right from "../../images/right.svg";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 function Demographics() {
+<<<<<<< HEAD
 
   const [open, setOpen] = useState(false);
 
+=======
+  const [open, setOpen] = useState(false);
+  const handleNav = () => {
+    setOpen(!open);
+  };
+>>>>>>> main
   return (
     <div className="mx-auto">
       <Header 

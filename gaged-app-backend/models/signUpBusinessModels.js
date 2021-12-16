@@ -33,6 +33,75 @@ const signUpBusinessTemplate = new mongoose.Schema({
     default:
       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
   },
+  meansOfID: {
+    type: String,
+    required: false,
+  },
+  IDpic: {
+    type: String,
+    required: false,
+    default:
+      "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+  },
+  regNum: {
+    type: String,
+    required: false,
+  },
+  natureOfBusiness: {
+    type: String,
+    required: false,
+  },
+  businessEmail: {
+    type: String,
+    required: false,
+  },
+  businessAddress: {
+    type: String,
+    required: false,
+  },
+  cacCertificate: {
+    type: String,
+    required: false,
+    default: "https://icon-library.com/icon/icon-image-file-18.html.html",
+  },
+  formCO7: {
+    type: String,
+    required: false,
+    default: "https://icon-library.com/icon/icon-image-file-18.html.html",
+  },
+  bank: {
+    type: String,
+    required: false,
+  },
+  bankAccountName: {
+    type: String,
+    required: false,
+  },
+  bankAccountNumber: {
+    type: String,
+    required: false,
+  },
+  storeName: {
+    type: String,
+    required: false,
+  },
+  storeTagline: {
+    type: String,
+    required: false,
+  },
+  storeDescription: {
+    type: String,
+    required: false,
+  },
+  storeLink: {
+    type: String,
+    required: false,
+  },
+  storeLogo: {
+    type: String,
+    required: false,
+  },
+
   date: {
     type: Date,
     default: Date.now,

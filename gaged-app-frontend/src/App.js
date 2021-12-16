@@ -147,6 +147,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-function props(props: any) {
-  throw new Error("Function not implemented.");
-}

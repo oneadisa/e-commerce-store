@@ -77,6 +77,10 @@ function ProductsAll() {
   const [open, setOpen] = useState(false);
 
 
+  // photos.forEach((photo, index) => {
+  // photo.serial = index + 1;
+  // });
+
   return (
     <div className="mx-auto">
       <Header 

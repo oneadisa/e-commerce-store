@@ -85,3 +85,8 @@ storeProductSchema.plugin(mongooseSerial, {
 });
 
 module.exports = StoreProduct;
+
+// {
+//  name: '#',
+//  selector: 'serial'
+// }
