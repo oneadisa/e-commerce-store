@@ -46,23 +46,44 @@ const storeProductSchema = new mongoose.Schema(
     productImageOne: {
       type: String,
       required: false,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     productImageTwo: {
       type: String,
       required: false,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     productImageThree: {
       type: String,
       required: false,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     category: {
       type: String,
+      required: true,
+    },
+    review: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: String,
+      required: true,
+    },
+    numberOfOrders: {
+      type: String,
+      required: true,
+    },
+    customerNameList: {
+      type: Array,
+      required: true,
+    },
+    customerPhoneNumberList: {
+      type: Array,
+      required: true,
+    },
+    customerEmailList: {
+      type: Array,
       required: true,
     },
     user: {

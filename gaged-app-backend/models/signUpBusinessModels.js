@@ -100,8 +100,65 @@ const signUpBusinessTemplate = new mongoose.Schema({
   storeLogo: {
     type: String,
     required: false,
+    default: "https://icon-library.com/icon/icon-image-file-18.html.html",
+  },
+  totalNumberOfCampaigns: {
+    type: Number,
+    required: false,
+  },
+  listOfCampaigns: {
+    type: Array,
+    required: false,
   },
 
+  totalAmountRaised: {
+    type: Number,
+    required: false,
+  },
+  averageRaised: {
+    type: Number,
+    required: false,
+  },
+  numberOfInvestors: {
+    type: Number,
+    required: false,
+  },
+  listOfInvestors: {
+    type: Array,
+    required: false,
+  },
+  walletBalance: {
+    type: Number,
+    required: false,
+  },
+  totalSales: {
+    type: Number,
+    required: false,
+  },
+  totalRevenue: {
+    type: Number,
+    required: false,
+  },
+  totalProductNumber: {
+    type: Number,
+    required: false,
+  },
+  businessOrderedFrom: {
+    type: Array,
+    required: false,
+  },
+  numberOfOrderRequests: {
+    type: Number,
+    required: false,
+  },
+  quantityOfOrders: {
+    type: Number,
+    required: false,
+  },
+  paymentMethod: {
+    type: Array,
+    required: false,
+  },
   date: {
     type: Date,
     default: Date.now,
