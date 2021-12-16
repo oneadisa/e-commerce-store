@@ -2,94 +2,30 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import Logof from "../../images/logo-footer.jpg";
 import alot from "../../images/alot.png";
-import wallet from "../../images/wallet.png";
 import vibe from "../../images/vibe.png";
 import password from "../../images/password.png";
-import settings from "../../images/settings.png";
-import dashboard from "../../images/dashboard.png";
-import campaign from "../../images/campaign.png";
-import store from "../../images/store.png";
-import analytics from "../../images/analytics.png";
+import Header from "../addnew-campaign-component/Header";
+import DashBoard from "./DashBoard";
 
 function Campaigns() {
-  const [open, setOpen] = useState(false);
-  const [enabled, setEnabled] = useState(false);
 
-  const handleNav = () => {
-    setOpen(!open);
-  };
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="mx-auto">
-      <head className="flex justify-between bg-medium-blue px-2 lg:px-5 py-2">
-        <div className="flex space-x-5 lg:space-x-40 h-10">
-          <div className="flex">
-            <div className="text-2xl lg:hidden text-white" onClick={handleNav}>
-              {open === true ? (
-                <i class="fas fa-times"></i>
-              ) : (
-                <i class="fas fa-bars"></i>
-              )}
-            </div>
-            <img alt="" src={Logof} className="w-4/5 lg:w-full" />
-          </div>
-          <input className="w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5" />
-        </div>
-        <div className="flex gap-2 lg:gap-10 lg:pr-28 ml-auto">
-          <div>
-            <p className="text-xl font-normal text-white mt-1">Cart</p>
-          </div>
-          <div className="w-3 h-3 lg:w-7 lg:h-7 rounded-full bg-Dark-grey mt-3 lg:mt-1" />
-        </div>
-      </head>
+      <Header 
+        handleNav = {() => setOpen(!open)}
+        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      />
       <div className="lg:bg-magenta-blue lg:px-4 h-full">
         <div className="block lg:flex lg:space-x-36">
-          <ul
-            className={
-              "w-2/3 lg:w-32 min-h-screen lg:min-h-0 absolute transition duration-200 bg-magenta-blue text-Dark-grey lg:static flex flex-col text-lg font-medium lg:block" +
-              (open === true ? " " : " hidden ")
-            }
-          >
-            <li className="my-3 p-3 bg-white rounded text-Dark-blue mr-10 lg:-mr-5">
-              <a href="#" className="flex gap-3">
-                <img alt="" src={dashboard} className="w-5 h-5 mt-1" />
-                <p>Dashboard</p>
-              </a>
-            </li>
-            <li className="my-3 p-3 ">
-              <a href="#" className="flex gap-3">
-                <img alt="" src={campaign} className="w-5 h-5 mt-1" />
-                <p>Campaigns</p>
-              </a>
-            </li>
-            <li className="my-3 p-3  mr-10 lg:mr-0">
-              <a href="#" className="flex gap-3">
-                <img alt="" src={store} className="w-5 h-5 mt-1" />
-                <p>Store</p>
-              </a>
-            </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
-                <img alt="" src={analytics} className="w-5 h-5 mt-1" />
-                <p>Analytics</p>
-              </a>
-            </li>
-
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
-                <img alt="" src={wallet} className="w-5 h-5 mt-1" />
-                <p>Wallet</p>
-              </a>
-            </li>
-            <li className="my-3 p-3">
-              <a href="#" className="flex gap-3">
-                <img alt="" src={settings} className="w-5 h-5 mt-1" />
-                <p>Settings</p>
-              </a>
-            </li>
-          </ul>
+          <div className='hidden lg:block'>
+            <DashBoard />
+          </div>
+          <div className='lg:hidden'>
+            {open && <DashBoard />}
+          </div>
           <div className="flex flex-col gap-10 lg:my-7 lg:ml-20 lg:pl-2 lg:pr-16">
             <div className="flex flex-col bg-white px-2 md:px-4 lg:px-8 pt-6 pb-8">
               <h1 className="text-2xl font-bold">Businesses near you.</h1>

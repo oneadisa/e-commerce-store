@@ -1,32 +1,17 @@
 import React from "react";
-import Logof from "../../images/logo-footer.jpg";
 import fundraiser from "../../images/fundraiser.png";
 import facebook from "../../images/facebook.svg";
 import tags from "../../images/tags.svg";
 import twitter from "../../images/twitter.svg";
 import whatsapp from "../../images/whatsapp.svg";
 import left from "../../images/left.svg";
-import { Link } from "react-router-dom";
+import Header0 from "./Header0";
+
 
 function CampaignsFirst() {
   return (
     <div className="mx-auto">
-      <head className="flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2">
-        <div className="flex space-x-5 lg:space-x-40 h-10">
-          <div>
-            <Link to="/">
-              <img src={Logof} className="w-4/5 lg:w-full h-full" alt="" />
-            </Link>
-          </div>
-          <input className="w-36 md:w-64 lg:w-96 outline-none pl-1 lg:pl-5" />
-        </div>
-        <div className="flex gap-2 lg:gap-10 lg:pr-28 ml-auto">
-          <div>
-            <p className="text-xl font-normal text-white mt-1">Cart</p>
-          </div>
-          <div className="w-4 h-4 lg:w-7 lg:h-7 rounded-full bg-white mt-3 lg:mt-1" />
-        </div>
-      </head>
+      <Header0 />
       <div className="pt-3 pb-5 px-1 md:px-2">
         <h2 className="px-5 pt-2 text-2xl font-semibold text-center md:text-left">
           Alleyway Security Fundraiser

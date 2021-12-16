@@ -1,11 +1,10 @@
 import React from 'react'
-import Logof from "../../images/logo-footer.jpg";
+import Logof from '../../images/logo-footer.jpg'
 
 function Header(props) {
-
     return (
         <head className="flex justify-between bg-medium-blue px-2 md:px-4 lg:px-4 py-2">
-            <div className="flex space-x-5 lg:space-x-36 h-10">
+            <div className="flex space-x-5 lg:space-x-28 h-10">
                 <div className="flex items-center lg:items-stretch">
                     <div className="text-3xl lg:hidden text-white" onClick={() => props.handleNav()}>
                         {props.button}
@@ -23,4 +22,3 @@ function Header(props) {
 }
 
 export default Header
-

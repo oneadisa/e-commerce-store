@@ -3,17 +3,27 @@ import down from "../../images/down.svg";
 import file from "../../images/file.png";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-import { Link } from "react-router-dom";
-import { Dropdown } from 'semantic-ui-react'
+// import { Link } from "react-router-dom";
+// import { Dropdown } from 'semantic-ui-react'
 
 function Organisation() {
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="mx-auto">
-      <Header />
+      <Header 
+        handleNav = {() => setOpen(!open)}
+        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      />
       <div className="lg:bg-magenta-blue lg:px-4">
         <div className="block lg:flex lg:space-x-32">
-        <DashboardCamp />
+          <div className='hidden lg:block'>
+            <DashboardCamp />
+          </div>
+          <div className='lg:hidden'>
+            {open && <DashboardCamp />}
+          </div>
           <div className="bg-white lg:mt-3 lg:mb-8 pb-24 lg:w-3/4">
             <div className="flex flex-col px-2 md:px-4 py-2">
               <h2 className="text-lg font-semibold">1 of 6</h2>
@@ -169,25 +179,10 @@ function Organisation() {
                       </label>
                       <div className="flex">
                         <div className="flex gap-1 items-center border-2 border-gray-400 border-r px-2">
-                          {/* <h6 className="text-base text-gray-400 font-medium">
+                          <h6 className="text-base text-gray-400 font-medium">
                             +234
                           </h6>
-                          <img alt="" src={down} /> */}
-                          <Dropdown text='+234'>
-                            <Dropdown.Menu>
-                              <Dropdown.Item text='New' />
-                              <Dropdown.Item text='Open...' description='ctrl + o' />
-                              <Dropdown.Item text='Save as...' description='ctrl + s' />
-                              <Dropdown.Item text='Rename' description='ctrl + r' />
-                              <Dropdown.Item text='Make a copy' />
-                              <Dropdown.Item icon='folder' text='Move to folder' />
-                              <Dropdown.Item icon='trash' text='Move to trash' />
-                              <Dropdown.Divider />
-                              <Dropdown.Item text='Download As...' />
-                              <Dropdown.Item text='Publish To Web' />
-                              <Dropdown.Item text='E-mail Collaborators' />
-                            </Dropdown.Menu>
-                          </Dropdown>
+                          <img alt="" src={down} />
                         </div>
                         <input className="border-2 border-l border-gray-400 h-10 w-full pl-3 outline-none" />
                       </div>
