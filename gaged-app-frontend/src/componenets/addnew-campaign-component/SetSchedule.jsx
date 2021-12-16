@@ -8,12 +8,22 @@ import { Link } from "react-router-dom";
 
 function SetSchedule() {
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="mx-auto">
-      <Header />
+      <Header 
+        handleNav = {() => setOpen(!open)}
+        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      />
       <div className="lg:bg-magenta-blue lg:px-4">
         <div className="block lg:flex lg:space-x-32">
-          <DashboardCamp />
+          <div className='hidden lg:block'>
+            <DashboardCamp />
+          </div>
+          <div className='lg:hidden'>
+            {open && <DashboardCamp />}
+          </div>
           <div className="bg-white lg:mt-3 lg:mb-8 pb-24 lg:w-3/4">
             <div className="flex flex-col px-2 md:px-4 py-2">
               <h2 className="text-lg font-semibold">5 of 6</h2>

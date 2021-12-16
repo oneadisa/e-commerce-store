@@ -1,6 +1,88 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
+<<<<<<< HEAD
+import React,{useState} from 'react'
+import Header from './Header';
+import DashBoard from './DashBoard'
+import file from '../../images/file.png'
+
+function SettingsGeneral() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div className='mx-auto'>
+            <Header 
+                handleNav = {() => setOpen(!open)}
+                button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+            />
+            <div className='lg:bg-magenta-blue lg:px-2 h-full'>
+                <div className='block lg:flex lg:space-x-36'>
+                    <div className='hidden lg:block'>
+                        <DashBoard />
+                    </div>
+                    <div className='lg:hidden'>
+                        {open && <DashBoard />}
+                    </div>
+                    <div className='flex flex-col lg:w-4/5'>
+                        <div className='px-3 pt-2 text-base lg:text-lg font-medium bg-white lg:px-12'>
+                            <div className='flex gap-5 lg:gap-10'>
+                                <p className='p-1 lg:p-2 cursor-pointer border-b-4 border-Dark-blue hover:text-Dark-blue'>General</p>
+                                <p className='p-1 lg:p-2 cursor-pointer hover:text-Dark-blue'>Bank Information</p>
+                                <p className='p-1 lg:p-2 cursor-pointer hover:text-Dark-blue'>Store settings</p>
+                            </div>
+                        </div>
+                        <div className='px-3 lg:px-6 pt-5 pb-8 lg:py-5 lg:pb-14 mt-4 lg:mt-5 lg:mb-14 bg-white'>
+                            <h2 className='text-2xl font-semibold'>Personal Information</h2>
+                            <div className='mt-5'>
+                                <div className='flex flex-col border-b-2 pb-7 md:pb-14'>
+                                    <div className='flex flex-col md:flex-row gap-5 lg:gap-5'>
+                                        <div className='flex flex-col gap-2 md:w-1/4'>
+                                            <label className='text-lg font-normal'>First Name</label>
+                                            <input placeholder='First Name' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' />
+                                        </div>
+                                        <div className='flex flex-col gap-2 md:w-1/4'>
+                                            <label className='text-lg font-normal'>Last Name</label>
+                                            <input placeholder='Last Name' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' />
+                                        </div>
+                                        <div className='flex flex-col gap-2 md:w-1/4'>
+                                            <label className='text-lg font-normal'>Phone Number</label>
+                                            <input placeholder='Phone Number' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' />
+                                        </div>
+                                    </div>
+                                    <div className='flex flex-col gap-2 mt-5'>
+                                        <label className='text-lg font-normal'>Email Address</label>
+                                        <input placeholder='Email Address' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' />
+                                    </div>
+                                    <div className='flex flex-col md:flex-row gap-5 md:gap-12 mt-8'>
+                                        <div className='flex flex-col gap-5 md:gap-10 md:w-2/5'>
+                                            <div className='flex flex-col gap-2'>
+                                                <label className='text-lg font-normal'>Means of Identification</label>
+                                                <input placeholder='Select' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' />
+                                            </div>
+                                            <div className='flex flex-col gap-2'>
+                                                <label className='text-lg font-normal'>Registration No.</label>
+                                                <input placeholder='registration number of valid ID' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' />
+                                            </div>
+                                        </div>
+
+                                        <div className='flex flex-col md:w-1/2'>
+                                            <label className='text-lg font-normal'>Upload ID</label>
+                                            <p className='text-sm font-medium'>Upload your valid means of ID</p>
+                                            <div className='flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3'>
+                                                <img src={file} className='h-20 w-20' />
+                                                <div>
+                                                    <input type='file' name='file' multiple className='sr-only' />
+                                                </div>
+                                                <label className='text-base font-normal text-gray-700 mt-3'>
+                                                    Click to add document or drag<br/>file here
+                                                </label>
+                                            </div>
+                                            <p className='text-sm text-center'>Your document must be no larger than 2Mb</p>
+                                        </div>
+                                    </div>
+                                </div>
+=======
 import React, { useState } from "react";
 import Logof from "../../images/logo-footer.jpg";
 import analytics from "../../images/analytics.png";
@@ -166,6 +248,7 @@ function SettingsGeneral() {
                         />
                       </div>
                     </div>
+>>>>>>> main
 
                     <div className="flex flex-col md:w-1/2">
                       <label className="text-lg font-normal">Upload ID</label>
