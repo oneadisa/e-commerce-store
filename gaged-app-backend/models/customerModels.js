@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const productOrderSchema = new mongoose.Schema(
   {
-    ProductName: {
-      type: String,
-      required: true,
-    },
     customerName: {
       type: String,
       required: true,
@@ -14,14 +10,13 @@ const productOrderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    productPrice: {
-      type: Number,
-      required: true,
-    },
-    productStatus: {
+    customerEmail: {
       type: String,
       required: true,
-      default: "Pending",
+    },
+    numberOfCustomerOrders: {
+      type: Number,
+      required: true,
     },
 
     user: {

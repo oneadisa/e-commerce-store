@@ -26,7 +26,7 @@ const campaignSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phoneNUmber: {
+    phoneNumber: {
       type: Number,
       required: true,
     },
@@ -37,7 +37,7 @@ const campaignSchema = new mongoose.Schema(
     campaignVideo: {
       type: String,
       required: true,
-      default: "",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     pitchDeck: {
       type: String,
@@ -55,7 +55,7 @@ const campaignSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    funingType: {
+    fundingType: {
       type: String,
       required: true,
     },
@@ -100,12 +100,13 @@ const campaignSchema = new mongoose.Schema(
       required: true,
     },
     go_live_schedule: {
-      type: String,
-      required: true,
+      type: Date,
+      required: false,
     },
     campaignLiveStatus: {
       type: Boolean,
       required: true,
+      default: false,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

@@ -218,6 +218,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
     user.pic = req.body.pic || user.pic;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
     user.meansOfID = req.body.meansOfID || user.meansOfID;
     user.IDpic = req.body.IDpic || user.IDpic;
     user.regNum = req.body.regNum || user.regNum;
@@ -308,3 +309,5 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
 });
 
 module.exports = { registerBusiness, authBusiness, updateBusinessProfile };
+
+// "$set":{"isAdmin":true}

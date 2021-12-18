@@ -2,11 +2,15 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    businessName: {
+    productName: {
       type: String,
       required: true,
     },
-    review: {
+    customerName: {
+      type: String,
+      required: true,
+    },
+    comment: {
       type: String,
       required: true,
     },

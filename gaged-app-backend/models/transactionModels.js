@@ -26,12 +26,8 @@ const transactionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    withdraw: {
-      type: Boolean,
-      required: false,
-    },
-    deposit: {
-      type: Boolean,
+    category: {
+      type: String,
       required: false,
     },
     user: {
@@ -45,6 +41,6 @@ const transactionSchema = new mongoose.Schema(
   }
 );
 
-const Transactions = mongoose.model("Transactions", transactionSchema);
+const Transaction = mongoose.model("Transaction", transactionSchema);
 
-module.exports = Transactions;
+module.exports = Transaction;

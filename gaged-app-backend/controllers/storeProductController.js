@@ -33,7 +33,7 @@ const CreateStoreProduct = asyncHandler(async (req, res) => {
     !standardPrice ||
     !discountedPrice ||
     !productStockCount ||
-    !productUnitCount 
+    !productUnitCount
     // || !productImageOne
   ) {
     res.status(400);
