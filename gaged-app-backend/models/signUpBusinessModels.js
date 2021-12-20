@@ -1,26 +1,37 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const signUpBusinessTemplate = new mongoose.Schema({
   businessName: {
     type: String,
-    required: true,
+    required: [true, "Please Enter Your Business Name"],
+    maxLength: [40, "Name cannot exceed 40 characters"],
+    minLength: [2, "Name should have more than 2 characters"],
   },
   accountHolderName: {
     type: String,
-    required: true,
+    required: [true, "Please Enter Your Name"],
+    maxLength: [40, "Name cannot exceed 40 characters"],
+    minLength: [4, "Name should have more than 4 characters"],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Please Enter Your Email"],
+    unique: true,
+    validate: [validator.isEmail, "Please Enter a valid Email"],
   },
   phoneNumber: {
     type: Number,
-    required: true,
+    required: [true, "Please Enter a valid Phone Number"],
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Please Enter Your Password"],
+    minLength: [8, "Password should be greater than 8 characters"],
+    select: false,
   },
   isAdmin: {
     type: Boolean,
@@ -121,12 +132,38 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   numberOfInvestors: {
     type: Number,
-    required: false,
+    default: 0,
   },
-  listOfInvestors: {
-    type: Array,
-    required: false,
-  },
+  listOfInvestors: [
+    {
+      IndividualUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+      BusinessUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: false,
+      },
+      phoneNumber: {
+        type: Number,
+        required: false,
+      },
+      email: {
+        type: Number,
+        required: false,
+      },
+      fundraiserInvested: {
+        type: Number,
+        required: [false, "All investors must have at least one fundraiser."],
+      },
+    },
+  ],
   walletBalance: {
     type: Number,
     required: false,
@@ -143,10 +180,31 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  businessOrderedFrom: {
-    type: Array,
-    required: false,
-  },
+  businessOrderedFrom: [
+    {
+      BusinessUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      businessName: {
+        type: String,
+        required: false,
+      },
+      productName: {
+        type: String,
+        required: false,
+      },
+      quantity: {
+        type: Number,
+        required: false,
+      },
+      totalPrice: {
+        type: Number,
+        required: [false, "All orders must have a total price"],
+      },
+    },
+  ],
   numberOfOrderRequests: {
     type: Number,
     required: false,
@@ -159,10 +217,12 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Array,
     required: false,
   },
-  date: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
 });
 
 signUpBusinessTemplate.pre("save", async function (next) {
@@ -179,9 +239,36 @@ signUpBusinessTemplate.methods.matchPassword = async function (
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
+// Generating Password Reset Token
+signUpBusinessTemplate.methods.getResetPasswordToken = function () {
+  // Generating Token
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  // Hashing and adding resetPasswordToken to signUpBusinessTemplate
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+  return resetToken;
+};
+
 const signedUpBusiness = mongoose.model(
   "mySignedUpBusinessTable",
   signUpBusinessTemplate
 );
 
 module.exports = signedUpBusiness;
+
+//  avatar: {
+// public_id: {
+// type: String,
+// required: true,
+// },
+// url: {
+// type: String,
+// required: true,
+// },
+// },

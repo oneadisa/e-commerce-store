@@ -1,148 +1,130 @@
-const ProductOrder = require("../models/ProductOrderModels");
-const asyncHandler = require("express-async-handler");
-const getProductOrders = asyncHandler(async (req, res) => {
-  const productOrders = await ProductOrder.find({
+const Order = require("../models/orderModel");
+const Product = require("../models/productModel");
+const ErrorHander = require("../utils/errorhander");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+
+// Create new Order
+exports.newOrder = catchAsyncErrors(async (req, res, next) => {
+  const {
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
+
+  const order = await Order.create({
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    paidAt: Date.now(),
     user: req.user._id,
   });
-  res.json(productOrders);
+
+  res.status(201).json({
+    success: true,
+    order,
+  });
 });
 
-const CreateProductOrders = asyncHandler(async (req, res) => {
-  const {
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category,
-  } = req.body;
+// get Single Order
+exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
 
-  if (
-    !productTitle ||
-    !shortDescription ||
-    !category ||
-    !productDetails ||
-    !costPrice ||
-    !standardPrice ||
-    !discountedPrice ||
-    !productStockCount ||
-    !productUnitCount
-    // || !productImageOne
-  ) {
-    res.status(400);
-    throw new Error("Please fill all required feilds");
-    return;
-  } else {
-    const storeProduct = new ProductOrder({
-      user: req.user._id,
-      productTitle,
-      shortDescription,
-      productDetails,
-      standardPrice,
-      discountedPrice,
-      costPrice,
-      productStockCount,
-      productUnitCount,
-      productSKU,
-      productImageOne,
-      productImageTwo,
-      productImageThree,
-      category,
+  if (!order) {
+    return next(new ErrorHander("Order not found with this Id", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    order,
+  });
+});
+
+// get logged in user  Orders
+exports.myOrders = catchAsyncErrors(async (req, res, next) => {
+  const orders = await Order.find({ user: req.user._id });
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+});
+
+// get all Orders -- Admin
+exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
+  const orders = await Order.find();
+
+  let totalAmount = 0;
+
+  orders.forEach((order) => {
+    totalAmount += order.totalPrice;
+  });
+
+  res.status(200).json({
+    success: true,
+    totalAmount,
+    orders,
+  });
+});
+
+// update Order Status -- Admin
+exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHander("Order not found with this Id", 404));
+  }
+
+  if (order.orderStatus === "Delivered") {
+    return next(new ErrorHander("You have already delivered this order", 400));
+  }
+
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (o) => {
+      await updateStock(o.product, o.quantity);
     });
-
-    const createdStoreProduct = await storeProduct.save();
-
-    res.status(201).json(createdStoreProduct);
   }
+  order.orderStatus = req.body.status;
+
+  if (req.body.status === "Delivered") {
+    order.deliveredAt = Date.now();
+  }
+
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  });
 });
 
-const getStoreProductById = asyncHandler(async (req, res) => {
-  const storeProduct = await ProductOrder.findById(req.params.id);
+async function updateStock(id, quantity) {
+  const product = await Product.findById(id);
 
-  if (storeProduct) {
-    res.json(storeProduct);
-  } else {
-    res.status(404).json({ message: "Product not found" });
+  product.Stock -= quantity;
+
+  await product.save({ validateBeforeSave: false });
+}
+
+// delete Order -- Admin
+exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHander("Order not found with this Id", 404));
   }
 
-  res.json(storeProduct);
+  await order.remove();
+
+  res.status(200).json({
+    success: true,
+  });
 });
-
-const UpdateStoreProduct = asyncHandler(async (req, res) => {
-  const {
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category,
-  } = req.body;
-
-  const storeProduct = await ProductOrder.findById(req.params.id);
-
-  if (storeProduct.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("You can't perform this action");
-  }
-
-  if (storeProduct) {
-    storeProduct.productTitle = productTitle;
-    storeProduct.shortDescription = shortDescription;
-    storeProduct.productDetails = productDetails;
-    storeProduct.standardPrice = standardPrice;
-    storeProduct.discountedPrice = discountedPrice;
-    storeProduct.costPrice = costPrice;
-    storeProduct.productStockCount = productStockCount;
-    storeProduct.productUnitCount = productUnitCount;
-    storeProduct.productSKU = productSKU;
-    storeProduct.productImageOne = productImageOne;
-    storeProduct.productImageTwo = productImageTwo;
-    storeProduct.productImageThree = productImageThree;
-    storeProduct.category = category;
-
-    const updatedStoreProduct = await storeProduct.save();
-    res.json(updatedStoreProduct);
-  } else {
-    res.status(404);
-    throw new Error("Product not found");
-  }
-});
-
-const DeleteStoreProduct = asyncHandler(async (req, res) => {
-  const storeProduct = await ProductOrder.findById(req.params.id);
-
-  if (storeProduct.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("You can't perform this action");
-  }
-
-  if (storeProduct) {
-    await storeProduct.remove();
-    res.json({ message: "Product Removed" });
-  } else {
-    res.status(404);
-    throw new Error("Product not Found");
-  }
-});
-
-module.exports = {
-  getProductOrders,
-  CreateProductOrders,
-  getStoreProductById,
-  UpdateStoreProduct,
-  DeleteStoreProduct,
-};

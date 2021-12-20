@@ -3,18 +3,14 @@ const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
+const ErrorHander = require("../utils/errorhander");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const sendToken = require("../utils/jwtToken");
+const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
+const cloudinary = require("cloudinary");
+
 const registerBusiness = asyncHandler(async (req, res) => {
-  // const saltPassword = await bcrypt.genSalt(10)
-  // const securePassword = await bcrypt.hash(req.body.password, saltPassword)
-
-  // const signedUpBusiness = new signUpTemplateCopy({
-  // businessName: req.body.businessName,
-  // accountHolderName: req.body.accountHolderName,
-  // email: req.body.email,
-  // phoneNumber: req.body.phoneNumber,
-  // password: securePassword
-  // })
-
   const {
     businessName,
     accountHolderName,
@@ -154,6 +150,19 @@ const registerBusiness = asyncHandler(async (req, res) => {
     .catch((error) => {
       res.json.stringify(error);
     });
+});
+
+// Logout signedUpBusiness
+const logoutBusiness = catchAsyncErrors(async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Logged Out",
+  });
 });
 
 const authBusiness = asyncHandler(async (req, res) => {
@@ -308,6 +317,85 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerBusiness, authBusiness, updateBusinessProfile };
+// Forgot Password
+const forgotPassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await signedUpBusiness.findOne({ email: req.body.email });
 
-// "$set":{"isAdmin":true}
+  if (!user) {
+    return next(new ErrorHander("signedUpBusiness not found", 404));
+  }
+
+  // Get ResetPassword Token
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  const resetPasswordUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/password/reset/${resetToken}`;
+
+  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: `Gaged Password Recovery`,
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to ${user.email} successfully`,
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    return next(new ErrorHander(error.message, 500));
+  }
+});
+
+// Reset Password
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+  // creating token hash
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await signedUpBusiness.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(
+      new ErrorHander(
+        "Reset Password Token is invalid or has been expired",
+        400
+      )
+    );
+  }
+
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHander("Password does not password", 400));
+  }
+
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+module.exports = {
+  registerBusiness,
+  authBusiness,
+  updateBusinessProfile,
+  logoutBusiness,
+  forgotPassword,
+};

@@ -108,6 +108,72 @@ const campaignSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    comments: [
+      {
+        IndividualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        BusinessUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpBusinessTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        commentedAt: {
+          type: Date,
+          default: Date.now,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        },
+      },
+    ],
+
+    lenders: [
+      {
+        IndividualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        BusinessUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpBusinessTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        amount: {
+          type: Number,
+          default: 0,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        },
+      },
+    ],
+
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
