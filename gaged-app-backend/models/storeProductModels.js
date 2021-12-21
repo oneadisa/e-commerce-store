@@ -68,14 +68,35 @@ const storeProductSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Enter Product Category"],
     },
-    reviews: [
+    individualProductReviews: [
       {
-        IndividualUser: {
+        individualUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
         },
-        BusinessUser: {
+        name: {
+          type: String,
+          required: true,
+        },
+        rating: {
+          type: Number,
+          default: 0,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    numberOfIndividualReviews: {
+      type: Number,
+      default: 0,
+    },
+
+    BusinessReviews: [
+      {
+        businessUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -94,19 +115,17 @@ const storeProductSchema = new mongoose.Schema(
         },
       },
     ],
-    numberOfReviews: {
+    numberOfBusinessReviews: {
       type: Number,
       default: 0,
     },
-
-    orders: [
+    totalNumberOfReviews: {
+      type: Number,
+      default: 0,
+    },
+    businessOrders: [
       {
-        IndividualUser: {
-          type: mongoose.Schema.ObjectId,
-          ref: "mySignedUpUserTable",
-          required: false,
-        },
-        BusinessUser: {
+        businessUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -134,14 +153,67 @@ const storeProductSchema = new mongoose.Schema(
       default: 0,
     },
 
-    customers: [
+    individualOrders: [
       {
-        IndividualUser: {
+        individualUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
         },
-        BusinessUser: {
+        productOrdered: {
+          type: String,
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        rating: {
+          type: Number,
+          default: 0,
+        },
+        comment: {
+          type: String,
+          required: false,
+        },
+      },
+    ],
+    numberOfIndividualOrdes: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfOrdes: {
+      type: Number,
+      default: 0,
+    },
+    individualCustomers: [
+      {
+        individualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        phoneNumber: {
+          type: Number,
+          required: false,
+        },
+        email: {
+          type: Number,
+          required: false,
+        },
+      },
+    ],
+    numberOfIndividualCustomers: {
+      type: Number,
+      default: 0,
+    },
+    businessCustomers: [
+      {
+        businessUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -158,13 +230,13 @@ const storeProductSchema = new mongoose.Schema(
           type: Number,
           required: false,
         },
-        numberOfders: {
-          type: Number,
-          required: [false, "All customers must have at least one order"],
-        },
       },
     ],
-    numberOfCustomers: {
+    numberOfBusinessCustomers: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfCustomers: {
       type: Number,
       default: 0,
     },

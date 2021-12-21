@@ -313,7 +313,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error("User Not Found");
+    throw new Error("signedUpBusiness Not Found");
   }
 });
 
@@ -358,7 +358,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Reset Password
-exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
+const resetPassword = catchAsyncErrors(async (req, res, next) => {
   // creating token hash
   const resetPasswordToken = crypto
     .createHash("sha256")
@@ -390,6 +390,145 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   await user.save();
 
   sendToken(user, 200, res);
+});
+
+// Get signedUpBusiness Detail
+const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await signedUpBusiness.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// update signedUpBusiness password
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await signedUpBusiness.findById(req.user.id).select("+password");
+
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHander("Old password is incorrect", 400));
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHander("password does not match", 400));
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+// update signedUpBusiness Profile
+const updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  if (req.body.avatar !== "") {
+    const user = await signedUpBusiness.findById(req.user.id);
+
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    newUserData.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
+  }
+
+  const user = await signedUpBusiness.findByIdAndUpdate(
+    req.user.id,
+    newUserData,
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// Get all users(admin)
+const getAllUser = catchAsyncErrors(async (req, res, next) => {
+  const users = await signedUpBusiness.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+// Get single user (admin)nst
+const getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await signedUpBusiness.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHander(`Business does not exist with Id: ${req.params.id}`)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// update signedUpBusiness Role -- Admin
+const updateUserRole = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  await signedUpBusiness.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// Delete signedUpBusiness --Admin
+const deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await signedUpBusiness.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHander(`Business does not exist with Id: ${req.params.id}`, 400)
+    );
+  }
+
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
+
+  await user.remove();
+
+  res.status(200).json({
+    success: true,
+    message: "Business Deleted Successfully",
+  });
 });
 
 module.exports = {

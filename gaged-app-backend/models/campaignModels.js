@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const campaignSchema = new mongoose.Schema(
   {
@@ -105,7 +105,7 @@ const campaignSchema = new mongoose.Schema(
     },
     campaignLiveStatus: {
       type: Boolean,
-      required: true,
+      required: false,
       default: false,
     },
     comments: [
@@ -141,14 +141,9 @@ const campaignSchema = new mongoose.Schema(
       },
     ],
 
-    lenders: [
+    businessLenders: [
       {
-        IndividualUser: {
-          type: mongoose.Schema.ObjectId,
-          ref: "mySignedUpUserTable",
-          required: false,
-        },
-        BusinessUser: {
+        businessUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -173,7 +168,42 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
+    numberOfBusinessLenders: {
+      type: Number,
+      default: 0,
+    },
 
+    individualLenders: [
+      {
+        individualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        amount: {
+          type: Number,
+          default: 0,
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        },
+      },
+    ],
+    numberOfIndividualLenders: {
+      type: Number,
+      default: 0,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

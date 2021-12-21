@@ -8,14 +8,14 @@ const signUpBusinessTemplate = new mongoose.Schema({
   businessName: {
     type: String,
     required: [true, "Please Enter Your Business Name"],
-    maxLength: [40, "Name cannot exceed 40 characters"],
-    minLength: [2, "Name should have more than 2 characters"],
+    maxLength: [40, "Business Name cannot exceed 40 characters"],
+    minLength: [1, "Name should have more than 1 character"],
   },
   accountHolderName: {
     type: String,
-    required: [true, "Please Enter Your Name"],
-    maxLength: [40, "Name cannot exceed 40 characters"],
-    minLength: [4, "Name should have more than 4 characters"],
+    required: [true, "Please Enter Your Account Holder Name"],
+    maxLength: [30, "Account Holder Name cannot exceed 30 characters"],
+    minLength: [4, "Account Holder Name should have more than 4 characters"],
   },
   email: {
     type: String,
@@ -37,6 +37,10 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Boolean,
     required: true,
     default: "false",
+  },
+  role: {
+    type: String,
+    default: "user",
   },
   pic: {
     type: String,
@@ -91,6 +95,8 @@ const signUpBusinessTemplate = new mongoose.Schema({
   bankAccountNumber: {
     type: String,
     required: false,
+    maxLength: [11, "Bank Account Number cannot exceed 11 characters"],
+    minLength: [8, "Bank Account Number should have more than 8 character"],
   },
   storeName: {
     type: String,
@@ -113,35 +119,98 @@ const signUpBusinessTemplate = new mongoose.Schema({
     required: false,
     default: "https://icon-library.com/icon/icon-image-file-18.html.html",
   },
-  totalNumberOfCampaigns: {
+  numberOfStoreProducts: {
     type: Number,
     required: false,
+    default: 0,
   },
-  listOfCampaigns: {
-    type: Array,
+  totalNumberOfCampaignsStarted: {
+    type: Number,
     required: false,
+    default: 0,
   },
+  totalNumberOfCampaignsInvested: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  listOfCampaignsStarted: [
+    {
+      businessName: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      natureOfBusiness: {
+        type: String,
+        required: [true, "Please Enter Your Nature Of Business"],
+      },
+      campaignCategory: {
+        type: String,
+        required: [true, "Please Enter Your Campaign Category"],
+      },
+      investorBrief: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      duration: {
+        type: String,
+        required: [true, "Please Enter Your Campaign's Duration"],
+      },
+      campaignLiveStatus: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+    },
+  ],
+  listOfCampaignsInvested: [
+    {
+      businessName: {
+        type: String,
+        required: [true, "Please Enter Your Business Name"],
+      },
+      natureOfBusiness: {
+        type: String,
+        required: [true, "Please Enter Your Nature Of Business"],
+      },
+      campaignCategory: {
+        type: String,
+        required: [true, "Please Enter Your Campaign Category"],
+      },
+      investorBrief: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      duration: {
+        type: String,
+        required: [true, "Please Enter Your Campaign's Duration"],
+      },
+      campaignLiveStatus: {
+        type: Boolean,
+        required: false,
+        default: false,
+      },
+    },
+  ],
 
   totalAmountRaised: {
     type: Number,
     required: false,
+    default: 0,
   },
   averageRaised: {
     type: Number,
     required: false,
+    default: 0,
   },
-  numberOfInvestors: {
+  numberOfBusinessInvestors: {
     type: Number,
     default: 0,
   },
-  listOfInvestors: [
+  listOfBusinessInvestors: [
     {
-      IndividualUser: {
-        type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpUserTable",
-        required: false,
-      },
-      BusinessUser: {
+      businessUser: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -158,12 +227,45 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         required: false,
       },
-      fundraiserInvested: {
+      campaignInvested: {
         type: Number,
         required: [false, "All investors must have at least one fundraiser."],
       },
     },
   ],
+  numberOfIndividualInvestors: {
+    type: Number,
+    default: 0,
+  },
+  listOfIndividualInvestors: [
+    {
+      individualUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: false,
+      },
+      phoneNumber: {
+        type: Number,
+        required: false,
+      },
+      email: {
+        type: Number,
+        required: false,
+      },
+      campaignInvested: {
+        type: Number,
+        required: [false, "All investors must have at least one fundraiser."],
+      },
+    },
+  ],
+  totalNumberOfInvestors: {
+    type: Number,
+    default: 0,
+  },
   walletBalance: {
     type: Number,
     required: false,
@@ -171,18 +273,21 @@ const signUpBusinessTemplate = new mongoose.Schema({
   totalSales: {
     type: Number,
     required: false,
+    default: 0,
   },
   totalRevenue: {
     type: Number,
     required: false,
+    default: 0,
   },
   totalProductNumber: {
     type: Number,
     required: false,
+    default: 0,
   },
   businessOrderedFrom: [
     {
-      BusinessUser: {
+      businessUser: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -208,10 +313,181 @@ const signUpBusinessTemplate = new mongoose.Schema({
   numberOfOrderRequests: {
     type: Number,
     required: false,
+    defailt: 0,
   },
   quantityOfOrders: {
     type: Number,
     required: false,
+  },
+  individualReviews: [
+    {
+      individualUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        default: 0,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  numberOfIndividualReviews: {
+    type: Number,
+    default: 0,
+  },
+  BusinessReviews: [
+    {
+      businessUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        default: 0,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  numberOfBusinessReviews: {
+    type: Number,
+    default: 0,
+  },
+  totalNumberOfReviews: {
+    type: Number,
+    default: 0,
+  },
+  businessOrders: [
+    {
+      businessUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      productOrdered: {
+        type: String,
+        required: false,
+      },
+      name: {
+        type: String,
+        required: false,
+      },
+      rating: {
+        type: Number,
+        default: 0,
+      },
+      comment: {
+        type: String,
+        required: false,
+      },
+    },
+  ],
+  numberOfOrders: {
+    type: Number,
+    default: 0,
+  },
+  individualOrders: [
+    {
+      individualUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+      productOrdered: {
+        type: String,
+        required: false,
+      },
+      name: {
+        type: String,
+        required: false,
+      },
+      rating: {
+        type: Number,
+        default: 0,
+      },
+      comment: {
+        type: String,
+        required: false,
+      },
+    },
+  ],
+  numberOfIndividualOrders: {
+    type: Number,
+    default: 0,
+  },
+  totalNumberOfOrders: {
+    type: Number,
+    default: 0,
+  },
+  individualCustomers: [
+    {
+      individualUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: false,
+      },
+      phoneNumber: {
+        type: Number,
+        required: false,
+      },
+      email: {
+        type: Number,
+        required: false,
+      },
+    },
+  ],
+  numberOfIndividualCustomers: {
+    type: Number,
+    default: 0,
+  },
+  businessCustomers: [
+    {
+      businessUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: false,
+      },
+      phoneNumber: {
+        type: Number,
+        required: false,
+      },
+      email: {
+        type: Number,
+        required: false,
+      },
+    },
+  ],
+  numberOfBusinessCustomers: {
+    type: Number,
+    default: 0,
+  },
+  totalNumberOfCustomers: {
+    type: Number,
+    default: 0,
   },
   paymentMethod: {
     type: Array,
