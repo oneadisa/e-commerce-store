@@ -108,19 +108,49 @@ const campaignSchema = new mongoose.Schema(
       required: false,
       default: false,
     },
-    comments: [
+    individualCampaignReviews: [
       {
-        IndividualUser: {
+        individualUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
         },
-        BusinessUser: {
+        firstName: {
+          type: String,
+          required: true,
+        },
+        lastName: {
+          type: String,
+          required: true,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+        commentedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    numberOfIndividualReviews: {
+      type: Number,
+      default: 0,
+    },
+    BusinessCampaignReviews: [
+      {
+        businessUser: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
         },
-        name: {
+        businessName: {
           type: String,
           required: true,
         },
@@ -140,8 +170,16 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
+    numberOfBusinessReviews: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfCampaignReviews: {
+      type: Number,
+      default: 0,
+    },
 
-    businessLenders: [
+    businessCampaignDonors: [
       {
         businessUser: {
           type: mongoose.Schema.ObjectId,
@@ -168,12 +206,12 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
-    numberOfBusinessLenders: {
+    numberOfBusinessCampaignDonors: {
       type: Number,
       default: 0,
     },
 
-    individualLenders: [
+    individualCampaignDonors: [
       {
         individualUser: {
           type: mongoose.Schema.ObjectId,
@@ -200,7 +238,11 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
-    numberOfIndividualLenders: {
+    numberOfIndividualCampaignDonors: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfCampaignDonors: {
       type: Number,
       default: 0,
     },

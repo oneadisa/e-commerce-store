@@ -87,6 +87,10 @@ const storeProductSchema = new mongoose.Schema(
           type: String,
           required: true,
         },
+        commentedAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
     ],
     numberOfIndividualReviews: {
@@ -94,7 +98,7 @@ const storeProductSchema = new mongoose.Schema(
       default: 0,
     },
 
-    BusinessReviews: [
+    BusinessProductReviews: [
       {
         businessUser: {
           type: mongoose.Schema.ObjectId,
@@ -112,6 +116,10 @@ const storeProductSchema = new mongoose.Schema(
         comment: {
           type: String,
           required: true,
+        },
+        commentedAt: {
+          type: Date,
+          default: Date.now,
         },
       },
     ],
@@ -138,17 +146,17 @@ const storeProductSchema = new mongoose.Schema(
           type: String,
           required: false,
         },
-        rating: {
+        phoneNumber: {
           type: Number,
-          default: 0,
+          required: false,
         },
-        comment: {
-          type: String,
+        email: {
+          type: Number,
           required: false,
         },
       },
     ],
-    numberOfOrdes: {
+    numberOfBusinessOrders: {
       type: Number,
       default: 0,
     },
@@ -168,21 +176,21 @@ const storeProductSchema = new mongoose.Schema(
           type: String,
           required: false,
         },
-        rating: {
+        phoneNumber: {
           type: Number,
-          default: 0,
+          required: false,
         },
-        comment: {
-          type: String,
+        email: {
+          type: Number,
           required: false,
         },
       },
     ],
-    numberOfIndividualOrdes: {
+    numberOfIndividualOrders: {
       type: Number,
       default: 0,
     },
-    totalNumberOfOrdes: {
+    totalNumberOfOrders: {
       type: Number,
       default: 0,
     },

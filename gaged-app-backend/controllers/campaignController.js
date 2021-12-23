@@ -188,7 +188,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     res.json(updatedCampaign);
   } else {
     res.status(404);
-    throw new Error("Product not found");
+    throw new Error("Campaign not found");
   }
 });
 
@@ -209,10 +209,471 @@ const DeleteCampaign = asyncHandler(async (req, res) => {
   }
 });
 
+// Create New Individual Review or Update an Individual review
+const createIndividualCampaignReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const { comment, campaignId } = req.body;
+
+    const review = {
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      comment,
+    };
+
+    const campaign = await Campaign.findById(campaignId);
+
+    const isReviewed = campaign.individualCampaignReviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      // campaign.individualCampaignDonors.forEach((rev) => {
+      // if (rev.user.toString() === req.user._id.toString())
+      // (rev.amount =amount), (rev.comment = comment);
+      // });
+    } else {
+      campaign.individualCampaignReviews.push(review);
+      campaign.numberOfIndividualCampaignReviews =
+        campaign.individualCampaignReviews.length;
+      campaign.totalNumberOfCampaignReviews =
+        campaign.individualCampaignReviews.length +
+        campaign.businessCampaignReviiews.length;
+    }
+
+    // let avg = 0;
+
+    // campaign.individualCampaignReviews.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // campaign.ratings =
+    // avg /
+    // (campaign.individualCampaignDonors.length +
+    // campaign.businessCampaignDonors.length);
+
+    await campaign.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Get Individual Reviews of a campaign
+const getIndividualCampaignReviews = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.id);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      individualCampaignReviews: campaign.individualCampaignReviews,
+    });
+  }
+);
+
+// Delete Individual Review
+const deleteIndividualCampaignReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.campaignId);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    const individualCampaignReviews = campaign.individualCampaignReviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    // let avg = 0;
+
+    // individualCampaignDonors.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // letamounts = 0;
+
+    // if (individualCampaignDonors.length === 0) {
+    //  amounts = 0;
+    // } else {
+    //  amounts = avg / individualCampaignDonors.length;
+    // }
+
+    const numberOfIndividualCampaignReviews = individualCampaignReviews.length;
+
+    await Campaign.findByIdAndUpdate(
+      req.query.campaignId,
+      {
+        individualCampaignReviews,
+        numberOfIndividualCampaignReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Create New Business Review or Update the Business review
+const createBusinessCampaignReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const { comment, campaignId } = req.body;
+
+    const review = {
+      user: req.user._id,
+      businessName: req.user.businessName,
+      comment,
+    };
+
+    const campaign = await Campaign.findById(campaignId);
+
+    const isReviewed = campaign.businessCampaignReviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      // campaign.businessCampaignDonors.forEach((rev) => {
+      // if (rev.user.toString() === req.user._id.toString())
+      // (rev.amount =amount), (rev.comment = comment);
+      // });
+    } else {
+      campaign.businessCampaignReviews.push(review);
+      campaign.numberOfBusinessReviews =
+        campaign.businessCampaignReviews.length;
+      campaign.totalNumberOfCampaignReviews =
+        campaign.individualCampaignReviews.length +
+        campaign.businessCampaignReviews.length;
+    }
+
+    // let avg = 0;
+
+    // campaign.businessCampaignReviews.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // campaign.ratings =
+    // avg /
+    // (campaign.individualCampaignDonors.length +
+    // campaign.businessCampaignDonors.length);
+
+    await campaign.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Get All Business Reviews of a campaign
+const getBusinessCampaignReviews = catchAsyncErrors(async (req, res, next) => {
+  const campaign = await Campaign.findById(req.query.id);
+
+  if (!campaign) {
+    return next(new ErrorHander("Campaign not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessCampaignReviews: campaign.businessCampaignReviews,
+  });
+});
+
+// Delete Business Review
+const deleteBusinessCampaignReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.campaignId);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    const businessCampaignReviews = campaign.businessCampaignReviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    // let avg = 0;
+
+    // businessCampaignDonors.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // letamounts = 0;
+
+    // if (businessCampaignDonors.length === 0) {
+    //  amounts = 0;
+    // } else {
+    //  amounts = avg / businessCampaignDonors.length;
+    // }
+
+    const numberOfBusinessCampaignReviews = businessCampaignReviews.length;
+
+    await Campaign.findByIdAndUpdate(
+      req.query.campaignId,
+      {
+        businessCampaignReviews,
+        numberOfBusinessCampaignReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Create New Individual Review or Update an Individual review
+const createIndividualCampaignDonation = catchAsyncErrors(
+  async (req, res, next) => {
+    const { amount, campaignId } = req.body;
+
+    const review = {
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      amount: Number(amount),
+    };
+
+    const campaign = await Campaign.findById(campaignId);
+
+    const isDonated = campaign.individualCampaignDonors.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isDonated) {
+    } else {
+      campaign.individualCampaignDonors.push(review);
+      campaign.numberOfIndividualCampaignDonors =
+        campaign.individualCampaignDonors.length;
+      campaign.totalNumberOfCampaignDonors =
+        campaign.individualCampaignDonors.length +
+        campaign.businessCampaignDonors.length;
+    }
+
+    // let avg = 0;
+
+    // campaign.individualCampaignDonors.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // campaign.ratings =
+    // avg /
+    // (campaign.individualCampaignDonors.length +
+    // campaign.businessCampaignDonors.length);
+
+    await campaign.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Get Individual Reviews of a campaign
+const getIndividualCampaignDonations = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.id);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      individualCampaignDonors: campaign.individualCampaignDonors,
+    });
+  }
+);
+
+// Delete Individual Review
+const deleteIndividualCampaignDonation = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.campaignId);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    const individualCampaignDonors = campaign.individualCampaignDonors.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    // let avg = 0;
+
+    // individualCampaignDonors.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // let amounts = 0;
+
+    // if (individualCampaignDonors.length === 0) {
+    //  amounts = 0;
+    // } else {
+    //  amounts = avg / individualCampaignDonors.length;
+    // }
+
+    const numberOfIndividualCampaignDonors = individualCampaignDonors.length;
+
+    await Campaign.findByIdAndUpdate(
+      req.query.campaignId,
+      {
+        individualCampaignDonors,
+
+        numberOfIndividualCampaignDonors,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Create New Business Review or Update the Business review
+const createBusinessCampaignDonation = catchAsyncErrors(
+  async (req, res, next) => {
+    const { amount, campaignId } = req.body;
+
+    const review = {
+      user: req.user._id,
+      firstName: req.user.firstName,
+      amount: Number(amount),
+    };
+
+    const campaign = await Campaign.findById(campaignId);
+
+    const isDonated = campaign.businessCampaignDonors.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isDonated) {
+    } else {
+      campaign.businessCampaignDonors.push(review);
+      campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
+      campaign.totalNumberOfCampaignDonors =
+        campaign.individualCampaignDonors.length +
+        campaign.businessCampaignDonors.length;
+    }
+
+    // let avg = 0;
+
+    // campaign.businessCampaignDonors.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // campaign.ratings =
+    // avg /
+    // (campaign.individualCampaignDonors.length +
+    // campaign.businessCampaignDonors.length);
+
+    await campaign.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Get All Business Reviews of a campaign
+const getBusinessCampaignDonations = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.id);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      businessCampaignDonors: campaign.businessCampaignDonors,
+    });
+  }
+);
+
+// Delete Business Review
+const deleteBusinessCampaignDonations = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.campaignId);
+
+    if (!campaign) {
+      return next(new ErrorHander("Campaign not found", 404));
+    }
+
+    const businessCampaignDonors = campaign.businessCampaignDonors.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    // let avg = 0;
+
+    // businessCampaignDonors.forEach((rev) => {
+    // avg += rev.amount;
+    // });
+
+    // letamounts = 0;
+
+    // if (businessCampaignDonors.length === 0) {
+    //  amounts = 0;
+    // } else {
+    //  amounts = avg / businessCampaignDonors.length;
+    // }
+
+    const numberOfBusinessReviews = businessCampaignDonors.length;
+
+    await Campaign.findByIdAndUpdate(
+      req.query.campaignId,
+      {
+        businessCampaignDonors,
+
+        numberOfBusinessReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
 module.exports = {
   getCampaigns,
   CreateCampaign,
   getCampaignById,
   UpdateCampaign,
   DeleteCampaign,
+  createIndividualCampaignReview,
+  getIndividualCampaignReviews,
+  deleteIndividualCampaignReview,
+  createBusinessCampaignReview,
+  getBusinessCampaignReviews,
+  deleteBusinessCampaignReview,
+  createIndividualCampaignDonation,
+  getIndividualCampaignDonations,
+  deleteIndividualCampaignDonation,
+  createBusinessCampaignDonation,
+  getBusinessCampaignDonations,
+  deleteBusinessCampaignDonations,
 };
