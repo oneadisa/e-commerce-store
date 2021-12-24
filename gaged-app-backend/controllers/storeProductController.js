@@ -319,51 +319,53 @@ const getIndividualProductReviews = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Individual Review
-const deleteIndividualReview = catchAsyncErrors(async (req, res, next) => {
-  const product = await StoreProduct.findById(req.query.productId);
+const deleteIndividualProductReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await StoreProduct.findById(req.query.productId);
 
-  if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
-  }
-
-  const individualProductReviews = product.individualProductReviews.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
-  );
-
-  let avg = 0;
-
-  individualProductReviews.forEach((rev) => {
-    avg += rev.rating;
-  });
-
-  let ratings = 0;
-
-  if (individualProductReviews.length === 0) {
-    ratings = 0;
-  } else {
-    ratings = avg / individualProductReviews.length;
-  }
-
-  const numberOfIndividualReviews = individualProductReviews.length;
-
-  await StoreProduct.findByIdAndUpdate(
-    req.query.productId,
-    {
-      individualProductReviews,
-      ratings,
-      numberOfIndividualReviews,
-    },
-    {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
+    if (!product) {
+      return next(new ErrorHander("StoreProduct not found", 404));
     }
-  );
 
-  res.status(200).json({
-    success: true,
-  });
-});
+    const individualProductReviews = product.individualProductReviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    let avg = 0;
+
+    individualProductReviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    let ratings = 0;
+
+    if (individualProductReviews.length === 0) {
+      ratings = 0;
+    } else {
+      ratings = avg / individualProductReviews.length;
+    }
+
+    const numberOfIndividualReviews = individualProductReviews.length;
+
+    await StoreProduct.findByIdAndUpdate(
+      req.query.productId,
+      {
+        individualProductReviews,
+        ratings,
+        numberOfIndividualReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
 
 // Create New Business Review or Update the Business review
 const createBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
@@ -428,7 +430,7 @@ const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Business Review
-const deleteBusinessReview = catchAsyncErrors(async (req, res, next) => {
+const deleteBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.productId);
 
   if (!product) {
@@ -661,50 +663,52 @@ const getBusinessProductCustomers = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Business Customer
-const deleteBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
-  const product = await StoreProduct.findById(req.query.productId);
+const deleteBusinessProductCustomer = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await StoreProduct.findById(req.query.productId);
 
-  if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
-  }
-
-  const businessProductCustomers = product.businessProductCustomers.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
-  );
-
-  //   let avg = 0;
-
-  //   businessProductCustomers.forEach((rev) => {
-  // avg += rev.rating;
-  //   });
-
-  //   let ratings = 0;
-
-  //   if (businessProductCustomers.length === 0) {
-  // ratings = 0;
-  //   } else {
-  // ratings = avg / businessProductCustomers.length;
-  //   }
-
-  const numberOfBusinessCustomers = businessProductCustomers.length;
-
-  await StoreProduct.findByIdAndUpdate(
-    req.query.productId,
-    {
-      businessProductCustomers,
-      numberOfBusinessCustomers,
-    },
-    {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
+    if (!product) {
+      return next(new ErrorHander("StoreProduct not found", 404));
     }
-  );
 
-  res.status(200).json({
-    success: true,
-  });
-});
+    const businessProductCustomers = product.businessProductCustomers.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    //   let avg = 0;
+
+    //   businessProductCustomers.forEach((rev) => {
+    // avg += rev.rating;
+    //   });
+
+    //   let ratings = 0;
+
+    //   if (businessProductCustomers.length === 0) {
+    // ratings = 0;
+    //   } else {
+    // ratings = avg / businessProductCustomers.length;
+    //   }
+
+    const numberOfBusinessCustomers = businessProductCustomers.length;
+
+    await StoreProduct.findByIdAndUpdate(
+      req.query.productId,
+      {
+        businessProductCustomers,
+        numberOfBusinessCustomers,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
 
 // Create New Individual Order or Update an Individual Order
 const createIndividualProductOrder = catchAsyncErrors(
@@ -885,7 +889,7 @@ const getBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Business Order
-const deleteBusinessOrder = catchAsyncErrors(async (req, res, next) => {
+const deleteBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.productId);
 
   if (!product) {
@@ -942,20 +946,20 @@ module.exports = {
   createIndividualProductReview,
   updateProductAdmin,
   getIndividualProductReviews,
-  deleteIndividualReview,
+  deleteIndividualProductReview,
   createBusinessProductReview,
   getBusinessProductReviews,
-  deleteBusinessReview,
+  deleteBusinessProductReview,
   createIndividualProductCustomer,
   getIndividualProductCustomers,
   deleteIndividualProductCustomer,
   createBusinessProductCustomer,
   getBusinessProductCustomers,
-  deleteBusinessCustomer,
+  deleteBusinessProductCustomer,
   createIndividualProductOrder,
   getIndividualProductOrders,
   deleteIndividualProductOrder,
   createBusinessProductOrder,
   getBusinessProductOrder,
-  deleteBusinessOrder,
+  deleteBusinessProductOrder,
 };

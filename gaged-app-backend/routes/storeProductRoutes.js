@@ -7,25 +7,26 @@ const {
   deleteStoreProduct,
   getAdminProducts,
   getProductDetails,
+  createProduct,
   createIndividualProductReview,
   updateProductAdmin,
   getIndividualProductReviews,
-  deleteIndividualReview,
+  deleteIndividualProductReview,
   createBusinessProductReview,
   getBusinessProductReviews,
-  deleteBusinessReview,
+  deleteBusinessProductReview,
   createIndividualProductCustomer,
   getIndividualProductCustomers,
   deleteIndividualProductCustomer,
   createBusinessProductCustomer,
   getBusinessProductCustomers,
-  deleteBusinessCustomer,
+  deleteBusinessProductCustomer,
   createIndividualProductOrder,
   getIndividualProductOrders,
   deleteIndividualProductOrder,
   createBusinessProductOrder,
   getBusinessProductOrder,
-  deleteBusinessOrder,
+  deleteBusinessProductOrder,
 } = require("../controllers/storeProductController");
 const {
   isAuthenticatedUser,
@@ -57,5 +58,59 @@ router
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteStoreProduct);
 
 router.route("/product/:id").get(getProductDetails);
+
+router
+  .route("/create-review/business")
+  .put(isAuthenticatedUser, createBusinessProductReview);
+
+router
+  .route("/reviews/business")
+  .get(getBusinessProductReviews)
+  .delete(isAuthenticatedUser, deleteBusinessProductReview);
+
+router
+  .route("/create-review/individual")
+  .put(isAuthenticatedUser, createIndividualProductReview);
+
+router
+  .route("/reviews/individual")
+  .get(getIndividualProductReviews)
+  .delete(isAuthenticatedUser, deleteIndividualProductReview);
+
+router
+  .route("/create-customer/business")
+  .put(isAuthenticatedUser, createBusinessProductCustomer);
+
+router
+  .route("/customers/business")
+  .get(getBusinessProductCustomers)
+  .delete(isAuthenticatedUser, deleteBusinessProductCustomer);
+
+router
+  .route("/create-customer/individual")
+  .put(isAuthenticatedUser, createIndividualProductCustomer);
+
+router
+  .route("/customers/individual")
+  .get(getIndividualProductCustomers)
+  .delete(isAuthenticatedUser, deleteIndividualProductCustomer);
+
+router
+  .route("/create-order/business")
+  .put(isAuthenticatedUser, createBusinessProductOrder);
+
+router
+  .route("/orders/business")
+  .get(getBusinessProductOrder)
+  .delete(isAuthenticatedUser, deleteBusinessProductOrder);
+
+router
+  .route("/create-order/individual")
+  .put(isAuthenticatedUser, createIndividualProductOrder);
+
+router
+  .route("/orders/individual")
+  .get(getIndividualProductOrders)
+  .delete(isAuthenticatedUser, deleteIndividualProductOrder);
 
 module.exports = router;

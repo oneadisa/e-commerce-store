@@ -610,7 +610,7 @@ const getBusinessCampaignDonations = catchAsyncErrors(
 );
 
 // Delete Business Review
-const deleteBusinessCampaignDonations = catchAsyncErrors(
+const deleteBusinessCampaignDonation = catchAsyncErrors(
   async (req, res, next) => {
     const campaign = await Campaign.findById(req.query.campaignId);
 
@@ -658,6 +658,116 @@ const deleteBusinessCampaignDonations = catchAsyncErrors(
   }
 );
 
+// Create Campaign -- Admin
+const createCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+  req.body.user = req.user.id;
+
+  const campaign = await Campaign.create(req.body);
+
+  res.status(201).json({
+    success: true,
+    campaign,
+  });
+});
+
+// Get All Campaign (Admin)
+const getAdminCampaigns = catchAsyncErrors(async (req, res, next) => {
+  const products = await Campaign.find();
+
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
+// Get Campaign Details
+const getCampaignDetailsAdmin = catchAsyncErrors(async (req, res, next) => {
+  const campaign = await Campaign.findById(req.params.id);
+
+  if (!campaign) {
+    return next(new ErrorHander("Campaign not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    campaign,
+  });
+});
+
+// Update Campaign -- Admin
+
+const updateCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
+  let campaign = await Campaign.findById(req.params.id);
+
+  if (!campaign) {
+    return next(new ErrorHander("Campaign not found", 404));
+  }
+
+  // Images Start Here
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < campaign.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(campaign.images[i].public_id);
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    req.body.images = imagesLinks;
+  }
+
+  campaign = await Campaign.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    campaign,
+  });
+});
+
 module.exports = {
   getCampaigns,
   CreateCampaign,
@@ -675,5 +785,9 @@ module.exports = {
   deleteIndividualCampaignDonation,
   createBusinessCampaignDonation,
   getBusinessCampaignDonations,
-  deleteBusinessCampaignDonations,
+  deleteBusinessCampaignDonation,
+  createCampaignAdmin,
+  getAdminCampaigns,
+  getCampaignDetailsAdmin,
+  updateCampaignAdmin,
 };
