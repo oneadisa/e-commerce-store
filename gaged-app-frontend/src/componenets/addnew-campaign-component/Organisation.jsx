@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import down from "../../images/down.svg";
 import file from "../../images/file.png";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-// import { Link } from "react-router-dom";
-// import { Dropdown } from 'semantic-ui-react'
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 
 function Organisation() {
 
   const [open, setOpen] = useState(false);
+
+  const [num, setNum] = useState('+234');
 
   return (
     <div className="mx-auto">
@@ -29,16 +30,16 @@ function Organisation() {
               <h2 className="text-lg font-semibold">1 of 6</h2>
               <div className="flex flex-col md:flex-row md:gap-4 my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  <div className="py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded cursor-pointer">
                     Organization Details
                   </div>
-                  <div className="p-1 md:p-2">Demographics</div>
-                  <div className="p-1 md:p-2">Target</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Demographics</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Target</div>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="p-1 md:p-2">Finance</div>
-                  <div className="p-1 md:p-2">Set Schedule</div>
-                  <div className="p-1 md:p-2">Review</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Finance</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Set Schedule</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Review</div>
                 </div>
               </div>
               <div className="mt-4">
@@ -178,11 +179,48 @@ function Organisation() {
                         Phone Number
                       </label>
                       <div className="flex">
-                        <div className="flex gap-1 items-center border-2 border-gray-400 border-r px-2">
-                          <h6 className="text-base text-gray-400 font-medium">
-                            +234
-                          </h6>
-                          <img alt="" src={down} />
+                        <div className="px-2 flex items-center w-24 border-2 border-gray-400 border-r">
+                          <Menu as="div" className="w-24">
+                            <Menu.Button className='flex w-full items-center '>
+                              <div className="flex text-base font-medium text-gray-400 pl-2 text-base font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                {num}
+                              </div>
+                              <div className="ml-auto">
+                                <ChevronDownIcon
+                                  className="w-6 h-6 text-violet-200 hover:text-violet-100"
+                                  aria-hidden="true"
+                                />
+                              </div>
+                            </Menu.Button>
+                            <Transition
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-20 mt-5 pt-2 pb-4 pl-2 pr-4 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div>
+                                  <div onClick={() => setNum('+351')} className="hover:text-blue-600">
+                                    +351
+                                  </div>
+                                  <div onClick={() => setNum('+541')} className="hover:text-blue-600">
+                                    +541
+                                  </div>
+                                  <div onClick={() => setNum('+031')} className="hover:text-blue-600">
+                                    +031
+                                  </div>
+                                  <div onClick={() => setNum('+333')} className="hover:text-blue-600">
+                                    +333
+                                  </div>
+                                  <div onClick={() => setNum('+222')} className="hover:text-blue-600">
+                                    +222
+                                  </div>
+                                </div>
+                              </Menu>
+                            </Transition>
+                          </Menu>
                         </div>
                         <input className="border-2 border-l border-gray-400 h-10 w-full pl-3 outline-none" />
                       </div>

@@ -1,8 +1,6 @@
 import React from 'react'
-import Logof from '../../images/logo-footer.jpg'
 import noimage from '../../images/noimage.svg'
 import Header from '../addnew-campaign-component/Header'
-
 
 function Cart() {
     return (

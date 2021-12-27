@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-import down from "../../images/down.svg";
 import left from "../../images/left.svg";
 import right from "../../images/right.svg";
+import { Menu, Transition } from '@headlessui/react'
+import { Fragment, useRef } from 'react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Link } from "react-router-dom";
 
 function Target() {
 
   const [open, setOpen] = useState(false);
 
+  const [schedule, setSchedule] = useState('Select a payment plan');
+  console.log(schedule);
+
+  const [duration, setDuration] = useState('Select duration');
+  console.log(duration);
+
+  
   return (
     <div className="mx-auto">
       <Header 
@@ -153,10 +162,47 @@ function Target() {
                         needs
                       </p>
                       <div className="px-2 bg-gray-200 w-64 h-10 flex items-center">
-                        <div className="pl-4 text-sm font-medium">
-                          Select duration
-                        </div>
-                        <img alt="" src={down} className="ml-auto" />
+                        <Menu as="div" className="">
+                          <Menu.Button className='flex w-64 items-center px-2'>
+                            <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                              {duration}
+                            </div>
+                            <div className="ml-auto mr-2">
+                              <ChevronDownIcon
+                                className="w-6 h-6 text-violet-200 hover:text-violet-100"
+                                aria-hidden="true"
+                              />
+                            </div>
+                          </Menu.Button>
+                          <Transition
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu className="absolute cursor-pointer flex flex-col gap-3 w-40 mt-3 py-4 pl-6 pr-10 text-sm font-medium bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                              <div>
+                                <div onClick = {() => setDuration('12 months')} className="hover:text-blue-600">
+                                  12 months
+                                </div>
+                                <div onClick = {() => setDuration('18 months')} className="hover:text-blue-600">
+                                  18 months
+                                </div>
+                                <div onClick = {() => setDuration('24 months')} className="hover:text-blue-600">
+                                  24 months
+                                </div>
+                                <div onClick = {() => setDuration('30 months')} className="hover:text-blue-600">
+                                  30 months
+                                </div>
+                                <div onClick = {() => setDuration('36 months')} className="hover:text-blue-600">
+                                  36 months
+                                </div>
+                              </div>
+                            </Menu>
+                          </Transition>
+                        </Menu>
                       </div>
                     </div>
                   </div>
@@ -169,10 +215,41 @@ function Target() {
                         Please select Link repayment schedule
                       </p>
                       <div className="px-2 bg-gray-200 w-64 h-10 flex items-center">
-                        <div className="pl-4 text-sm font-medium">
-                          Select Link payment plan
-                        </div>
-                        <img alt="" src={down} className="ml-auto" />
+                        <Menu as="div" className="">
+                          <Menu.Button className='flex w-64 items-center px-2'>
+                            <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                              {schedule}
+                            </div>
+                            <div className="ml-auto mr-2">
+                              <ChevronDownIcon
+                                className="w-6 h-6 text-violet-200 hover:text-violet-100"
+                                aria-hidden="true"
+                              />
+                            </div>
+                          </Menu.Button>
+                          <Transition
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-40 mt-3 pt-3 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                              <div>
+                                <div onClick={() => setSchedule('Monthly')} className="hover:text-blue-600">
+                                  Monthly
+                                </div>
+                                <div onClick={() => setSchedule('Bi-monthly')} className="hover:text-blue-600">
+                                  Bi-monthly
+                                </div>
+                                <div onClick={() => setSchedule('Quarterly')} className="hover:text-blue-600">
+                                  Quarterly
+                                </div>
+                              </div>
+                            </Menu>
+                          </Transition>
+                        </Menu>
                       </div>
                     </div>
                   </div>

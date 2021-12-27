@@ -10,10 +10,8 @@ import { Link } from "react-router-dom";
 function DashBoard() {
     return (
         <ul
-            className={
-              "w-1/3 lg:w-32 min-h-screen lg:min-h-0 absolute transition duration-200 bg-magenta-blue text-Dark-grey lg:static flex flex-col text-lg font-medium lg:mt-16 lg:block" +
-              (open === true ? " " : " hidden ")
-            }
+            className=
+              "w-1/3 lg:w-32 min-h-screen lg:min-h-0 absolute transition duration-200 bg-magenta-blue text-Dark-grey lg:static flex flex-col text-lg font-medium lg:mt-16 lg:block"
           >
             <li className="my-3 p-3">
               <Link to="/" className="flex gap-3">
