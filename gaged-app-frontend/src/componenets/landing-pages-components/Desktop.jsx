@@ -28,9 +28,9 @@ function Desktop() {
         <img src={Logoh} className="" />
       </Link>
       <ul className="flex gap-10 md:text-base lg:text-lg font-medium text-center items-center justify-center flex-1">
-        <Link to="/campaigns">Campaigns</Link>
-        <Link to="/stores/producrs/all">Stores</Link>
-        <Link to="/about">About</Link>
+        <Link to="/campaigns" className="hover:text-Dark-blue">Campaigns</Link>
+        <Link to="/stores/producrs/all" className="hover:text-Dark-blue">Stores</Link>
+        <Link to="/about" className="hover:text-Dark-blue">About</Link>
       </ul>
       <div className="flex md:gap-2 lg:gap-3 ml-auto">
         <form className="form flex md:gap-2 lg:gap-3 ml-auto">
@@ -43,7 +43,7 @@ function Desktop() {
         </form>
         <Link
           to="/signup"
-          className="py-2 md:px-5 lg:px-7 border border-Dark-blue bg-Dark-blue text-white font-medium rounded hover:bg-white hover:text-Dark-blue"
+          className="animate-bounce py-2 md:px-5 lg:px-7 border border-Dark-blue bg-Dark-blue text-white font-medium rounded hover:bg-white hover:text-Dark-blue"
         >
           Sign up
         </Link>

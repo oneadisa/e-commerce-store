@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-import down from "../../images/down.svg";
 import left from "../../images/left.svg";
 import right from "../../images/right.svg";
+import { Menu, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Link } from "react-router-dom";
 
 function SetSchedule() {
 
   const [open, setOpen] = useState(false);
+
+  const [duration, setDuration] = useState('Campaign duration');
 
   return (
     <div className="mx-auto">
@@ -49,11 +52,54 @@ function SetSchedule() {
                       The ship is just ready to sail, but first you need to set
                       the duration of your fundraising campaign.
                     </p>
-                    <div className="px-2 flex justify-between items-center h-12 w-11/12 border-2 border-gray-400">
-                      <p className="text-base font-medium text-gray-400 pl-3">
-                        Campaign duration
-                      </p>
-                      <img alt="" src={down} />
+                    <div className="px-2 h-12 flex items-center w-11/12 border-2 border-gray-400">
+                        <Menu as="div" className="w-11/12">
+                          <Menu.Button className='flex w-full items-center '>
+                            <div className="flex text-base font-medium text-gray-400 pl-3 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                              {duration}
+                            </div>
+                            <div className="ml-auto">
+                              <ChevronDownIcon
+                                className="w-6 h-6 text-violet-200 hover:text-violet-100"
+                                aria-hidden="true"
+                              />
+                            </div>
+                          </Menu.Button>
+                          <Transition
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-40 mt-5 pt-5 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                              <div>
+                                <div onClick={() => setDuration('2 weeks')} className="hover:text-blue-600">
+                                  2 weeks
+                                </div>
+                                <div onClick={() => setDuration('3 weeks')} className="hover:text-blue-600">
+                                  3 weeks
+                                </div>
+                                <div onClick={() => setDuration('4 weeks')} className="hover:text-blue-600">
+                                  4 weeks
+                                </div>
+                                <div onClick={() => setDuration('5 weeks')} className="hover:text-blue-600">
+                                  5 weeks
+                                </div>
+                                <div onClick={() => setDuration('6 weeks')} className="hover:text-blue-600">
+                                  6 weeks
+                                </div>
+                                <div onClick={() => setDuration('7 weeks')} className="hover:text-blue-600">
+                                  7 weeks
+                                </div>
+                                <div onClick={() => setDuration('8 weeks')} className="hover:text-blue-600">
+                                  8 weeks
+                                </div>
+                              </div>
+                            </Menu>
+                          </Transition>
+                        </Menu>
                     </div>
                     <div className="flex gap-3 items-center w-11/12">
                       <div className="h-px w-full bg-gray-300" />

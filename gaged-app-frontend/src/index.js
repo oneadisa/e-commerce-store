@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-// import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./store";
+import Wallet from "./componenets/wallet-component/Wallet";
 // import "semantic-ui-css/semantic.min.css";
 // import Organisaction from "./componenets/addnew-campaign-component/Organisation";
 // import Demographics from "./componenets/addnew-campaign-component/Demographics";
@@ -19,17 +20,12 @@ import store from "./store";
 // import LoginBusiness from './sections/LoginBusiness';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-    {/* <Cart /> */}
-    {/* <Organisaction /> */}
-    {/* <Demographics /> */}
-    {/* <Target /> */}
-    {/* <TargetII /> */}
-    {/* <Finance /> */}
-    {/* <SetSchedule /> */}
-    {/* <Review /> */}
-  </Provider>,
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>,
+  <BrowserRouter>
+    <Wallet />
+  </BrowserRouter>,
 
   document.getElementById("root")
 );

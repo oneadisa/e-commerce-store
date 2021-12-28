@@ -14,7 +14,7 @@ function Header(props) {
           <input
             placeHolder="Search Product Titles"
             className="w-28 lg:block lg:w-96 outline-none pl-1 lg:pl-5"
-            onChange={(e) => setSearch(e.target.value)}
+            // onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className="flex gap-2 lg:gap-10 lg:pr-28 ml-auto">

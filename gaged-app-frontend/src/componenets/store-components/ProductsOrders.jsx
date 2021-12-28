@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState } from 'react'
-
+import Header from './Header'
+import DashBoard from './DashBoard'
 
 function ProductsOrders() {
     const [open, setOpen] = useState(false)

@@ -14,12 +14,12 @@ function Hero() {
       </p>
       <div className="flex gap-3 md:gap-5 my-3 md:my-4">
         <Link to="/signup">
-          <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue bg-Dark-blue text-white sm:text-base md:text-xl font-medium rounded hover:bg-white hover:text-Dark-blue">
+          <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue bg-Dark-blue text-white sm:text-base md:text-xl font-medium rounded hover:bg-white hover:animate-bounce hover:text-Dark-blue">
             Sign up
           </button>
         </Link>
         <Link to="/explore/campaigns">
-          <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue text-Dark-blue sm:text-base md:text-xl font-medium rounded hover:bg-Dark-blue hover:text-white">
+          <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue text-Dark-blue sm:text-base md:text-xl font-medium rounded hover:animate-bounce hover:bg-Dark-blue hover:text-white">
             Explore
           </button>
         </Link>
