@@ -3,41 +3,43 @@ const mongooseSerial = require("mongoose-serial");
 
 const storeProductSchema = new mongoose.Schema(
   {
-    serialNumber: {
-      type: String,
-      required: false,
-    },
     productTitle: {
       type: String,
-      required: true,
+      required: [true, "Please Enter product Name"],
+      trim: true,
     },
     shortDescription: {
       type: String,
-      required: true,
+      required: [true, "Please Enter product Description"],
     },
     productDetails: {
       type: String,
-      required: true,
+      required: [true, "Please Enter Product Details"],
     },
     standardPrice: {
       type: Number,
-      required: true,
+      required: [true, "Please Enter Standard Product Price"],
+      maxLength: [8, "Price cannot exceed 8 characters"],
     },
     discountedPrice: {
       type: Number,
-      required: true,
+      required: [true, "Please Enter Discounted Product Price"],
+      maxLength: [8, "Price cannot exceed 8 characters"],
     },
     costPrice: {
       type: Number,
-      required: true,
+      required: [true, "Please Enter product Price"],
+      maxLength: [8, "Price cannot exceed 8 characters"],
     },
     productStockCount: {
       type: Number,
-      required: true,
+      required: false,
     },
     productUnitCount: {
       type: Number,
-      required: true,
+      required: [true, "Please Enter product Stock"],
+      maxLength: [4, "Stock cannot exceed 4 characters"],
+      default: 1,
     },
     productSKU: {
       type: Number,
@@ -46,29 +48,214 @@ const storeProductSchema = new mongoose.Schema(
     productImageOne: {
       type: String,
       required: false,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     productImageTwo: {
       type: String,
       required: false,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     productImageThree: {
       type: String,
       required: false,
-      default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fgrey%2520background%2F&psig=AOvVaw2p9TwtlqiYx-KidmqkJLdm&ust=1638691891078000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCNio_5PZyfQCFQAAAAAdAAAAABAD",
+      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+    },
+    ratings: {
+      type: Number,
+      default: 0,
     },
     category: {
       type: String,
-      required: true,
+      required: [true, "Please Enter Product Category"],
+    },
+    individualProductReviews: [
+      {
+        individualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        rating: {
+          type: Number,
+          default: 0,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+        commentedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    numberOfIndividualReviews: {
+      type: Number,
+      default: 0,
+    },
+
+    BusinessProductReviews: [
+      {
+        businessUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpBusinessTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: true,
+        },
+        rating: {
+          type: Number,
+          default: 0,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+        commentedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    numberOfBusinessReviews: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfReviews: {
+      type: Number,
+      default: 0,
+    },
+    businessOrders: [
+      {
+        businessUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpBusinessTable",
+          required: false,
+        },
+        productOrdered: {
+          type: String,
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        phoneNumber: {
+          type: Number,
+          required: false,
+        },
+        email: {
+          type: Number,
+          required: false,
+        },
+      },
+    ],
+    numberOfBusinessOrders: {
+      type: Number,
+      default: 0,
+    },
+
+    individualOrders: [
+      {
+        individualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        productOrdered: {
+          type: String,
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        phoneNumber: {
+          type: Number,
+          required: false,
+        },
+        email: {
+          type: Number,
+          required: false,
+        },
+      },
+    ],
+    numberOfIndividualOrders: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfOrders: {
+      type: Number,
+      default: 0,
+    },
+    individualCustomers: [
+      {
+        individualUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpUserTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        phoneNumber: {
+          type: Number,
+          required: false,
+        },
+        email: {
+          type: Number,
+          required: false,
+        },
+      },
+    ],
+    numberOfIndividualCustomers: {
+      type: Number,
+      default: 0,
+    },
+    businessCustomers: [
+      {
+        businessUser: {
+          type: mongoose.Schema.ObjectId,
+          ref: "mySignedUpBusinessTable",
+          required: false,
+        },
+        name: {
+          type: String,
+          required: false,
+        },
+        phoneNumber: {
+          type: Number,
+          required: false,
+        },
+        email: {
+          type: Number,
+          required: false,
+        },
+      },
+    ],
+    numberOfBusinessCustomers: {
+      type: Number,
+      default: 0,
+    },
+    totalNumberOfCustomers: {
+      type: Number,
+      default: 0,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: false,
       ref: "mySignedUpBusinessTable",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   {
@@ -77,12 +264,6 @@ const storeProductSchema = new mongoose.Schema(
 );
 
 const StoreProduct = mongoose.model("StoreProduct", storeProductSchema);
-storeProductSchema.plugin(mongooseSerial, {
-  field: "serialNumber",
-  initCount: "monthly",
-  separator: "-",
-  digits: 3,
-});
 
 module.exports = StoreProduct;
 
@@ -90,3 +271,23 @@ module.exports = StoreProduct;
 //  name: '#',
 //  selector: 'serial'
 // }
+
+// storeProductSchema.plugin(mongooseSerial, {
+// field: "serialNumber",
+// initCount: "monthly",
+// separator: "-",
+// digits: 3,
+// });
+
+// images: [
+// {
+// public_id: {
+// type: String,
+// required: true,
+// },
+// url: {
+// type: String,
+// required: true,
+// },
+// },
+// ],

@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const storeSchema = new mongoose.Schema(
+const cartSchema = new mongoose.Schema(
   {
-    storeName: {
+    businessName: {
       type: String,
       required: true,
     },
-    tagLine: {
+    productName: {
       type: String,
       required: true,
     },
@@ -14,17 +14,19 @@ const storeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    link: {
-      type: String,
+    quantity: {
+      type: Number,
       required: true,
-      lowercase: true,
     },
-    logo: {
-      type: String,
+    price: {
+      type: Number,
       required: true,
-      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
-    business: {
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "mySignedUpBusinessTable",
@@ -35,6 +37,6 @@ const storeSchema = new mongoose.Schema(
   }
 );
 
-const newStore = mongoose.model("Store", storeSchema);
+const Cart = mongoose.model("Cart", cartSchema);
 
-module.exports = newStore;
+module.exports = Cart;
