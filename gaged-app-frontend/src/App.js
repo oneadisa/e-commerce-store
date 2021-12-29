@@ -1,7 +1,15 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import "./App.css";
+import store from "./store";
+import WebFont from "webfontloader";
+
+import { useSelector } from "react-redux";
+import { loadUser } from "./actions/userAction";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./componenets/landing-pages-components/LandingPage";
@@ -57,9 +65,32 @@ import BusinessDashboard from "./componenets/dashboard-component/Business-dashbo
 import ErrorPage from "./componenets/ErroPage";
 import UserDashboard from "./componenets/dashboard-component/User-dashboard";
 
-function App(): JSX.Element {
+function App() {
   const [search, setSearch] = useState("");
-  // let { id } = useParams();
+
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+  }
+
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Roboto", "Droid Sans", "Chilanka"],
+      },
+    });
+
+    store.dispatch(loadUser());
+
+    getStripeApiKey();
+  }, []);
+
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <Router>

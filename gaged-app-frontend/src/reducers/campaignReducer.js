@@ -1,63 +1,74 @@
 import {
-  ALL_PRODUCT_FAIL,
-  ALL_PRODUCT_REQUEST,
-  ALL_PRODUCT_SUCCESS,
-  ADMIN_PRODUCT_REQUEST,
-  ADMIN_PRODUCT_SUCCESS,
-  ADMIN_PRODUCT_FAIL,
-  NEW_PRODUCT_REQUEST,
-  NEW_PRODUCT_SUCCESS,
-  NEW_PRODUCT_FAIL,
-  NEW_PRODUCT_RESET,
-  UPDATE_PRODUCT_REQUEST,
-  UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_FAIL,
-  UPDATE_PRODUCT_RESET,
-  DELETE_PRODUCT_REQUEST,
-  DELETE_PRODUCT_SUCCESS,
-  DELETE_PRODUCT_FAIL,
-  DELETE_PRODUCT_RESET,
-  PRODUCT_DETAILS_REQUEST,
-  PRODUCT_DETAILS_FAIL,
-  PRODUCT_DETAILS_SUCCESS,
-  NEW_REVIEW_REQUEST,
-  NEW_REVIEW_SUCCESS,
-  NEW_REVIEW_FAIL,
-  NEW_REVIEW_RESET,
-  ALL_REVIEW_REQUEST,
-  ALL_REVIEW_SUCCESS,
-  ALL_REVIEW_FAIL,
-  DELETE_REVIEW_REQUEST,
-  DELETE_REVIEW_SUCCESS,
-  DELETE_REVIEW_FAIL,
-  DELETE_REVIEW_RESET,
+  ALL_CAMPAIGN_FAIL,
+  ALL_CAMPAIGN_REQUEST,
+  ALL_CAMPAIGN_SUCCESS,
+  ADMIN_CAMPAIGN_REQUEST,
+  ADMIN_CAMPAIGN_SUCCESS,
+  ADMIN_CAMPAIGN_FAIL,
+  NEW_CAMPAIGN_REQUEST,
+  NEW_CAMPAIGN_SUCCESS,
+  NEW_CAMPAIGN_FAIL,
+  NEW_CAMPAIGN_RESET,
+  UPDATE_CAMPAIGN_REQUEST,
+  UPDATE_CAMPAIGN_SUCCESS,
+  UPDATE_CAMPAIGN_FAIL,
+  UPDATE_CAMPAIGN_RESET,
+  DELETE_CAMPAIGN_REQUEST,
+  DELETE_CAMPAIGN_SUCCESS,
+  DELETE_CAMPAIGN_FAIL,
+  DELETE_CAMPAIGN_RESET,
+  CAMPAIGN_DETAILS_REQUEST,
+  CAMPAIGN_DETAILS_FAIL,
+  CAMPAIGN_DETAILS_SUCCESS,
+  NEW_DONOR_REQUEST,
+  NEW_DONOR_SUCCESS,
+  NEW_DONOR_FAIL,
+  NEW_DONOR_RESET,
+  ALL_DONORS_REQUEST,
+  ALL_DONORS_SUCCESS,
+  ALL_DONORS_FAIL,
+  DELETE_DONOR_REQUEST,
+  DELETE_DONOR_SUCCESS,
+  DELETE_DONOR_FAIL,
+  DELETE_DONOR_RESET,
+  NEW_CAMPAIGN_REVIEW_REQUEST,
+  NEW_CAMPAIGN_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_REVIEW_FAIL,
+  NEW_CAMPAIGN_REVIEW_RESET,
+  ALL_CAMPAIGN_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_REVIEW_FAIL,
+  DELETE_CAMPAIGN_REVIEW_RESET,
   CLEAR_ERRORS,
 } from "../constants/campaignConstants";
 
-export const productsReducer = (state = { products: [] }, action) => {
+export const campaignsReducer = (state = { campaigns: [] }, action) => {
   switch (action.type) {
-    case ALL_PRODUCT_REQUEST:
-    case ADMIN_PRODUCT_REQUEST:
+    case ALL_CAMPAIGN_REQUEST:
+    case ADMIN_CAMPAIGN_REQUEST:
       return {
         loading: true,
-        products: [],
+        campaigns: [],
       };
-    case ALL_PRODUCT_SUCCESS:
+    case ALL_CAMPAIGN_SUCCESS:
       return {
         loading: false,
-        products: action.payload.products,
-        productsCount: action.payload.productsCount,
+        campaigns: action.payload.campaigns,
+        campaignsCount: action.payload.campaignsCount,
         resultPerPage: action.payload.resultPerPage,
         filteredProductsCount: action.payload.filteredProductsCount,
       };
 
-    case ADMIN_PRODUCT_SUCCESS:
+    case ADMIN_CAMPAIGN_SUCCESS:
       return {
         loading: false,
-        products: action.payload,
+        campaigns: action.payload,
       };
-    case ALL_PRODUCT_FAIL:
-    case ADMIN_PRODUCT_FAIL:
+    case ALL_CAMPAIGN_FAIL:
+    case ADMIN_CAMPAIGN_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -73,26 +84,26 @@ export const productsReducer = (state = { products: [] }, action) => {
   }
 };
 
-export const newProductReducer = (state = { product: {} }, action) => {
+export const newCampaignReducer = (state = { campaign: {} }, action) => {
   switch (action.type) {
-    case NEW_PRODUCT_REQUEST:
+    case NEW_CAMPAIGN_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_PRODUCT_SUCCESS:
+    case NEW_CAMPAIGN_SUCCESS:
       return {
         loading: false,
         success: action.payload.success,
-        product: action.payload.product,
+        campaign: action.payload.campaign,
       };
-    case NEW_PRODUCT_FAIL:
+    case NEW_CAMPAIGN_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_PRODUCT_RESET:
+    case NEW_CAMPAIGN_RESET:
       return {
         ...state,
         success: false,
@@ -107,40 +118,40 @@ export const newProductReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productReducer = (state = {}, action) => {
+export const campaignReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_PRODUCT_REQUEST:
-    case UPDATE_PRODUCT_REQUEST:
+    case DELETE_CAMPAIGN_REQUEST:
+    case UPDATE_CAMPAIGN_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_PRODUCT_SUCCESS:
+    case DELETE_CAMPAIGN_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
 
-    case UPDATE_PRODUCT_SUCCESS:
+    case UPDATE_CAMPAIGN_SUCCESS:
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
       };
-    case DELETE_PRODUCT_FAIL:
-    case UPDATE_PRODUCT_FAIL:
+    case DELETE_CAMPAIGN_FAIL:
+    case UPDATE_CAMPAIGN_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_PRODUCT_RESET:
+    case DELETE_CAMPAIGN_RESET:
       return {
         ...state,
         isDeleted: false,
       };
-    case UPDATE_PRODUCT_RESET:
+    case UPDATE_CAMPAIGN_RESET:
       return {
         ...state,
         isUpdated: false,
@@ -155,19 +166,19 @@ export const productReducer = (state = {}, action) => {
   }
 };
 
-export const productDetailsReducer = (state = { product: {} }, action) => {
+export const campaignDetailsReducer = (state = { campaign: {} }, action) => {
   switch (action.type) {
-    case PRODUCT_DETAILS_REQUEST:
+    case CAMPAIGN_DETAILS_REQUEST:
       return {
         loading: true,
         ...state,
       };
-    case PRODUCT_DETAILS_SUCCESS:
+    case CAMPAIGN_DETAILS_SUCCESS:
       return {
         loading: false,
-        product: action.payload,
+        campaign: action.payload,
       };
-    case PRODUCT_DETAILS_FAIL:
+    case CAMPAIGN_DETAILS_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -183,25 +194,25 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const newReviewReducer = (state = {}, action) => {
+export const newCampaignDonorReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_REVIEW_REQUEST:
+    case NEW_DONOR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_REVIEW_SUCCESS:
+    case NEW_DONOR_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_REVIEW_FAIL:
+    case NEW_DONOR_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_REVIEW_RESET:
+    case NEW_DONOR_RESET:
       return {
         ...state,
         success: false,
@@ -216,19 +227,19 @@ export const newReviewReducer = (state = {}, action) => {
   }
 };
 
-export const productReviewsReducer = (state = { reviews: [] }, action) => {
+export const campaignDonorsReducer = (state = { reviews: [] }, action) => {
   switch (action.type) {
-    case ALL_REVIEW_REQUEST:
+    case ALL_DONORS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_REVIEW_SUCCESS:
+    case ALL_DONORS_SUCCESS:
       return {
         loading: false,
         reviews: action.payload,
       };
-    case ALL_REVIEW_FAIL:
+    case ALL_DONORS_FAIL:
       return {
         ...state,
         loading: false,
@@ -245,26 +256,122 @@ export const productReviewsReducer = (state = { reviews: [] }, action) => {
   }
 };
 
-export const reviewReducer = (state = {}, action) => {
+export const campaignDonorReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_REVIEW_REQUEST:
+    case DELETE_DONOR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_REVIEW_SUCCESS:
+    case DELETE_DONOR_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_REVIEW_FAIL:
+    case DELETE_DONOR_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_REVIEW_RESET:
+    case DELETE_DONOR_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newCampaignReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NEW_CAMPAIGN_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_CAMPAIGN_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_CAMPAIGN_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_CAMPAIGN_REVIEW_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const campaignReviewsReducer = (state = { reviews: [] }, action) => {
+  switch (action.type) {
+    case ALL_CAMPAIGN_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGN_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        reviews: action.payload,
+      };
+    case ALL_CAMPAIGN_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const campaignReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CAMPAIGN_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CAMPAIGN_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_CAMPAIGN_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_CAMPAIGN_REVIEW_RESET:
       return {
         ...state,
         isDeleted: false,
