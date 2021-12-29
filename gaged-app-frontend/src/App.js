@@ -12,12 +12,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import LandingPage from "./componenets/landing-pages-components/LandingPage";
+import LandingPage from "./components/landing-pages-components/LandingPage";
 
-import ProductsAll from "./componenets/store-components/ProductsAll";
-import ProductsNew from "./componenets/store-components/ProductsNew";
-import ProductsOrders from "./componenets/store-components/ProductsOrders";
-import SingleStoreProduct from "./componenets/store-components/SingleStoreProduct";
+import ProductsAll from "./components/store-components/ProductsAll";
+import ProductsNew from "./components/store-components/ProductsNew";
+import ProductsOrders from "./components/store-components/ProductsOrders";
+import SingleStoreProduct from "./components/store-components/SingleStoreProduct";
 
 import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
 import SetUpProfile1individual from "./sections/SignUp/SetUpProfile-1-individual";
@@ -28,42 +28,42 @@ import LoginGeneral from "./sections/LoginGeneral";
 import LoginUser from "./sections/LoginUser";
 import LoginBusiness from "./sections/LoginBusiness";
 
-import Campaigns from "./componenets/individual-component/Campaigns";
-import ExploreStores from "./componenets/individual-component/ExploreStores";
-import CampaignsFirst from "./componenets/individual-component/CampaignsFirst";
-import CampaignsSecond from "./componenets/individual-component/CampaignsSecond";
-import CampaignsThird from "./componenets/individual-component/Campaigns";
-import ExploreCampaigns from "./componenets/individual-component/ExploreCampaigns";
+import Campaigns from "./components/individual-component/Campaigns";
+import ExploreStores from "./components/individual-component/ExploreStores";
+import CampaignsFirst from "./components/individual-component/CampaignsFirst";
+import CampaignsSecond from "./components/individual-component/CampaignsSecond";
+import CampaignsThird from "./components/individual-component/Campaigns";
+import ExploreCampaigns from "./components/individual-component/ExploreCampaigns";
 
-import Campaign1 from "./componenets/campaign-components/Campaign1";
-import Campaign2 from "./componenets/campaign-components/Campaign2";
-import Campaign3 from "./componenets/campaign-components/Campaign3";
+import Campaign1 from "./components/campaign-components/Campaign1";
+import Campaign2 from "./components/campaign-components/Campaign2";
+import Campaign3 from "./components/campaign-components/Campaign3";
 
-import SettingsBank from "./componenets/setting-components/SettingsBank";
-import SettingsGeneral from "./componenets/setting-components/SettingsGeneral";
-import SettingsStore from "./componenets/setting-components/SettingsStore";
+import SettingsBank from "./components/setting-components/SettingsBank";
+import SettingsGeneral from "./components/setting-components/SettingsGeneral";
+import SettingsStore from "./components/setting-components/SettingsStore";
 
-import PublishedStore from "./componenets/published-component/PublishedStore";
+import PublishedStore from "./components/published-component/PublishedStore";
 
-import Comments from "./componenets/managecampaign-component/Comments";
-import Lenders from "./componenets/managecampaign-component/Lenders";
-import OverviewDonation from "./componenets/managecampaign-component/OverviewDonation";
-import OverviewEquity from "./componenets/managecampaign-component/OverviewEquity";
-import OverviewLoan from "./componenets/managecampaign-component/OverviewLoan";
+import Comments from "./components/managecampaign-component/Comments";
+import Lenders from "./components/managecampaign-component/Lenders";
+import OverviewDonation from "./components/managecampaign-component/OverviewDonation";
+import OverviewEquity from "./components/managecampaign-component/OverviewEquity";
+import OverviewLoan from "./components/managecampaign-component/OverviewLoan";
 
-import Demographics from "./componenets/addnew-campaign-component/Demographics";
-import Finance from "./componenets/addnew-campaign-component/Finance";
-import Organisation from "./componenets/addnew-campaign-component/Organisation";
-import Review from "./componenets/addnew-campaign-component/Review";
-import SetSchedule from "./componenets/addnew-campaign-component/SetSchedule";
-import Target from "./componenets/addnew-campaign-component/Target";
-import TargetII from "./componenets/addnew-campaign-component/TargetII";
+import Demographics from "./components/addnew-campaign-component/Demographics";
+import Finance from "./components/addnew-campaign-component/Finance";
+import Organisation from "./components/addnew-campaign-component/Organisation";
+import Review from "./components/addnew-campaign-component/Review";
+import SetSchedule from "./components/addnew-campaign-component/SetSchedule";
+import Target from "./components/addnew-campaign-component/Target";
+import TargetII from "./components/addnew-campaign-component/TargetII";
 
-import Cart from "./componenets/cart-component/Cart";
-import BusinessDashboard from "./componenets/dashboard-component/Business-dashboard";
+import Cart from "./components/cart-component/Cart";
+import BusinessDashboard from "./components/dashboard-component/Business-dashboard";
 
-import ErrorPage from "./componenets/ErroPage";
-import UserDashboard from "./componenets/dashboard-component/User-dashboard";
+import ErrorPage from "./components/ErroPage";
+import UserDashboard from "./components/dashboard-component/User-dashboard";
 
 function App() {
   const [search, setSearch] = useState("");

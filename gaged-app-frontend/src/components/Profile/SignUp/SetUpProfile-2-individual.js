@@ -4,9 +4,9 @@
 import React, { useState, useEffect } from "react";
 import HeaderSignUp from "./SignUpComponents/HeaderSignUp-Login";
 import People from "../../images/Gaged-images/Group 3577.png";
-import Loader from "../../componenets/Loader";
+import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
-import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
+import GeneralErrorMessage from "../../components/GeneralErrorMessage";
 // import PictureErrorMessage from '../../componenets/PictureErrorMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../actions/userActions";
@@ -183,18 +183,18 @@ function SetUpProfile2Individual() {
           </div>
           {/* {message && <ErrorMessage/> } */}
 
-          <form onSubmit={handleClick} className='flex flex-col gap-5 md:gap-2'>
+          <form onSubmit={handleClick} className="flex flex-col gap-5 md:gap-2">
             {loading && <Loader />}
             <div className="mb-4">
-                {/* <label htmlFor="" className="text-xs font-semibold px-1"></label> */}
-                <div className="">
-                  {/* <div className="w-10 z-10 pl-1 text-start pointer-events-none flex ">
+              {/* <label htmlFor="" className="text-xs font-semibold px-1"></label> */}
+              <div className="">
+                {/* <div className="w-10 z-10 pl-1 text-start pointer-events-none flex ">
                     <i className="mdi mdi-account-outline text-black text-lg"></i>
                   </div> */}
-                  <button className="w-44 text-base font-medium h-9 bg-indigo-200 hover:bg-indigo-500">
-                    Sign up with email
-                  </button>
-                </div>
+                <button className="w-44 text-base font-medium h-9 bg-indigo-200 hover:bg-indigo-500">
+                  Sign up with email
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col md:flex-row gap-2 md:gap-3">
@@ -239,8 +239,6 @@ function SetUpProfile2Individual() {
               </div>
             </div>
 
-
-
             <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full">
               <div className="">
                 {/* <label
@@ -283,7 +281,6 @@ function SetUpProfile2Individual() {
               </div>
             </div>
 
-
             <div className="flex flex-col md:flex-row gap-2 md:gap-3">
               <div className="">
                 {/* <label
@@ -323,10 +320,7 @@ function SetUpProfile2Individual() {
                     placeholder="Confirm Password"
                     value={credentials.confirmPassword}
                   />
-                  <i
-                    className="fas fa-eye"
-                    onClick={togglePasswordVisiblity}
-                  />
+                  <i className="fas fa-eye" onClick={togglePasswordVisiblity} />
                 </div>
               </div>
             </div>
@@ -346,18 +340,21 @@ function SetUpProfile2Individual() {
             {/* </div> */}
           </form>
 
-          <div className='flex flex-col gap-8 w-full lgw-3/4'>
-            <div className='flex flex-col'>
+          <div className="flex flex-col gap-8 w-full lgw-3/4">
+            <div className="flex flex-col">
               <div className="flex gap-2">
-                <input type="checkbox" className="h-8 w-8 md:h-5 md:w-5 lg:h-8 lg:w-8" />
+                <input
+                  type="checkbox"
+                  className="h-8 w-8 md:h-5 md:w-5 lg:h-8 lg:w-8"
+                />
                 <span className="font-poppins text-sm leading-4 lg:w-4/5">
                   {" "}
-                  Subscribe to our newsletter and receive tips on how to
-                  launch a successful campaign.
+                  Subscribe to our newsletter and receive tips on how to launch
+                  a successful campaign.
                 </span>
               </div>
-              
-              <div className=''>
+
+              <div className="">
                 <p className="font-poppins text-sm">
                   By creating an account, you agree to the{" "}
                   <Link to="" className="text-indigo-400">
@@ -366,9 +363,7 @@ function SetUpProfile2Individual() {
                 </p>
               </div>
             </div>
-            
 
-            
             <div className="flex flex-col gap-4">
               <button
                 onClick={handleClick}
@@ -376,10 +371,7 @@ function SetUpProfile2Individual() {
               >
                 Create account
               </button>
-            
-            
 
-            
               <p className="font-poppins text-sm font-normal">
                 Already on Gaged?
                 <Link to="/userLogin" className="text-indigo-400">
@@ -390,10 +382,6 @@ function SetUpProfile2Individual() {
             </div>
           </div>
         </div>
-        
-
-
-
       </div>
     </>
   );
