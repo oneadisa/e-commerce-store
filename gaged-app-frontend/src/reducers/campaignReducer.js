@@ -20,28 +20,50 @@ import {
   CAMPAIGN_DETAILS_REQUEST,
   CAMPAIGN_DETAILS_FAIL,
   CAMPAIGN_DETAILS_SUCCESS,
-  NEW_DONOR_REQUEST,
-  NEW_DONOR_SUCCESS,
-  NEW_DONOR_FAIL,
-  NEW_DONOR_RESET,
-  ALL_DONORS_REQUEST,
-  ALL_DONORS_SUCCESS,
-  ALL_DONORS_FAIL,
-  DELETE_DONOR_REQUEST,
-  DELETE_DONOR_SUCCESS,
-  DELETE_DONOR_FAIL,
-  DELETE_DONOR_RESET,
-  NEW_CAMPAIGN_REVIEW_REQUEST,
-  NEW_CAMPAIGN_REVIEW_SUCCESS,
-  NEW_CAMPAIGN_REVIEW_FAIL,
-  NEW_CAMPAIGN_REVIEW_RESET,
-  ALL_CAMPAIGN_REVIEWS_REQUEST,
-  ALL_CAMPAIGN_REVIEWS_SUCCESS,
-  ALL_CAMPAIGN_REVIEWS_FAIL,
-  DELETE_CAMPAIGN_REVIEW_REQUEST,
-  DELETE_CAMPAIGN_REVIEW_SUCCESS,
-  DELETE_CAMPAIGN_REVIEW_FAIL,
-  DELETE_CAMPAIGN_REVIEW_RESET,
+  NEW_INDIVIDUAL_DONOR_SUCCESS,
+  NEW_INDIVIDUAL_DONOR_FAIL,
+  NEW_INDIVIDUAL_DONOR_RESET,
+  NEW_INDIVIDUAL_DONOR_REQUEST,
+  ALL_INDIVIDUAL_DONORS_REQUEST,
+  ALL_INDIVIDUAL_DONORS_SUCCESS,
+  ALL_INDIVIDUAL_DONORS_FAIL,
+  DELETE_INDIVIDUAL_DONOR_REQUEST,
+  DELETE_INDIVIDUAL_DONOR_SUCCESS,
+  DELETE_INDIVIDUAL_DONOR_FAIL,
+  DELETE_INDIVIDUAL_DONOR_RESET,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
+  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
+  NEW_BUSINESS_DONOR_SUCCESS,
+  NEW_BUSINESS_DONOR_FAIL,
+  NEW_BUSINESS_DONOR_RESET,
+  NEW_BUSINESS_DONOR_REQUEST,
+  ALL_BUSINESS_DONORS_REQUEST,
+  ALL_BUSINESS_DONORS_SUCCESS,
+  ALL_BUSINESS_DONORS_FAIL,
+  DELETE_BUSINESS_DONOR_REQUEST,
+  DELETE_BUSINESS_DONOR_SUCCESS,
+  DELETE_BUSINESS_DONOR_FAIL,
+  DELETE_BUSINESS_DONOR_RESET,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_RESET,
+  ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_RESET,
   CLEAR_ERRORS,
 } from "../constants/campaignConstants";
 
@@ -194,25 +216,25 @@ export const campaignDetailsReducer = (state = { campaign: {} }, action) => {
   }
 };
 
-export const newCampaignDonorReducer = (state = {}, action) => {
+export const newIndividualCampaignDonorReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_DONOR_REQUEST:
+    case NEW_INDIVIDUAL_DONOR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_DONOR_SUCCESS:
+    case NEW_INDIVIDUAL_DONOR_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_DONOR_FAIL:
+    case NEW_INDIVIDUAL_DONOR_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_DONOR_RESET:
+    case NEW_INDIVIDUAL_DONOR_RESET:
       return {
         ...state,
         success: false,
@@ -227,19 +249,22 @@ export const newCampaignDonorReducer = (state = {}, action) => {
   }
 };
 
-export const campaignDonorsReducer = (state = { reviews: [] }, action) => {
+export const individualCampaignDonorsReducer = (
+  state = { donors: [] },
+  action
+) => {
   switch (action.type) {
-    case ALL_DONORS_REQUEST:
+    case ALL_INDIVIDUAL_DONORS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_DONORS_SUCCESS:
+    case ALL_INDIVIDUAL_DONORS_SUCCESS:
       return {
         loading: false,
-        reviews: action.payload,
+        donors: action.payload,
       };
-    case ALL_DONORS_FAIL:
+    case ALL_INDIVIDUAL_DONORS_FAIL:
       return {
         ...state,
         loading: false,
@@ -256,26 +281,26 @@ export const campaignDonorsReducer = (state = { reviews: [] }, action) => {
   }
 };
 
-export const campaignDonorReducer = (state = {}, action) => {
+export const individualCampaignDonorReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_DONOR_REQUEST:
+    case DELETE_INDIVIDUAL_DONOR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_DONOR_SUCCESS:
+    case DELETE_INDIVIDUAL_DONOR_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_DONOR_FAIL:
+    case DELETE_INDIVIDUAL_DONOR_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_DONOR_RESET:
+    case DELETE_INDIVIDUAL_DONOR_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -290,25 +315,25 @@ export const campaignDonorReducer = (state = {}, action) => {
   }
 };
 
-export const newCampaignReviewReducer = (state = {}, action) => {
+export const newIndividualCampaignReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_CAMPAIGN_REVIEW_REQUEST:
+    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_CAMPAIGN_REVIEW_SUCCESS:
+    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_CAMPAIGN_REVIEW_FAIL:
+    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_CAMPAIGN_REVIEW_RESET:
+    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET:
       return {
         ...state,
         success: false,
@@ -323,19 +348,22 @@ export const newCampaignReviewReducer = (state = {}, action) => {
   }
 };
 
-export const campaignReviewsReducer = (state = { reviews: [] }, action) => {
+export const individualCampaignReviewsReducer = (
+  state = { reviews: [] },
+  action
+) => {
   switch (action.type) {
-    case ALL_CAMPAIGN_REVIEWS_REQUEST:
+    case ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_CAMPAIGN_REVIEWS_SUCCESS:
+    case ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS:
       return {
         loading: false,
         reviews: action.payload,
       };
-    case ALL_CAMPAIGN_REVIEWS_FAIL:
+    case ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL:
       return {
         ...state,
         loading: false,
@@ -352,26 +380,224 @@ export const campaignReviewsReducer = (state = { reviews: [] }, action) => {
   }
 };
 
-export const campaignReviewReducer = (state = {}, action) => {
+export const individualCampaignReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_CAMPAIGN_REVIEW_REQUEST:
+    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_CAMPAIGN_REVIEW_SUCCESS:
+    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_CAMPAIGN_REVIEW_FAIL:
+    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_CAMPAIGN_REVIEW_RESET:
+    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newBusinessCampaignDonorReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NEW_BUSINESS_DONOR_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_BUSINESS_DONOR_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_BUSINESS_DONOR_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_BUSINESS_DONOR_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessCampaignDonorsReducer = (
+  state = { donors: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_BUSINESS_DONORS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_DONORS_SUCCESS:
+      return {
+        loading: false,
+        donors: action.payload,
+      };
+    case ALL_BUSINESS_DONORS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessCampaignDonorReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BUSINESS_DONOR_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_BUSINESS_DONOR_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_BUSINESS_DONOR_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_BUSINESS_DONOR_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newBusinessCampaignReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_CAMPAIGN_BUSINESS_REVIEW_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessCampaignReviewsReducer = (
+  state = { reviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        reviews: action.payload,
+      };
+    case ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessCampaignReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_CAMPAIGN_BUSINESS_REVIEW_RESET:
       return {
         ...state,
         isDeleted: false,

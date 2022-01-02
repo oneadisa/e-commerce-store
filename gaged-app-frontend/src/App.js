@@ -10,6 +10,7 @@ import { loadUser } from "./actions/userAction";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useState, useEffect } from "react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/landing-pages-components/LandingPage";
@@ -65,6 +66,8 @@ import BusinessDashboard from "./components/dashboard-component/Business-dashboa
 import ErrorPage from "./components/ErroPage";
 import UserDashboard from "./components/dashboard-component/User-dashboard";
 
+import ProtectedRoute from "./components/Routes/ProtectedRoute";
+
 function App() {
   const [search, setSearch] = useState("");
 
@@ -72,6 +75,7 @@ function App() {
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
+  <ChakraProvider></ChakraProvider>;
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");
 
@@ -96,9 +100,6 @@ function App() {
     <Router>
       {" "}
       <div className="App">
-        {" "}
-        {/* <LandingPage /> */}
-        {/* <ProductsNew /> */}
         <Routes>
           {" "}
           <Route path="/" element={<LandingPage />} />

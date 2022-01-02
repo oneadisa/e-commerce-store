@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
+import { RootStateOrAny } from "react-redux";
 import Sidebar from "./Sidebar.js";
 import "./dashboard.css";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
-import { getAdminProduct } from "../../actions/productAction";
-import { getAllOrders } from "../../actions/orderAction.js";
-import { getAllUsers } from "../../actions/userAction.js";
+import { getAdminProduct } from "../../actions/storeProductsActions";
+import { getAllOrders } from "../../actions/orderActions.js";
+import { getAllUsers } from "../../actions/userActions.js";
 import MetaData from "../layout/MetaData";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state: RootStateOrAny) => state.products);
 
-  const { orders } = useSelector((state) => state.allOrders);
+  const { orders } = useSelector((state: RootStateOrAny) => state.allOrders);
 
-  const { users } = useSelector((state) => state.allUsers);
+  const { users } = useSelector((state: RootStateOrAny) => state.allUsers);
 
   let outOfStock = 0;
 

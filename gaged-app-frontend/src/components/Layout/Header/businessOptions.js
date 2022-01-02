@@ -10,7 +10,7 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { logout } from "../../../actions/userActions";
+import { logout } from "../../../actions/businessActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const UserOptions = ({ user }) => {
