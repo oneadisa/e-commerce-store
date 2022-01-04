@@ -2,9 +2,10 @@ const jwt = require("jsonwebtoken");
 const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const signedUpBusiness = require("../models/signUpBusinessModels");
+const signedUpUser = require("../models/signUpUserModels");
 const asyncHandler = require("express-async-handler");
 
-const protect = asyncHandler(async (req, res, next) => {
+const protectBusiness = asyncHandler(async (req, res, next) => {
   let token;
 
   if (
@@ -35,7 +36,36 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+const protectUser = asyncHandler(async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      token = req.headers.authorization.split(" ")[1];
+
+      //decodes token id
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      req.user = await signedUpUser.findById(decoded.id).select("-password");
+
+      next();
+    } catch (error) {
+      console.error(error);
+      res.status(401);
+      throw new Error("Not authorized, token failed");
+    }
+  }
+
+  if (!token) {
+    res.status(401);
+    throw new Error("Not authorized, no token");
+  }
+});
+
+const isAuthenticatedBusiness = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
@@ -45,6 +75,20 @@ const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
   req.user = await signedUpBusiness.findById(decodedData.id);
+
+  next();
+});
+
+const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return next(new ErrorHander("Please Login to access this resource", 401));
+  }
+
+  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+  req.user = await signedUpUser.findById(decodedData.id);
 
   next();
 });
@@ -64,4 +108,10 @@ const authorizeRoles = (...roles) => {
   };
 };
 
-module.exports = { protect, isAuthenticatedUser, authorizeRoles };
+module.exports = {
+  protectUser,
+  protectBusiness,
+  isAuthenticatedUser,
+  isAuthenticatedBusiness,
+  authorizeRoles,
+};

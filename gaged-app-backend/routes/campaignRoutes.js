@@ -24,43 +24,59 @@ const {
 } = require("../controllers/campaignController");
 const {
   isAuthenticatedUser,
+  isAuthenticatedBusiness,
   authorizeRoles,
-  protect,
+  protectBusinesss,
 } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
-router.route("/").get(protect, getCampaigns);
-router.route("/create").post(protect, CreateCampaign);
+router.route("/").get(getCampaigns);
+router.route("/create").post(protectBusinesss, CreateCampaign);
 router
   .route("/:id")
   .get(getCampaignById)
-  .put(protect, UpdateCampaign)
-  .delete(protect, DeleteCampaign);
+  .put(protectBusiness, UpdateCampaign)
+  .delete(protectBusiness, DeleteCampaign);
 
 router
-  .route("/admin/campaigns")
+  .route("/admin-individual/campaigns")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminCampaigns);
 
 router
-  .route("/admin/campaign/new")
+  .route("/admin-individual/campaign/new")
   .post(isAuthenticatedUser, authorizeRoles("admin"), createCampaignAdmin);
 
 router
-  .route("/admin/campaign/:id")
+  .route("/admin-individual/campaign/:id")
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateCampaignAdmin)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), DeleteCampaign);
 
-router.route("/admin/product/:id").get(getCampaignDetailsAdmin);
+router.route("/admin-individual/product/:id").get(getCampaignDetailsAdmin);
+
+router
+  .route("/admin-business/campaigns")
+  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getAdminCampaigns);
+
+router
+  .route("/admin-business/campaign/new")
+  .post(isAuthenticatedBusiness, authorizeRoles("admin"), createCampaignAdmin);
+
+router
+  .route("/admin-business/campaign/:id")
+  .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateCampaignAdmin)
+  .delete(isAuthenticatedBusiness, authorizeRoles("admin"), DeleteCampaign);
+
+router.route("/admin-business/product/:id").get(getCampaignDetailsAdmin);
 
 router
   .route("/create-review/business")
-  .put(isAuthenticatedUser, createBusinessCampaignReview);
+  .put(isAuthenticatedBusiness, createBusinessCampaignReview);
 
 router
   .route("/reviews/business")
   .get(getBusinessCampaignReviews)
-  .delete(isAuthenticatedUser, deleteBusinessCampaignReview);
+  .delete(isAuthenticatedBusiness, deleteBusinessCampaignReview);
 
 router
   .route("/create-review/individual")
@@ -73,12 +89,12 @@ router
 
 router
   .route("/create-donation/business")
-  .put(isAuthenticatedUser, createBusinessCampaignDonation);
+  .put(isAuthenticatedBusiness, createBusinessCampaignDonation);
 
 router
   .route("/donations/business")
   .get(getBusinessCampaignDonations)
-  .delete(isAuthenticatedUser, deleteBusinessCampaignDonation);
+  .delete(isAuthenticatedBusiness, deleteBusinessCampaignDonation);
 
 router
   .route("/create-donation/individual")

@@ -11,6 +11,12 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
 const registerBusiness = asyncHandler(async (req, res) => {
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatars",
+    width: 150,
+    crop: "scale",
+  });
+  
   const {
     businessName,
     accountHolderName,
@@ -19,6 +25,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     password,
     pic,
     isAdmin,
+    role,
     meansOfID,
     IDpic,
     regNum,
@@ -35,12 +42,17 @@ const registerBusiness = asyncHandler(async (req, res) => {
     storeDescription,
     storeLink,
     storeLogo,
-    totalNumberOfCampaigns,
-    listOfCampaigns,
+    totalNumberOfCampaignsStarted,
+    totalNumberOfCampaignsInvested,
+    listOfCampaignsStarted,
+    listOfCampaignsInvested,
     totalAmountRaised,
     averageRaised,
-    numberOfInvestors,
-    listOfInvestors,
+    numberOfBusinessInvestors,
+    listOfBusinessInvestors,
+    numberOfIndividualInvestors,
+    listOfIndividualInvestors,
+    totalNumberOfInvestors,
     walletBalance,
     totalSales,
     totalRevenue,
@@ -48,6 +60,21 @@ const registerBusiness = asyncHandler(async (req, res) => {
     businessOrderedFrom,
     numberOfOrderRequests,
     quantityOfOrders,
+    individualReviews,
+    numberOfIndividualReviews,
+    businessReviews,
+    numberOfBusinessReviews,
+    totalNumberOfReviews,
+    businessOrders,
+    numberOFBusinessOrders,
+    individualOrders,
+    numberOfIndividualOrders,
+    totalNumberOfOrders,
+    individualCustomers,
+    numberOfIndividualCustomers,
+    businessCustomers,
+    numberOfBusinessCustomers,
+    totalNumberOfCustomers,
     paymentMethod,
   } = req.body;
 
@@ -58,12 +85,17 @@ const registerBusiness = asyncHandler(async (req, res) => {
     throw new Error("Business Already Exists. Please Log In.");
   }
   const user = await signedUpBusiness.create({
+    avatar: {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    },
     businessName,
     accountHolderName,
     email,
     phoneNumber,
     password,
     isAdmin,
+    role,
     pic,
     meansOfID,
     IDpic,
@@ -81,12 +113,17 @@ const registerBusiness = asyncHandler(async (req, res) => {
     storeDescription,
     storeLink,
     storeLogo,
-    totalNumberOfCampaigns,
-    listOfCampaigns,
+    totalNumberOfCampaignsStarted,
+    totalNumberOfCampaignsInvested,
+    listOfCampaignsStarted,
+    listOfCampaignsInvested,
     totalAmountRaised,
     averageRaised,
-    numberOfInvestors,
-    listOfInvestors,
+    numberOfBusinessInvestors,
+    listOfBusinessInvestors,
+    numberOfIndividualInvestors,
+    listOfIndividualInvestors,
+    totalNumberOfInvestors,
     walletBalance,
     totalSales,
     totalRevenue,
@@ -94,6 +131,21 @@ const registerBusiness = asyncHandler(async (req, res) => {
     businessOrderedFrom,
     numberOfOrderRequests,
     quantityOfOrders,
+    individualReviews,
+    numberOfIndividualReviews,
+    businessReviews,
+    numberOfBusinessReviews,
+    totalNumberOfReviews,
+    businessOrders,
+    numberOFBusinessOrders,
+    individualOrders,
+    numberOfIndividualOrders,
+    totalNumberOfOrders,
+    individualCustomers,
+    numberOfIndividualCustomers,
+    businessCustomers,
+    numberOfBusinessCustomers,
+    totalNumberOfCustomers, 
     paymentMethod,
   });
   if (user) {
@@ -104,6 +156,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       email: user.email,
       phoneNumber: user.phoneNumber,
       isAdmin: user.isAdmin,
+      role: user.role,
       pic: user.pic,
       token: generateToken(user._id),
       meansOfID: user.meansOfID,
@@ -122,12 +175,17 @@ const registerBusiness = asyncHandler(async (req, res) => {
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
       storeLogo: user.storeLogo,
-      totalNumberOfCampaigns: user.totalNumberOfCampaigns,
-      listOfCampaigns: user.listOfCampaigns,
+      totalNumberOfCampaignsStarted: user.totalNumberOfCampaignsStarted,
+      totalNumberOdCampaignsInvested: user.totalNumberOdCampaignsInvested,
+      listOfCampaignsStarted: user.listOfCampaignsStarted,
+      listOfCampaignsInvested: user.listOfCampaignsInvested,
       totalAmountRaised: user.totalAmountRaised,
       averageRaised: user.averageRaised,
-      numberOfInvestors: user.numberOfInvestors,
-      listOfInvestors: user.listOfInvestors,
+      numberOfIndividualInvestors: user.numberOfIndividualInvestors,
+      numberOfBusinessInvestors: user.numberOfBusinessInvestors,
+      listOfIndividualInvestors: user.listOfIndividualInvestors,
+      listOfBusinessInvestors: user.listOfBusinessInvestors,
+      totalNumberOfInvestors: user.totalNumberOfInvestors,
       walletBalance: user.walletBalance,
       totalSales: user.totalSales,
       totalRevenue: user.totalRevenue,
@@ -135,6 +193,21 @@ const registerBusiness = asyncHandler(async (req, res) => {
       businessOrderedFrom: user.businessOrderedFrom,
       numberOfOrderRequests: user.numberOfOrderRequests,
       quantityOfOrders: user.quantityOfOrders,
+      individualReviews:user.individualReviews,
+      numberOfIndividualReviews: user.numberOfIndividualReviews,
+      businessReviews: user.businessReviews,
+      numberOfBusinessReviews: user.numberOfBusinessReviews,
+      totalNumberOfReviews: user.totalNumberOfReviews,
+      businessOrders: user.businessOrders,
+      numberOFBusinessOrders: user.numberOFBusinessOrders,
+      individualOrders: user.individualOrders,
+      numberOfIndividualOrders: user.numberOfIndividualOrders,
+      totalNumberOfOrders: user.totalNumberOfOrders,
+      individualCustomers: user.individualCustomers,
+      numberOfIndividualCustomers: user.numberofIndividualCustomers,
+      businessCustomers:user.businessCustomers,
+      numberOfBusinessCustomers: user.numberOfBusinessCustomers,
+      totalNumberOfCustomers: user.totalNumberOfCustomers,
       paymentMethod: user.paymentMethod,
     });
   } else {
@@ -161,7 +234,7 @@ const logoutBusiness = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Logged Out",
+    message: "Business Logged Out",
   });
 });
 
@@ -176,8 +249,8 @@ const authBusiness = asyncHandler(async (req, res) => {
       accountHolderName: user.accountHolderName,
       email: user.email,
       phoneNumber: user.phoneNumber,
-      password: user.password,
       isAdmin: user.isAdmin,
+      role: user.role,
       pic: user.pic,
       token: generateToken(user._id),
       meansOfID: user.meansOfID,
@@ -196,12 +269,17 @@ const authBusiness = asyncHandler(async (req, res) => {
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
       storeLogo: user.storeLogo,
-      totalNumberOfCampaigns: user.totalNumberOfCampaigns,
-      listOfCampaigns: user.listOfCampaigns,
+      totalNumberOfCampaignsStarted: user.totalNumberOfCampaignsStarted,
+      totalNumberOdCampaignsInvested: user.totalNumberOdCampaignsInvested,
+      listOfCampaignsStarted: user.listOfCampaignsStarted,
+      listOfCampaignsInvested: user.listOfCampaignsInvested,
       totalAmountRaised: user.totalAmountRaised,
       averageRaised: user.averageRaised,
-      numberOfInvestors: user.numberOfInvestors,
-      listOfInvestors: user.listOfInvestors,
+      numberOfIndividualInvestors: user.numberOfIndividualInvestors,
+      numberOfBusinessInvestors: user.numberOfBusinessInvestors,
+      listOfIndividualInvestors: user.listOfIndividualInvestors,
+      listOfBusinessInvestors: user.listOfBusinessInvestors,
+      totalNumberOfInvestors: user.totalNumberOfInvestors,
       walletBalance: user.walletBalance,
       totalSales: user.totalSales,
       totalRevenue: user.totalRevenue,
@@ -209,6 +287,21 @@ const authBusiness = asyncHandler(async (req, res) => {
       businessOrderedFrom: user.businessOrderedFrom,
       numberOfOrderRequests: user.numberOfOrderRequests,
       quantityOfOrders: user.quantityOfOrders,
+      individualReviews: user.individualReviews,
+      numberOfIndividualReviews: user.numberOfIndividualReviews,
+      businessReviews: user.businessReviews,
+      numberOfBusinessReviews: user.numberOfBusinessReviews,
+      totalNumberOfReviews: user.totalNumberOfReviews,
+      businessOrders: user.businessOrders,
+      numberOFBusinessOrders: user.numberOFBusinessOrders,
+      individualOrders: user.individualOrders,
+      numberOfIndividualOrders: user.numberOfIndividualOrders,
+      totalNumberOfOrders: user.totalNumberOfOrders,
+      individualCustomers: user.individualCustomers,
+      numberOfIndividualCustomers: user.numberofIndividualCustomers,
+      businessCustomers: user.businessCustomers,
+      numberOfBusinessCustomers: user.numberOfBusinessCustomers,
+      totalNumberOfCustomers: user.totalNumberOfCustomers,
       paymentMethod: user.paymentMethod,
     });
   } else {
@@ -228,6 +321,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
     user.pic = req.body.pic || user.pic;
     user.isAdmin = req.body.isAdmin || user.isAdmin;
+    user.role = req.body.role || user.role;
     user.meansOfID = req.body.meansOfID || user.meansOfID;
     user.IDpic = req.body.IDpic || user.IDpic;
     user.regNum = req.body.regNum || user.regNum;
@@ -245,15 +339,24 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.storeDescription = req.body.storeDescription || user.storeDescription;
     user.storeLink = req.body.storeLink || user.storeLink;
     user.storeLogo = req.body.storeLogo || user.storeLogo;
-    user.totalNumberOfCampaigns =
-      req.body.totalNumberOfCampaigns || user.totalNumberOfCampaigns;
-    user.listOfCampaigns = req.body.listOfCampaigns || user.listOfCampaigns;
+    user.totalNumberOfCampaignsStarted =
+      req.body.totalNumberOfCampaignsStarted || user.totalNumberOfCampaignsStarted;
+    user.totalNumberOfCampaignsInvested =
+        req.body.totalNumberOfCampaignsInvested ||
+        user.totalNumberOfCampaignsInvested;
+    user.listOfCampaignsStarted = req.body.listOfCampaignsStarted || user.listOfCampaignsStarted;
+    user.listOfCampaignsInvested =
+      req.body.listOfCampaignsInvested || user.listOfCampaignsInvested;
     user.totalAmountRaised =
       req.body.totalAmountRaised || user.totalAmountRaised;
     user.averageRaised = req.body.averageRaised || user.averageRaised;
-    user.numberOfInvestors =
-      req.body.numberOfInvestors || user.numberOfInvestors;
-    user.listOfInvestors = req.body.listOfInvestors || user.listOfInvestors;
+    user.numberOfIndividualInvestors =
+      req.body.numberOfIndividualInvestors || user.numberOfIndividualInvestors;
+      user.numberOfBusinessInvestors =
+        req.body.numberOfBusinessInvestors || user.numberOfBusinessInvestors;
+    user.totalNumberOfInvestors = req.body.totalNumberOfInvestors || user.totalNumberOfInvestors;
+    user.listOfBusinessInvestors = req.body.listOfBusinessInvestors || user.listOfBusinessInvestors;
+    user.listOfIndividualInvestors = req.body.listOfIndiviualInvestors || user.listOfIndividualInvestors;
     user.walletBalance = req.body.walletBalance || user.walletBalance;
     user.totalSales = req.body.totalSales || user.totalSales;
     user.totalRevenue = req.body.totalRevenue || user.totalRevenue;
@@ -264,7 +367,23 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.numberOfOrderRequests =
       req.body.numberOfOrderRequests || user.numberOfOrderRequests;
     user.quantityOfOrders = req.body.quantityOfOrders || user.quantityOfOrders;
+    user.individualReviews = req.body.individualReviews || user.individualReviews;
+    user.numberOfIndividualReviews = req.body.numberOfIndividualReviews || user.numberOfIndividualReviews;
+    user.businessReviews = req.body.businessReviews || user.businessReviews;
+    user.numberOfBusinessReviews = req.body.numberOfBusinessReviews || user.numberOfBusinessReviews;
+    user.totalNumberOfReviews= req.body.totalNumberOfReviews || user.totalNumberOfReviews;
+    user.businessOrder= req.body.businessOrder || user.businessOrder;
+    user.numberOFBusinessOrders= req.body.numberOFBusinessOrders || user.numberOFBusinessOrders;
+    user.individualOrders = req.body.individualOrders || ;
+    user.numberOfIndividualOrders = req.body.numberOfIndividualOrders || user.numberOfIndividualOrders;
+    user.totalNumberOfOrders = req.body.totalNumberOfOrders || user.totalNumberOfOrders;
+    user.individualCustomers = req.body.individualCustomers || user.individualCustomers;
+    user.numberOfIndividualCustomers = req.body.numberOfIndividualCustomers || user.numberofIndividualCustomers;
+    user.businessCustomers = req.body.businessCustomers || user.businessCustomers;
+    user.numberOfBusinessCustomers= req.body.numberOfBusinessCustomers || user.numberOfBusinessCustomers;
+    user.totalNumberOfCustomers = req.body.totalNumberOfCustomers || user.totalNumberOfCustomers;
     user.paymentMethod = req.body.paymentMethod || user.paymentMethod;
+
     if (req.body.password) {
       user.password = req.body.password;
     }
@@ -273,47 +392,68 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
 
     res.json({
       _id: updatedBusiness._id,
-      businessName: updatedBusiness.businessName,
-      accountHolderName: updatedBusiness.accountHolderName,
-      phoneNumber: updatedBusiness.phoneNumber,
-      email: updatedBusiness.email,
-      pic: updatedBusiness.pic,
-      isAdmin: updatedBusiness.isAdmin,
-      token: generateToken(updatedBusiness._id),
-      meansOfID: updatedBusiness.meansOfID,
-      IDpic: updatedBusiness.IDpic,
-      regNum: updatedBusiness.regNum,
-      natureOfBusiness: updatedBusiness.natureOfBusiness,
-      businessEmail: updatedBusiness.businessEmail,
-      businessAddress: updatedBusiness.businessAddress,
-      cacCertificate: updatedBusiness.cacCertificate,
-      formCO7: updatedBusiness.formCO7,
-      bank: updatedBusiness.bank,
-      bankAccountName: updatedBusiness.bankAccountName,
-      bankAccountNumber: updatedBusiness.bankAccountNumber,
-      storeName: updatedBusiness.storeName,
-      storeTagline: updatedBusiness.storeTagline,
-      storeDescription: updatedBusiness.storeDescription,
-      storeLink: updatedBusiness.storeLink,
-      storeLogo: updatedBusiness.storeLogo,
-      totalNumberOfCampaigns: updatedBusiness.totalNumberOfCampaigns,
-      listOfCampaigns: updatedBusiness.listOfCampaigns,
-      totalAmountRaised: updatedBusiness.totalAmountRaised,
-      averageRaised: updatedBusiness.averageRaised,
-      numberOfInvestors: updatedBusiness.numberOfInvestors,
-      listOfInvestors: updatedBusiness.listOfInvestors,
-      walletBalance: updatedBusiness.walletBalance,
-      totalSales: updatedBusiness.totalSales,
-      totalRevenue: updatedBusiness.totalRevenue,
-      totalProductNumber: updatedBusiness.totalProductNumber,
-      businessOrderedFrom: updatedBusiness.businessOrderedFrom,
-      numberOfOrderRequests: updatedBusiness.numberOfOrderRequests,
-      quantityOfOrders: updatedBusiness.quantityOfOrders,
-      paymentMethod: updatedBusiness.paymentMethod,
+businessName: updatedBusiness.businessName,
+accountHolderName: updatedBusiness.accountHolderName,
+email: updatedBusiness.email,
+phoneNumber: updatedBusiness.phoneNumber,
+isAdmin: updatedBusiness.isAdmin,
+role: updatedBusiness.role,
+pic: updatedBusiness.pic,
+token: generateToken(updatedBusiness._id),
+meansOfID: updatedBusiness.meansOfID,
+IDpic: updatedBusiness.IDpic,
+regNum: updatedBusiness.regNum,
+natureOfBusiness: updatedBusiness.natureOfBusiness,
+businessEmail: updatedBusiness.businessEmail,
+businessAddress: updatedBusiness.businessAddress,
+cacCertificate: updatedBusiness.cacCertificate,
+formCO7: updatedBusiness.formCO7,
+bank: updatedBusiness.bank,
+bankAccountName: updatedBusiness.bankAccountName,
+bankAccountNumber: updatedBusiness.bankAccountNumber,
+storeName: updatedBusiness.storeName,
+storeTagline: updatedBusiness.storeTagline,
+storeDescription: updatedBusiness.storeDescription,
+storeLink: updatedBusiness.storeLink,
+storeLogo: updatedBusiness.storeLogo,
+totalNumberOfCampaignsStarted: updatedBusiness.totalNumberOfCampaignsStarted,
+totalNumberOdCampaignsInvested: updatedBusiness.totalNumberOdCampaignsInvested,
+listOfCampaignsStarted: updatedBusiness.listOfCampaignsStarted,
+listOfCampaignsInvested: updatedBusiness.listOfCampaignsInvested,
+totalAmountRaised: updatedBusiness.totalAmountRaised,
+averageRaised: updatedBusiness.averageRaised,
+numberOfIndividualInvestors: updatedBusiness.numberOfIndividualInvestors,
+numberOfBusinessInvestors: updatedBusiness.numberOfBusinessInvestors,
+listOfIndividualInvestors: updatedBusiness.listOfIndividualInvestors,
+listOfBusinessInvestors: updatedBusiness.listOfBusinessInvestors,
+totalNumberOfInvestors: updatedBusiness.totalNumberOfInvestors,
+walletBalance: updatedBusiness.walletBalance,
+totalSales: updatedBusiness.totalSales,
+totalRevenue: updatedBusiness.totalRevenue,
+totalProductNumber: updatedBusiness.totalProductNumber,
+businessOrderedFrom: updatedBusiness.businessOrderedFrom,
+numberOfOrderRequests: updatedBusiness.numberOfOrderRequests,
+quantityOfOrders: updatedBusiness.quantityOfOrders,
+individualReviews: updatedBusiness.individualReviews,
+numberOfIndividualReviews: updatedBusiness.numberOfIndividualReviews,
+businessReviews: updatedBusiness.businessReviews,
+numberOfBusinessReviews: updatedBusiness.numberOfBusinessReviews,
+totalNumberOfReviews: updatedBusiness.totalNumberOfReviews,
+businessOrders: updatedBusiness.businessOrders,
+numberOFBusinessOrders: updatedBusiness.numberOFBusinessOrders,
+individualOrders: updatedBusiness.individualOrders,
+numberOfIndividualOrders: updatedBusiness.numberOfIndividualOrders,
+totalNumberOfOrders: updatedBusiness.totalNumberOfOrders,
+individualCustomers: updatedBusiness.individualCustomers,
+numberOfIndividualCustomers: updatedBusiness.numberofIndividualCustomers,
+businessCustomers: updatedBusiness.businessCustomers,
+numberOfBusinessCustomers: updatedBusiness.numberOfBusinessCustomers,
+totalNumberOfCustomers: updatedBusiness.totalNumberOfCustomers,
+paymentMethod: updatedBusiness.paymentMethod,
     });
   } else {
     res.status(404);
-    throw new Error("signedUpBusiness Not Found");
+    throw new Error("Business Not Found");
   }
 });
 
@@ -322,7 +462,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await signedUpBusiness.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorHander("signedUpBusiness not found", 404));
+    return next(new ErrorHander("Business not found", 404));
   }
 
   // Get ResetPassword Token
@@ -334,7 +474,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     "host"
   )}/password/reset/${resetToken}`;
 
-  const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
+  const message = `Hello esteemed customer, your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
   try {
     await sendEmail({
@@ -380,7 +520,7 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHander("Password does not password", 400));
+    return next(new ErrorHander("Passwords do not match. Please try again.", 400));
   }
 
   user.password = req.body.password;
@@ -392,8 +532,8 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-// Get signedUpBusiness Detail
-const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+// Get Business Detail
+const getBusinessDetails = catchAsyncErrors(async (req, res, next) => {
   const user = await signedUpBusiness.findById(req.user.id);
 
   res.status(200).json({
@@ -403,7 +543,7 @@ const getUserDetails = catchAsyncErrors(async (req, res, next) => {
 });
 
 // update signedUpBusiness password
-exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+const updatePassword = catchAsyncErrors(async (req, res, next) => {
   const user = await signedUpBusiness.findById(req.user.id).select("+password");
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
@@ -425,7 +565,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
 // update signedUpBusiness Profile
 const updateProfile = catchAsyncErrors(async (req, res, next) => {
-  const newUserData = {
+  const newBusinessData = {
     name: req.body.name,
     email: req.body.email,
   };
@@ -443,7 +583,7 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
       crop: "scale",
     });
 
-    newUserData.avatar = {
+    newBusinessData.avatar = {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
     };
@@ -451,7 +591,7 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
 
   const user = await signedUpBusiness.findByIdAndUpdate(
     req.user.id,
-    newUserData,
+    newBusinessData,
     {
       new: true,
       runValidators: true,
@@ -465,7 +605,7 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get all users(admin)
-const getAllUser = catchAsyncErrors(async (req, res, next) => {
+const getAllBusiness = catchAsyncErrors(async (req, res, next) => {
   const users = await signedUpBusiness.find();
 
   res.status(200).json({
@@ -474,8 +614,8 @@ const getAllUser = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Get single user (admin)nst
-const getSingleUser = catchAsyncErrors(async (req, res, next) => {
+// Get single user (admin)
+const getSingleBusiness = catchAsyncErrors(async (req, res, next) => {
   const user = await signedUpBusiness.findById(req.params.id);
 
   if (!user) {
@@ -490,15 +630,15 @@ const getSingleUser = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// update signedUpBusiness Role -- Admin
-const updateUserRole = catchAsyncErrors(async (req, res, next) => {
-  const newUserData = {
+// update Business Role -- Admin
+const updateBusinessRole = catchAsyncErrors(async (req, res, next) => {
+  const newBusinessData = {
     name: req.body.name,
     email: req.body.email,
     role: req.body.role,
   };
 
-  await signedUpBusiness.findByIdAndUpdate(req.params.id, newUserData, {
+  await signedUpBusiness.findByIdAndUpdate(req.params.id, newBusinessData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -510,7 +650,7 @@ const updateUserRole = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete signedUpBusiness --Admin
-const deleteUser = catchAsyncErrors(async (req, res, next) => {
+const deleteBusiness = catchAsyncErrors(async (req, res, next) => {
   const user = await signedUpBusiness.findById(req.params.id);
 
   if (!user) {
@@ -536,5 +676,15 @@ module.exports = {
   authBusiness,
   updateBusinessProfile,
   logoutBusiness,
-  forgotPassword,
+  forgotPassword,                       
+  resetPassword,              
+  getBusinessDetails,             
+  updatePassword,             
+  updateProfile,    
+  getAllBusiness,          
+  getSingleBusiness,              
+  updateBusinessRole,             
+  deleteBusiness              
+
+
 };
