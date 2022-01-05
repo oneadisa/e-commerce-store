@@ -1,7 +1,7 @@
 const StoreProduct = require("../models/storeProductModels");
 const asyncHandler = require("express-async-handler");
-const ErrorHander = require("../utils/errorhander");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ErrorHandler = require("../utils/errorhandler");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ApiFeatures = require("../utils/apifeatures");
 const cloudinary = require("cloudinary");
 const getStoreProducts = asyncHandler(async (req, res) => {
@@ -192,7 +192,7 @@ const getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   res.status(200).json({
@@ -207,7 +207,7 @@ const updateProductAdmin = catchAsyncErrors(async (req, res, next) => {
   let product = await StoreProduct.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   // Images Start Here
@@ -309,7 +309,7 @@ const getIndividualProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   res.status(200).json({
@@ -324,7 +324,7 @@ const deleteIndividualProductReview = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHander("StoreProduct not found", 404));
+      return next(new ErrorHandler("StoreProduct not found", 404));
     }
 
     const individualProductReviews = product.individualProductReviews.filter(
@@ -420,7 +420,7 @@ const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   res.status(200).json({
@@ -434,7 +434,7 @@ const deleteBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.productId);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   const businessProductReviews = product.businessProductReviews.filter(
@@ -538,7 +538,7 @@ const getIndividualProductCustomers = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.id);
 
     if (!product) {
-      return next(new ErrorHander("StoreProduct not found", 404));
+      return next(new ErrorHandler("StoreProduct not found", 404));
     }
 
     res.status(200).json({
@@ -554,7 +554,7 @@ const deleteIndividualProductCustomer = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHander("StoreProduct not found", 404));
+      return next(new ErrorHandler("StoreProduct not found", 404));
     }
 
     const individualProductCustomers =
@@ -653,7 +653,7 @@ const getBusinessProductCustomers = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   res.status(200).json({
@@ -668,7 +668,7 @@ const deleteBusinessProductCustomer = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHander("StoreProduct not found", 404));
+      return next(new ErrorHandler("StoreProduct not found", 404));
     }
 
     const businessProductCustomers = product.businessProductCustomers.filter(
@@ -770,7 +770,7 @@ const getIndividualProductOrders = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   res.status(200).json({
@@ -785,7 +785,7 @@ const deleteIndividualProductOrder = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHander("StoreProduct not found", 404));
+      return next(new ErrorHandler("StoreProduct not found", 404));
     }
 
     const individualOrders = product.individualOrders.filter(
@@ -879,7 +879,7 @@ const getBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   res.status(200).json({
@@ -893,7 +893,7 @@ const deleteBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.productId);
 
   if (!product) {
-    return next(new ErrorHander("StoreProduct not found", 404));
+    return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
   const businessProductCustomers = product.businessProductCustomers.filter(

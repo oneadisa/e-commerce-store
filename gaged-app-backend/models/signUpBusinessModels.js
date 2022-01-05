@@ -51,6 +51,87 @@ const signUpBusinessTemplate = new mongoose.Schema({
       type: String,
       required: true,
     },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
   pic: {
     type: String,
     required: true,
@@ -171,10 +252,10 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: false,
       },
-      amountRaised:{
+      amountRaised: {
         type: Number,
-required: false,
-default: 0,
+        required: false,
+        default: 0,
       },
     },
   ],
@@ -205,10 +286,10 @@ default: 0,
         required: false,
         default: false,
       },
-            amountRaised:{
+      amountRaised: {
         type: Number,
-required: false,
-default: 0,
+        required: false,
+        default: 0,
       },
     },
   ],
@@ -250,10 +331,10 @@ default: 0,
         type: Number,
         required: [false, "All investors must have at least one fundraiser."],
       },
-            amountInvested:{
+      amountInvested: {
         type: Number,
-required: false,
-default: 0,
+        required: false,
+        default: 0,
       },
     },
   ],
@@ -284,10 +365,10 @@ default: 0,
         type: Number,
         required: [false, "All investors must have at least one fundraiser."],
       },
-            amountInvested:{
+      amountInvested: {
         type: Number,
-required: false,
-default: 0,
+        required: false,
+        default: 0,
       },
     },
   ],

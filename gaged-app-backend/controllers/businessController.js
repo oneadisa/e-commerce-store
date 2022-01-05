@@ -3,8 +3,8 @@ const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
-const ErrorHander = require("../utils/errorhander");
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ErrorHander = require("../utils/errorhandler");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
@@ -16,7 +16,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     width: 150,
     crop: "scale",
   });
-  
+
   const {
     businessName,
     accountHolderName,
@@ -145,7 +145,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     numberOfIndividualCustomers,
     businessCustomers,
     numberOfBusinessCustomers,
-    totalNumberOfCustomers, 
+    totalNumberOfCustomers,
     paymentMethod,
   });
   if (user) {
@@ -193,7 +193,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       businessOrderedFrom: user.businessOrderedFrom,
       numberOfOrderRequests: user.numberOfOrderRequests,
       quantityOfOrders: user.quantityOfOrders,
-      individualReviews:user.individualReviews,
+      individualReviews: user.individualReviews,
       numberOfIndividualReviews: user.numberOfIndividualReviews,
       businessReviews: user.businessReviews,
       numberOfBusinessReviews: user.numberOfBusinessReviews,
@@ -205,7 +205,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       totalNumberOfOrders: user.totalNumberOfOrders,
       individualCustomers: user.individualCustomers,
       numberOfIndividualCustomers: user.numberofIndividualCustomers,
-      businessCustomers:user.businessCustomers,
+      businessCustomers: user.businessCustomers,
       numberOfBusinessCustomers: user.numberOfBusinessCustomers,
       totalNumberOfCustomers: user.totalNumberOfCustomers,
       paymentMethod: user.paymentMethod,
@@ -340,11 +340,13 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.storeLink = req.body.storeLink || user.storeLink;
     user.storeLogo = req.body.storeLogo || user.storeLogo;
     user.totalNumberOfCampaignsStarted =
-      req.body.totalNumberOfCampaignsStarted || user.totalNumberOfCampaignsStarted;
+      req.body.totalNumberOfCampaignsStarted ||
+      user.totalNumberOfCampaignsStarted;
     user.totalNumberOfCampaignsInvested =
-        req.body.totalNumberOfCampaignsInvested ||
-        user.totalNumberOfCampaignsInvested;
-    user.listOfCampaignsStarted = req.body.listOfCampaignsStarted || user.listOfCampaignsStarted;
+      req.body.totalNumberOfCampaignsInvested ||
+      user.totalNumberOfCampaignsInvested;
+    user.listOfCampaignsStarted =
+      req.body.listOfCampaignsStarted || user.listOfCampaignsStarted;
     user.listOfCampaignsInvested =
       req.body.listOfCampaignsInvested || user.listOfCampaignsInvested;
     user.totalAmountRaised =
@@ -352,11 +354,14 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.averageRaised = req.body.averageRaised || user.averageRaised;
     user.numberOfIndividualInvestors =
       req.body.numberOfIndividualInvestors || user.numberOfIndividualInvestors;
-      user.numberOfBusinessInvestors =
-        req.body.numberOfBusinessInvestors || user.numberOfBusinessInvestors;
-    user.totalNumberOfInvestors = req.body.totalNumberOfInvestors || user.totalNumberOfInvestors;
-    user.listOfBusinessInvestors = req.body.listOfBusinessInvestors || user.listOfBusinessInvestors;
-    user.listOfIndividualInvestors = req.body.listOfIndiviualInvestors || user.listOfIndividualInvestors;
+    user.numberOfBusinessInvestors =
+      req.body.numberOfBusinessInvestors || user.numberOfBusinessInvestors;
+    user.totalNumberOfInvestors =
+      req.body.totalNumberOfInvestors || user.totalNumberOfInvestors;
+    user.listOfBusinessInvestors =
+      req.body.listOfBusinessInvestors || user.listOfBusinessInvestors;
+    user.listOfIndividualInvestors =
+      req.body.listOfIndiviualInvestors || user.listOfIndividualInvestors;
     user.walletBalance = req.body.walletBalance || user.walletBalance;
     user.totalSales = req.body.totalSales || user.totalSales;
     user.totalRevenue = req.body.totalRevenue || user.totalRevenue;
@@ -367,21 +372,33 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.numberOfOrderRequests =
       req.body.numberOfOrderRequests || user.numberOfOrderRequests;
     user.quantityOfOrders = req.body.quantityOfOrders || user.quantityOfOrders;
-    user.individualReviews = req.body.individualReviews || user.individualReviews;
-    user.numberOfIndividualReviews = req.body.numberOfIndividualReviews || user.numberOfIndividualReviews;
+    user.individualReviews =
+      req.body.individualReviews || user.individualReviews;
+    user.numberOfIndividualReviews =
+      req.body.numberOfIndividualReviews || user.numberOfIndividualReviews;
     user.businessReviews = req.body.businessReviews || user.businessReviews;
-    user.numberOfBusinessReviews = req.body.numberOfBusinessReviews || user.numberOfBusinessReviews;
-    user.totalNumberOfReviews= req.body.totalNumberOfReviews || user.totalNumberOfReviews;
-    user.businessOrder= req.body.businessOrder || user.businessOrder;
-    user.numberOFBusinessOrders= req.body.numberOFBusinessOrders || user.numberOFBusinessOrders;
-    user.individualOrders = req.body.individualOrders || ;
-    user.numberOfIndividualOrders = req.body.numberOfIndividualOrders || user.numberOfIndividualOrders;
-    user.totalNumberOfOrders = req.body.totalNumberOfOrders || user.totalNumberOfOrders;
-    user.individualCustomers = req.body.individualCustomers || user.individualCustomers;
-    user.numberOfIndividualCustomers = req.body.numberOfIndividualCustomers || user.numberofIndividualCustomers;
-    user.businessCustomers = req.body.businessCustomers || user.businessCustomers;
-    user.numberOfBusinessCustomers= req.body.numberOfBusinessCustomers || user.numberOfBusinessCustomers;
-    user.totalNumberOfCustomers = req.body.totalNumberOfCustomers || user.totalNumberOfCustomers;
+    user.numberOfBusinessReviews =
+      req.body.numberOfBusinessReviews || user.numberOfBusinessReviews;
+    user.totalNumberOfReviews =
+      req.body.totalNumberOfReviews || user.totalNumberOfReviews;
+    user.businessOrder = req.body.businessOrder || user.businessOrder;
+    user.numberOFBusinessOrders =
+      req.body.numberOFBusinessOrders || user.numberOFBusinessOrders;
+    user.individualOrders = req.body.individualOrders || user.individualOrders;
+    user.numberOfIndividualOrders =
+      req.body.numberOfIndividualOrders || user.numberOfIndividualOrders;
+    user.totalNumberOfOrders =
+      req.body.totalNumberOfOrders || user.totalNumberOfOrders;
+    user.individualCustomers =
+      req.body.individualCustomers || user.individualCustomers;
+    user.numberOfIndividualCustomers =
+      req.body.numberOfIndividualCustomers || user.numberofIndividualCustomers;
+    user.businessCustomers =
+      req.body.businessCustomers || user.businessCustomers;
+    user.numberOfBusinessCustomers =
+      req.body.numberOfBusinessCustomers || user.numberOfBusinessCustomers;
+    user.totalNumberOfCustomers =
+      req.body.totalNumberOfCustomers || user.totalNumberOfCustomers;
     user.paymentMethod = req.body.paymentMethod || user.paymentMethod;
 
     if (req.body.password) {
@@ -392,64 +409,66 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
 
     res.json({
       _id: updatedBusiness._id,
-businessName: updatedBusiness.businessName,
-accountHolderName: updatedBusiness.accountHolderName,
-email: updatedBusiness.email,
-phoneNumber: updatedBusiness.phoneNumber,
-isAdmin: updatedBusiness.isAdmin,
-role: updatedBusiness.role,
-pic: updatedBusiness.pic,
-token: generateToken(updatedBusiness._id),
-meansOfID: updatedBusiness.meansOfID,
-IDpic: updatedBusiness.IDpic,
-regNum: updatedBusiness.regNum,
-natureOfBusiness: updatedBusiness.natureOfBusiness,
-businessEmail: updatedBusiness.businessEmail,
-businessAddress: updatedBusiness.businessAddress,
-cacCertificate: updatedBusiness.cacCertificate,
-formCO7: updatedBusiness.formCO7,
-bank: updatedBusiness.bank,
-bankAccountName: updatedBusiness.bankAccountName,
-bankAccountNumber: updatedBusiness.bankAccountNumber,
-storeName: updatedBusiness.storeName,
-storeTagline: updatedBusiness.storeTagline,
-storeDescription: updatedBusiness.storeDescription,
-storeLink: updatedBusiness.storeLink,
-storeLogo: updatedBusiness.storeLogo,
-totalNumberOfCampaignsStarted: updatedBusiness.totalNumberOfCampaignsStarted,
-totalNumberOdCampaignsInvested: updatedBusiness.totalNumberOdCampaignsInvested,
-listOfCampaignsStarted: updatedBusiness.listOfCampaignsStarted,
-listOfCampaignsInvested: updatedBusiness.listOfCampaignsInvested,
-totalAmountRaised: updatedBusiness.totalAmountRaised,
-averageRaised: updatedBusiness.averageRaised,
-numberOfIndividualInvestors: updatedBusiness.numberOfIndividualInvestors,
-numberOfBusinessInvestors: updatedBusiness.numberOfBusinessInvestors,
-listOfIndividualInvestors: updatedBusiness.listOfIndividualInvestors,
-listOfBusinessInvestors: updatedBusiness.listOfBusinessInvestors,
-totalNumberOfInvestors: updatedBusiness.totalNumberOfInvestors,
-walletBalance: updatedBusiness.walletBalance,
-totalSales: updatedBusiness.totalSales,
-totalRevenue: updatedBusiness.totalRevenue,
-totalProductNumber: updatedBusiness.totalProductNumber,
-businessOrderedFrom: updatedBusiness.businessOrderedFrom,
-numberOfOrderRequests: updatedBusiness.numberOfOrderRequests,
-quantityOfOrders: updatedBusiness.quantityOfOrders,
-individualReviews: updatedBusiness.individualReviews,
-numberOfIndividualReviews: updatedBusiness.numberOfIndividualReviews,
-businessReviews: updatedBusiness.businessReviews,
-numberOfBusinessReviews: updatedBusiness.numberOfBusinessReviews,
-totalNumberOfReviews: updatedBusiness.totalNumberOfReviews,
-businessOrders: updatedBusiness.businessOrders,
-numberOFBusinessOrders: updatedBusiness.numberOFBusinessOrders,
-individualOrders: updatedBusiness.individualOrders,
-numberOfIndividualOrders: updatedBusiness.numberOfIndividualOrders,
-totalNumberOfOrders: updatedBusiness.totalNumberOfOrders,
-individualCustomers: updatedBusiness.individualCustomers,
-numberOfIndividualCustomers: updatedBusiness.numberofIndividualCustomers,
-businessCustomers: updatedBusiness.businessCustomers,
-numberOfBusinessCustomers: updatedBusiness.numberOfBusinessCustomers,
-totalNumberOfCustomers: updatedBusiness.totalNumberOfCustomers,
-paymentMethod: updatedBusiness.paymentMethod,
+      businessName: updatedBusiness.businessName,
+      accountHolderName: updatedBusiness.accountHolderName,
+      email: updatedBusiness.email,
+      phoneNumber: updatedBusiness.phoneNumber,
+      isAdmin: updatedBusiness.isAdmin,
+      role: updatedBusiness.role,
+      pic: updatedBusiness.pic,
+      token: generateToken(updatedBusiness._id),
+      meansOfID: updatedBusiness.meansOfID,
+      IDpic: updatedBusiness.IDpic,
+      regNum: updatedBusiness.regNum,
+      natureOfBusiness: updatedBusiness.natureOfBusiness,
+      businessEmail: updatedBusiness.businessEmail,
+      businessAddress: updatedBusiness.businessAddress,
+      cacCertificate: updatedBusiness.cacCertificate,
+      formCO7: updatedBusiness.formCO7,
+      bank: updatedBusiness.bank,
+      bankAccountName: updatedBusiness.bankAccountName,
+      bankAccountNumber: updatedBusiness.bankAccountNumber,
+      storeName: updatedBusiness.storeName,
+      storeTagline: updatedBusiness.storeTagline,
+      storeDescription: updatedBusiness.storeDescription,
+      storeLink: updatedBusiness.storeLink,
+      storeLogo: updatedBusiness.storeLogo,
+      totalNumberOfCampaignsStarted:
+        updatedBusiness.totalNumberOfCampaignsStarted,
+      totalNumberOdCampaignsInvested:
+        updatedBusiness.totalNumberOdCampaignsInvested,
+      listOfCampaignsStarted: updatedBusiness.listOfCampaignsStarted,
+      listOfCampaignsInvested: updatedBusiness.listOfCampaignsInvested,
+      totalAmountRaised: updatedBusiness.totalAmountRaised,
+      averageRaised: updatedBusiness.averageRaised,
+      numberOfIndividualInvestors: updatedBusiness.numberOfIndividualInvestors,
+      numberOfBusinessInvestors: updatedBusiness.numberOfBusinessInvestors,
+      listOfIndividualInvestors: updatedBusiness.listOfIndividualInvestors,
+      listOfBusinessInvestors: updatedBusiness.listOfBusinessInvestors,
+      totalNumberOfInvestors: updatedBusiness.totalNumberOfInvestors,
+      walletBalance: updatedBusiness.walletBalance,
+      totalSales: updatedBusiness.totalSales,
+      totalRevenue: updatedBusiness.totalRevenue,
+      totalProductNumber: updatedBusiness.totalProductNumber,
+      businessOrderedFrom: updatedBusiness.businessOrderedFrom,
+      numberOfOrderRequests: updatedBusiness.numberOfOrderRequests,
+      quantityOfOrders: updatedBusiness.quantityOfOrders,
+      individualReviews: updatedBusiness.individualReviews,
+      numberOfIndividualReviews: updatedBusiness.numberOfIndividualReviews,
+      businessReviews: updatedBusiness.businessReviews,
+      numberOfBusinessReviews: updatedBusiness.numberOfBusinessReviews,
+      totalNumberOfReviews: updatedBusiness.totalNumberOfReviews,
+      businessOrders: updatedBusiness.businessOrders,
+      numberOFBusinessOrders: updatedBusiness.numberOFBusinessOrders,
+      individualOrders: updatedBusiness.individualOrders,
+      numberOfIndividualOrders: updatedBusiness.numberOfIndividualOrders,
+      totalNumberOfOrders: updatedBusiness.totalNumberOfOrders,
+      individualCustomers: updatedBusiness.individualCustomers,
+      numberOfIndividualCustomers: updatedBusiness.numberofIndividualCustomers,
+      businessCustomers: updatedBusiness.businessCustomers,
+      numberOfBusinessCustomers: updatedBusiness.numberOfBusinessCustomers,
+      totalNumberOfCustomers: updatedBusiness.totalNumberOfCustomers,
+      paymentMethod: updatedBusiness.paymentMethod,
     });
   } else {
     res.status(404);
@@ -520,7 +539,9 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHander("Passwords do not match. Please try again.", 400));
+    return next(
+      new ErrorHander("Passwords do not match. Please try again.", 400)
+    );
   }
 
   user.password = req.body.password;
@@ -676,15 +697,13 @@ module.exports = {
   authBusiness,
   updateBusinessProfile,
   logoutBusiness,
-  forgotPassword,                       
-  resetPassword,              
-  getBusinessDetails,             
-  updatePassword,             
-  updateProfile,    
-  getAllBusiness,          
-  getSingleBusiness,              
-  updateBusinessRole,             
-  deleteBusiness              
-
-
+  forgotPassword,
+  resetPassword,
+  getBusinessDetails,
+  updatePassword,
+  updateProfile,
+  getAllBusiness,
+  getSingleBusiness,
+  updateBusinessRole,
+  deleteBusiness,
 };

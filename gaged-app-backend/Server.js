@@ -15,6 +15,7 @@ const storeProductUrls = require("./routes/storeProductRoutes");
 const storeUrls = require("./routes/storeRoutes");
 const cors = require("cors");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+const errorMiddleware = require("./middlewares/error");
 const path = require("path");
 
 dotenv.config();
@@ -32,10 +33,12 @@ mongoose.connect(process.env.USERDATABASE_ACCESS, () =>
 // });
 //
 
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(fileUpload());
 app.use(cors());
-app.use("/app/user", userRouterUrls);
+app.use("/app/individual", userRouterUrls);
 app.use("/app/business", businessRouterUrls);
 app.use("/app/store", storeUrls);
 app.use("/app/store/products", storeProductUrls);
@@ -43,15 +46,6 @@ app.use("/app/campaigns", campaignUrls);
 
 app.use(notFound);
 app.use(errorHandler);
-
-// app.get("/", (req, res) => {
-// res.send("Hello World!");
-// });
-//
-// app.post("/", (req, res) => {
-// console.log("Connected to React");
-// res.redirect("/login");
-// });
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

@@ -19,6 +19,7 @@ const {
 
 const {
   protectBusiness,
+  isAuthenticatedUser,
   isAuthenticatedBusiness,
   authorizeRoles,
 } = require("../middlewares/authMiddleware");
@@ -58,3 +59,5 @@ router
   .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleBusiness)
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateBusinessRole)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteBusiness);
+
+module.exports = router;

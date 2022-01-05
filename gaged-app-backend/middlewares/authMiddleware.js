@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const ErrorHander = require("../utils/errorhander");
+const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const signedUpBusiness = require("../models/signUpBusinessModels");
-const signedUpUser = require("../models/signUpUserModels");
+const signedUpUser = require("../models/signUpModels");
 const asyncHandler = require("express-async-handler");
 
 const protectBusiness = asyncHandler(async (req, res, next) => {
@@ -69,7 +69,7 @@ const isAuthenticatedBusiness = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
-    return next(new ErrorHander("Please Login to access this resource", 401));
+    return next(new ErrorHandler("Please Login to access this resource", 401));
   }
 
   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
@@ -83,7 +83,7 @@ const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
-    return next(new ErrorHander("Please Login to access this resource", 401));
+    return next(new ErrorHandler("Please Login to access this resource", 401));
   }
 
   const decodedData = jwt.verify(token, process.env.JWT_SECRET);
@@ -97,7 +97,7 @@ const authorizeRoles = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(
-        new ErrorHander(
+        new ErrorHandler(
           `Role: ${req.user.role} is not allowed to access this resouce `,
           403
         )

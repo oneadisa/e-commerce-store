@@ -26,13 +26,13 @@ const {
   isAuthenticatedUser,
   isAuthenticatedBusiness,
   authorizeRoles,
-  protectBusinesss,
+  protectBusiness,
 } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
 router.route("/").get(getCampaigns);
-router.route("/create").post(protectBusinesss, CreateCampaign);
+router.route("/create").post(protectBusiness, CreateCampaign);
 router
   .route("/:id")
   .get(getCampaignById)
