@@ -1,5 +1,8 @@
 const Campaign = require("../models/campaignModels");
 const asyncHandler = require("express-async-handler");
+const generateToken = require("../utils/generateToken");
+const ErrorHandler = require("../utils/errorhandler");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const getCampaigns = asyncHandler(async (req, res) => {
   const campaigns = await Campaign.find({
     user: req.user._id,
@@ -266,7 +269,7 @@ const getIndividualCampaignReviews = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.id);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     res.status(200).json({
@@ -282,7 +285,7 @@ const deleteIndividualCampaignReview = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.campaignId);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     const individualCampaignReviews = campaign.individualCampaignReviews.filter(
@@ -379,7 +382,7 @@ const getBusinessCampaignReviews = catchAsyncErrors(async (req, res, next) => {
   const campaign = await Campaign.findById(req.query.id);
 
   if (!campaign) {
-    return next(new ErrorHander("Campaign not found", 404));
+    return next(new ErrorHandler("Campaign not found", 404));
   }
 
   res.status(200).json({
@@ -394,7 +397,7 @@ const deleteBusinessCampaignReview = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.campaignId);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     const businessCampaignReviews = campaign.businessCampaignReviews.filter(
@@ -489,7 +492,7 @@ const getIndividualCampaignDonations = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.id);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     res.status(200).json({
@@ -505,7 +508,7 @@ const deleteIndividualCampaignDonation = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.campaignId);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     const individualCampaignDonors = campaign.individualCampaignDonors.filter(
@@ -599,7 +602,7 @@ const getBusinessCampaignDonations = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.id);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     res.status(200).json({
@@ -615,7 +618,7 @@ const deleteBusinessCampaignDonation = catchAsyncErrors(
     const campaign = await Campaign.findById(req.query.campaignId);
 
     if (!campaign) {
-      return next(new ErrorHander("Campaign not found", 404));
+      return next(new ErrorHandler("Campaign not found", 404));
     }
 
     const businessCampaignDonors = campaign.businessCampaignDonors.filter(
@@ -707,7 +710,7 @@ const getCampaignDetailsAdmin = catchAsyncErrors(async (req, res, next) => {
   const campaign = await Campaign.findById(req.params.id);
 
   if (!campaign) {
-    return next(new ErrorHander("Campaign not found", 404));
+    return next(new ErrorHandler("Campaign not found", 404));
   }
 
   res.status(200).json({
@@ -722,7 +725,7 @@ const updateCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
   let campaign = await Campaign.findById(req.params.id);
 
   if (!campaign) {
-    return next(new ErrorHander("Campaign not found", 404));
+    return next(new ErrorHandler("Campaign not found", 404));
   }
 
   // Images Start Here

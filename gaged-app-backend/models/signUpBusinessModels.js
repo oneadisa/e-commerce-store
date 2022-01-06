@@ -42,6 +42,96 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
   pic: {
     type: String,
     required: true,
@@ -162,6 +252,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: false,
       },
+      amountRaised: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
     },
   ],
   listOfCampaignsInvested: [
@@ -190,6 +285,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Boolean,
         required: false,
         default: false,
+      },
+      amountRaised: {
+        type: Number,
+        required: false,
+        default: 0,
       },
     },
   ],
@@ -231,6 +331,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         required: [false, "All investors must have at least one fundraiser."],
       },
+      amountInvested: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
     },
   ],
   numberOfIndividualInvestors: {
@@ -259,6 +364,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
       campaignInvested: {
         type: Number,
         required: [false, "All investors must have at least one fundraiser."],
+      },
+      amountInvested: {
+        type: Number,
+        required: false,
+        default: 0,
       },
     },
   ],
@@ -344,7 +454,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  BusinessReviews: [
+  businessReviews: [
     {
       businessUser: {
         type: mongoose.Schema.ObjectId,
@@ -398,7 +508,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
     },
   ],
-  numberOfOrders: {
+  numberOfBusinessOrders: {
     type: Number,
     default: 0,
   },

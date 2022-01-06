@@ -6,11 +6,22 @@ const {
 const router = express.Router();
 const {
   isAuthenticatedUser,
+  isAuthenticatedBusiness,
   protect,
 } = require("../middleware/authMiddleware");
 
-router.route("/payment/process").post(isAuthenticatedUser, processPayment);
+router
+  .route("/payment/process/individual")
+  .post(isAuthenticatedUser, processPayment);
+router
+  .route("/payment/process/business")
+  .post(isAuthenticatedBusiness, processPayment);
 
-router.route("/stripeapikey").get(isAuthenticatedUser, sendStripeApiKey);
+router
+  .route("/stripeapikey/individual")
+  .get(isAuthenticatedUser, sendStripeApiKey);
+router
+  .route("/stripeapikey/business")
+  .get(isAuthenticatedBusiness, sendStripeApiKey);
 
 module.exports = router;

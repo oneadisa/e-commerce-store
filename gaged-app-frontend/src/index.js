@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from "react-redux";
 import store from "./store";
+<<<<<<< HEAD
 import Wallet from "./componenets/wallet-component/Wallet";
 import FundWallet from "./componenets/wallet-component/FundWallet";
 import Withdraw from "./componenets/wallet-component/Withdraw";
@@ -12,6 +12,30 @@ import Frame4 from "./componenets/addnew-campaign-component/Frame4";
 import Frame5 from "./componenets/addnew-campaign-component/Frame5";
 import Frame6 from "./componenets/addnew-campaign-component/Frame6";
 import Frame7 from "./componenets/addnew-campaign-component/Frame7";
+=======
+
+import { positions, transitions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_CENTER,
+  transition: transitions.SCALE,
+};
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
+  </Provider>,
+
+  document.getElementById("root")
+);
+
+//import { BrowserRouter } from "react-router-dom";
+// import Wallet from "./componenets/wallet-component/Wallet";
+>>>>>>> main
 // import "semantic-ui-css/semantic.min.css";
 // import Organisaction from "./componenets/addnew-campaign-component/Organisation";
 // import Demographics from "./componenets/addnew-campaign-component/Demographics";
@@ -24,6 +48,7 @@ import Frame7 from "./componenets/addnew-campaign-component/Frame7";
 // import { BrowserRouter } from 'react-router-dom';
 // import SettingsBank from './componenets/setting-components/SettingsBank';
 // import LoginBusiness from './sections/LoginBusiness';
+<<<<<<< HEAD
 
 ReactDOM.render(
   // <Provider store={store}>
@@ -41,3 +66,5 @@ ReactDOM.render(
 
   document.getElementById("root")
 );
+=======
+>>>>>>> main
