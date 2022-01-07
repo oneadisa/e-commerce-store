@@ -84,6 +84,22 @@ router
   .delete(isAuthenticatedBusiness, deleteBusinessProductReview);
 
 router
+  .route("admin-individual/reviews/business")
+  .delete(
+    isAuthenticatedBusiness,
+    authorizeRoles("admin"),
+    deleteBusinessProductReview
+  );
+
+router
+  .route("admin-business/reviews/business")
+  .delete(
+    isAuthenticatedBusiness,
+    authorizeRoles("admin"),
+    deleteBusinessProductReview
+  );
+
+router
   .route("/create-review/individual")
   .put(isAuthenticatedUser, createIndividualProductReview);
 
@@ -91,6 +107,22 @@ router
   .route("/reviews/individual")
   .get(getIndividualProductReviews)
   .delete(isAuthenticatedUser, deleteIndividualProductReview);
+
+router
+  .route("admin-individual/reviews/individual")
+  .delete(
+    isAuthenticatedBusiness,
+    authorizeRoles("admin"),
+    deleteIndividualProductReview
+  );
+
+router
+  .route("admin-business/reviews/individual")
+  .delete(
+    isAuthenticatedBusiness,
+    authorizeRoles("admin"),
+    deleteIndividualProductReview
+  );
 
 router
   .route("/create-customer/business")
