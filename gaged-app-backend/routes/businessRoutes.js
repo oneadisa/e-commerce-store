@@ -25,7 +25,7 @@ const {
 } = require("../middlewares/authMiddleware");
 
 router.route("/signUp/2/business").post(registerBusiness);
-router.route("/loginBusiness").post(authBusiness);
+router.route("/login").post(authBusiness);
 router.route("/profile/business").post(protectBusiness, updateBusinessProfile);
 
 router.route("/password/forgot").post(forgotPassword);

@@ -5,6 +5,7 @@ const {
   getCampaignById,
   UpdateCampaign,
   DeleteCampaign,
+  getCampaignDetails,
   createIndividualCampaignReview,
   getIndividualCampaignReviews,
   deleteIndividualCampaignReview,
@@ -39,6 +40,8 @@ router
   .put(protectBusiness, UpdateCampaign)
   .delete(protectBusiness, DeleteCampaign);
 
+router.route("/campaign/:id").get(getCampaignDetails);
+
 router
   .route("/admin-individual/campaigns")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminCampaigns);
@@ -52,7 +55,7 @@ router
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateCampaignAdmin)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), DeleteCampaign);
 
-router.route("/admin-individual/product/:id").get(getCampaignDetailsAdmin);
+router.route("/admin-individual/campaign/:id").get(getCampaignDetailsAdmin);
 
 router
   .route("/admin-business/campaigns")
@@ -67,7 +70,7 @@ router
   .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateCampaignAdmin)
   .delete(isAuthenticatedBusiness, authorizeRoles("admin"), DeleteCampaign);
 
-router.route("/admin-business/product/:id").get(getCampaignDetailsAdmin);
+router.route("/admin-business/campaign/:id").get(getCampaignDetailsAdmin);
 
 router
   .route("/create-review/business")

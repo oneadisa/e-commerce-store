@@ -675,7 +675,7 @@ const createCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
 
   for (let i = 0; i < images.length; i++) {
     const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "products",
+      folder: "Campaigns",
     });
 
     imagesLinks.push({
@@ -697,11 +697,11 @@ const createCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Campaign (Admin)
 const getAdminCampaigns = catchAsyncErrors(async (req, res, next) => {
-  const products = await Campaign.find();
+  const Campaigns = await Campaign.find();
 
   res.status(200).json({
     success: true,
-    products,
+    Campaigns,
   });
 });
 
@@ -747,7 +747,7 @@ const updateCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
 
     for (let i = 0; i < images.length; i++) {
       const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "products",
+        folder: "Campaigns",
       });
 
       imagesLinks.push({
@@ -771,12 +771,26 @@ const updateCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Get Campaign Details
+const getCampaignDetails = catchAsyncErrors(async (req, res, next) => {
+  const Campaign = await Campaign.findById(req.params.id);
+
+  if (!Campaign) {
+    return next(new ErrorHandler("Campaign not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    Campaign,
+  });
+});
 module.exports = {
   getCampaigns,
   CreateCampaign,
   getCampaignById,
   UpdateCampaign,
   DeleteCampaign,
+  getCampaignDetails,
   createIndividualCampaignReview,
   getIndividualCampaignReviews,
   deleteIndividualCampaignReview,

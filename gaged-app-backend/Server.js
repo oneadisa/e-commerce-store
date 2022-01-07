@@ -13,6 +13,7 @@ const businessRouterUrls = require("./routes/businessRoutes");
 const campaignUrls = require("./routes/campaignRoutes");
 const storeProductUrls = require("./routes/storeProductRoutes");
 const storeUrls = require("./routes/storeRoutes");
+const productOrderUrls = require("./routes/productOrderRoutes");
 const cors = require("cors");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const errorMiddleware = require("./middlewares/error");
@@ -43,6 +44,7 @@ app.use("/app/business", businessRouterUrls);
 app.use("/app/store", storeUrls);
 app.use("/app/store/products", storeProductUrls);
 app.use("/app/campaigns", campaignUrls);
+app.use("/app/order", productOrderUrls);
 
 app.use(notFound);
 app.use(errorHandler);
