@@ -38,10 +38,11 @@
         "nodemailer": "^6.7.2",
         "nodemon": "^2.0.15",
         "request": "^2.88.2",
+        "save-dev": "^0.0.1-security",
         "stripe": "^8.194.0",
         "validator": "^13.7.0"
     },
     "devDependencies": {
-        "@types/node": "^16.11.11"
+        "@types/node": "^16.11.19"
     }
 }
