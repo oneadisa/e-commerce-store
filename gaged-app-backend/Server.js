@@ -37,7 +37,7 @@ mongoose.connect(process.env.USERDATABASE_ACCESS, () =>
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(fileUpload());
+app.use(fileUpload({ useTempFiles: true }));
 app.use(cors());
 app.use("/app/individual", userRouterUrls);
 app.use("/app/business", businessRouterUrls);

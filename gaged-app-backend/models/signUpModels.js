@@ -36,11 +36,11 @@ const signUpTemplate = new mongoose.Schema({
   avatar: {
     public_id: {
       type: String,
-      required: true,
+      required: false,
     },
     url: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   isAdmin: {
@@ -173,6 +173,14 @@ signUpTemplate.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
+// JWT TOKEN
+signUpTemplate.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
+
+// Compare Password
 signUpTemplate.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

@@ -41,95 +41,16 @@ const signUpBusinessTemplate = new mongoose.Schema({
   role: {
     type: String,
     default: "user",
+    required: false,
   },
   avatar: {
     public_id: {
       type: String,
-      required: true,
+      required: false,
     },
     url: {
       type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
-  avatar: {
-    public_id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
+      required: false,
     },
   },
   pic: {
@@ -378,21 +299,22 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   walletBalance: {
     type: Number,
-    required: false,
+    required: true,
+    default: 0,
   },
   totalSales: {
     type: Number,
-    required: false,
+    required: true,
     default: 0,
   },
   totalRevenue: {
     type: Number,
-    required: false,
+    required: true,
     default: 0,
   },
   totalProductNumber: {
     type: Number,
-    required: false,
+    required: true,
     default: 0,
   },
   businessOrderedFrom: [
@@ -427,7 +349,8 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   quantityOfOrders: {
     type: Number,
-    required: false,
+    required: true,
+    default: 0,
   },
   individualReviews: [
     {
@@ -618,6 +541,13 @@ signUpBusinessTemplate.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+// JWT TOKEN
+signUpBusinessTemplate.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
 signUpBusinessTemplate.methods.matchPassword = async function (
   enteredPassword

@@ -86,7 +86,7 @@ router
   .delete(
     isAuthenticatedBusiness,
     authorizeRoles("admin"),
-    deleteBusinessProductReview
+    deleteBusinessCampaignReview
   );
 
 router
@@ -94,7 +94,7 @@ router
   .delete(
     isAuthenticatedBusiness,
     authorizeRoles("admin"),
-    deleteBusinessProductReview
+    deleteBusinessCampaignReview
   );
 
 router
@@ -111,7 +111,7 @@ router
   .delete(
     isAuthenticatedBusiness,
     authorizeRoles("admin"),
-    deleteIndividualProductReview
+    deleteIndividualCampaignReview
   );
 
 router
@@ -119,7 +119,7 @@ router
   .delete(
     isAuthenticatedBusiness,
     authorizeRoles("admin"),
-    deleteIndividualProductReview
+    deleteIndividualCampaignReview
   );
 
 router

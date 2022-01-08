@@ -15,7 +15,7 @@ const {
   authorizeRoles,
   protectUser,
   protectBusiness,
-} = require("../middleware/authMiddleware");
+} = require("../middlewares/authMiddleware");
 
 router.route("/order/new/individual").post(isAuthenticatedUser, newOrder);
 

@@ -73,7 +73,7 @@ const getStoreProductById = asyncHandler(async (req, res) => {
   if (storeProduct) {
     res.json(storeProduct);
   } else {
-    res.status(404).json({ message: "StoreProduct not found" });
+    res.status(404).json({ message: "Product not found" });
   }
 
   res.json(storeProduct);
@@ -122,7 +122,7 @@ const UpdateStoreProduct = asyncHandler(async (req, res) => {
     res.json(updatedStoreProduct);
   } else {
     res.status(404);
-    throw new Error("StoreProduct not found");
+    throw new Error("Product not found");
   }
 });
 
@@ -136,38 +136,80 @@ const deleteStoreProduct = asyncHandler(async (req, res) => {
 
   if (storeProduct) {
     await storeProduct.remove();
-    res.json({ message: "StoreProduct Removed" });
+    res.json({ message: "Product Removed" });
   } else {
     res.status(404);
-    throw new Error("StoreProduct not Found");
+    throw new Error("Product not Found");
+  }
+});
+
+const deleteStoreProductAdmin = asyncHandler(async (req, res) => {
+  const storeProduct = await StoreProduct.findById(req.params.id);
+
+  if (storeProduct) {
+    await storeProduct.remove();
+    res.json({ message: "Product Removed" });
+  } else {
+    res.status(404);
+    throw new Error("Product not Found");
   }
 });
 
 // Create StoreProduct -- Admin
-const createProduct = catchAsyncErrors(async (req, res, next) => {
-  let images = [];
+const createProductAdmin = catchAsyncErrors(async (req, res, next) => {
+  const {
+    productTitle,
+    shortDescription,
+    productDetails,
+    standardPrice,
+    discountedPrice,
+    costPrice,
+    productStockCount,
+    productUnitCount,
+    productSKU,
+    productImageOne,
+    productImageTwo,
+    productImageThree,
+    category,
+  } = req.body;
 
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
+  if (
+    !productTitle ||
+    !shortDescription ||
+    !category ||
+    !productDetails ||
+    !costPrice ||
+    !standardPrice ||
+    !discountedPrice ||
+    !productStockCount ||
+    !productUnitCount
+    // || !productImageOne
+  ) {
+    res.status(400);
+    throw new Error("Please fill all required feilds");
+    return;
   } else {
-    images = req.body.images;
-  }
-
-  const imagesLinks = [];
-
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "products",
+    const storeProduct = new StoreProduct({
+      user: req.user._id,
+      productTitle,
+      shortDescription,
+      productDetails,
+      standardPrice,
+      discountedPrice,
+      costPrice,
+      productStockCount,
+      productUnitCount,
+      productSKU,
+      productImageOne,
+      productImageTwo,
+      productImageThree,
+      category,
     });
 
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
+    const createdStoreProduct = await storeProduct.save();
 
-  req.body.images = imagesLinks;
-  req.body.user = req.user.id;
+    res.status(201).json(createdStoreProduct);
+  }
 
   const product = await StoreProduct.create(req.body);
 
@@ -192,7 +234,7 @@ const getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -204,53 +246,53 @@ const getProductDetails = catchAsyncErrors(async (req, res, next) => {
 // Update StoreProduct -- Admin
 
 const updateProductAdmin = catchAsyncErrors(async (req, res, next) => {
-  let product = await StoreProduct.findById(req.params.id);
+  const {
+    productTitle,
+    shortDescription,
+    productDetails,
+    standardPrice,
+    discountedPrice,
+    costPrice,
+    productStockCount,
+    productUnitCount,
+    productSKU,
+    productImageOne,
+    productImageTwo,
+    productImageThree,
+    category,
+  } = req.body;
 
-  if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+  const storeProduct = await StoreProduct.findById(req.params.id);
+
+  if (storeProduct.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("You can't perform this action");
   }
 
-  // Images Start Here
-  let images = [];
+  if (storeProduct) {
+    storeProduct.productTitle = productTitle;
+    storeProduct.shortDescription = shortDescription;
+    storeProduct.productDetails = productDetails;
+    storeProduct.standardPrice = standardPrice;
+    storeProduct.discountedPrice = discountedPrice;
+    storeProduct.costPrice = costPrice;
+    storeProduct.productStockCount = productStockCount;
+    storeProduct.productUnitCount = productUnitCount;
+    storeProduct.productSKU = productSKU;
+    storeProduct.productImageOne = productImageOne;
+    storeProduct.productImageTwo = productImageTwo;
+    storeProduct.productImageThree = productImageThree;
+    storeProduct.category = category;
 
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
+    const updatedStoreProduct = await storeProduct.save();
+    res.status(200).json({
+      success: true,
+      updatedStoreProduct,
+    });
   } else {
-    images = req.body.images;
+    res.status(404);
+    throw new Error("Product not found");
   }
-
-  if (images !== undefined) {
-    // Deleting Images From Cloudinary
-    for (let i = 0; i < product.images.length; i++) {
-      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-    }
-
-    const imagesLinks = [];
-
-    for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "products",
-      });
-
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
-    }
-
-    req.body.images = imagesLinks;
-  }
-
-  product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
-  });
-
-  res.status(200).json({
-    success: true,
-    product,
-  });
 });
 
 // Create New Individual Review or Update an Individual review
@@ -434,7 +476,7 @@ const deleteBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.productId);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Review not found", 404));
   }
 
   const businessProductReviews = product.businessProductReviews.filter(
@@ -538,7 +580,7 @@ const getIndividualProductCustomers = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.id);
 
     if (!product) {
-      return next(new ErrorHandler("StoreProduct not found", 404));
+      return next(new ErrorHandler("Customer not found", 404));
     }
 
     res.status(200).json({
@@ -554,7 +596,7 @@ const deleteIndividualProductCustomer = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHandler("StoreProduct not found", 404));
+      return next(new ErrorHandler("Customer not found", 404));
     }
 
     const individualProductCustomers =
@@ -653,7 +695,7 @@ const getBusinessProductCustomers = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Business Customer not found", 404));
   }
 
   res.status(200).json({
@@ -668,7 +710,7 @@ const deleteBusinessProductCustomer = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHandler("StoreProduct not found", 404));
+      return next(new ErrorHandler("Business Customer not found", 404));
     }
 
     const businessProductCustomers = product.businessProductCustomers.filter(
@@ -940,7 +982,8 @@ module.exports = {
   getStoreProductById,
   UpdateStoreProduct,
   deleteStoreProduct,
-  createProduct,
+  deleteStoreProductAdmin,
+  createProductAdmin,
   getAdminProducts,
   getProductDetails,
   createIndividualProductReview,

@@ -34,7 +34,7 @@ router.route("/password/reset/:token").put(resetPassword);
 
 router.route("/logout").get(logoutBusiness);
 
-router.route("/me").get(isAuthenticatedBusiness, getBusinessDetails);
+router.route("/me").get(protectBusiness, getBusinessDetails);
 
 router.route("/password/update").put(isAuthenticatedBusiness, updatePassword);
 

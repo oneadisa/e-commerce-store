@@ -11,11 +11,11 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
 const registerBusiness = asyncHandler(async (req, res) => {
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "avatars",
-    width: 150,
-    crop: "scale",
-  });
+  // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+  // folder: "avatars",
+  // width: 150,
+  // crop: "scale",
+  // });
 
   const {
     businessName,
@@ -85,10 +85,10 @@ const registerBusiness = asyncHandler(async (req, res) => {
     throw new Error("Business Already Exists. Please Log In.");
   }
   const user = await signedUpBusiness.create({
-    avatar: {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    },
+    // avatar: {
+    // public_id: myCloud.public_id,
+    // url: myCloud.secure_url,
+    // },
     businessName,
     accountHolderName,
     email,
@@ -155,6 +155,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       accountHolderName: user.accountHolderName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      password: user.password,
       isAdmin: user.isAdmin,
       role: user.role,
       pic: user.pic,
@@ -223,6 +224,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     .catch((error) => {
       res.json.stringify(error);
     });
+  sendToken(user, 201, res);
 });
 
 // Logout signedUpBusiness
@@ -241,7 +243,7 @@ const logoutBusiness = catchAsyncErrors(async (req, res, next) => {
 const authBusiness = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await signedUpBusiness.findOne({ email });
+  const user = await signedUpBusiness.findOne({ email }).select("+password");
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -249,6 +251,7 @@ const authBusiness = asyncHandler(async (req, res) => {
       accountHolderName: user.accountHolderName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      password: user.password,
       isAdmin: user.isAdmin,
       role: user.role,
       pic: user.pic,
@@ -308,6 +311,7 @@ const authBusiness = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid email or password.");
   }
+  sendToken(user, 200, res);
 });
 
 const updateBusinessProfile = asyncHandler(async (req, res) => {
@@ -491,7 +495,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
   const resetPasswordUrl = `${req.protocol}://${req.get(
     "host"
-  )}/password/reset/${resetToken}`;
+  )}/app/business/password/reset/${resetToken}`;
 
   const message = `Hello esteemed customer, your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 

@@ -5,9 +5,10 @@ const {
   getStoreProductById,
   UpdateStoreProduct,
   deleteStoreProduct,
+  deleteStoreProductAdmin,
   getAdminProducts,
   getProductDetails,
-  createProduct,
+  createProductAdmin,
   createIndividualProductReview,
   updateProductAdmin,
   getIndividualProductReviews,
@@ -52,12 +53,16 @@ router
 
 router
   .route("/admin-individual/product/new")
-  .post(isAuthenticatedUser, authorizeRoles("admin"), createProduct);
+  .post(isAuthenticatedUser, authorizeRoles("admin"), createProductAdmin);
 
 router
   .route("/admin-individual/product/:id")
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateProductAdmin)
-  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteStoreProduct);
+  .delete(
+    isAuthenticatedUser,
+    authorizeRoles("admin"),
+    deleteStoreProductAdmin
+  );
 
 router
   .route("/admin-business/products")
@@ -65,12 +70,16 @@ router
 
 router
   .route("/admin-business/product/new")
-  .post(isAuthenticatedBusiness, authorizeRoles("admin"), createProduct);
+  .post(isAuthenticatedBusiness, authorizeRoles("admin"), createProductAdmin);
 
 router
   .route("/admin-business/product/:id")
   .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateProductAdmin)
-  .delete(isAuthenticatedBusiness, authorizeRoles("admin"), deleteStoreProduct);
+  .delete(
+    isAuthenticatedBusiness,
+    authorizeRoles("admin"),
+    deleteStoreProductAdmin
+  );
 
 router.route("/product/:id").get(getProductDetails);
 
