@@ -2,13 +2,40 @@ const StoreProduct = require("../models/storeProductModels");
 const asyncHandler = require("express-async-handler");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
-const ApiFeatures = require("../utils/apifeatures");
+const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
-const getStoreProducts = asyncHandler(async (req, res) => {
-  const storeProducts = await StoreProduct.find({
+
+const getMyProducts = asyncHandler(async (req, res) => {
+  const products = await StoreProduct.find({
     user: req.user._id,
   });
-  res.json(storeProducts);
+  res.json(products);
+});
+
+// Get All Product
+const getAllProducts = catchAsyncErrors(async (req, res, next) => {
+  const resultPerPage = 20;
+  const productsCount = await StoreProduct.countDocuments();
+
+  const apiFeature = new ApiFeatures(StoreProduct.find(), req.query)
+    .search()
+    .filter();
+
+  let products = await apiFeature.query;
+
+  let filteredProductsCount = products.length;
+
+  apiFeature.pagination(resultPerPage);
+
+  products = await apiFeature.query;
+
+  res.status(200).json({
+    success: true,
+    products,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  });
 });
 
 const CreateStoreProduct = asyncHandler(async (req, res) => {
@@ -977,7 +1004,8 @@ const deleteBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
 });
 
 module.exports = {
-  getStoreProducts,
+  getMyProducts,
+  getAllProducts,
   CreateStoreProduct,
   getStoreProductById,
   UpdateStoreProduct,

@@ -3,11 +3,38 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
-const getCampaigns = asyncHandler(async (req, res) => {
+const ApiFeatures = require("../utils/apiFeatures");
+const getMyCampaigns = asyncHandler(async (req, res) => {
   const campaigns = await Campaign.find({
     user: req.user._id,
   });
   res.json(campaigns);
+});
+
+// Get All Campaign
+const getAllCampaigns = catchAsyncErrors(async (req, res, next) => {
+  const resultPerPage = 20;
+  const campaignsCount = await Campaign.countDocuments();
+
+  const apiFeature = new ApiFeatures(Campaign.find(), req.query)
+    .search()
+    .filter();
+
+  let campaigns = await apiFeature.query;
+
+  let filteredCampaignsCount = campaigns.length;
+
+  apiFeature.pagination(resultPerPage);
+
+  campaigns = await apiFeature.query;
+
+  res.status(200).json({
+    success: true,
+    campaigns,
+    campaignsCount,
+    resultPerPage,
+    filteredCampaignsCount,
+  });
 });
 
 const CreateCampaign = asyncHandler(async (req, res) => {
@@ -65,8 +92,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     !bank_account_name ||
     !bank_account_number ||
     !duration ||
-    !go_live_schedule ||
-    !campaignLiveStatus
+    !go_live_schedule
   ) {
     res.status(400);
     throw new Error("Please fill all required feilds");
@@ -697,11 +723,11 @@ const createCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Campaign (Admin)
 const getAdminCampaigns = catchAsyncErrors(async (req, res, next) => {
-  const Campaigns = await Campaign.find();
+  const campaigns = await Campaign.find();
 
   res.status(200).json({
     success: true,
-    Campaigns,
+    campaigns,
   });
 });
 
@@ -773,19 +799,21 @@ const updateCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
 
 // Get Campaign Details
 const getCampaignDetails = catchAsyncErrors(async (req, res, next) => {
-  const Campaign = await Campaign.findById(req.params.id);
+  const campaign = await Campaign.findById(req.params.id);
 
-  if (!Campaign) {
+  if (!campaign) {
     return next(new ErrorHandler("Campaign not found", 404));
   }
 
   res.status(200).json({
     success: true,
-    Campaign,
+    campaign,
   });
 });
+
 module.exports = {
-  getCampaigns,
+  getMyCampaigns,
+  getAllCampaigns,
   CreateCampaign,
   getCampaignById,
   UpdateCampaign,

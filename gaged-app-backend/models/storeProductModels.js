@@ -75,13 +75,23 @@ const storeProductSchema = new mongoose.Schema(
           ref: "mySignedUpUserTable",
           required: false,
         },
-        name: {
+        firstName: {
+          type: String,
+          required: true,
+        },
+        lastName: {
           type: String,
           required: true,
         },
         rating: {
           type: Number,
           default: 0,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         comment: {
           type: String,
@@ -105,13 +115,19 @@ const storeProductSchema = new mongoose.Schema(
           ref: "mySignedUpBusinessTable",
           required: false,
         },
-        name: {
+        businessName: {
           type: String,
           required: true,
         },
         rating: {
           type: Number,
           default: 0,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         comment: {
           type: String,
@@ -142,13 +158,19 @@ const storeProductSchema = new mongoose.Schema(
           type: String,
           required: false,
         },
-        name: {
+        businessName: {
           type: String,
           required: false,
         },
         phoneNumber: {
           type: Number,
           required: false,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
           type: Number,
@@ -172,13 +194,23 @@ const storeProductSchema = new mongoose.Schema(
           type: String,
           required: false,
         },
-        name: {
+        firstName: {
           type: String,
           required: false,
+        },
+        lastName: {
+          type: String,
+          required: true,
         },
         phoneNumber: {
           type: Number,
           required: false,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
           type: Number,
@@ -201,13 +233,23 @@ const storeProductSchema = new mongoose.Schema(
           ref: "mySignedUpUserTable",
           required: false,
         },
-        name: {
+        firstName: {
           type: String,
           required: false,
+        },
+        lastName: {
+          type: String,
+          required: true,
         },
         phoneNumber: {
           type: Number,
           required: false,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
           type: Number,
@@ -226,13 +268,19 @@ const storeProductSchema = new mongoose.Schema(
           ref: "mySignedUpBusinessTable",
           required: false,
         },
-        name: {
+        businessName: {
           type: String,
           required: false,
         },
         phoneNumber: {
           type: Number,
           required: false,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
           type: Number,

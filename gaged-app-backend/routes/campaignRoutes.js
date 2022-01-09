@@ -1,6 +1,7 @@
 const express = require("express");
 const {
-  getCampaigns,
+  getMyCampaigns,
+  getAllCampaigns,
   CreateCampaign,
   getCampaignById,
   UpdateCampaign,
@@ -32,7 +33,7 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getCampaigns);
+router.route("/me").get(getMyCampaigns);
 router.route("/create").post(protectBusiness, CreateCampaign);
 router
   .route("/:id")
@@ -41,6 +42,8 @@ router
   .delete(protectBusiness, DeleteCampaign);
 
 router.route("/campaign/:id").get(getCampaignDetails);
+
+router.route("/all").get(getAllCampaigns);
 
 router
   .route("/admin-individual/campaigns")

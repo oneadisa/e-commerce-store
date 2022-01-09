@@ -1,6 +1,7 @@
 const express = require("express");
 const {
-  getStoreProducts,
+  getMyProducts,
+  getAllProducts,
   CreateStoreProduct,
   getStoreProductById,
   UpdateStoreProduct,
@@ -39,13 +40,15 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getStoreProducts);
+router.route("/me").get(getMyProducts);
 router.route("/create").post(protectBusiness, CreateStoreProduct);
 router
   .route("/:id")
   .get(getStoreProductById)
   .put(protectBusiness, UpdateStoreProduct)
   .delete(protectBusiness, deleteStoreProduct);
+
+router.route("/all").get(getAllProducts);
 
 router
   .route("/admin-individual/products")

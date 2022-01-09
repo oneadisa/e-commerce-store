@@ -36,7 +36,7 @@ const campaignSchema = new mongoose.Schema(
     },
     campaignVideo: {
       type: String,
-      required: true,
+      required: false,
       default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
     pitchDeck: {
@@ -45,7 +45,7 @@ const campaignSchema = new mongoose.Schema(
     },
     ideal_target_audience_age: {
       type: String,
-      required: true,
+      required: false,
     },
     ideal_target_audience_health_issues_or_disabilities: {
       type: String,
@@ -92,7 +92,7 @@ const campaignSchema = new mongoose.Schema(
       required: true,
     },
     bank_account_number: {
-      type: String,
+      type: Number,
       required: true,
     },
     duration: {
@@ -100,13 +100,12 @@ const campaignSchema = new mongoose.Schema(
       required: true,
     },
     go_live_schedule: {
-      type: Date,
+      type: String,
       required: false,
     },
     campaignLiveStatus: {
-      type: Boolean,
+      type: String,
       required: false,
-      default: false,
     },
     individualCampaignReviews: [
       {
@@ -186,7 +185,7 @@ const campaignSchema = new mongoose.Schema(
           ref: "mySignedUpBusinessTable",
           required: false,
         },
-        name: {
+        businessName: {
           type: String,
           required: true,
         },
@@ -203,6 +202,10 @@ const campaignSchema = new mongoose.Schema(
           required: false,
           default:
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        },
+        typeOfDonation: {
+          type: String,
+          required: false,
         },
       },
     ],
@@ -218,7 +221,11 @@ const campaignSchema = new mongoose.Schema(
           ref: "mySignedUpUserTable",
           required: false,
         },
-        name: {
+        firstName: {
+          type: String,
+          required: true,
+        },
+        lastName: {
           type: String,
           required: true,
         },
@@ -236,6 +243,10 @@ const campaignSchema = new mongoose.Schema(
           default:
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
+        typeOfDonation: {
+          type: String,
+          required: false,
+        },
       },
     ],
     numberOfIndividualCampaignDonors: {
@@ -248,7 +259,7 @@ const campaignSchema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: "mySignedUpBusinessTable",
     },
   },
