@@ -36,14 +36,14 @@ const router = express.Router();
 router.route("/me").get(getMyCampaigns);
 router.route("/create").post(protectBusiness, CreateCampaign);
 router
-  .route("/:id")
+  .route("campaign/:id")
   .get(getCampaignById)
   .put(protectBusiness, UpdateCampaign)
   .delete(protectBusiness, DeleteCampaign);
 
 router.route("/campaign/:id").get(getCampaignDetails);
 
-router.route("/all").get(getAllCampaigns);
+router.route("/campaigns").get(getAllCampaigns);
 
 router
   .route("/admin-individual/campaigns")

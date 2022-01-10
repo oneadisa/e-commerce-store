@@ -40,9 +40,7 @@ router.route("/password/update").put(isAuthenticatedBusiness, updatePassword);
 
 router.route("/me/update").put(isAuthenticatedBusiness, updateProfile);
 
-router
-  .route("/admin-business/business")
-  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getAllBusiness);
+router.route("/admin-business/business").get(getAllBusiness);
 
 router
   .route("/admin-business/business/:id")

@@ -12,22 +12,16 @@ const getMyCampaigns = asyncHandler(async (req, res) => {
 });
 
 // Get All Campaign
-const getAllCampaigns = catchAsyncErrors(async (req, res, next) => {
+const getAllCampaigns = catchAsyncErrors(async (req, res) => {
   const resultPerPage = 20;
   const campaignsCount = await Campaign.countDocuments();
-
   const apiFeature = new ApiFeatures(Campaign.find(), req.query)
     .search()
     .filter();
-
   let campaigns = await apiFeature.query;
-
   let filteredCampaignsCount = campaigns.length;
-
   apiFeature.pagination(resultPerPage);
-
   campaigns = await apiFeature.query;
-
   res.status(200).json({
     success: true,
     campaigns,
@@ -35,6 +29,26 @@ const getAllCampaigns = catchAsyncErrors(async (req, res, next) => {
     resultPerPage,
     filteredCampaignsCount,
   });
+  // const campaigns = await Campaign.find({}, function (err, campaigns) {
+  // var campaignMap = {};
+  // campaigns.forEach(function (campaign) {
+  // campaignMap[campaign._id] = campaign;
+  // });
+  // res.send(campaignMap);
+  // });
+  // res.status(200).json({
+  // success: true,
+  // campaigns,
+  // });
+  // server.get("/usersList", function (req, res) {
+  // User.find({}, function (err, users) {
+  // var userMap = {};
+  // users.forEach(function (user) {
+  // userMap[user._id] = user;
+  // });
+  // res.send(userMap);
+  // });
+  // });
 });
 
 const CreateCampaign = asyncHandler(async (req, res) => {

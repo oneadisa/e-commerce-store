@@ -36,6 +36,12 @@ const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     resultPerPage,
     filteredProductsCount,
   });
+
+  // const products = await StoreProduct.find({});
+  // res.status(200).json({
+  // success: true,
+  // products,
+  //});
 });
 
 const CreateStoreProduct = asyncHandler(async (req, res) => {

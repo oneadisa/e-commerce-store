@@ -40,15 +40,15 @@ const {
 
 const router = express.Router();
 
+router.route("/products").get(getAllProducts);
+
 router.route("/me").get(getMyProducts);
 router.route("/create").post(protectBusiness, CreateStoreProduct);
 router
-  .route("/:id")
+  .route("product/:id")
   .get(getStoreProductById)
   .put(protectBusiness, UpdateStoreProduct)
   .delete(protectBusiness, deleteStoreProduct);
-
-router.route("/all").get(getAllProducts);
 
 router
   .route("/admin-individual/products")
