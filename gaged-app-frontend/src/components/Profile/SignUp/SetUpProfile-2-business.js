@@ -3,12 +3,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import HeaderSignUp from "./SignUpComponents/HeaderSignUp-Login";
-import People from "../../images/Gaged-images/Group 3577.png";
+import People from "../../../images/Gaged-images/Group 3577.png";
 // import ErrorMessage from '../../componenets/LoginErrorMessage';
-import Loader from "../../components/Loader";
-import GeneralErrorMessage from "../../components/GeneralErrorMessage";
+import Loader from "../../Loader";
+import GeneralErrorMessage from "../../GeneralErrorMessage";
 import { Link } from "react-router-dom";
-import { signUpBusiness } from "../../actions/businessActions";
+import { signUpBusiness } from "../../../actions/businessActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function SetUpProfile2Business() {

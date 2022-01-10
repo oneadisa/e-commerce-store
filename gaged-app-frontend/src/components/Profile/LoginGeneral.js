@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
-import People from "../images/Gaged-images/Group 3577.png";
+import People from "../../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
 
 const LoginGeneral = () => {
