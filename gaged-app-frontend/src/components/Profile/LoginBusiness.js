@@ -3,13 +3,13 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
-import People from "../images/Gaged-images/Group 3577.png";
+import People from "../../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../Loader";
 // import GeneralErrorMessage from "../componenets/GeneralErrorMessage";
-import ErrorMessage from "../components/LoginErrorMessage";
+import ErrorMessage from "../LoginErrorMessage";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { businessLogin } from "../actions/businessActions";
+import { businessLogin } from "../../actions/businessActions";
 import { useNavigate } from "react-router-dom";
 
 function LoginBusiness() {
@@ -47,7 +47,8 @@ function LoginBusiness() {
     <>
       <HeaderSignUp children={undefined} title={undefined} />
       {error && <ErrorMessage />}
-      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10">
+      
+      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10 mx-auto">
         <div className="">
           <img src={People} />
         </div>
@@ -61,7 +62,7 @@ function LoginBusiness() {
             <p className="text-lg my-4 md:text-lg font-poppins">
               We missed you, sign in to get more of the "Gaged" experience.
             </p>
-            <div className="flex flex-col gap-3 mt-5">
+            <div className="flex flex-col gap-2 mt-5">
               <input
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}

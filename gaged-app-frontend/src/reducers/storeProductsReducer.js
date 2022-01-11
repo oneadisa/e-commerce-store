@@ -461,7 +461,7 @@ export const individualProductCustomersReducer = (
   }
 };
 
-export const imdividualProductCustomerReducer = (state = {}, action) => {
+export const individualProductCustomerReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_INDIVIDUAL_CUSTOMER_REQUEST:
       return {

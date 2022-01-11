@@ -8,8 +8,8 @@ import DashBoard from './DashBoard'
 import copyfile from "../../images/copy-file.png";
 import eimage from "../../images/empty-image.png";
 
-import Loader from "../../componenets/Loader";
-import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
+import Loader from "../Loader";
+import GeneralErrorMessage from "../GeneralErrorMessage";
 import { Link } from "react-router-dom";
 
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";

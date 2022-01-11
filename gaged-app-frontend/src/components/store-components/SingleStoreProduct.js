@@ -14,8 +14,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
 import axios from "axios";
-import Loader from "../../componenets/Loader";
-import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
+import Loader from "../Loader";
+import GeneralErrorMessage from "../GeneralErrorMessage";
 import {
   deleteStoreProductAction,
   updateStoreProductAction,

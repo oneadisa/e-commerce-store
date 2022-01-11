@@ -8,8 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
 import Header from "./Header"
 import DashBoard from "./DashBoard";
-import Loader from "../../componenets/Loader";
-import GeneralErrorMessage from "../../componenets/GeneralErrorMessage";
+import Loader from "../Loader";
+import GeneralErrorMessage from "../GeneralErrorMessage";
 import { createStoreProductAction } from "../../actions/storeProductsActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import "./toggle.css";

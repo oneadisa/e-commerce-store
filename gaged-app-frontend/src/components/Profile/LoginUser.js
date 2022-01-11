@@ -2,13 +2,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
-import People from "../images/Gaged-images/Group 3577.png";
+import People from "../../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../Loader";
 import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../actions/userActions";
-import ErrorMessage from "../components/LoginErrorMessage";
+import { userLogin } from "../../actions/userActions";
+import ErrorMessage from "../LoginErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 function LoginUser() {
@@ -50,13 +50,14 @@ function LoginUser() {
       <HeaderSignUp children={undefined} title={undefined} />
       {error && <ErrorMessage />}
 
-      <div className="py-3 pb-10 px-3 md:px-10 flex flex-col lg:flex-row gap-10 md:gap-14 mx-auto">
+      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10 mx-auto">
         <div className="">
           <img src={People} />
         </div>
-        <form>
+        
+        <div className="lg:mt-40">
           {loading && <Loader />}
-          <div className="flex flex-col md:w-4/5 lg:mt-24 justify-center">
+          <form className="flex flex-col md:w-4/5 justify-center">
             <h1 className="text-2xl md:text-3xl font-semibold font-poppins">
               Welcome Back!
             </h1>
@@ -69,18 +70,19 @@ function LoginUser() {
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                className="font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7"
+                className="font-poppins h-12 pl-8 border-2 border-gray-400 text-black font-medium placeholder-gray-400"
                 placeholder="Email"
               />
-              <br />
+  
               <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                className="font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium   flex justify-left space-x-7"
+                className="font-poppins h-12 pl-8 border-2 border-gray-400 text-black font-medium placeholder-gray-400"
                 placeholder="Password"
               />
             </div>
+
             <p className="font-poppins my-3">
               Forgot Password?{" "}
               <span className="font-poppins text-blue-700 space-y-7">
@@ -93,6 +95,9 @@ function LoginUser() {
             >
               Login
             </button>
+          </form>
+
+          <div className="my-5">
             <p className="font-poppins my-5 font-medium">
               Don't have an account?{" "}
               <Link
@@ -103,7 +108,7 @@ function LoginUser() {
               </Link>
             </p>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
