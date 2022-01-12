@@ -3,13 +3,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import HeaderSignUp from "./SignUpComponents/HeaderSignUp-Login";
-import People from "../../images/Gaged-images/Group 3577.png";
-import Loader from "../../components/Loader";
+import People from "../../../images/Gaged-images/Group 3577.png";
+import Loader from "../../Loader";
 import { Link } from "react-router-dom";
-import GeneralErrorMessage from "../../components/GeneralErrorMessage";
+import GeneralErrorMessage from "../../GeneralErrorMessage";
 // import PictureErrorMessage from '../../componenets/PictureErrorMessage';
 import { useDispatch, useSelector } from "react-redux";
-import { signUpUser } from "../../actions/userActions";
+import { signUpUser } from "../../../actions/userActions";
 // import { useForm } from "react-hook-form";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons";

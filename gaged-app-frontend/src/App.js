@@ -6,9 +6,8 @@ import store from "./store";
 import WebFont from "webfontloader";
 
 import { useSelector } from "react-redux";
-import { loadUser } from "./actions/userAction";
+import { loadUser } from "./actions/userActions";
 import axios from "axios";
-import { loadStripe } from "@stripe/stripe-js";
 import React, { useState, useEffect } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -20,14 +19,14 @@ import ProductsNew from "./components/store-components/ProductsNew";
 import ProductsOrders from "./components/store-components/ProductsOrders";
 import SingleStoreProduct from "./components/store-components/SingleStoreProduct";
 
-import SignUpGeneral from "./sections/SignUp/SignUpGeneral";
-import SetUpProfile1individual from "./sections/SignUp/SetUpProfile-1-individual";
-import SetUpProfile1Business from "./sections/SignUp/SetUpProfile-1-business";
-import SetUpProfile2Individual from "./sections/SignUp/SetUpProfile-2-individual";
-import SetUpProfile2Business from "./sections/SignUp/SetUpProfile-2-business";
-import LoginGeneral from "./sections/LoginGeneral";
-import LoginUser from "./sections/LoginUser";
-import LoginBusiness from "./sections/LoginBusiness";
+import SignUpGeneral from "./components/Profile/SignUp/SignUpGeneral";
+import SetUpProfile1individual from "./components/Profile/SignUp/SetUpProfile-1-individual";
+import SetUpProfile1Business from "./components/Profile/SignUp/SetUpProfile-1-business";
+import SetUpProfile2Individual from "./components/Profile/SignUp/SetUpProfile-2-individual";
+import SetUpProfile2Business from "./components/Profile/SignUp/SetUpProfile-2-business";
+import LoginGeneral from "./components/Profile/LoginGeneral";
+import LoginUser from "./components/Profile/LoginUser";
+import LoginBusiness from "./components/Profile/LoginBusiness";
 
 import Campaigns from "./components/individual-component/Campaigns";
 import ExploreStores from "./components/individual-component/ExploreStores";
@@ -66,7 +65,7 @@ import BusinessDashboard from "./components/dashboard-component/Business-dashboa
 import ErrorPage from "./components/ErroPage";
 import UserDashboard from "./components/dashboard-component/User-dashboard";
 
-import ProtectedRoute from "./components/Routes/ProtectedRoute";
+import ProtectedRoute from "./components/Routes/protectedRoute";
 
 function App() {
   const [search, setSearch] = useState("");

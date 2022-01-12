@@ -1,5 +1,4 @@
 import React from 'react'
-import left from "../../images/left.svg";
 import { GoChevronLeft } from 'react-icons/go';
 
 function Frame4() {

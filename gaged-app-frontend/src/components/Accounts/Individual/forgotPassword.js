@@ -3,7 +3,7 @@ import "./ForgotPassword.css";
 import Loader from "../layout/Loader/Loader";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, forgotPassword } from "../../actions/userAction";
+import { clearErrors, forgotPassword } from "../../../actions/userActions";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 
