@@ -130,7 +130,42 @@ const signUpBusinessTemplate = new mongoose.Schema({
     required: false,
     default: "https://icon-library.com/icon/icon-image-file-18.html.html",
   },
+  storeProducts: [
+    {
+      productTitle: {
+        type: String,
+        required: false,
+      },
+      shortDescription: {
+        type: String,
+        required: false,
+      },
+      category: {
+        type: String,
+        required: false,
+      },
+      productImageOne: {
+        type: String,
+        required: false,
+        default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+      },
+      ratings: {
+        type: Number,
+        default: 0,
+      },
+      costPrice: {
+        type: Number,
+        required: false,
+      },
+    },
+  ],
+
   numberOfStoreProducts: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  deliveryCharge: {
     type: Number,
     required: false,
     default: 0,
@@ -147,9 +182,17 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   listOfCampaignsStarted: [
     {
-      businessName: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+      pic: {
+        type: String,
         required: false,
       },
       natureOfBusiness: {

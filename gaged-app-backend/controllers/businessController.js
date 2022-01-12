@@ -55,6 +55,9 @@ const registerBusiness = asyncHandler(async (req, res) => {
     totalNumberOfInvestors,
     walletBalance,
     totalSales,
+    storeProducts,
+    numberOfStoreProducts,
+    deliveryCharge,
     totalRevenue,
     totalProductNumber,
     businessOrderedFrom,
@@ -126,6 +129,9 @@ const registerBusiness = asyncHandler(async (req, res) => {
     totalNumberOfInvestors,
     walletBalance,
     totalSales,
+    storeProducts,
+    numberOfStoreProducts,
+    deliveryCharge,
     totalRevenue,
     totalProductNumber,
     businessOrderedFrom,
@@ -176,6 +182,9 @@ const registerBusiness = asyncHandler(async (req, res) => {
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
       storeLogo: user.storeLogo,
+      storeProducts: user.storeProducts,
+      numberOfStoreProducts: user.numberOfStoreProducts,
+      deliveryCharge: user.deliveryCharge,
       totalNumberOfCampaignsStarted: user.totalNumberOfCampaignsStarted,
       totalNumberOdCampaignsInvested: user.totalNumberOdCampaignsInvested,
       listOfCampaignsStarted: user.listOfCampaignsStarted,
@@ -286,6 +295,9 @@ const authBusiness = asyncHandler(async (req, res) => {
       walletBalance: user.walletBalance,
       totalSales: user.totalSales,
       totalRevenue: user.totalRevenue,
+      storeProducts: user.storeProducts,
+      numberOfStoreProducts: user.numberOfStoreProducts,
+      deliveryCharge: user.deliveryCharge,
       totalProductNumber: user.totalProductNumber,
       businessOrderedFrom: user.businessOrderedFrom,
       numberOfOrderRequests: user.numberOfOrderRequests,
@@ -343,6 +355,10 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.storeDescription = req.body.storeDescription || user.storeDescription;
     user.storeLink = req.body.storeLink || user.storeLink;
     user.storeLogo = req.body.storeLogo || user.storeLogo;
+    user.storeProducts = req.body.storeProducts || user.storeProducts;
+    user.numberOfStoreProducts =
+      req.body.numberOfStoreProducts || user.numberOfStoreProducts;
+    user.deliveryCharge = req.body.deliveryCharge || user.deliveryCharge;
     user.totalNumberOfCampaignsStarted =
       req.body.totalNumberOfCampaignsStarted ||
       user.totalNumberOfCampaignsStarted;
@@ -437,6 +453,9 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       storeDescription: updatedBusiness.storeDescription,
       storeLink: updatedBusiness.storeLink,
       storeLogo: updatedBusiness.storeLogo,
+      storeProducts: updatedBusiness.storeProducts,
+      numberOfStoreProducts: updatedBusiness.numberOfStoreProducts,
+      deliveryCharge: updatedBusiness.deliveryCharge,
       totalNumberOfCampaignsStarted:
         updatedBusiness.totalNumberOfCampaignsStarted,
       totalNumberOdCampaignsInvested:
@@ -696,6 +715,210 @@ const deleteBusiness = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Create New CampaignStarted BusinessProfile or Update a CampaignStarted BusinessProfile
+const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
+  const {
+    businessId,
+    natureOfBusiness,
+    campaignCategory,
+    investorBrief,
+    duration,
+    campaignLiveStatus,
+    amountRaised,
+  } = req.body;
+
+  const campaignStarted = {
+    user: req.user._id,
+    name: req.user.businessName,
+    pic: req.user.pic,
+    natureOfBusiness,
+    campaignCategory,
+    investorBrief,
+    duration,
+    campaignLiveStatus,
+    amountRaised,
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isStarted = business.listOfCampaignsStarted.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isStarted) {
+  } else {
+    business.listOfCampaignsStarted.push(campaignStarted);
+    business.totalNumberOfCampaignsStarted =
+      business.listOfCampaignsStarted.length;
+  }
+
+  let amount = 0;
+  business.listOfCampaignsStarted.forEach((rev) => {
+    amount += rev.amountRaised;
+  });
+
+  business.totalAmountRaised = amount;
+  business.averageRaised = amount / business.listOfCampaignsStarted.length;
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsStarted: business.listOfCampaignsStarted,
+  });
+});
+
+// Get CampaignsStarted BusinessProfile
+const getListOfCampaignsStarted = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsStarted: business.listOfCampaignsStarted,
+  });
+});
+
+// Delete CampaignStarted BusinessProfile
+const deleteCampaignStarted = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const listOfCampaignsStarted = business.listOfCampaignsStarted.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  let amount = 0;
+  listOfCampaignsStarted.forEach((rev) => {
+    amount += rev.amountRaised;
+  });
+  let averageRaised = 0;
+  if (listOfCampaignsStarted.length === 0) {
+    averageRaised = 0;
+  } else {
+    averageRaised = amount / listOfCampaignsStarted.length;
+  }
+  const totalNumberOfCampaignsStarted = listOfCampaignsStarted.length;
+  const totalAmountRaised = amount;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      listOfCampaignsStarted,
+      totalAmountRaised,
+      averageRaised,
+      totalNumberOfCampaignsStarted,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsStarted: business.listOfCampaignsStarted,
+  });
+});
+
+// Create New Campaign Invested BusinessProfile or Update a Campaign Invested BusinessProfile
+const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
+  const {
+    businessId,
+    natureOfBusiness,
+    campaignCategory,
+    investorBrief,
+    duration,
+    campaignLiveStatus,
+    amountRaised,
+  } = req.body;
+
+  const campaignStarted = {
+    user: req.user._id,
+    name: req.user.businessName,
+    pic: req.user.pic,
+    natureOfBusiness,
+    campaignCategory,
+    investorBrief,
+    duration,
+    campaignLiveStatus,
+    amountRaised,
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isStarted = business.listOfCampaignsInvested.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isStarted) {
+  } else {
+    business.listOfCampaignsInvested.push(campaignStarted);
+    business.totalNumberOfCampaignsInvested =
+      business.listOfCampaignsInvested.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsInvested: business.listOfCampaignsInvested,
+  });
+});
+
+// Get Campaigns Invested BusinessProfile
+const getListOfCampaignsInvested = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsInvested: business.listOfCampaignsInvested,
+  });
+});
+
+// Delete Campaign Invested BusinessProfile
+const deleteCampaignInvested = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const listOfCampaignsInvested = business.listOfCampaignsInvested.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const totalNumberOfCampaignsInvested = listOfCampaignsInvested.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      listOfCampaignsInvested,
+      totalNumberOfCampaignsInvested,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsInvested: business.listOfCampaignsInvested,
+  });
+});
 module.exports = {
   registerBusiness,
   authBusiness,
