@@ -70,7 +70,7 @@ const storeProductSchema = new mongoose.Schema(
     },
     individualProductReviews: [
       {
-        individualUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
@@ -110,12 +110,12 @@ const storeProductSchema = new mongoose.Schema(
 
     BusinessProductReviews: [
       {
-        businessUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
         },
-        businessName: {
+        name: {
           type: String,
           required: true,
         },
@@ -149,7 +149,7 @@ const storeProductSchema = new mongoose.Schema(
     },
     businessOrders: [
       {
-        businessUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -173,7 +173,7 @@ const storeProductSchema = new mongoose.Schema(
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
-          type: Number,
+          type: String,
           required: false,
         },
       },
@@ -185,7 +185,7 @@ const storeProductSchema = new mongoose.Schema(
 
     individualOrders: [
       {
-        individualUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
@@ -213,7 +213,7 @@ const storeProductSchema = new mongoose.Schema(
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
-          type: Number,
+          type: String,
           required: false,
         },
       },
@@ -228,7 +228,7 @@ const storeProductSchema = new mongoose.Schema(
     },
     individualCustomers: [
       {
-        individualUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
@@ -252,7 +252,7 @@ const storeProductSchema = new mongoose.Schema(
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
-          type: Number,
+          type: String,
           required: false,
         },
       },
@@ -263,7 +263,7 @@ const storeProductSchema = new mongoose.Schema(
     },
     businessCustomers: [
       {
-        businessUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -283,7 +283,11 @@ const storeProductSchema = new mongoose.Schema(
             "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
         email: {
-          type: Number,
+          type: String,
+          required: true,
+        },
+        productBought: {
+          type: String,
           required: false,
         },
       },

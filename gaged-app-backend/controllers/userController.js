@@ -11,11 +11,11 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
 const registerUser = asyncHandler(async (req, res) => {
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "avatars",
-    width: 150,
-    crop: "scale",
-  });
+  // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+  // folder: "avatars",
+  // width: 150,
+  // crop: "scale",
+  // });
 
   const {
     firstName,
@@ -67,10 +67,10 @@ const registerUser = asyncHandler(async (req, res) => {
     totalNumberOfCampaignsInvested,
     listOfCampaignsInvested,
     paymentMethod,
-    avatar: {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    },
+    // avatar: {
+    // public_id: myCloud.public_id,
+    // url: myCloud.secure_url,
+    // },
   });
   if (user) {
     res.status(201).json({

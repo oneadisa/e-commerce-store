@@ -43,7 +43,7 @@ router
 
 router.route("/campaign/:id").get(getCampaignDetails);
 
-router.route("/campaigns").get(getAllCampaigns);
+router.route("/all").get(getAllCampaigns);
 
 router
   .route("/admin-individual/campaigns")

@@ -20,8 +20,8 @@ const {
 const {
   protectBusiness,
   isAuthenticatedUser,
-  isAuthenticatedBusiness,
   authorizeRoles,
+  protectUser,
 } = require("../middlewares/authMiddleware");
 
 router.route("/signUp/2/business").post(registerBusiness);
@@ -36,17 +36,17 @@ router.route("/logout").get(logoutBusiness);
 
 router.route("/me").get(protectBusiness, getBusinessDetails);
 
-router.route("/password/update").put(isAuthenticatedBusiness, updatePassword);
+router.route("/password/update").put(protectBusiness, updatePassword);
 
-router.route("/me/update").put(isAuthenticatedBusiness, updateProfile);
+router.route("/me/update").put(protectBusiness, updateProfile);
 
 router.route("/admin-business/business").get(getAllBusiness);
 
 router
   .route("/admin-business/business/:id")
-  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getSingleBusiness)
-  .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateBusinessRole)
-  .delete(isAuthenticatedBusiness, authorizeRoles("admin"), deleteBusiness);
+  .get(protectBusiness, authorizeRoles("admin"), getSingleBusiness)
+  .put(protectBusiness, authorizeRoles("admin"), updateBusinessRole)
+  .delete(protectBusiness, authorizeRoles("admin"), deleteBusiness);
 
 router
   .route("/admin-individual/business")

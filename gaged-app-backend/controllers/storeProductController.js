@@ -5,11 +5,19 @@ const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
-const getMyProducts = asyncHandler(async (req, res) => {
+const getMyProducts = asyncHandler(async (req, res, next) => {
   const products = await StoreProduct.find({
     user: req.user._id,
   });
-  res.json(products);
+
+  if (!products) {
+    return next(new ErrorHandler("StoreProduct not found", 404));
+  } else {
+    res.status(200).json({
+      success: true,
+      products,
+    });
+  }
 });
 
 // Get All Product
@@ -27,7 +35,7 @@ const getAllProducts = catchAsyncErrors(async (req, res, next) => {
 
   apiFeature.pagination(resultPerPage);
 
-  products = await apiFeature.query;
+  products = await apiFeature.query.clone();
 
   res.status(200).json({
     success: true,
@@ -37,11 +45,11 @@ const getAllProducts = catchAsyncErrors(async (req, res, next) => {
     filteredProductsCount,
   });
 
-  // const products = await StoreProduct.find({});
+  // const products = await StoreProduct.find();
   // res.status(200).json({
   // success: true,
   // products,
-  //});
+  // });
 });
 
 const CreateStoreProduct = asyncHandler(async (req, res) => {
@@ -335,7 +343,8 @@ const createIndividualProductReview = catchAsyncErrors(
 
     const review = {
       user: req.user._id,
-      name: req.user.name,
+      name: req.user.firstName + "" + req.user.lastName,
+      pic: req.body.pic,
       rating: Number(rating),
       comment,
     };
@@ -357,7 +366,7 @@ const createIndividualProductReview = catchAsyncErrors(
         product.individualProductReviews.length;
       product.totalNumberOfReviews =
         product.individualProductReviews.length +
-        product.businessProductReviews.length;
+        product.BusinessProductReviews.length;
     }
 
     let avg = 0;
@@ -369,12 +378,13 @@ const createIndividualProductReview = catchAsyncErrors(
     product.ratings =
       avg /
       (product.individualProductReviews.length +
-        product.businessProductReviews.length);
+        product.BusinessProductReviews.length);
 
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      individualProductReviews: product.individualProductReviews,
     });
   }
 );
@@ -438,6 +448,7 @@ const deleteIndividualProductReview = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      individualProductReviews: product.individualProductReviews,
     });
   }
 );
@@ -448,40 +459,41 @@ const createBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
 
   const review = {
     user: req.user._id,
-    name: req.user.name,
+    name: req.user.businessName,
+    pic: req.user.pic,
     rating: Number(rating),
     comment,
   };
 
   const product = await StoreProduct.findById(productId);
 
-  const isReviewed = product.businessProductReviews.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
+  const isReviewed = product.BusinessProductReviews.find(
+    (rev) => rev.toString() === req.user._id.toString()
   );
 
   if (isReviewed) {
-    product.businessProductReviews.forEach((rev) => {
+    product.BusinessProductReviews.forEach((rev) => {
       if (rev.user.toString() === req.user._id.toString())
         (rev.rating = rating), (rev.comment = comment);
     });
   } else {
-    product.businessProductReviews.push(review);
-    product.numberOfBusinessReviews = product.businessProductReviews.length;
+    product.BusinessProductReviews.push(review);
+    product.numberOfBusinessReviews = product.BusinessProductReviews.length;
     product.totalNumberOfReviews =
       product.individualProductReviews.length +
-      product.businessProductReviews.length;
+      product.BusinessProductReviews.length;
   }
 
   let avg = 0;
 
-  product.businessProductReviews.forEach((rev) => {
+  product.BusinessProductReviews.forEach((rev) => {
     avg += rev.rating;
   });
 
   product.ratings =
     avg /
     (product.individualProductReviews.length +
-      product.businessProductReviews.length);
+      product.BusinessProductReviews.length);
 
   await product.save({ validateBeforeSave: false });
 
@@ -500,7 +512,7 @@ const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    businessProductReviews: product.businessProductReviews,
+    BusinessProductReviews: product.BusinessProductReviews,
   });
 });
 
@@ -512,30 +524,30 @@ const deleteBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Review not found", 404));
   }
 
-  const businessProductReviews = product.businessProductReviews.filter(
+  const BusinessProductReviews = product.BusinessProductReviews.filter(
     (rev) => rev._id.toString() !== req.query.id.toString()
   );
 
   let avg = 0;
 
-  businessProductReviews.forEach((rev) => {
+  BusinessProductReviews.forEach((rev) => {
     avg += rev.rating;
   });
 
   let ratings = 0;
 
-  if (businessProductReviews.length === 0) {
+  if (BusinessProductReviews.length === 0) {
     ratings = 0;
   } else {
-    ratings = avg / businessProductReviews.length;
+    ratings = avg / BusinessProductReviews.length;
   }
 
-  const numberOfBusinessReviews = businessProductReviews.length;
+  const numberOfBusinessReviews = BusinessProductReviews.length;
 
   await StoreProduct.findByIdAndUpdate(
     req.query.productId,
     {
-      businessProductReviews,
+      BusinessProductReviews,
       ratings,
       numberOfBusinessReviews,
     },
@@ -560,49 +572,50 @@ const createIndividualProductCustomer = catchAsyncErrors(
       user: req.user._id,
       firstName: req.user.firstName,
       lastName: req.user.lastName,
+      pic: req.user.pic,
       email: req.user.email,
       phoneNumber: req.user.phoneNumber,
+      productBought: req.body.productBought,
     };
 
     const product = await StoreProduct.findById(productId);
 
-    const isBought = product.individualProductCustomers.find(
+    const isBought = product.individualCustomers.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (isBought) {
-      //   product.individualProductCustomers.forEach((rev) => {
-      // product.individualProductCustomers.push(customer);
+    if (!isBought) {
+      //   product.individualCustomers.forEach((rev) => {
+      // product.individualCustomers.push(customer);
       // product.numberOfIndividualCustomers =
-      //   product.individualProductCustomers.length;
+      //   product.individualCustomers.length;
       // product.totalNumberOfCustomers =
-      //   product.individualProductCustomers.length +
-      //   product.businessProductCustomers.length;
+      //   product.individualCustomers.length +
+      //   product.businessCustomers.length;
       //   });
     } else {
-      product.individualProductCustomers.push(customer);
-      product.numberOfIndividualCustomers =
-        product.individualProductCustomers.length;
+      product.individualCustomers.push(customer);
+      product.numberOfIndividualCustomers = product.individualCustomers.length;
       product.totalNumberOfCustomers =
-        product.individualProductCustomers.length +
-        product.businessProductCustomers.length;
+        product.individualCustomers.length + product.businessCustomers.length;
     }
 
     // let avg = 0;
 
-    // product.individualProductCustomers.forEach((rev) => {
+    // product.individualCustomers.forEach((rev) => {
     //   avg += rev.rating;
     // });
 
     // product.ratings =
     //   avg /
-    //   (product.individualProductCustomers.length +
-    // product.businessProductCustomers.length);
+    //   (product.individualCustomers.length +
+    // product.businessCustomers.length);
 
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      customers: product.individualCustomers,
     });
   }
 );
@@ -618,7 +631,7 @@ const getIndividualProductCustomers = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      customers: product.individualProductCustomers,
+      customers: product.individualCustomers,
     });
   }
 );
@@ -632,32 +645,31 @@ const deleteIndividualProductCustomer = catchAsyncErrors(
       return next(new ErrorHandler("Customer not found", 404));
     }
 
-    const individualProductCustomers =
-      product.individualProductCustomers.filter(
-        (rev) => rev._id.toString() !== req.query.id.toString()
-      );
+    const individualCustomers = product.individualCustomers.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
 
     // let avg = 0;
 
-    // individualProductCustomers.forEach((rev) => {
+    // individualCustomers.forEach((rev) => {
     //   avg += rev.rating;
     // });
 
     // let ratings = 0;
 
-    // if (individualProductCustomers.length === 0) {
+    // if (individualCustomers.length === 0) {
     //   ratings = 0;
     // } else {
-    //   ratings = avg / individualProductCustomers.length;
+    //   ratings = avg / individualCustomers.length;
     // }
 
-    const numberOfIndividualCustomers = individualProductCustomers.length;
+    const numberOfIndividualCustomers = individualCustomers.length;
 
     await StoreProduct.findByIdAndUpdate(
       req.query.productId,
       {
         numberOfIndividualCustomers,
-        individualProductCustomers,
+        individualCustomers,
       },
       {
         new: true,
@@ -668,6 +680,7 @@ const deleteIndividualProductCustomer = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      customers: product.individualCustomers,
     });
   }
 );
@@ -680,45 +693,46 @@ const createBusinessProductCustomer = catchAsyncErrors(
     const customer = {
       user: req.user._id,
       businessName: req.user.businessName,
-      email: req.user.email,
       phoneNumber: req.user.phoneNumber,
+      pic: req.user.pic,
+      email: req.user.email,
+      productBought: productId.productTitle,
     };
 
     const product = await StoreProduct.findById(productId);
 
-    const isBought = product.businessProductCustomers.find(
+    const isBought = product.businessCustomers.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
     if (isBought) {
-      // product.businessProductCustomers.forEach((rev) => {
+      // product.businessCustomers.forEach((rev) => {
       //   if (rev.user.toString() === req.user._id.toString())
       // (rev.rating = rating), (rev.comment = comment);
       // });
-    } else {
-      product.businessProductCustomers.push(customer);
-      product.numberOfBusinessCustomers =
-        product.businessProductCustomers.length;
+      product.businessCustomers.push(customer);
+      product.numberOfBusinessCustomers = product.businessCustomers.length;
       product.totalNumberOfCustomers =
-        product.individualProductCustomers.length +
-        product.businessProductCustomers.length;
+        product.individualCustomers.length + product.businessCustomers.length;
+    } else {
     }
 
     //   let avg = 0;
 
-    //   product.businessProductCustomers.forEach((rev) => {
+    //   product.businessCustomers.forEach((rev) => {
     // avg += rev.rating;
     //   });
 
     //   product.ratings =
     // avg /
-    // (product.individualProductCustomers.length +
-    //   product.businessProductCustomers.length);
+    // (product.individualCustomers.length +
+    //   product.businessCustomers.length);
 
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      businessCustomers: product.businessCustomers,
     });
   }
 );
@@ -733,7 +747,7 @@ const getBusinessProductCustomers = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    individualProductCustomers: product.businessProductCustomers,
+    businessCustomers: product.businessCustomers,
   });
 });
 
@@ -746,30 +760,30 @@ const deleteBusinessProductCustomer = catchAsyncErrors(
       return next(new ErrorHandler("Business Customer not found", 404));
     }
 
-    const businessProductCustomers = product.businessProductCustomers.filter(
+    const businessCustomers = product.businessCustomers.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
     //   let avg = 0;
 
-    //   businessProductCustomers.forEach((rev) => {
+    //   businessCustomers.forEach((rev) => {
     // avg += rev.rating;
     //   });
 
     //   let ratings = 0;
 
-    //   if (businessProductCustomers.length === 0) {
+    //   if (businessCustomers.length === 0) {
     // ratings = 0;
     //   } else {
-    // ratings = avg / businessProductCustomers.length;
+    // ratings = avg / businessCustomers.length;
     //   }
 
-    const numberOfBusinessCustomers = businessProductCustomers.length;
+    const numberOfBusinessCustomers = businessCustomers.length;
 
     await StoreProduct.findByIdAndUpdate(
       req.query.productId,
       {
-        businessProductCustomers,
+        businessCustomers,
         numberOfBusinessCustomers,
       },
       {
@@ -800,25 +814,24 @@ const createIndividualProductOrder = catchAsyncErrors(
 
     const product = await StoreProduct.findById(productId);
 
-    const isBought = product.individualOrders.find(
+    const isOrdered = product.individualOrders.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (isBought) {
+    if (isOrdered) {
       //   product.individualOrders.forEach((rev) => {
       // product.individualOrders.push(order);
       // product.numberOfIndividualOrders =
       //   product.individualOrders.length;
       // product.totalNumberOfOrders =
       //   product.individualOrders.length +
-      //   product.businessProductCustomers.length;
+      //   product.businessCustomers.length;
       //   });
-    } else {
       product.individualOrders.push(order);
       product.numberOfIndividualOrders = product.individualOrders.length;
       product.totalNumberOfOrders =
-        product.individualOrders.length +
-        product.businessProductCustomers.length;
+        product.individualOrders.length + product.businessOrders.length;
+    } else {
     }
 
     // let avg = 0;
@@ -830,12 +843,13 @@ const createIndividualProductOrder = catchAsyncErrors(
     // product.ratings =
     //   avg /
     //   (product.individualOrders.length +
-    // product.businessProductCustomers.length);
+    // product.businessCustomers.length);
 
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      individualOrders: product.individualOrders,
     });
   }
 );
@@ -850,7 +864,7 @@ const getIndividualProductOrders = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    orders: product.individualOrders,
+    individualOrders: product.individualOrders,
   });
 });
 
@@ -898,6 +912,7 @@ const deleteIndividualProductOrder = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      individualOrders: product.individualOrders,
     });
   }
 );
@@ -908,44 +923,47 @@ const createBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
 
   const order = {
     user: req.user._id,
+    productOrdered: productId.productTitle,
     businessName: req.user.businessName,
     email: req.user.email,
     phoneNumber: req.user.phoneNumber,
+    pic: req.user.pic,
   };
 
   const product = await StoreProduct.findById(productId);
 
-  const isBought = product.businessProductCustomers.find(
+  const isOrdered = product.businessOrders.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isBought) {
-    // product.businessProductCustomers.forEach((rev) => {
+  if (!isOrdered) {
+    // product.businessCustomers.forEach((rev) => {
     //   if (rev.user.toString() === req.user._id.toString())
     // (rev.rating = rating), (rev.comment = comment);
     // });
-  } else {
-    product.businessProductCustomers.push(order);
-    product.numberOfBusinessOrders = product.businessProductCustomers.length;
+    product.businessOrders.push(order);
+    product.numberOfBusinessOrders = product.businessOrders.length;
     product.totalNumberOfOrders =
-      product.individualOrders.length + product.businessProductCustomers.length;
+      product.individualOrders.length + product.businessOrders.length;
+  } else {
   }
 
   //   let avg = 0;
 
-  //   product.businessProductCustomers.forEach((rev) => {
+  //   product.businessCustomers.forEach((rev) => {
   // avg += rev.rating;
   //   });
 
   //   product.ratings =
   // avg /
   // (product.individualOrders.length +
-  //   product.businessProductCustomers.length);
+  //   product.businessCustomers.length);
 
   await product.save({ validateBeforeSave: false });
 
   res.status(200).json({
     success: true,
+    businessOrders: product.businessOrders,
   });
 });
 
@@ -959,7 +977,7 @@ const getBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    individualOrders: product.businessProductCustomers,
+    businessOrders: product.businessOrders,
   });
 });
 
@@ -971,30 +989,30 @@ const deleteBusinessProductOrder = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("StoreProduct not found", 404));
   }
 
-  const businessProductCustomers = product.businessProductCustomers.filter(
+  const businessOrders = product.businessOrders.filter(
     (rev) => rev._id.toString() !== req.query.id.toString()
   );
 
   //   let avg = 0;
 
-  //   businessProductCustomers.forEach((rev) => {
+  //   businessCustomers.forEach((rev) => {
   // avg += rev.rating;
   //   });
 
   //   let ratings = 0;
 
-  //   if (businessProductCustomers.length === 0) {
+  //   if (businessCustomers.length === 0) {
   // ratings = 0;
   //   } else {
-  // ratings = avg / businessProductCustomers.length;
+  // ratings = avg / businessCustomers.length;
   //   }
 
-  const numberOfBusinessOrders = businessProductCustomers.length;
+  const numberOfBusinessOrders = businessOrders.length;
 
   await StoreProduct.findByIdAndUpdate(
     req.query.productId,
     {
-      businessProductCustomers,
+      businessOrders,
       numberOfBusinessOrders,
     },
     {

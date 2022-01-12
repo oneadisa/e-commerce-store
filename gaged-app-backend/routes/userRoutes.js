@@ -26,7 +26,7 @@ const {
 } = require("../middlewares/authMiddleware");
 
 router.route("/signup/2/individual").post(registerUser);
-router.route("/loginUser").post(authUser);
+router.route("/login").post(authUser);
 router.route("/profile/user").post(protectUser, updateUserProfile);
 
 router.route("/password/forgot").post(forgotUserPassword);

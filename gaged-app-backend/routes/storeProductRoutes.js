@@ -31,16 +31,14 @@ const {
   deleteBusinessProductOrder,
 } = require("../controllers/storeProductController");
 const {
-  isAuthenticatedUser,
-  isAuthenticatedBusiness,
+  protectUser,
   authorizeRoles,
   protectBusiness,
-  protectUser,
 } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
-router.route("/products").get(getAllProducts);
+router.route("/all").get(getAllProducts);
 
 router.route("/me").get(getMyProducts);
 router.route("/create").post(protectBusiness, CreateStoreProduct);
@@ -52,53 +50,45 @@ router
 
 router
   .route("/admin-individual/products")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminProducts);
+  .get(protectUser, authorizeRoles("admin"), getAdminProducts);
 
 router
   .route("/admin-individual/product/new")
-  .post(isAuthenticatedUser, authorizeRoles("admin"), createProductAdmin);
+  .post(protectUser, authorizeRoles("admin"), createProductAdmin);
 
 router
   .route("/admin-individual/product/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateProductAdmin)
-  .delete(
-    isAuthenticatedUser,
-    authorizeRoles("admin"),
-    deleteStoreProductAdmin
-  );
+  .put(protectUser, authorizeRoles("admin"), updateProductAdmin)
+  .delete(protectUser, authorizeRoles("admin"), deleteStoreProductAdmin);
 
 router
   .route("/admin-business/products")
-  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getAdminProducts);
+  .get(protectBusiness, authorizeRoles("admin"), getAdminProducts);
 
 router
   .route("/admin-business/product/new")
-  .post(isAuthenticatedBusiness, authorizeRoles("admin"), createProductAdmin);
+  .post(protectBusiness, authorizeRoles("admin"), createProductAdmin);
 
 router
   .route("/admin-business/product/:id")
-  .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateProductAdmin)
-  .delete(
-    isAuthenticatedBusiness,
-    authorizeRoles("admin"),
-    deleteStoreProductAdmin
-  );
+  .put(protectBusiness, authorizeRoles("admin"), updateProductAdmin)
+  .delete(protectBusiness, authorizeRoles("admin"), deleteStoreProductAdmin);
 
 router.route("/product/:id").get(getProductDetails);
 
 router
   .route("/create-review/business")
-  .put(isAuthenticatedBusiness, createBusinessProductReview);
+  .put(protectBusiness, createBusinessProductReview);
 
 router
   .route("/reviews/business")
   .get(getBusinessProductReviews)
-  .delete(isAuthenticatedBusiness, deleteBusinessProductReview);
+  .delete(protectBusiness, deleteBusinessProductReview);
 
 router
   .route("admin-individual/reviews/business")
   .delete(
-    isAuthenticatedBusiness,
+    protectBusiness,
     authorizeRoles("admin"),
     deleteBusinessProductReview
   );
@@ -106,24 +96,24 @@ router
 router
   .route("admin-business/reviews/business")
   .delete(
-    isAuthenticatedBusiness,
+    protectBusiness,
     authorizeRoles("admin"),
     deleteBusinessProductReview
   );
 
 router
   .route("/create-review/individual")
-  .put(isAuthenticatedUser, createIndividualProductReview);
+  .put(protectUser, createIndividualProductReview);
 
 router
   .route("/reviews/individual")
   .get(getIndividualProductReviews)
-  .delete(isAuthenticatedUser, deleteIndividualProductReview);
+  .delete(protectUser, deleteIndividualProductReview);
 
 router
   .route("admin-individual/reviews/individual")
   .delete(
-    isAuthenticatedBusiness,
+    protectBusiness,
     authorizeRoles("admin"),
     deleteIndividualProductReview
   );
@@ -131,45 +121,45 @@ router
 router
   .route("admin-business/reviews/individual")
   .delete(
-    isAuthenticatedBusiness,
+    protectBusiness,
     authorizeRoles("admin"),
     deleteIndividualProductReview
   );
 
 router
   .route("/create-customer/business")
-  .put(isAuthenticatedBusiness, createBusinessProductCustomer);
+  .put(protectBusiness, createBusinessProductCustomer);
 
 router
   .route("/customers/business")
   .get(getBusinessProductCustomers)
-  .delete(isAuthenticatedBusiness, deleteBusinessProductCustomer);
+  .delete(protectBusiness, deleteBusinessProductCustomer);
 
 router
   .route("/create-customer/individual")
-  .put(isAuthenticatedUser, createIndividualProductCustomer);
+  .put(protectUser, createIndividualProductCustomer);
 
 router
   .route("/customers/individual")
   .get(getIndividualProductCustomers)
-  .delete(isAuthenticatedUser, deleteIndividualProductCustomer);
+  .delete(protectUser, deleteIndividualProductCustomer);
 
 router
   .route("/create-order/business")
-  .put(isAuthenticatedBusiness, createBusinessProductOrder);
+  .put(protectBusiness, createBusinessProductOrder);
 
 router
   .route("/orders/business")
   .get(getBusinessProductOrder)
-  .delete(isAuthenticatedBusiness, deleteBusinessProductOrder);
+  .delete(protectBusiness, deleteBusinessProductOrder);
 
 router
   .route("/create-order/individual")
-  .put(isAuthenticatedUser, createIndividualProductOrder);
+  .put(protectUser, createIndividualProductOrder);
 
 router
   .route("/orders/individual")
   .get(getIndividualProductOrders)
-  .delete(isAuthenticatedUser, deleteIndividualProductOrder);
+  .delete(protectUser, deleteIndividualProductOrder);
 
 module.exports = router;

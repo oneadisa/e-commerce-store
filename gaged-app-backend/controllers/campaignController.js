@@ -21,7 +21,7 @@ const getAllCampaigns = catchAsyncErrors(async (req, res) => {
   let campaigns = await apiFeature.query;
   let filteredCampaignsCount = campaigns.length;
   apiFeature.pagination(resultPerPage);
-  campaigns = await apiFeature.query;
+  campaigns = await apiFeature.query.clone();
   res.status(200).json({
     success: true,
     campaigns,
