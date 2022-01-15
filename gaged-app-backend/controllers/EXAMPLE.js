@@ -1,91 +1,248 @@
-// Create New Campaign Invested BusinessProfile or Update a Campaign Invested BusinessProfile
-const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
-  const {
-    businessId,
-    natureOfBusiness,
-    campaignCategory,
-    investorBrief,
-    duration,
-    campaignLiveStatus,
-    amountRaised,
-  } = req.body;
+// // Create New Campaign Invested BusinessProfile or Update a Campaign Invested BusinessProfile
+// const createIndividualCampaignInveste = catchAsyncErrors(
+//   async (req, res, next) => {
+//     const { campaignId, amountInvested } = req.body;
 
-  const campaignStarted = {
-    user: req.user._id,
-    name: req.user.businessName,
-    pic: req.user.pic,
-    natureOfBusiness,
-    campaignCategory,
-    investorBrief,
-    duration,
-    campaignLiveStatus,
-    amountRaised,
-  };
+//     const campaign = Campaign.findBy(campaignId);
 
-  const business = await signedUpBusiness.findById(businessId);
+//     const campaignInvested = {
+//       campaignName: campaign.campaignName,
+//       campaignCategory: campaign.campaignCategory,
+//       investorBrief: campaign.investorBrief,
+//       pitchDeck: campaign.pitchDeck,
+//       fundingType: campaign.fundingType,
+//       amountBeingRaised: campaign.amountBeingRaised,
+//       duration: campaign.duration,
+//       campaignLiveStatus: campaign.campaignLiveStatus,
+//       amountInvested,
+//     };
 
-  const isStarted = business.listOfCampaignsInvested.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
-  );
+//     const individual = await signedUpUser.findById(req.user._id);
 
-  if (isStarted) {
-  } else {
-    business.listOfCampaignsInvested.push(campaignStarted);
-    business.totalNumberOfCampaignsInvested =
-      business.listOfCampaignsInvested.length;
-  }
+//     const isInvested = individual.listOfCampaignsInvested.find(
+//       (rev) => rev.user.toString() === req.user._id.toString()
+//     );
 
-  await business.save({ validateBeforeSave: false });
+//     if (isInvested) {
+//     } else {
+//       individual.listOfCampaignsInvested.push(campaignInvested);
+//       individual.totalNumberOfCampaignsInvested =
+//         individual.listOfCampaignsInvested.length;
+//     }
 
-  res.status(200).json({
-    success: true,
-    listOfCampaignsInvested: business.listOfCampaignsInvested,
-  });
-});
+//     await individual.save({ validateBeforeSave: false });
 
-// Get Campaigns Invested BusinessProfile
-const getListOfCampaignsInvested = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.query.id);
+//     res.status(200).json({
+//       success: true,
+//       listOfCampaignsInvested: individual.listOfCampaignsInvested,
+//     });
+//   }
+// );
 
-  if (!business) {
-    return next(new ErrorHandler("Business not found", 404));
-  }
+// // Get Campaigns Invested BusinessProfile
+// const getListOfIndividualCampaignsInveste = catchAsyncErrors(
+//   async (req, res, next) => {
+//     const individual = await signedUpUser.findById(req.query.id);
 
-  res.status(200).json({
-    success: true,
-    listOfCampaignsInvested: business.listOfCampaignsInvested,
-  });
-});
+//     if (!individual) {
+//       return next(new ErrorHandler("User not found", 404));
+//     }
 
-// Delete Campaign Invested BusinessProfile
-const deleteCampaignInvested = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.query.businessId);
+//     res.status(200).json({
+//       success: true,
+//       listOfCampaignsInvested: individual.listOfCampaignsInvested,
+//     });
+//   }
+// );
 
-  if (!business) {
-    return next(new ErrorHandler("Business not found", 404));
-  }
+// // Delete Campaign Invested BusinessProfile
+// const deleteIndividualCampaignInveste = catchAsyncErrors(
+//   async (req, res, next) => {
+//     const individual = await signedUpUser.findById(req.query.userId);
 
-  const listOfCampaignsInvested = business.listOfCampaignsInvested.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
-  );
+//     if (!individual) {
+//       return next(new ErrorHandler("User not found", 404));
+//     }
 
-  const totalNumberOfCampaignsInvested = listOfCampaignsInvested.length;
+//     const listOfCampaignsInvested = individual.listOfCampaignsInvested.filter(
+//       (rev) => rev._id.toString() !== req.query.id.toString()
+//     );
 
-  await signedUpBusiness.findByIdAndUpdate(
-    req.query.businessId,
-    {
-      listOfCampaignsInvested,
-      totalNumberOfCampaignsInvested,
-    },
-    {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
+//     const totalNumberOfCampaignsInvested = listOfCampaignsInvested.length;
+
+//     await signedUpUser.findByIdAndUpdate(
+//       req.query.businessId,
+//       {
+//         listOfCampaignsInvested,
+//         totalNumberOfCampaignsInvested,
+//       },
+//       {
+//         new: true,
+//         runValidators: true,
+//         useFindAndModify: false,
+//       }
+//     );
+
+//     res.status(200).json({
+//       success: true,
+//       listOfCampaignsInvested: individual.listOfCampaignsInvested,
+//     });
+//   }
+// );
+
+// getListOfCampaignsStarted;
+// deleteCampaignStarted;
+//  createCampaignInvested;
+// getListOfCampaignsInvested;
+// deleteCampaignInvested;
+// createBusinessInvestor;
+// getBusinessInvestors;
+// deleteBusinessInvestor;
+// createIndividualInvestor;
+// getIndividualInvestors;
+// deleteIndividualInvestor;
+// createBusinessOrderedFrom;
+// getBusinessOrderedFrom;
+// deleteBusinessOrderedFrom;
+// createIndividualReview;
+// getIndividualReviews;
+// deleteIndividualReview;
+// createBusinessReview;
+// getBusinessReviews;
+// deleteBusinessReview;
+// createBusinessOrder;
+// getBusinessOrders;
+// deleteBusinessOrder;
+// createBusinessCustomer;
+// getBusinessCustomers;
+// deleteBusinessCustomer;
+// createindividualCustomer;
+// getindividualCustomers;
+// deleteindividualCustomer;
+// createindividualOrder;
+// getindividualOrders;
+// deleteindividualOrder;
+
+// individualCreateBusinessOrderedFrom;
+// getIndividualBusinessOrderedFrom;
+// deleteIndividualBusinessOrderedFrom;
+// createIndividualCampaignInvested;
+// getListOfIndividualCampaignsInvested;
+//  deleteIndividualCampaignInvested;
+
+// Create New Individual Review or Update an Individual review
+const createIndividualCampaignRevie = catchAsyncErrors(
+  async (req, res, next) => {
+    const { comment, CampaignId } = req.body;
+
+    const review = {
+      user: req.user._id,
+      name: req.user.firstName + "" + req.user.lastName,
+      pic: req.body.pic,
+
+      comment,
+    };
+
+    const campaign = await Campaign.findById(CampaignId);
+
+    const isReviewed = Campaign.individualCampaignReviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      // Campaign.individualCampaignReviews.forEach((rev) => {
+      // if (rev.user.toString() === req.user._id.toString())
+      // (rev.rating = rating), (rev.comment = comment);
+      // });
+    } else {
+      Campaign.individualCampaignReviews.push(review);
+      Campaign.numberOfIndividualReviews =
+        Campaign.individualCampaignReviews.length;
+      Campaign.totalNumberOfReviews =
+        Campaign.individualCampaignReviews.length +
+        Campaign.BusinessCampaignReviews.length;
     }
-  );
+
+    let avg = 0;
+
+    Campaign.individualCampaignReviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    Campaign.ratings =
+      avg /
+      (Campaign.individualCampaignReviews.length +
+        Campaign.BusinessCampaignReviews.length);
+
+    await Campaign.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      individualCampaignReviews: Campaign.individualCampaignReviews,
+    });
+  }
+);
+
+// Get Individual Reviews of a Campaign
+const getIndividualCampaignReview = catchAsyncErrors(async (req, res, next) => {
+  const campaign = await Campaign.findById(req.query.id);
+
+  if (!Campaign) {
+    return next(new ErrorHandler("Campaign not found", 404));
+  }
 
   res.status(200).json({
     success: true,
-    listOfCampaignsInvested: business.listOfCampaignsInvested,
+    individualCampaignReviews: Campaign.individualCampaignReviews,
   });
 });
+
+// Delete Individual Review
+const deleteIndividualCampaignRevie = catchAsyncErrors(
+  async (req, res, next) => {
+    const campaign = await Campaign.findById(req.query.CampaignId);
+
+    if (!Campaign) {
+      return next(new ErrorHandler("Campaign not found", 404));
+    }
+
+    const individualCampaignReviews = Campaign.individualCampaignReviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    let avg = 0;
+
+    individualCampaignReviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+
+    let ratings = 0;
+
+    if (individualCampaignReviews.length === 0) {
+      ratings = 0;
+    } else {
+      ratings = avg / individualCampaignReviews.length;
+    }
+
+    const numberOfIndividualReviews = individualCampaignReviews.length;
+
+    await Campaign.findByIdAndUpdate(
+      req.query.CampaignId,
+      {
+        individualCampaignReviews,
+        ratings,
+        numberOfIndividualReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      individualCampaignReviews: Campaign.individualCampaignReviews,
+    });
+  }
+);

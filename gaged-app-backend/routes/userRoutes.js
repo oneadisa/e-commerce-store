@@ -17,11 +17,16 @@ const {
   getSingleUser,
   updateUserRole,
   deleteUser,
+  individualCreateBusinessOrderedFrom,
+  getIndividualBusinessOrderedFrom,
+  deleteIndividualBusinessOrderedFrom,
+  createIndividualCampaignInvested,
+  getListOfIndividualCampaignsInvested,
+  deleteIndividualCampaignInvested,
 } = require("../controllers/userController");
 const {
   protectUser,
-  isAuthenticatedUser,
-  isAuthenticatedBusiness,
+  protectBusiness
   authorizeRoles,
 } = require("../middlewares/authMiddleware");
 
@@ -35,30 +40,44 @@ router.route("/password/reset/:token").put(resetUserPassword);
 
 router.route("/logout").get(logoutUser);
 
-router.route("/me").get(isAuthenticatedUser, getUserDetails);
+router.route("/me").get(protectUser, getUserDetails);
 
-router.route("/password/update").put(isAuthenticatedUser, updateUserPassword);
+router.route("/password/update").put(protectUser, updateUserPassword);
 
-router.route("/me/update").put(isAuthenticatedUser, updateUserProfileAdmin);
+router.route("/me/update").put(protectUser, updateUserProfileAdmin);
+
+router.route("/business-order-from").put(protectBusiness, individualCreateBusinessOrderedFrom);
+
+router
+  .route("/business-ordered-from")
+  .get(protectBusiness, getIndividualBusinessOrderedFrom)
+  .delete(protectBusiness, deleteIndividualBusinessOrderedFrom);
+
+  router.route("/campaign-invest").put(protectBusiness, createIndividualCampaignInvested);
+
+router
+  .route("/campaign-invested")
+  .get(protectBusiness, getListOfIndividualCampaignsInvested)
+  .delete(protectBusiness, deleteIndividualCampaignInvested);
 
 router
   .route("/admin-individual/users")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllUser);
+  .get(protectUser, authorizeRoles("admin"), getAllUser);
 
 router
   .route("/admin-individual/user/:id")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleUser)
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateUserRole)
-  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteUser);
+  .get(protectUser, authorizeRoles("admin"), getSingleUser)
+  .put(protectUser, authorizeRoles("admin"), updateUserRole)
+  .delete(protectUser, authorizeRoles("admin"), deleteUser);
 
 router
   .route("/admin-business/users")
-  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getAllUser);
+  .get(protectBusiness, authorizeRoles("admin"), getAllUser);
 
 router
   .route("/admin-business/user/:id")
-  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getSingleUser)
-  .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateUserRole)
-  .delete(isAuthenticatedBusiness, authorizeRoles("admin"), deleteUser);
+  .get(protectBusiness, authorizeRoles("admin"), getSingleUser)
+  .put(protectBusiness, authorizeRoles("admin"), updateUserRole)
+  .delete(protectBusiness, authorizeRoles("admin"), deleteUser);
 
 module.exports = router;

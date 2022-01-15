@@ -53,7 +53,7 @@ const getAllCampaigns = catchAsyncErrors(async (req, res) => {
 
 const CreateCampaign = asyncHandler(async (req, res) => {
   const {
-    businessName,
+    campaignName,
     natureOfBusiness,
     campaignCategory,
     business_address_country,
@@ -82,7 +82,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
   } = req.body;
 
   if (
-    !businessName ||
+    !campaignName ||
     !natureOfBusiness ||
     !campaignCategory ||
     !business_address_country ||
@@ -114,7 +114,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
   } else {
     const campaign = new Campaign({
       user: req.user._id,
-      businessName,
+      campaignName,
       natureOfBusiness,
       campaignCategory,
       business_address_country,
@@ -162,7 +162,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 
 const UpdateCampaign = asyncHandler(async (req, res) => {
   const {
-    businessName,
+    campaignName,
     natureOfBusiness,
     campaignCategory,
     business_address_country,
@@ -198,7 +198,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
   }
 
   if (campaign) {
-    campaign.businessName = businessName;
+    campaign.campaignName = campaignName;
     campaign.natureOfBusiness = natureOfBusiness;
     campaign.campaignCategory = campaignCategory;
     campaign.business_address_country = business_address_country;
@@ -261,6 +261,7 @@ const createIndividualCampaignReview = catchAsyncErrors(
       user: req.user._id,
       firstName: req.user.firstName,
       lastName: req.user.lastName,
+      pic: req.user.pic,
       comment,
     };
 
@@ -271,10 +272,6 @@ const createIndividualCampaignReview = catchAsyncErrors(
     );
 
     if (isReviewed) {
-      // campaign.individualCampaignDonors.forEach((rev) => {
-      // if (rev.user.toString() === req.user._id.toString())
-      // (rev.amount =amount), (rev.comment = comment);
-      // });
     } else {
       campaign.individualCampaignReviews.push(review);
       campaign.numberOfIndividualCampaignReviews =
@@ -284,21 +281,11 @@ const createIndividualCampaignReview = catchAsyncErrors(
         campaign.businessCampaignReviiews.length;
     }
 
-    // let avg = 0;
-
-    // campaign.individualCampaignReviews.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // campaign.ratings =
-    // avg /
-    // (campaign.individualCampaignDonors.length +
-    // campaign.businessCampaignDonors.length);
-
     await campaign.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      individualCampaignReviews: campaign.individualCampaignReviews,
     });
   }
 );
@@ -332,20 +319,6 @@ const deleteIndividualCampaignReview = catchAsyncErrors(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    // let avg = 0;
-
-    // individualCampaignDonors.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // letamounts = 0;
-
-    // if (individualCampaignDonors.length === 0) {
-    //  amounts = 0;
-    // } else {
-    //  amounts = avg / individualCampaignDonors.length;
-    // }
-
     const numberOfIndividualCampaignReviews = individualCampaignReviews.length;
 
     await Campaign.findByIdAndUpdate(
@@ -363,6 +336,7 @@ const deleteIndividualCampaignReview = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      individualCampaignReviews: campaign.individualCampaignReviews,
     });
   }
 );
@@ -375,6 +349,7 @@ const createBusinessCampaignReview = catchAsyncErrors(
     const review = {
       user: req.user._id,
       businessName: req.user.businessName,
+      pic: req.user.pic,
       comment,
     };
 
@@ -385,10 +360,6 @@ const createBusinessCampaignReview = catchAsyncErrors(
     );
 
     if (isReviewed) {
-      // campaign.businessCampaignDonors.forEach((rev) => {
-      // if (rev.user.toString() === req.user._id.toString())
-      // (rev.amount =amount), (rev.comment = comment);
-      // });
     } else {
       campaign.businessCampaignReviews.push(review);
       campaign.numberOfBusinessReviews =
@@ -398,21 +369,11 @@ const createBusinessCampaignReview = catchAsyncErrors(
         campaign.businessCampaignReviews.length;
     }
 
-    // let avg = 0;
-
-    // campaign.businessCampaignReviews.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // campaign.ratings =
-    // avg /
-    // (campaign.individualCampaignDonors.length +
-    // campaign.businessCampaignDonors.length);
-
     await campaign.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      businessCampaignReviews: campaign.businessCampaignReviews,
     });
   }
 );
@@ -444,20 +405,6 @@ const deleteBusinessCampaignReview = catchAsyncErrors(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    // let avg = 0;
-
-    // businessCampaignDonors.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // letamounts = 0;
-
-    // if (businessCampaignDonors.length === 0) {
-    //  amounts = 0;
-    // } else {
-    //  amounts = avg / businessCampaignDonors.length;
-    // }
-
     const numberOfBusinessCampaignReviews = businessCampaignReviews.length;
 
     await Campaign.findByIdAndUpdate(
@@ -475,23 +422,26 @@ const deleteBusinessCampaignReview = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      businessCampaignReviews: campaign.businessCampaignReviews,
     });
   }
 );
 
-// Create New Individual Review or Update an Individual review
+// Create New Individual Donation or Update an Individual Donation
 const createIndividualCampaignDonation = catchAsyncErrors(
   async (req, res, next) => {
     const { amount, campaignId } = req.body;
+
+    const campaign = await Campaign.findById(campaignId);
 
     const review = {
       user: req.user._id,
       firstName: req.user.firstName,
       lastName: req.user.lastName,
+      pic: req.user.pic,
       amount: Number(amount),
+      typeOfDonation: campaign.fundingType,
     };
-
-    const campaign = await Campaign.findById(campaignId);
 
     const isDonated = campaign.individualCampaignDonors.find(
       (rev) => rev.user.toString() === req.user._id.toString()
@@ -507,26 +457,16 @@ const createIndividualCampaignDonation = catchAsyncErrors(
         campaign.businessCampaignDonors.length;
     }
 
-    // let avg = 0;
-
-    // campaign.individualCampaignDonors.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // campaign.ratings =
-    // avg /
-    // (campaign.individualCampaignDonors.length +
-    // campaign.businessCampaignDonors.length);
-
     await campaign.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      individualCampaignDonors: campaign.individualCampaignDonors,
     });
   }
 );
 
-// Get Individual Reviews of a campaign
+// Get Individual Donations of a campaign
 const getIndividualCampaignDonations = catchAsyncErrors(
   async (req, res, next) => {
     const campaign = await Campaign.findById(req.query.id);
@@ -542,7 +482,7 @@ const getIndividualCampaignDonations = catchAsyncErrors(
   }
 );
 
-// Delete Individual Review
+// Delete Individual Donation
 const deleteIndividualCampaignDonation = catchAsyncErrors(
   async (req, res, next) => {
     const campaign = await Campaign.findById(req.query.campaignId);
@@ -554,20 +494,6 @@ const deleteIndividualCampaignDonation = catchAsyncErrors(
     const individualCampaignDonors = campaign.individualCampaignDonors.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
-
-    // let avg = 0;
-
-    // individualCampaignDonors.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // let amounts = 0;
-
-    // if (individualCampaignDonors.length === 0) {
-    //  amounts = 0;
-    // } else {
-    //  amounts = avg / individualCampaignDonors.length;
-    // }
 
     const numberOfIndividualCampaignDonors = individualCampaignDonors.length;
 
@@ -587,22 +513,25 @@ const deleteIndividualCampaignDonation = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      individualCampaignDonors: campaign.individualCampaignDonors,
     });
   }
 );
 
-// Create New Business Review or Update the Business review
+// Create New Business Donation or Update the Business Donation
 const createBusinessCampaignDonation = catchAsyncErrors(
   async (req, res, next) => {
     const { amount, campaignId } = req.body;
 
+    const campaign = await Campaign.findById(campaignId);
+
     const review = {
       user: req.user._id,
-      firstName: req.user.firstName,
+      businessName: req.user.businessName,
+      pic: req.user.pic,
       amount: Number(amount),
+      typeOfDonation: campaign.fundingType,
     };
-
-    const campaign = await Campaign.findById(campaignId);
 
     const isDonated = campaign.businessCampaignDonors.find(
       (rev) => rev.user.toString() === req.user._id.toString()
@@ -616,27 +545,16 @@ const createBusinessCampaignDonation = catchAsyncErrors(
         campaign.individualCampaignDonors.length +
         campaign.businessCampaignDonors.length;
     }
-
-    // let avg = 0;
-
-    // campaign.businessCampaignDonors.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // campaign.ratings =
-    // avg /
-    // (campaign.individualCampaignDonors.length +
-    // campaign.businessCampaignDonors.length);
-
     await campaign.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
+      businessCampaignDonors: campaign.businessCampaignDonors,
     });
   }
 );
 
-// Get All Business Reviews of a campaign
+// Get All Business Donors of a campaign
 const getBusinessCampaignDonations = catchAsyncErrors(
   async (req, res, next) => {
     const campaign = await Campaign.findById(req.query.id);
@@ -665,20 +583,6 @@ const deleteBusinessCampaignDonation = catchAsyncErrors(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    // let avg = 0;
-
-    // businessCampaignDonors.forEach((rev) => {
-    // avg += rev.amount;
-    // });
-
-    // letamounts = 0;
-
-    // if (businessCampaignDonors.length === 0) {
-    //  amounts = 0;
-    // } else {
-    //  amounts = avg / businessCampaignDonors.length;
-    // }
-
     const numberOfBusinessReviews = businessCampaignDonors.length;
 
     await Campaign.findByIdAndUpdate(
@@ -697,6 +601,7 @@ const deleteBusinessCampaignDonation = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
+      businessCampaignDonors: campaign.businessCampaignDonors,
     });
   }
 );

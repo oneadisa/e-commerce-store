@@ -6,12 +6,12 @@ const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
 const getMyProducts = asyncHandler(async (req, res, next) => {
-  const products = await StoreProduct.find({
+  const products = await StoreProduct.findById({
     user: req.user._id,
   });
 
   if (!products) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   } else {
     res.status(200).json({
       success: true,
@@ -394,7 +394,7 @@ const getIndividualProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -409,7 +409,7 @@ const deleteIndividualProductReview = catchAsyncErrors(
     const product = await StoreProduct.findById(req.query.productId);
 
     if (!product) {
-      return next(new ErrorHandler("StoreProduct not found", 404));
+      return next(new ErrorHandler("Product not found", 404));
     }
 
     const individualProductReviews = product.individualProductReviews.filter(
@@ -690,16 +690,16 @@ const createBusinessProductCustomer = catchAsyncErrors(
   async (req, res, next) => {
     const { productId } = req.body;
 
+    const product = await StoreProduct.findById(productId);
+
     const customer = {
       user: req.user._id,
       businessName: req.user.businessName,
       phoneNumber: req.user.phoneNumber,
       pic: req.user.pic,
       email: req.user.email,
-      productBought: productId.productTitle,
+      productBought: product.productTitle,
     };
-
-    const product = await StoreProduct.findById(productId);
 
     const isBought = product.businessCustomers.find(
       (rev) => rev.user.toString() === req.user._id.toString()
@@ -763,6 +763,10 @@ const deleteBusinessProductCustomer = catchAsyncErrors(
     const businessCustomers = product.businessCustomers.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
+
+    // const individualCustomers = product.individualCustomers.filter(
+    // (rev) => rev._id.toString() !== req.query.id.toString()
+    // );
 
     //   let avg = 0;
 

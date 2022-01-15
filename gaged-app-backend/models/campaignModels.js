@@ -2,37 +2,43 @@ const mongoose = require("mongoose");
 
 const campaignSchema = new mongoose.Schema(
   {
-    businessName: {
+    campaignName: {
       type: String,
-      required: true,
+      required: [true, "Please Enter a name for your Campaign"],
     },
     natureOfBusiness: {
       type: String,
-      required: true,
+      required: [true, "Please Fill In A Nature Of Business."],
     },
     campaignCategory: {
       type: String,
-      required: true,
+      required: [
+        true,
+        "Please provide at least one category for your campaign",
+      ],
     },
     business_address_country: {
       type: String,
-      required: true,
+      required: [
+        true,
+        "Please Fill in your Business's Main coutry of Operation",
+      ],
     },
     business_address_city: {
       type: String,
-      required: true,
+      required: [true, "Please Enter a City for your Business."],
     },
     business_address_office: {
       type: String,
-      required: true,
+      required: [true, "Please Enter a chosen Address for your Business."],
     },
     phoneNumber: {
       type: Number,
-      required: true,
+      required: [true, "Please Enter your Phone Number"],
     },
     investorBrief: {
       type: String,
-      required: true,
+      required: [true, "Please Provide an Investor Brief for your Campaign."],
     },
     campaignVideo: {
       type: String,
@@ -41,63 +47,72 @@ const campaignSchema = new mongoose.Schema(
     },
     pitchDeck: {
       type: String,
-      required: true,
+      required: [true, "Please Enter A pitch Deck for your business."],
     },
     ideal_target_audience_age: {
       type: String,
-      required: false,
+      required: [true, "Please Select your ideal target audience's age."],
     },
     ideal_target_audience_health_issues_or_disabilities: {
       type: String,
-      required: true,
+      required: [
+        true,
+        "Please Indicate whether this campaign should be directed towards the disabled.",
+      ],
     },
     gender: {
       type: String,
-      required: true,
+      required: [true, "Please Select a Gender."],
     },
     fundingType: {
       type: String,
-      required: true,
+      required: [true, "Please Select a Funding Type."],
     },
     categoryFunding: {
       type: String,
-      required: true,
+      required: [true, "Please Enter a Funding Category."],
     },
     amountBeingRaised: {
       type: Number,
-      required: true,
+      required: [true, "Please Indicate the amount being raised."],
     },
     pledged_profit_to_lenders: {
       type: Number,
-      required: true,
+      required: [
+        true,
+        "Please Indicate the amount of profit you pledge to the Lenders.",
+      ],
     },
     duration_pledged_profit: {
       type: String,
-      required: true,
+      required: [true, "Please Indicate the duration you plan to repay."],
     },
     repayment_schedule_pledged_profit: {
       type: String,
-      required: true,
+      required: [true, "Please Select a schedule for your repayment."],
     },
     equity_offering_percentage: {
       type: Number,
-      required: true,
+      required: [
+        true,
+        "Please Indicate the Amount of Equity being offered to Investors.",
+      ],
     },
     bank: {
       type: String,
-      required: true,
+      required: [true, "Please Enter Your Bank Name."],
     },
     bank_account_name: {
       type: String,
-      required: true,
+      required: [true, "Please Enter Your Bank Account Name."],
     },
     bank_account_number: {
       type: Number,
-      required: true,
+      required: [true, "Please Enter Your BAnk Account Name."],
     },
     duration: {
       type: String,
-      required: true,
+      required: [true, "Please Enter the Duration of your Campaign."],
     },
     go_live_schedule: {
       type: String,
@@ -109,7 +124,7 @@ const campaignSchema = new mongoose.Schema(
     },
     individualCampaignReviews: [
       {
-        individualUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
@@ -142,9 +157,9 @@ const campaignSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    BusinessCampaignReviews: [
+    businessCampaignReviews: [
       {
-        businessUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -180,7 +195,7 @@ const campaignSchema = new mongoose.Schema(
 
     businessCampaignDonors: [
       {
-        businessUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpBusinessTable",
           required: false,
@@ -216,7 +231,7 @@ const campaignSchema = new mongoose.Schema(
 
     individualCampaignDonors: [
       {
-        individualUser: {
+        user: {
           type: mongoose.Schema.ObjectId,
           ref: "mySignedUpUserTable",
           required: false,
@@ -271,3 +286,17 @@ const campaignSchema = new mongoose.Schema(
 const Campaign = mongoose.model("Campaign", campaignSchema);
 
 module.exports = Campaign;
+
+createIndividualCampaignReview;
+getIndividualCampaignReviews;
+deleteIndividualCampaignReview;
+createBusinessCampaignReview;
+getBusinessCampaignReviews;
+deleteBusinessCampaignReview;
+
+createIndividualCampaignDonation;
+getIndividualCampaignDonations;
+deleteIndividualCampaignDonation;
+createBusinessCampaignDonation;
+getBusinessCampaignDonations;
+deleteBusinessCampaignDonation;

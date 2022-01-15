@@ -3,7 +3,7 @@ const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 
-const ErrorHander = require("../utils/errorhandler");
+const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
@@ -504,7 +504,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await signedUpBusiness.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorHander("Business not found", 404));
+    return next(new ErrorHandler("Business not found", 404));
   }
 
   // Get ResetPassword Token
@@ -535,7 +535,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    return next(new ErrorHander(error.message, 500));
+    return next(new ErrorHandler(error.message, 500));
   }
 });
 
@@ -554,7 +554,7 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   if (!user) {
     return next(
-      new ErrorHander(
+      new ErrorHandler(
         "Reset Password Token is invalid or has been expired",
         400
       )
@@ -563,7 +563,7 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   if (req.body.password !== req.body.confirmPassword) {
     return next(
-      new ErrorHander("Passwords do not match. Please try again.", 400)
+      new ErrorHandler("Passwords do not match. Please try again.", 400)
     );
   }
 
@@ -593,11 +593,11 @@ const updatePassword = catchAsyncErrors(async (req, res, next) => {
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHander("Old password is incorrect", 400));
+    return next(new ErrorHandler("Old password is incorrect", 400));
   }
 
   if (req.body.newPassword !== req.body.confirmPassword) {
-    return next(new ErrorHander("password does not match", 400));
+    return next(new ErrorHandler("password does not match", 400));
   }
 
   user.password = req.body.newPassword;
@@ -664,7 +664,7 @@ const getSingleBusiness = catchAsyncErrors(async (req, res, next) => {
 
   if (!user) {
     return next(
-      new ErrorHander(`Business does not exist with Id: ${req.params.id}`)
+      new ErrorHandler(`Business does not exist with Id: ${req.params.id}`)
     );
   }
 
@@ -699,7 +699,7 @@ const deleteBusiness = catchAsyncErrors(async (req, res, next) => {
 
   if (!user) {
     return next(
-      new ErrorHander(`Business does not exist with Id: ${req.params.id}`, 400)
+      new ErrorHandler(`Business does not exist with Id: ${req.params.id}`, 400)
     );
   }
 
@@ -718,8 +718,10 @@ const deleteBusiness = catchAsyncErrors(async (req, res, next) => {
 // Create New CampaignStarted BusinessProfile or Update a CampaignStarted BusinessProfile
 const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   const {
-    businessId,
-    natureOfBusiness,
+    campaignName,
+    pitchDeck,
+    fundingType,
+    amountBeingraised,
     campaignCategory,
     investorBrief,
     duration,
@@ -728,10 +730,10 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   } = req.body;
 
   const campaignStarted = {
-    user: req.user._id,
-    name: req.user.businessName,
-    pic: req.user.pic,
-    natureOfBusiness,
+    campaignName,
+    pitchDeck,
+    fundingType,
+    amountBeingraised,
     campaignCategory,
     investorBrief,
     duration,
@@ -739,7 +741,7 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     amountRaised,
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(req.user._id);
 
   const isStarted = business.listOfCampaignsStarted.find(
     (rev) => rev.user.toString() === req.user._id.toString()
@@ -830,29 +832,23 @@ const deleteCampaignStarted = catchAsyncErrors(async (req, res, next) => {
 
 // Create New Campaign Invested BusinessProfile or Update a Campaign Invested BusinessProfile
 const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
-  const {
-    businessId,
-    natureOfBusiness,
-    campaignCategory,
-    investorBrief,
-    duration,
-    campaignLiveStatus,
-    amountRaised,
-  } = req.body;
+  const { campaignId, amountInvested } = req.body;
 
-  const campaignStarted = {
-    user: req.user._id,
-    name: req.user.businessName,
-    pic: req.user.pic,
-    natureOfBusiness,
-    campaignCategory,
-    investorBrief,
-    duration,
-    campaignLiveStatus,
-    amountRaised,
+  const campaign = Campaign.findBy(campaignId);
+
+  const campaignInvested = {
+    campaignName: campaign.campaignName,
+    campaignCategory: campaign.campaignCategory,
+    investorBrief: campaign.investorBrief,
+    pitchDeck: campaign.pitchDeck,
+    fundingType: campaign.fundingType,
+    amountBeingRaised: campaign.amountBeingRaised,
+    duration: campaign.duration,
+    campaignLiveStatus: campaign.campaignLiveStatus,
+    amountInvested,
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(req.user._id);
 
   const isStarted = business.listOfCampaignsInvested.find(
     (rev) => rev.user.toString() === req.user._id.toString()
@@ -860,7 +856,7 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
 
   if (isStarted) {
   } else {
-    business.listOfCampaignsInvested.push(campaignStarted);
+    business.listOfCampaignsInvested.push(campaignInvested);
     business.totalNumberOfCampaignsInvested =
       business.listOfCampaignsInvested.length;
   }
@@ -919,6 +915,803 @@ const deleteCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     listOfCampaignsInvested: business.listOfCampaignsInvested,
   });
 });
+
+// Create New Business Investor BusinessProfile or Update a Business Investor BusinessProfile
+
+const createBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
+  const { businessId, campaignId, amountInvested } = req.body;
+
+  const campaign = await Campaign.findbyId(campaignId);
+
+  const businessInvestor = {
+    user: req.user._id,
+    name: req.user.businessName,
+    phoneNumber: req.user.phoneNumber,
+    email: req.user.email,
+    campaignInvested: campaign.campaignName,
+    amountInvested,
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isbusinessInvested = business.listOfBusinessInvestors.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isbusinessInvested) {
+  } else {
+    business.listOfBusinessInvestors.push(businessInvestor);
+    business.numberOfBusinessInvestors =
+      business.listOfBusinessInvestors.length;
+    business.totalNumberOfInvestors =
+      business.listOfIndividualInvestors.length +
+      business.listOfBusinessInvestors.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    listOfBusinessInvestors: business.listOfBusinessInvestors,
+  });
+});
+
+// Get Business Invested BusinessProfile
+const getBusinessInvestors = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfBusinessInvestors: business.listOfBusinessInvestors,
+  });
+});
+
+// Delete Business Invested BusinessProfile
+const deleteBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const listOfBusinessInvestors = business.listOfBusinessInvestors.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfBusinessInvestors = listOfBusinessInvestors.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      listOfBusinessInvestors,
+      numberOfBusinessInvestors,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    listOfBusinessInvestors: business.listOfBusinessInvestors,
+  });
+});
+
+// Create New Individual Invested IndividualProfile or Update a Individual Invested IndividualProfile
+
+const createIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
+  const { businessId, campaignId, amountInvested } = req.body;
+
+  const campaign = await Campaign.findbyId(campaignId);
+
+  const individualInvestor = {
+    user: req.user._id,
+    name: req.user.firstName + "" + req.user.lastName,
+    phoneNumber: req.user.phoneNumber,
+    email: req.user.email,
+    campaignInvested: campaign.campaignName,
+    amountInvested,
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isIndividualInvested = business.listOfIndividualInvestors.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isIndividualInvested) {
+  } else {
+    business.listOfIndividualInvestors.push(individualInvestor);
+    business.numberOfIndividualInvestors =
+      business.listOfIndividualInvestors.length;
+    business.totalNumberOfInvestors =
+      business.listOfBusinessInvestors.length +
+      business.listOfIndividualInvestors.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    listOfIndividualInvestors: business.listOfIndividualInvestors,
+  });
+});
+
+// Get Individual Invested IndividualProfile
+const getIndividualInvestors = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Individual not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfIndividualInvestors: business.listOfIndividualInvestors,
+  });
+});
+
+// Delete Individual Invested IndividualProfile
+const deleteIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Individual not found", 404));
+  }
+
+  const listOfIndividualInvestors = business.listOfIndividualInvestors.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfIndividualInvestors = listOfIndividualInvestors.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      listOfIndividualInvestors,
+      numberOfIndividualInvestors,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    listOfIndividualInvestors: business.listOfIndividualInvestors,
+  });
+});
+
+// Create New Order  BusinessProfile or Update a Order  BusinessProfile
+
+const createBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
+  const { businessOrderedId, productId, quantity } = req.body;
+
+  const businessOrderedFrom = await signedUpBusiness.findById(
+    businessOrderedId
+  );
+
+  const product = await StoreProduct.findById(productId);
+
+  const businessOrdered = {
+    user: req.user._id,
+    businessName: businessOrderedFrom.businessName,
+    productName: product.productTitle,
+    productDescription: product.shortDescription,
+    price: product.costPrice,
+    category: product.category,
+    quantity,
+    totalPrice: product.costPrice * quantity,
+  };
+
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  const isBusinessOrdered = business.businessOrderedFrom.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isBusinessOrdered) {
+  } else {
+    business.businessOrderedFrom.push(businessOrdered);
+    business.numberOfOrderRequests = business.businessOrderedFrom.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    businessOrderedFrom: business.businessOrderedFrom,
+  });
+});
+
+// Get Order  BusinessProfile
+const getBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Order not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessOrderedFrom: business.businessOrderedFrom,
+  });
+});
+
+// Delete Order  BusinessProfile
+const deleteBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Order not found", 404));
+  }
+
+  const businessOrderedFrom = business.businessOrderedFrom.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfOrderRequests = businessOrderedFrom.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.req.user._id,
+    {
+      businessOrderedFrom,
+      numberOfOrderRequests,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    businessOrderedFrom: business.businessOrderedFrom,
+  });
+});
+
+// Create New Individual Review BusinessProfile or Update an Individual review BusinessProfile
+const createIndividualReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, businessId, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const review = {
+    user: req.user._id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    pic: req.body.pic,
+    rating: Number(rating),
+    product: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+    comment,
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isReviewed = business.individualReviews.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isReviewed) {
+    business.individualReviews.forEach((rev) => {
+      if (rev.user.toString() === req.user._id.toString())
+        (rev.rating = rating), (rev.comment = comment);
+    });
+  } else {
+    business.individualReviews.push(review);
+    business.numberOfIndividualReviews = business.individualReviews.length;
+    business.totalNumberOfReviews =
+      business.individualReviews.length + business.businessReviews.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    individualReviews: business.individualReviews,
+  });
+});
+
+// Get Individual Reviews of a business BusinessProfile
+const getIndividualReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualReviews: business.individualReviews,
+  });
+});
+
+// Delete Individual Review
+const deleteIndividualReview = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const individualReviews = business.individualReviews.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfIndividualReviews = individualReviews.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      individualReviews,
+      numberOfIndividualReviews,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    individualReviews: business.individualReviews,
+  });
+});
+
+// Create New Business Review BusinessProfile or Update an Business review BusinessProfile
+const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, businessId, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const review = {
+    user: req.user._id,
+    businessName: req.user.businessNameName,
+    pic: req.body.pic,
+    rating: Number(rating),
+    product: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+    comment,
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isReviewed = business.businessReviews.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isReviewed) {
+    business.businessReviews.forEach((rev) => {
+      if (rev.user.toString() === req.user._id.toString())
+        (rev.rating = rating), (rev.comment = comment);
+    });
+  } else {
+    business.businessReviews.push(review);
+    business.numberOfBusinessReviews = business.businessReviews.length;
+    business.totalNumberOfReviews =
+      business.BusinessReviews.length + business.businessReviews.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    BusinessReviews: business.BusinessReviews,
+  });
+});
+
+// Get Business Reviews of a business BusinessProfile
+const getBusinessReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessReviews: business.businessReviews,
+  });
+});
+
+// Delete Business Review
+const deleteBusinessReview = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const businessReviews = business.businessReviews.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfBusinessReviews = businessReviews.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      businessReviews,
+      numberOfBusinessReviews,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    businessReviews: business.businessReviews,
+  });
+});
+
+// Create New Business Order BusinessProfile or Update an Business Order BusinessProfile
+const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
+  const { businessId, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const order = {
+    user: req.user._id,
+    businessName: req.user.businessNameName,
+    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    productOrdered: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isOrdered = business.businessOrders.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isOrdered) {
+  } else {
+    business.businessOrders.push(order);
+    business.numberOfBusinessOrders = business.businessOrders.length;
+    business.totalNumberOfOrders =
+      business.individualOrders.length + business.businessOrders.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    businessOrders: business.businessOrders,
+  });
+});
+
+// Get Business Orders of a business BusinessProfile
+const getBusinessOrders = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessOrders: business.businessOrders,
+  });
+});
+
+// Delete Business Order
+const deleteBusinessOrder = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const businessOrders = business.businessOrders.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfBusinessOrders = businessOrders.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      businessOrders,
+      numberOfBusinessOrders,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    businessOrders: business.businessOrders,
+  });
+});
+
+// Create New Business Customer BusinessProfile or Update an Business Customer BusinessProfile
+const createBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
+  const { businessId, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const customer = {
+    user: req.user._id,
+    businessName: req.user.businessNameName,
+    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    productBought: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isBought = business.businessCustomers.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isBought) {
+  } else {
+    business.businessCustomers.push(customer);
+    business.numberOfBusinessCustomers = business.businessCustomers.length;
+    business.totalNumberOfCustomers =
+      business.individualCustomers.length + business.businessCustomers.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    businessCustomers: business.businessCustomers,
+  });
+});
+
+// Get Business Customers of a business BusinessProfile
+const getBusinessCustomers = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessCustomers: business.businessCustomers,
+  });
+});
+
+// Delete Business Customer
+const deleteBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const businessCustomers = business.businessCustomers.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfBusinessCustomers = businessCustomers.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      businessCustomers,
+      numberOfBusinessCustomers,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    businessCustomers: business.businessCustomers,
+  });
+});
+
+// Create New individual Customer individualProfile or Update an individual Customer individualProfile
+const createindividualCustomer = catchAsyncErrors(async (req, res, next) => {
+  const { businessId, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const customer = {
+    user: req.user._id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    productBought: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isBought = business.individualCustomers.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isBought) {
+  } else {
+    business.individualCustomers.push(customer);
+    business.numberOfindividualCustomers = business.individualCustomers.length;
+    business.totalNumberOfCustomers =
+      business.businessCustomers.length + business.individualCustomers.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    individualCustomers: business.individualCustomers,
+  });
+});
+
+// Get individual Customers of a individual individualProfile
+const getIndividualCustomers = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualCustomers: business.individualCustomers,
+  });
+});
+
+// Delete individual Customer
+const deleteindividualCustomer = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const individualCustomers = business.individualCustomers.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfindividualCustomers = individualCustomers.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      individualCustomers,
+      numberOfindividualCustomers,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    individualCustomers: business.individualCustomers,
+  });
+});
+
+// Create New individual Order individualProfile or Update an individual Order individualProfile
+const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
+  const { businessId, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const order = {
+    user: req.user._id,
+    firstName: req.user.firstName,
+    lastName: req.user.lastName,
+    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    productOrdered: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+  };
+
+  const business = await signedUpBusiness.findById(businessId);
+
+  const isOrdered = business.individualOrders.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isOrdered) {
+  } else {
+    business.individualOrders.push(order);
+    business.numberOfindividualOrders = business.individualOrders.length;
+    business.totalNumberOfOrders =
+      business.businessOrders.length + business.individualOrders.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    individualOrders: business.individualOrders,
+  });
+});
+
+// Get individual Orders of a individual individualProfile
+const getindividualOrders = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualOrders: business.individualOrders,
+  });
+});
+
+// Delete individual Order
+const deleteindividualOrder = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const individualOrders = business.individualOrders.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfindividualOrders = individualOrders.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      individualOrders,
+      numberOfindividualOrders,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    individualOrders: business.individualOrders,
+  });
+});
+
 module.exports = {
   registerBusiness,
   authBusiness,
@@ -933,4 +1726,37 @@ module.exports = {
   getSingleBusiness,
   updateBusinessRole,
   deleteBusiness,
+  createCampaignStarted,
+  getListOfCampaignsStarted,
+  deleteCampaignStarted,
+  createCampaignInvested,
+  getListOfCampaignsInvested,
+  deleteCampaignInvested,
+  createBusinessInvestor,
+  getBusinessInvestors,
+  deleteBusinessInvestor,
+  createIndividualInvestor,
+  getIndividualInvestors,
+  deleteIndividualInvestor,
+  createBusinessOrderedFrom,
+  getBusinessOrderedFrom,
+  deleteBusinessOrderedFrom,
+  createIndividualReview,
+  getIndividualReviews,
+  deleteIndividualReview,
+  createBusinessReview,
+  getBusinessReviews,
+  deleteBusinessReview,
+  createBusinessOrder,
+  getBusinessOrders,
+  deleteBusinessOrder,
+  createBusinessCustomer,
+  getBusinessCustomers,
+  deleteBusinessCustomer,
+  createindividualCustomer,
+  getIndividualCustomers,
+  deleteindividualCustomer,
+  createindividualOrder,
+  getindividualOrders,
+  deleteindividualOrder,
 };

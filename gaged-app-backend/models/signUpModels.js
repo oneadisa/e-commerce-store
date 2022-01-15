@@ -88,7 +88,7 @@ const signUpTemplate = new mongoose.Schema({
   },
   businessOrderedFrom: [
     {
-      BusinessUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -101,6 +101,9 @@ const signUpTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
+      productDescription: { type: String, required: false },
+      price: { type: String, required: false },
+      category: { type: String, required: false },
       quantity: {
         type: Number,
         required: false,
@@ -126,19 +129,27 @@ const signUpTemplate = new mongoose.Schema({
   },
   listOfCampaignsInvested: [
     {
-      businessName: {
+      CampaignName: {
         type: String,
-        required: [true, "Please Enter Your Business Name"],
-      },
-      natureOfBusiness: {
-        type: String,
-        required: [true, "Please Enter Your Nature Of Business"],
+        required: [true, "Please Enter Your Campaign Name"],
       },
       campaignCategory: {
         type: String,
         required: [true, "Please Enter Your Campaign Category"],
       },
       investorBrief: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      pitchDeck: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      fundingType: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      amountBeingRaised: {
         type: String,
         required: [true, "Please Enter Your Investor's Brief."],
       },
@@ -150,6 +161,15 @@ const signUpTemplate = new mongoose.Schema({
         type: Boolean,
         required: false,
         default: false,
+      },
+      amountInvested: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],

@@ -439,6 +439,194 @@ const deleteUser = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Create New Order  IndividualProfile or Update a Order  IndividualProfile
+
+const individualCreateBusinessOrderedFrom = catchAsyncErrors(
+  async (req, res, next) => {
+    const { businessOrderedId, productId, quantity } = req.body;
+
+    const businessOrderedFrom = await signedUpBusiness.findById(
+      businessOrderedId
+    );
+
+    const product = await StoreProduct.findById(productId);
+
+    const businessOrdered = {
+      user: req.user._id,
+      businessName: businessOrderedFrom.businessName,
+      productName: product.productTitle,
+      productDescription: product.shortDescription,
+      price: product.costPrice,
+      category: product.category,
+      quantity,
+      totalPrice: product.costPrice * quantity,
+    };
+
+    const individual = await signedUpUser.findById(req.user._id);
+
+    const isBusinessOrdered = individual.businessOrderedFrom.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isBusinessOrdered) {
+    } else {
+      individual.businessOrderedFrom.push(businessOrdered);
+      individual.businessOrderednumberOfOrderRequests =
+        individual.businessOrderedFrom.length;
+    }
+
+    await individual.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      businessOrderedFrom: individual.businessOrderedFrom,
+    });
+  }
+);
+
+// Get Order  IndividualProfile
+const getIndividualBusinessOrderedFrom = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.query.id);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      businessOrderedFrom: individual.businessOrderedFrom,
+    });
+  }
+);
+
+// Delete Order  IndividualProfile
+const deleteIndividualBusinessOrderedFrom = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.query.req.user._id);
+
+    if (!individual) {
+      return next(new ErrorHandler("Order not found", 404));
+    }
+
+    const businessOrderedFrom = individual.businessOrderedFrom.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfOrderRequests = businessOrderedFrom.length;
+
+    await signedUpUser.findByIdAndUpdate(
+      req.query.req.user._id,
+      {
+        businessOrderedFrom,
+        numberOfOrderRequests,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      businessOrderedFrom: individual.businessOrderedFrom,
+    });
+  }
+);
+
+// Create New Campaign Invested BusinessProfile or Update a Campaign Invested BusinessProfile
+const createIndividualCampaignInvested = catchAsyncErrors(
+  async (req, res, next) => {
+    const { campaignId, amountInvested } = req.body;
+
+    const campaign = Campaign.findBy(campaignId);
+
+    const campaignInvested = {
+      campaignName: campaign.campaignName,
+      campaignCategory: campaign.campaignCategory,
+      investorBrief: campaign.investorBrief,
+      pitchDeck: campaign.pitchDeck,
+      fundingType: campaign.fundingType,
+      amountBeingRaised: campaign.amountBeingRaised,
+      duration: campaign.duration,
+      campaignLiveStatus: campaign.campaignLiveStatus,
+      amountInvested,
+    };
+
+    const individual = await signedUpUser.findById(req.user._id);
+
+    const isInvested = individual.listOfCampaignsInvested.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isInvested) {
+    } else {
+      individual.listOfCampaignsInvested.push(campaignInvested);
+      individual.totalNumberOfCampaignsInvested =
+        individual.listOfCampaignsInvested.length;
+    }
+
+    await individual.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignsInvested: individual.listOfCampaignsInvested,
+    });
+  }
+);
+
+// Get Campaigns Invested BusinessProfile
+const getListOfIndividualCampaignsInvested = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.query.id);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignsInvested: individual.listOfCampaignsInvested,
+    });
+  }
+);
+
+// Delete Campaign Invested BusinessProfile
+const deleteIndividualCampaignInvested = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.query.userId);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    const listOfCampaignsInvested = individual.listOfCampaignsInvested.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const totalNumberOfCampaignsInvested = listOfCampaignsInvested.length;
+
+    await signedUpUser.findByIdAndUpdate(
+      req.query.businessId,
+      {
+        listOfCampaignsInvested,
+        totalNumberOfCampaignsInvested,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignsInvested: individual.listOfCampaignsInvested,
+    });
+  }
+);
+
 module.exports = {
   registerUser,
   authUser,
@@ -453,4 +641,10 @@ module.exports = {
   getSingleUser,
   updateUserRole,
   deleteUser,
+  individualCreateBusinessOrderedFrom,
+  getIndividualBusinessOrderedFrom,
+  deleteIndividualBusinessOrderedFrom,
+  createIndividualCampaignInvested,
+  getListOfIndividualCampaignsInvested,
+  deleteIndividualCampaignInvested,
 };

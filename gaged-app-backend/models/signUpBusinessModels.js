@@ -187,17 +187,21 @@ const signUpBusinessTemplate = new mongoose.Schema({
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      name: {
+      capaignName: {
         type: String,
         required: true,
       },
-      pic: {
+      pitchDeck: {
         type: String,
-        required: false,
+        required: [true, "Please Enter Your Investor's Brief."],
       },
-      natureOfBusiness: {
+      fundingType: {
         type: String,
-        required: [true, "Please Enter Your Nature Of Business"],
+        required: [true, "Please Enter Your Funding Type.."],
+      },
+      amountBeingRaised: {
+        type: String,
+        required: [true, "Please Enter Your Target Amoount."],
       },
       campaignCategory: {
         type: String,
@@ -214,30 +218,42 @@ const signUpBusinessTemplate = new mongoose.Schema({
       campaignLiveStatus: {
         type: Boolean,
         required: false,
-        default: false,
+        default: true,
       },
       amountRaised: {
         type: Number,
         required: false,
         default: 0,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
   listOfCampaignsInvested: [
     {
-      businessName: {
+      CampaignName: {
         type: String,
-        required: [true, "Please Enter Your Business Name"],
-      },
-      natureOfBusiness: {
-        type: String,
-        required: [true, "Please Enter Your Nature Of Business"],
+        required: [true, "Please Enter Your Campaign Name"],
       },
       campaignCategory: {
         type: String,
         required: [true, "Please Enter Your Campaign Category"],
       },
       investorBrief: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      pitchDeck: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      fundingType: {
+        type: String,
+        required: [true, "Please Enter Your Investor's Brief."],
+      },
+      amountBeingRaised: {
         type: String,
         required: [true, "Please Enter Your Investor's Brief."],
       },
@@ -250,10 +266,14 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: false,
       },
-      amountRaised: {
+      amountInvested: {
         type: Number,
         required: false,
         default: 0,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -274,7 +294,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   listOfBusinessInvestors: [
     {
-      businessUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -292,7 +312,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
       },
       campaignInvested: {
-        type: Number,
+        type: String,
         required: [false, "All investors must have at least one fundraiser."],
       },
       amountInvested: {
@@ -308,7 +328,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   listOfIndividualInvestors: [
     {
-      individualUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpUserTable",
         required: false,
@@ -326,7 +346,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
       },
       campaignInvested: {
-        type: Number,
+        type: String,
         required: [false, "All investors must have at least one fundraiser."],
       },
       amountInvested: {
@@ -362,7 +382,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   businessOrderedFrom: [
     {
-      businessUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -375,13 +395,16 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
+      productDescription: { type: String, required: false },
+      price: { type: String, required: false },
+      category: { type: String, required: false },
       quantity: {
         type: Number,
         required: false,
       },
       totalPrice: {
         type: Number,
-        required: [false, "All orders must have a total price"],
+        required: false,
       },
     },
   ],
@@ -397,12 +420,20 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   individualReviews: [
     {
-      individualUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpUserTable",
         required: false,
       },
-      name: {
+      firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
+      product: {
         type: String,
         required: true,
       },
@@ -410,9 +441,19 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
+      pic: {
+        type: String,
+        required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
       comment: {
         type: String,
         required: true,
+      },
+      commentedAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -422,7 +463,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   businessReviews: [
     {
-      businessUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -435,9 +476,23 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
+      product: {
+        type: String,
+        required: true,
+      },
+      pic: {
+        type: String,
+        required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
       comment: {
         type: String,
         required: true,
+      },
+      commentedAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -451,7 +506,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   businessOrders: [
     {
-      businessUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
@@ -460,17 +515,27 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
-      name: {
+      businessName: {
         type: String,
         required: false,
       },
-      rating: {
+      phoneNumber: {
         type: Number,
-        default: 0,
+        required: false,
       },
-      comment: {
+      pic: {
         type: String,
         required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      email: {
+        type: String,
+        required: false,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -480,7 +545,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   individualOrders: [
     {
-      individualUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpUserTable",
         required: false,
@@ -489,17 +554,31 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
-      name: {
+      firstName: {
         type: String,
         required: false,
       },
-      rating: {
+      lastName: {
+        type: String,
+        required: true,
+      },
+      phoneNumber: {
         type: Number,
-        default: 0,
+        required: false,
       },
-      comment: {
+      pic: {
         type: String,
         required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      email: {
+        type: String,
+        required: false,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -513,22 +592,40 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   individualCustomers: [
     {
-      individualUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpUserTable",
         required: false,
       },
-      name: {
+      firstName: {
         type: String,
         required: false,
+      },
+      lastName: {
+        type: String,
+        required: true,
       },
       phoneNumber: {
         type: Number,
         required: false,
       },
-      email: {
-        type: Number,
+      productBought: {
+        type: String,
+        required: true,
+      },
+      pic: {
+        type: String,
         required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      email: {
+        type: String,
+        required: false,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -538,12 +635,12 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   businessCustomers: [
     {
-      businessUser: {
+      user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      name: {
+      businessName: {
         type: String,
         required: false,
       },
@@ -551,9 +648,23 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         required: false,
       },
-      email: {
-        type: Number,
+      pic: {
+        type: String,
         required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      productBought: {
+        type: String,
+        required: false,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -564,10 +675,6 @@ const signUpBusinessTemplate = new mongoose.Schema({
   totalNumberOfCustomers: {
     type: Number,
     default: 0,
-  },
-  paymentMethod: {
-    type: Array,
-    required: false,
   },
   createdAt: {
     type: Date,

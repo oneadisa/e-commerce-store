@@ -15,6 +15,39 @@ const {
   getSingleBusiness,
   updateBusinessRole,
   deleteBusiness,
+  createCampaignStarted,
+  getListOfCampaignsStarted,
+  deleteCampaignStarted,
+  createCampaignInvested,
+  getListOfCampaignsInvested,
+  deleteCampaignInvested,
+  createBusinessInvestor,
+  getBusinessInvestors,
+  deleteBusinessInvestor,
+  createIndividualInvestor,
+  getIndividualInvestors,
+  deleteIndividualInvestor,
+  createBusinessOrderedFrom,
+  getBusinessOrderedFrom,
+  deleteBusinessOrderedFrom,
+  createIndividualReview,
+  getIndividualReviews,
+  deleteIndividualReview,
+  createBusinessReview,
+  getBusinessReviews,
+  deleteBusinessReview,
+  createBusinessOrder,
+  getBusinessOrders,
+  deleteBusinessOrder,
+  createBusinessCustomer,
+  getBusinessCustomers,
+  deleteBusinessCustomer,
+  createindividualCustomer,
+  getIndividualCustomers,
+  deleteindividualCustomer,
+  createindividualOrder,
+  getindividualOrders,
+  deleteindividualOrder,
 } = require("../controllers/businessController");
 
 const {
@@ -39,6 +72,113 @@ router.route("/me").get(protectBusiness, getBusinessDetails);
 router.route("/password/update").put(protectBusiness, updatePassword);
 
 router.route("/me/update").put(protectBusiness, updateProfile);
+
+router
+  .route("/business-order-from")
+  .put(protectBusiness, createBusinessOrderedFrom);
+
+router
+  .route("/business-ordered-from")
+  .get(protectBusiness, getBusinessOrderedFrom)
+  .delete(protectBusiness, deleteBusinessOrderedFrom);
+
+router.route("/campaign-start").put(protectBusiness, createCampaignStarted);
+
+router
+  .route("/campaign-started")
+  .get(getListOfCampaignsStarted)
+  .delete(protectBusiness, deleteCampaignStarted);
+
+router.route("/campaign-invest").put(protectBusiness, createCampaignInvested);
+
+router
+  .route("/campaign-invested")
+  .get(getListOfCampaignsInvested)
+  .delete(protectBusiness, deleteCampaignInvested);
+
+router
+  .route("/create-investor/business")
+  .put(protectBusiness, createBusinessInvestor);
+
+router
+  .route("/investors/business")
+  .get(getBusinessInvestors)
+  .delete(protectBusiness, deleteBusinessInvestor);
+
+router
+  .route("/create-investor/individual")
+  .put(isAuthenticatedUser, createIndividualInvestor);
+
+router
+  .route("/investors/individual")
+  .get(getIndividualInvestors)
+  .delete(isAuthenticatedUser, deleteIndividualInvestor);
+
+router
+  .route("/create-review/business")
+  .put(protectBusiness, createBusinessReview);
+
+router
+  .route("/reviews/business")
+  .get(getBusinessReviews)
+  .delete(protectBusiness, deleteBusinessReview);
+
+router
+  .route("admin-individual/reviews/business")
+  .delete(protectUser, authorizeRoles("admin"), deleteBusinessReview);
+router
+  .route("admin-business/reviews/business")
+  .delete(protectBusiness, authorizeRoles("admin"), deleteBusinessReview);
+
+router
+  .route("/create-review/individual")
+  .put(isAuthenticatedUser, createIndividualReview);
+
+router
+  .route("/reviews/individual")
+  .get(getIndividualReviews)
+  .delete(isAuthenticatedUser, deleteIndividualReview);
+
+router
+  .route("admin-individual/reviews/individual")
+  .delete(protectUser, authorizeRoles("admin"), deleteIndividualReview);
+
+router
+  .route("admin-business/reviews/individual")
+  .delete(protectBusiness, authorizeRoles("admin"), deleteIndividualReview);
+
+router
+  .route("/create-customer/business")
+  .put(protectBusiness, createBusinessCustomer);
+
+router
+  .route("/customer/business")
+  .get(getBusinessCustomers)
+  .delete(protectBusiness, deleteBusinessCustomer);
+
+router
+  .route("/create-customer/individual")
+  .put(isAuthenticatedUser, createindividualCustomer);
+
+router
+  .route("/customers/individual")
+  .get(getIndividualCustomers)
+  .delete(isAuthenticatedUser, deleteindividualCustomer);
+
+router
+  .route("/create-order/business")
+  .put(protectBusiness, createBusinessOrder);
+router
+  .route("/order/business")
+  .get(getBusinessOrders)
+  .delete(protectBusiness, deleteBusinessOrder);
+router
+  .route("/create-order/individual")
+  .put(isAuthenticatedUser, createindividualOrder);
+router
+  .route("/orders/individual")
+  .get(getindividualOrders)
+  .delete(isAuthenticatedUser, deleteindividualOrder);
 
 router.route("/admin-business/business").get(getAllBusiness);
 
