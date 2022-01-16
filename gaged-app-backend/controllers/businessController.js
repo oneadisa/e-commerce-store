@@ -79,6 +79,11 @@ const registerBusiness = asyncHandler(async (req, res) => {
     businessCustomers,
     numberOfBusinessCustomers,
     totalNumberOfCustomers,
+    campaignReviews,
+    numberOfCampaignsReviwed,
+    productReviews,
+    numberOfProductsReviewed,
+    totallNumberOfInteractions,
     paymentMethod,
   } = req.body;
 
@@ -153,6 +158,11 @@ const registerBusiness = asyncHandler(async (req, res) => {
     businessCustomers,
     numberOfBusinessCustomers,
     totalNumberOfCustomers,
+    campaignReviews,
+    numberOfCampaignsReviwed,
+    productReviews,
+    numberOfProductsReviewed,
+    totallNumberOfInteractions,
     paymentMethod,
   });
   if (user) {
@@ -219,6 +229,11 @@ const registerBusiness = asyncHandler(async (req, res) => {
       businessCustomers: user.businessCustomers,
       numberOfBusinessCustomers: user.numberOfBusinessCustomers,
       totalNumberOfCustomers: user.totalNumberOfCustomers,
+      campaignReviews: user.campaignReviews,
+      numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
+      productReviews: user.productReviews,
+      numberOfProductsReviewed: user.numberOfProductReviews,
+      totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
     });
   } else {
@@ -318,6 +333,11 @@ const authBusiness = asyncHandler(async (req, res) => {
       businessCustomers: user.businessCustomers,
       numberOfBusinessCustomers: user.numberOfBusinessCustomers,
       totalNumberOfCustomers: user.totalNumberOfCustomers,
+      campaignReviews: user.campaignReviews,
+      numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
+      productReviews: user.productReviews,
+      numberOfProductsReviewed: user.numberOfProductReviews,
+      totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
     });
   } else {
@@ -420,6 +440,15 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       req.body.numberOfBusinessCustomers || user.numberOfBusinessCustomers;
     user.totalNumberOfCustomers =
       req.body.totalNumberOfCustomers || user.totalNumberOfCustomers;
+    user.campaignReviews = req.body.campaignReviews || user.campaignReviews;
+    user.numberOfCampaignsReviwed =
+      req.body.numberOfCampaignsReviwed || user.numberOfCampaignsReviwed;
+    user.productReviews =
+      req.body.productReviews || user.productReviewproductReviews;
+    user.numberOfProductsReviewed =
+      req.body.numberOfProductsReviewed || user.numberOfProductReviews;
+    user.totallNumberOfInteractions =
+      req.body.totallNumberOfInteractions || user.totalNumberOfInteractions;
     user.paymentMethod = req.body.paymentMethod || user.paymentMethod;
 
     if (req.body.password) {
@@ -492,6 +521,11 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       businessCustomers: updatedBusiness.businessCustomers,
       numberOfBusinessCustomers: updatedBusiness.numberOfBusinessCustomers,
       totalNumberOfCustomers: updatedBusiness.totalNumberOfCustomers,
+      campaignReviews: updatedBusiness.campaignReviews,
+      numberOfCampaignsReviwed: updatedBusiness.numberOfCampaignsReviwed,
+      productReviews: updatedBusiness.productReviews,
+      numberOfProductsReviewed: updatedBusiness.numberOfProductReviews,
+      totallNumberOfInteractions: updatedBusiness.totalNumberOfInteractions,
       paymentMethod: updatedBusiness.paymentMethod,
     });
   } else {
@@ -615,25 +649,6 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
     email: req.body.email,
   };
 
-  if (req.body.avatar !== "") {
-    const user = await signedUpBusiness.findById(req.user.id);
-
-    const imageId = user.avatar.public_id;
-
-    await cloudinary.v2.uploader.destroy(imageId);
-
-    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-      folder: "avatars",
-      width: 150,
-      crop: "scale",
-    });
-
-    newBusinessData.avatar = {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    };
-  }
-
   const user = await signedUpBusiness.findByIdAndUpdate(
     req.user.id,
     newBusinessData,
@@ -646,6 +661,7 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    user,
   });
 });
 
@@ -748,7 +764,7 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isStarted) {
+  if (!isStarted) {
   } else {
     business.listOfCampaignsStarted.push(campaignStarted);
     business.totalNumberOfCampaignsStarted =
@@ -835,9 +851,10 @@ const deleteCampaignStarted = catchAsyncErrors(async (req, res, next) => {
 const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
   const { campaignId, amountInvested } = req.body;
 
-  const campaign = Campaign.findBy(campaignId);
+  const campaign = Campaign.find(campaignId);
 
   const campaignInvested = {
+    user: req.user._id,
     campaignName: campaign.campaignName,
     campaignCategory: campaign.campaignCategory,
     investorBrief: campaign.investorBrief,
@@ -855,7 +872,7 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isStarted) {
+  if (!isStarted) {
   } else {
     business.listOfCampaignsInvested.push(campaignInvested);
     business.totalNumberOfCampaignsInvested =
@@ -920,9 +937,10 @@ const deleteCampaignInvested = catchAsyncErrors(async (req, res, next) => {
 // Create New Business Investor BusinessProfile or Update a Business Investor BusinessProfile
 
 const createBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
-  const { businessId, campaignId, amountInvested } = req.body;
+  const { campaignId, amountInvested } = req.body;
 
-  const campaign = await Campaign.findbyId(campaignId);
+  const campaign = await Campaign.findById(campaignId);
+  const businessInvested = campaign.user;
 
   const businessInvestor = {
     user: req.user._id,
@@ -933,13 +951,13 @@ const createBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
     amountInvested,
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(businessInvested);
 
   const isbusinessInvested = business.listOfBusinessInvestors.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isbusinessInvested) {
+  if (!isbusinessInvested) {
   } else {
     business.listOfBusinessInvestors.push(businessInvestor);
     business.numberOfBusinessInvestors =
@@ -1007,9 +1025,10 @@ const deleteBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
 // Create New Individual Invested IndividualProfile or Update a Individual Invested IndividualProfile
 
 const createIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
-  const { businessId, campaignId, amountInvested } = req.body;
+  const { campaignId, amountInvested } = req.body;
 
-  const campaign = await Campaign.findbyId(campaignId);
+  const campaign = await Campaign.findById(campaignId);
+  const businessInvested = campaign.user;
 
   const individualInvestor = {
     user: req.user._id,
@@ -1020,13 +1039,13 @@ const createIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
     amountInvested,
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(businessInvested);
 
   const isIndividualInvested = business.listOfIndividualInvestors.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isIndividualInvested) {
+  if (!isIndividualInvested) {
   } else {
     business.listOfIndividualInvestors.push(individualInvestor);
     business.numberOfIndividualInvestors =
@@ -1094,13 +1113,10 @@ const deleteIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
 // Create New Order  BusinessProfile or Update a Order  BusinessProfile
 
 const createBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
-  const { businessOrderedId, productId, quantity } = req.body;
-
-  const businessOrderedFrom = await signedUpBusiness.findById(
-    businessOrderedId
-  );
+  const { productId, quantity } = req.body;
 
   const product = await StoreProduct.findById(productId);
+  const businessOrderedFrom = await signedUpBusiness.findById(product.user);
 
   const businessOrdered = {
     user: req.user._id,
@@ -1119,7 +1135,7 @@ const createBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isBusinessOrdered) {
+  if (!isBusinessOrdered) {
   } else {
     business.businessOrderedFrom.push(businessOrdered);
     business.numberOfOrderRequests = business.businessOrderedFrom.length;
@@ -1182,9 +1198,9 @@ const deleteBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
 
 // Create New Individual Review BusinessProfile or Update an Individual review BusinessProfile
 const createIndividualReview = catchAsyncErrors(async (req, res, next) => {
-  const { rating, comment, businessId, productId } = req.body;
+  const { rating, comment, productId } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  const product = await StoreProduct.findById(productId);
 
   const review = {
     user: req.user._id,
@@ -1199,7 +1215,7 @@ const createIndividualReview = catchAsyncErrors(async (req, res, next) => {
     comment,
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(product.user);
 
   const isReviewed = business.individualReviews.find(
     (rev) => rev.user.toString() === req.user._id.toString()
@@ -1274,9 +1290,9 @@ const deleteIndividualReview = catchAsyncErrors(async (req, res, next) => {
 
 // Create New Business Review BusinessProfile or Update an Business review BusinessProfile
 const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
-  const { rating, comment, businessId, productId } = req.body;
+  const { rating, comment, productId } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  const product = await StoreProduct.findById(productId);
 
   const review = {
     user: req.user._id,
@@ -1290,7 +1306,7 @@ const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
     comment,
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(product.user);
 
   const isReviewed = business.businessReviews.find(
     (rev) => rev.user.toString() === req.user._id.toString()
@@ -1305,14 +1321,14 @@ const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
     business.businessReviews.push(review);
     business.numberOfBusinessReviews = business.businessReviews.length;
     business.totalNumberOfReviews =
-      business.BusinessReviews.length + business.businessReviews.length;
+      business.individualReviews.length + business.businessReviews.length;
   }
 
   await business.save({ validateBeforeSave: false });
 
   res.status(200).json({
     success: true,
-    BusinessReviews: business.BusinessReviews,
+    BusinessReviews: business.businessReviews,
   });
 });
 
@@ -1365,13 +1381,13 @@ const deleteBusinessReview = catchAsyncErrors(async (req, res, next) => {
 
 // Create New Business Order BusinessProfile or Update an Business Order BusinessProfile
 const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
-  const { businessId, productId } = req.body;
+  const { productId } = req.body;
 
   const product = await StoreProduct.find(productId);
 
   const order = {
     user: req.user._id,
-    businessName: req.user.businessNameName,
+    businessName: req.user.businessName,
     pic: req.body.pic,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
@@ -1381,13 +1397,13 @@ const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
     },
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(product.user);
 
   const isOrdered = business.businessOrders.find(
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isOrdered) {
+  if (!isOrdered) {
   } else {
     business.businessOrders.push(order);
     business.numberOfBusinessOrders = business.businessOrders.length;
@@ -1474,7 +1490,7 @@ const createBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isBought) {
+  if (!isBought) {
   } else {
     business.businessCustomers.push(customer);
     business.numberOfBusinessCustomers = business.businessCustomers.length;
@@ -1562,7 +1578,7 @@ const createindividualCustomer = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isBought) {
+  if (!isBought) {
   } else {
     business.individualCustomers.push(customer);
     business.numberOfindividualCustomers = business.individualCustomers.length;
@@ -1650,7 +1666,7 @@ const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isOrdered) {
+  if (!isOrdered) {
   } else {
     business.individualOrders.push(order);
     business.numberOfindividualOrders = business.individualOrders.length;
@@ -1739,7 +1755,7 @@ const createPersonalProductReview = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (isReviewed) {
+  if (!isReviewed) {
   } else {
     business.productReviews.push(review);
     business.numberOfProductsReviewed = business.productReviews.length;
@@ -1829,7 +1845,7 @@ const createPersonalCampaignReview = catchAsyncErrors(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (isReviewed) {
+    if (!isReviewed) {
     } else {
       business.campaignReviews.push(review);
       business.numberOfCampaignsReviewed = business.campaignReviews.length;

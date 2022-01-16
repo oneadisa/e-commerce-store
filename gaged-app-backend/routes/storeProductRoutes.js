@@ -40,10 +40,10 @@ const router = express.Router();
 
 router.route("/all").get(getAllProducts);
 
-router.route("/me").get(getMyProducts);
+router.route("/me").post(getMyProducts);
 router.route("/create").post(protectBusiness, CreateStoreProduct);
 router
-  .route("product/:id")
+  .route("/product/:id")
   .get(getStoreProductById)
   .put(protectBusiness, UpdateStoreProduct)
   .delete(protectBusiness, deleteStoreProduct);

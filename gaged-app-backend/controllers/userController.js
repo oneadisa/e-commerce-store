@@ -40,6 +40,11 @@ const registerUser = asyncHandler(async (req, res) => {
     quantityOfOrders,
     totalNumberOfCampaignsInvested,
     listOfCampaignsInvested,
+    campaignReviews,
+    numberOfCampaignsReviwed,
+    productReviews,
+    numberOfProductsReviewed,
+    totallNumberOfInteractions,
     paymentMethod,
   } = req.body;
 
@@ -69,11 +74,12 @@ const registerUser = asyncHandler(async (req, res) => {
     quantityOfOrders,
     totalNumberOfCampaignsInvested,
     listOfCampaignsInvested,
+    campaignReviews,
+    numberOfCampaignsReviwed,
+    productReviews,
+    numberOfProductsReviewed,
+    totallNumberOfInteractions,
     paymentMethod,
-    // avatar: {
-    // public_id: myCloud.public_id,
-    // url: myCloud.secure_url,
-    // },
   });
   if (user) {
     res.status(201).json({
@@ -97,6 +103,11 @@ const registerUser = asyncHandler(async (req, res) => {
       quantityOfOrders: user.quantityOfOrders,
       totalNumberOfCampaignsInvested: user.totalNumberOfCampaignsInvested,
       listOfCampaignsInvested: user.listOfCampaignsInvested,
+      campaignReviews: user.campaignReviews,
+      numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
+      productReviews: user.productReviews,
+      numberOfProductsReviewed: user.numberOfProductReviews,
+      totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
       token: generateToken(user._id),
     });
@@ -141,6 +152,11 @@ const authUser = asyncHandler(async (req, res) => {
       quantityOfOrders: user.quantityOfOrders,
       totalNumberOfCampaignsInvested: user.totalNumberOfCampaignsInvested,
       listOfCampaignsInvested: user.listOfCampaignsInvested,
+      campaignReviews: user.campaignReviews,
+      numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
+      productReviews: user.productReviews,
+      numberOfProductsReviewed: user.numberOfProductReviews,
+      totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
       token: generateToken(user._id),
     });
@@ -179,6 +195,15 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       req.body.numberOfOrderRequests || user.numberOfOrderRequests;
     user.quantityOfOrders = req.body.quantityOfOrders || user.quantityOfOrders;
     user.paymentMethod = req.body.paymentMethod || user.paymentMethod;
+    user.campaignReviews = req.body.campaignReviews || user.campaignReviews;
+    user.numberOfCampaignsReviwed =
+      req.body.numberOfCampaignsReviwed || user.numberOfCampaignsReviwed;
+    user.productReviews =
+      req.body.productReviews || user.productReviewproductReviews;
+    user.numberOfProductsReviewed =
+      req.body.numberOfProductsReviewed || user.numberOfProductReviews;
+    user.totallNumberOfInteractions =
+      req.body.totallNumberOfInteractions || user.totalNumberOfInteractions;
 
     if (req.body.password) {
       user.password = req.body.password;
@@ -209,6 +234,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         updatedUser.totalNumberOfCampaignsInvested,
       listOfCampaignsInvested: updatedUser.listOfCampaignsInvested,
       paymentMethod: updatedUser.paymentMethod,
+      campaignReviews: updatedUser.campaignReviews,
+      numberOfCampaignsReviwed: updatedUser.numberOfCampaignsReviwed,
+      productReviews: updatedUser.productReviews,
+      numberOfProductsReviewed: updatedUser.numberOfProductReviews,
+      totallNumberOfInteractions: updatedUser.totalNumberOfInteractions,
       token: generateToken(updatedUser._id),
     });
   } else {
@@ -245,7 +275,7 @@ const forgotUserPassword = catchAsyncErrors(async (req, res, next) => {
 
   const resetPasswordUrl = `${req.protocol}://${req.get(
     "host"
-  )}/password/reset/${resetToken}`;
+  )}app/individual/password/reset/${resetToken}`;
 
   const message = `Dear esteemed customer, your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 

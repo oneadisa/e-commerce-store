@@ -6,8 +6,10 @@ const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
 const getMyProducts = asyncHandler(async (req, res, next) => {
-  const products = await StoreProduct.findById({
-    user: req.user._id,
+  const { userId } = req.body;
+
+  const products = await StoreProduct.find({
+    user: userId,
   });
 
   if (!products) {
@@ -16,6 +18,7 @@ const getMyProducts = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       success: true,
       products,
+      count: products.length,
     });
   }
 });

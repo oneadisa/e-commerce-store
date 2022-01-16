@@ -233,6 +233,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
   ],
   listOfCampaignsInvested: [
     {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
       CampaignName: {
         type: String,
         required: [true, "Please Enter Your Campaign Name"],
@@ -676,41 +681,39 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-    campaignReviews: [
+  campaignReviews: [
     {
-       user: {
-   type: mongoose.Schema.ObjectId,
-   ref: "mySignedUpBusinessTable",
-   required: false,
- },
- firstName: {
-   type: String,
-   required: true,
- },
- lastName: {
-   type: String,
-   required: true,
- },
- pic: {
-   type: String,
-   required: false,
-   default:
-     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jp
- },
- comment: {
-   type: String,
-   required: true,
- },
- commentedAt: {
-   type: Date,
-   default: Date.now,
- },
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
+      pic: {
+        type: String,
+        required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+      commentedAt: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
 
-  numberOfCampaignsReviewed:{type: Number,
-required: false,
-default: 0,},
+  numberOfCampaignsReviewed: { type: Number, required: false, default: 0 },
   productReviews: [
     {
       user: {
@@ -718,37 +721,39 @@ default: 0,},
         ref: "mySignedUpBusinessTable",
         required: false,
       },
- name: {
-   type: String,
-   required: true,
- },
- rating: {
-   type: Number,
-   default: 0,
- },
- pic: {
-   type: String,
-   required: false,
-   default:
-     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jp
- },
- comment: {
-   type: String,
-   required: true,
- },
- commentedAt: {
-   type: Date,
-   default: Date.now,
- },
+      name: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        default: 0,
+      },
+      pic: {
+        type: String,
+        required: false,
+        default:
+          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
+      commentedAt: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
-  numberOfProductsReviewed:{type: Number,
-required: false,
-default: 0,},
-  totalNumberOfInteractions:{
-type: Number,
-required: false,
-default: 0,
+  numberOfProductsReviewed: { type: Number, required: false, default: 0 },
+  totalNumberOfInteractions: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  paymentMethod: {
+    type: Array,
+    required: false,
   },
   createdAt: {
     type: Date,

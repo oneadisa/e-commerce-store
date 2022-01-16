@@ -32,10 +32,10 @@ const {
 
 const router = express.Router();
 
-router.route("/me").get(getMyCampaigns);
+router.route("/me").post(getMyCampaigns);
 router.route("/create").post(protectBusiness, CreateCampaign);
 router
-  .route("campaign/:id")
+  .route("/campaign/:id")
   .get(getCampaignById)
   .put(protectBusiness, UpdateCampaign)
   .delete(protectBusiness, DeleteCampaign);
@@ -46,16 +46,16 @@ router.route("/all").get(getAllCampaigns);
 
 router
   .route("/admin-individual/campaigns")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAdminCampaigns);
+  .get(protectUser, authorizeRoles("admin"), getAdminCampaigns);
 
 router
   .route("/admin-individual/campaign/new")
-  .post(isAuthenticatedUser, authorizeRoles("admin"), createCampaignAdmin);
+  .post(protectUser, authorizeRoles("admin"), createCampaignAdmin);
 
 router
   .route("/admin-individual/campaign/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateCampaignAdmin)
-  .delete(isAuthenticatedUser, authorizeRoles("admin"), DeleteCampaign);
+  .put(protectUser, authorizeRoles("admin"), updateCampaignAdmin)
+  .delete(protectUser, authorizeRoles("admin"), DeleteCampaign);
 
 router.route("/admin-individual/campaign/:id").get(getCampaignDetailsAdmin);
 
@@ -101,12 +101,12 @@ router
 
 router
   .route("/create-review/individual")
-  .put(isAuthenticatedUser, createIndividualCampaignReview);
+  .put(protectUser, createIndividualCampaignReview);
 
 router
   .route("/reviews/individual")
   .get(getIndividualCampaignReviews)
-  .delete(isAuthenticatedUser, deleteIndividualCampaignReview);
+  .delete(protectUser, deleteIndividualCampaignReview);
 
 router
   .route("admin-individual/reviews/individual")
@@ -135,11 +135,11 @@ router
 
 router
   .route("/create-donation/individual")
-  .put(isAuthenticatedUser, createIndividualCampaignDonation);
+  .put(protectUser, createIndividualCampaignDonation);
 
 router
   .route("/donations/individual")
   .get(getIndividualCampaignDonations)
-  .delete(isAuthenticatedUser, deleteIndividualCampaignDonation);
+  .delete(protectUser, deleteIndividualCampaignDonation);
 
 module.exports = router;

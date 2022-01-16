@@ -4,11 +4,22 @@ const generateToken = require("../utils/generateToken");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
-const getMyCampaigns = asyncHandler(async (req, res) => {
-  const campaigns = await Campaign.find({
-    user: req.user._id,
-  });
-  res.json(campaigns);
+const getMyCampaigns = asyncHandler(async (req, res, next) => {
+  const { userId } = req.body;
+
+  const campaigns = await Campaign.find({ user: userId });
+
+  if (!campaigns) {
+    return next(new ErrorHandler("Campaign not found", 404));
+  } else {
+    res.status(200).json({
+      success: true,
+      campaigns,
+      count: campaigns.length,
+    });
+  }
+
+  // res.json(campaigns);
 });
 
 // Get All Campaign
@@ -29,26 +40,6 @@ const getAllCampaigns = catchAsyncErrors(async (req, res) => {
     resultPerPage,
     filteredCampaignsCount,
   });
-  // const campaigns = await Campaign.find({}, function (err, campaigns) {
-  // var campaignMap = {};
-  // campaigns.forEach(function (campaign) {
-  // campaignMap[campaign._id] = campaign;
-  // });
-  // res.send(campaignMap);
-  // });
-  // res.status(200).json({
-  // success: true,
-  // campaigns,
-  // });
-  // server.get("/usersList", function (req, res) {
-  // User.find({}, function (err, users) {
-  // var userMap = {};
-  // users.forEach(function (user) {
-  // userMap[user._id] = user;
-  // });
-  // res.send(userMap);
-  // });
-  // });
 });
 
 const CreateCampaign = asyncHandler(async (req, res) => {
@@ -608,28 +599,6 @@ const deleteBusinessCampaignDonation = catchAsyncErrors(
 
 // Create Campaign -- Admin
 const createCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
-  let images = [];
-
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
-  }
-
-  const imagesLinks = [];
-
-  for (let i = 0; i < images.length; i++) {
-    const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "Campaigns",
-    });
-
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
-
-  req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
   const campaign = await Campaign.create(req.body);
@@ -671,37 +640,6 @@ const updateCampaignAdmin = catchAsyncErrors(async (req, res, next) => {
 
   if (!campaign) {
     return next(new ErrorHandler("Campaign not found", 404));
-  }
-
-  // Images Start Here
-  let images = [];
-
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
-  }
-
-  if (images !== undefined) {
-    // Deleting Images From Cloudinary
-    for (let i = 0; i < campaign.images.length; i++) {
-      await cloudinary.v2.uploader.destroy(campaign.images[i].public_id);
-    }
-
-    const imagesLinks = [];
-
-    for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "Campaigns",
-      });
-
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
-    }
-
-    req.body.images = imagesLinks;
   }
 
   campaign = await Campaign.findByIdAndUpdate(req.params.id, req.body, {

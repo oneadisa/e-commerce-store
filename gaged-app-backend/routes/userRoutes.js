@@ -24,15 +24,15 @@ const {
   getListOfIndividualCampaignsInvested,
   deleteIndividualCampaignInvested,
   createIndividualPersonalProductReview,
-getIndividualPersonalProductReviews,
-deleteIndividualPersonalProductReview,
-createIndividualPersonalCampaignReview,
-getIndividualPersonalCampaignReviews,
-deleteIndividualPersonalCampaignReview,
+  getIndividualPersonalProductReviews,
+  deleteIndividualPersonalProductReview,
+  createIndividualPersonalCampaignReview,
+  getIndividualPersonalCampaignReviews,
+  deleteIndividualPersonalCampaignReview,
 } = require("../controllers/userController");
 const {
   protectUser,
-  protectBusiness
+  protectBusiness,
   authorizeRoles,
 } = require("../middlewares/authMiddleware");
 
@@ -52,21 +52,25 @@ router.route("/password/update").put(protectUser, updateUserPassword);
 
 router.route("/me/update").put(protectUser, updateUserProfileAdmin);
 
-router.route("/business-order-from").put(protectBusiness, individualCreateBusinessOrderedFrom);
+router
+  .route("/business-order-from")
+  .put(protectBusiness, individualCreateBusinessOrderedFrom);
 
 router
   .route("/business-ordered-from")
   .get(protectBusiness, getIndividualBusinessOrderedFrom)
   .delete(protectBusiness, deleteIndividualBusinessOrderedFrom);
 
-  router.route("/campaign-invest").put(protectBusiness, createIndividualCampaignInvested);
+router
+  .route("/campaign-invest")
+  .put(protectBusiness, createIndividualCampaignInvested);
 
 router
   .route("/campaign-invested")
   .get(protectBusiness, getListOfIndividualCampaignsInvested)
   .delete(protectBusiness, deleteIndividualCampaignInvested);
 
-  router
+router
   .route("/profile-product-review")
   .put(protectBusiness, createIndividualPersonalProductReview);
 
@@ -75,14 +79,14 @@ router
   .get(protectBusiness, getIndividualPersonalProductReviews)
   .delete(protectBusiness, deleteIndividualPersonalProductReview);
 
-  router
-    .route("/profile-campaign-review")
-    .put(protectBusiness, createIndividualPersonalCampaignReview);
+router
+  .route("/profile-campaign-review")
+  .put(protectBusiness, createIndividualPersonalCampaignReview);
 
-  router
-    .route("/profile-campaign-review/edit")
-    .get(protectBusiness, getIndividualPersonalCampaignReviews)
-    .delete(protectBusiness, deleteIndividualPersonalCampaignReview);
+router
+  .route("/profile-campaign-review/edit")
+  .get(protectBusiness, getIndividualPersonalCampaignReviews)
+  .delete(protectBusiness, deleteIndividualPersonalCampaignReview);
 
 router
   .route("/admin-individual/users")
