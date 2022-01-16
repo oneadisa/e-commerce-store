@@ -173,6 +173,82 @@ const signUpTemplate = new mongoose.Schema({
       },
     },
   ],
+
+  campaignReviews: [
+    {
+       user: {
+   type: mongoose.Schema.ObjectId,
+   ref: "mySignedUpUserTable",
+   required: false,
+ },
+ firstName: {
+   type: String,
+   required: true,
+ },
+ lastName: {
+   type: String,
+   required: true,
+ },
+ pic: {
+   type: String,
+   required: false,
+   default:
+     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+ },
+ comment: {
+   type: String,
+   required: true,
+ },
+ commentedAt: {
+   type: Date,
+   default: Date.now,
+ },
+    },
+  ],
+
+  numberOfCampaignsReviewed:{type: Number,
+required: false,
+default: 0,},
+  productReviews: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+ name: {
+   type: String,
+   required: true,
+ },
+ rating: {
+   type: Number,
+   default: 0,
+ },
+ pic: {
+   type: String,
+   required: false,
+   default:
+     "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jp
+ },
+ comment: {
+   type: String,
+   required: true,
+ },
+ commentedAt: {
+   type: Date,
+   default: Date.now,
+ },
+    },
+  ],
+  numberOfProductsReviewed:{type: Number,
+required: false,
+default: 0,},
+  totalNumberOfInteractions:{
+type: Number,
+required: false,
+default: 0,
+  },
+
   paymentMethod: {
     type: Array,
     required: false,

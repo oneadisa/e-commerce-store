@@ -2,7 +2,8 @@ const bcrypt = require("bcrypt");
 const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
-
+const StoreProduct = require("../models/storeProductModels");
+const Campaign = require("../models/campaignModels");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
@@ -1712,6 +1713,188 @@ const deleteindividualOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Create New Personal Review BusinessProfile or Update a Personal review BusinessProfile
+const createPersonalProductReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, productId } = req.body;
+
+  const product = await StoreProduct.find(productId);
+
+  const organiser = await signedUpBusiness.findById(product.user);
+  const review = {
+    user: req.user._id,
+    businessName: req.user.businessName,
+    pic: req.body.pic,
+    rating: Number(rating),
+    product: {
+      productId: product._id,
+      productName: product.productTitle,
+      business: organiser.businessName,
+    },
+    comment,
+  };
+
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  const isReviewed = business.productReviews.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isReviewed) {
+  } else {
+    business.productReviews.push(review);
+    business.numberOfProductsReviewed = business.productReviews.length;
+    business.totalNumberOfInteractions =
+      business.productReviews.length + business.campaignReviews.length;
+  }
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    productReviews: business.productReviews,
+  });
+});
+
+// Get Personal Reviews of a business BusinessProfile
+const getPersonalProductReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    productReviews: business.productReviews,
+  });
+});
+
+// Delete Personal Review
+const deletePersonalProductReview = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const productReviews = business.productReviews.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfProductsReviewed = productReviews.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      productReviews,
+      numberOfProductsReviewed,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    productReviews: business.productReviews,
+  });
+});
+
+// Create New Personal Review BusinessProfile or Update a Personal review BusinessProfile
+const createPersonalCampaignReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const { comment, campaignId } = req.body;
+
+    const campaign = await Campaign.find(campaignId);
+
+    const organiser = await signedUpBusiness.findById(campaign.user);
+
+    const review = {
+      user: req.user._id,
+      businessName: req.user.businessName,
+      pic: req.body.pic,
+      campaign: {
+        campaignId: campaign._id,
+        campaignName: campaign.campaignName,
+        organiser: organiser.businessName,
+      },
+      comment,
+    };
+
+    const business = await signedUpBusiness.findById(req.user._id);
+
+    const isReviewed = business.campaignReviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+    } else {
+      business.campaignReviews.push(review);
+      business.numberOfCampaignsReviewed = business.campaignReviews.length;
+      business.totalNumberOfInteractions =
+        business.campaignReviews.length + business.productReviews.length;
+    }
+
+    await business.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      campaignReviews: business.campaignReviews,
+    });
+  }
+);
+
+// Get Personal Reviews of a business BusinessProfile
+const getPersonalCampaignReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    campaignReviews: business.campaignReviews,
+  });
+});
+
+// Delete Personal Review
+const deletePersonalCampaignReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.query.businessId);
+
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    const campaignReviews = business.campaignReviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfCampaignsReviewed = campaignReviews.length;
+
+    await signedUpBusiness.findByIdAndUpdate(
+      req.query.businessId,
+      {
+        campaignReviews,
+        numberOfCampaignsReviewed,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      campaignReviews: business.campaignReviews,
+    });
+  }
+);
+
 module.exports = {
   registerBusiness,
   authBusiness,
@@ -1759,4 +1942,10 @@ module.exports = {
   createindividualOrder,
   getindividualOrders,
   deleteindividualOrder,
+  createPersonalProductReview,
+  getPersonalProductReviews,
+  deletePersonalProductReview,
+  createPersonalCampaignReview,
+  getPersonalCampaignReviews,
+  deletePersonalCampaignReview,
 };

@@ -48,6 +48,12 @@ const {
   createindividualOrder,
   getindividualOrders,
   deleteindividualOrder,
+  createPersonalProductReview,
+  getPersonalProductReviews,
+  deletePersonalProductReview,
+  createPersonalCampaignReview,
+  getPersonalCampaignReviews,
+  deletePersonalCampaignReview,
 } = require("../controllers/businessController");
 
 const {
@@ -179,6 +185,24 @@ router
   .route("/orders/individual")
   .get(getindividualOrders)
   .delete(isAuthenticatedUser, deleteindividualOrder);
+
+router
+  .route("/profile-product-review")
+  .put(protectBusiness, createPersonalProductReview);
+
+router
+  .route("/profile-product-review/edit")
+  .get(protectBusiness, getPersonalProductReviews)
+  .delete(protectBusiness, deletePersonalProductReview);
+
+router
+  .route("/profile-campaign-review")
+  .put(protectBusiness, createPersonalCampaignReview);
+
+router
+  .route("/profile-campaign-review/edit")
+  .get(protectBusiness, getPersonalCampaignReviews)
+  .delete(protectBusiness, deletePersonalCampaignReview);
 
 router.route("/admin-business/business").get(getAllBusiness);
 

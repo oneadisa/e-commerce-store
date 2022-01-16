@@ -286,17 +286,3 @@ const campaignSchema = new mongoose.Schema(
 const Campaign = mongoose.model("Campaign", campaignSchema);
 
 module.exports = Campaign;
-
-createIndividualCampaignReview;
-getIndividualCampaignReviews;
-deleteIndividualCampaignReview;
-createBusinessCampaignReview;
-getBusinessCampaignReviews;
-deleteBusinessCampaignReview;
-
-createIndividualCampaignDonation;
-getIndividualCampaignDonations;
-deleteIndividualCampaignDonation;
-createBusinessCampaignDonation;
-getBusinessCampaignDonations;
-deleteBusinessCampaignDonation;

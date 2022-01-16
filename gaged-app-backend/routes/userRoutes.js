@@ -23,6 +23,12 @@ const {
   createIndividualCampaignInvested,
   getListOfIndividualCampaignsInvested,
   deleteIndividualCampaignInvested,
+  createIndividualPersonalProductReview,
+getIndividualPersonalProductReviews,
+deleteIndividualPersonalProductReview,
+createIndividualPersonalCampaignReview,
+getIndividualPersonalCampaignReviews,
+deleteIndividualPersonalCampaignReview,
 } = require("../controllers/userController");
 const {
   protectUser,
@@ -59,6 +65,24 @@ router
   .route("/campaign-invested")
   .get(protectBusiness, getListOfIndividualCampaignsInvested)
   .delete(protectBusiness, deleteIndividualCampaignInvested);
+
+  router
+  .route("/profile-product-review")
+  .put(protectBusiness, createIndividualPersonalProductReview);
+
+router
+  .route("/profile-product-review/edit")
+  .get(protectBusiness, getIndividualPersonalProductReviews)
+  .delete(protectBusiness, deleteIndividualPersonalProductReview);
+
+  router
+    .route("/profile-campaign-review")
+    .put(protectBusiness, createIndividualPersonalCampaignReview);
+
+  router
+    .route("/profile-campaign-review/edit")
+    .get(protectBusiness, getIndividualPersonalCampaignReviews)
+    .delete(protectBusiness, deleteIndividualPersonalCampaignReview);
 
 router
   .route("/admin-individual/users")
