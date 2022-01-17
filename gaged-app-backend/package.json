@@ -40,6 +40,7 @@
         "request": "^2.88.2",
         "save-dev": "^0.0.1-security",
         "stripe": "^8.194.0",
+        "superagent": "^7.0.2",
         "validator": "^13.7.0"
     },
     "devDependencies": {

@@ -851,7 +851,8 @@ const deleteCampaignStarted = catchAsyncErrors(async (req, res, next) => {
 const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
   const { campaignId, amountInvested } = req.body;
 
-  const campaign = Campaign.find(campaignId);
+  const campaign = Campaign.findById(campaignId);
+  const organiser = signedUpBusiness.findById(campaign.user);
 
   const campaignInvested = {
     user: req.user._id,
@@ -862,6 +863,7 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     fundingType: campaign.fundingType,
     amountBeingRaised: campaign.amountBeingRaised,
     duration: campaign.duration,
+    organiser: organiser,
     campaignLiveStatus: campaign.campaignLiveStatus,
     amountInvested,
   };
@@ -1474,7 +1476,7 @@ const createBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
 
   const customer = {
     user: req.user._id,
-    businessName: req.user.businessNameName,
+    businessName: req.user.businessName,
     pic: req.body.pic,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
@@ -1738,14 +1740,16 @@ const createPersonalProductReview = catchAsyncErrors(async (req, res, next) => {
   const organiser = await signedUpBusiness.findById(product.user);
   const review = {
     user: req.user._id,
-    businessName: req.user.businessName,
+    name: req.user.businessName,
     pic: req.body.pic,
     rating: Number(rating),
-    product: {
-      productId: product._id,
-      productName: product.productTitle,
-      business: organiser.businessName,
-    },
+    productId: product._id,
+    productTitle: product.productTitle,
+    business: organiser.businessName,
+    ratings: product.ratings,
+    shortDescription: product.shortDescription,
+    category: product.category,
+    productImageOne: product.productImageOne,
     comment,
   };
 
@@ -1830,12 +1834,17 @@ const createPersonalCampaignReview = catchAsyncErrors(
     const review = {
       user: req.user._id,
       businessName: req.user.businessName,
-      pic: req.body.pic,
-      campaign: {
-        campaignId: campaign._id,
-        campaignName: campaign.campaignName,
-        organiser: organiser.businessName,
-      },
+      pic: req.user.pic,
+      campaignId: campaign._id,
+      campaignName: campaign.campaignName,
+      pitchDeck: campaign.pitchDeck,
+      fundingType: campaign.fundingType,
+      amountBeingraised: campaign.amountBeingraised,
+      campaignCategory: campaign.campaignCategory,
+      investorBrief: campaign.investorBrief,
+      duration: campaign.duration,
+      campaignLiveStatus: campaign.campaignLiveStatus,
+      organiser: organiser.businessName,
       comment,
     };
 

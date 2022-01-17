@@ -131,36 +131,40 @@ const signUpTemplate = new mongoose.Schema({
     {
       CampaignName: {
         type: String,
-        required: [true, "Please Enter Your Campaign Name"],
+        required: false,
       },
       campaignCategory: {
         type: String,
-        required: [true, "Please Enter Your Campaign Category"],
+        required: false,
       },
       investorBrief: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       pitchDeck: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       fundingType: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       amountBeingRaised: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       duration: {
         type: String,
-        required: [true, "Please Enter Your Campaign's Duration"],
+        required: false,
       },
       campaignLiveStatus: {
         type: Boolean,
         required: false,
-        default: false,
+        default: true,
+      },
+      organiser: {
+        type: String,
+        required: false,
       },
       amountInvested: {
         type: Number,
@@ -189,6 +193,39 @@ const signUpTemplate = new mongoose.Schema({
         type: String,
         required: true,
       },
+      campaignName: {
+        type: String,
+        required: true,
+      },
+      pitchDeck: {
+        type: String,
+        required: false,
+      },
+      fundingType: {
+        type: String,
+        required: false,
+      },
+      amountBeingRaised: {
+        type: String,
+        required: false,
+      },
+      campaignCategory: {
+        type: String,
+        required: false,
+      },
+      investorBrief: {
+        type: String,
+        required: false,
+      },
+      duration: {
+        type: String,
+        required: false,
+      },
+      campaignLiveStatus: {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
       pic: {
         type: String,
         required: false,
@@ -197,7 +234,15 @@ const signUpTemplate = new mongoose.Schema({
       },
       comment: {
         type: String,
-        required: true,
+        required: false,
+      },
+      organiser: {
+        type: String,
+        required: false,
+      },
+      campaignId: {
+        type: String,
+        required: false,
       },
       commentedAt: {
         type: Date,
@@ -216,17 +261,36 @@ const signUpTemplate = new mongoose.Schema({
       },
       name: {
         type: String,
-        required: true,
+        required: false,
+      },
+      productTitle: {
+        type: String,
+        required: false,
+      },
+      shortDescription: {
+        type: String,
+        required: false,
+      },
+      category: {
+        type: String,
+        required: false,
+      },
+      productImageOne: {
+        type: String,
+        required: false,
+        default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+      },
+      ratings: {
+        type: Number,
+        default: 0,
+      },
+      costPrice: {
+        type: Number,
+        required: false,
       },
       rating: {
         type: Number,
         default: 0,
-      },
-      pic: {
-        type: String,
-        required: false,
-        default:
-          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
       },
       comment: {
         type: String,

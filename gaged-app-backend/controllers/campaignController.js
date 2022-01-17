@@ -7,14 +7,16 @@ const ApiFeatures = require("../utils/apiFeatures");
 const getMyCampaigns = asyncHandler(async (req, res, next) => {
   const { userId } = req.body;
 
-  const campaigns = await Campaign.find({ user: userId });
+  const campaigns = await Campaign.find({
+    user: userId,
+  });
 
   if (!campaigns) {
     return next(new ErrorHandler("Campaign not found", 404));
   } else {
     res.status(200).json({
-      success: true,
       campaigns,
+      success: true,
       count: campaigns.length,
     });
   }

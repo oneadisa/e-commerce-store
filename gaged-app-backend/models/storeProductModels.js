@@ -200,7 +200,7 @@ const storeProductSchema = new mongoose.Schema(
         },
         lastName: {
           type: String,
-          required: true,
+          required: false,
         },
         phoneNumber: {
           type: Number,
@@ -284,7 +284,7 @@ const storeProductSchema = new mongoose.Schema(
         },
         email: {
           type: String,
-          required: true,
+          required: false,
         },
         productBought: {
           type: String,

@@ -476,13 +476,10 @@ const deleteUser = catchAsyncErrors(async (req, res, next) => {
 
 const individualCreateBusinessOrderedFrom = catchAsyncErrors(
   async (req, res, next) => {
-    const { businessOrderedId, productId, quantity } = req.body;
-
-    const businessOrderedFrom = await signedUpBusiness.findById(
-      businessOrderedId
-    );
+    const { productId, quantity } = req.body;
 
     const product = await StoreProduct.findById(productId);
+    const businessOrderedFrom = await signedUpBusiness.findById(product.user);
 
     const businessOrdered = {
       user: req.user._id,
@@ -573,7 +570,8 @@ const createIndividualCampaignInvested = catchAsyncErrors(
   async (req, res, next) => {
     const { campaignId, amountInvested } = req.body;
 
-    const campaign = Campaign.findBy(campaignId);
+    const campaign = Campaign.findById(campaignId);
+    const organiser = signedUpBusiness.findById(campaign.user);
 
     const campaignInvested = {
       campaignName: campaign.campaignName,
@@ -583,6 +581,7 @@ const createIndividualCampaignInvested = catchAsyncErrors(
       fundingType: campaign.fundingType,
       amountBeingRaised: campaign.amountBeingRaised,
       duration: campaign.duration,
+      organiser: organiser,
       campaignLiveStatus: campaign.campaignLiveStatus,
       amountInvested,
     };
@@ -674,11 +673,13 @@ const createIndividualPersonalProductReview = catchAsyncErrors(
       name: req.user.firstName + " " + req.user.lastName,
       pic: req.body.pic,
       rating: Number(rating),
-      product: {
-        productId: product._id,
-        productName: product.productTitle,
-        business: organiser.businessName,
-      },
+      productId: product._id,
+      productTitle: product.productTitle,
+      business: organiser.businessName,
+      ratings: product.ratings,
+      shortDescription: product.shortDescription,
+      category: product.category,
+      productImageOne: product.productImageOne,
       comment,
     };
 
@@ -767,13 +768,19 @@ const createIndividualPersonalCampaignReview = catchAsyncErrors(
 
     const review = {
       user: req.user._id,
-      name: req.user.firstName + " " + req.user.lastName,
-      pic: req.body.pic,
-      campaign: {
-        campaignId: campaign._id,
-        campaignName: campaign.campaignName,
-        organiser: organiser.businessName,
-      },
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      pic: req.user.pic,
+      campaignId: campaign._id,
+      campaignName: campaign.campaignName,
+      pitchDeck: campaign.pitchDeck,
+      fundingType: campaign.fundingType,
+      amountBeingraised: campaign.amountBeingraised,
+      campaignCategory: campaign.campaignCategory,
+      investorBrief: campaign.investorBrief,
+      duration: campaign.duration,
+      campaignLiveStatus: campaign.campaignLiveStatus,
+      organiser: organiser.businessName,
       comment,
     };
 

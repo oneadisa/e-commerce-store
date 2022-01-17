@@ -273,7 +273,7 @@ const campaignSchema = new mongoose.Schema(
       default: 0,
     },
     user: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: false,
       ref: "mySignedUpBusinessTable",
     },

@@ -35,7 +35,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    required: true,
+    required: false,
     default: "false",
   },
   role: {
@@ -187,33 +187,33 @@ const signUpBusinessTemplate = new mongoose.Schema({
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      capaignName: {
+      campaignName: {
         type: String,
-        required: true,
+        required: false,
       },
       pitchDeck: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       fundingType: {
         type: String,
-        required: [true, "Please Enter Your Funding Type.."],
+        required: false,
       },
       amountBeingRaised: {
         type: String,
-        required: [true, "Please Enter Your Target Amoount."],
+        required: false,
       },
       campaignCategory: {
         type: String,
-        required: [true, "Please Enter Your Campaign Category"],
+        required: false,
       },
       investorBrief: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       duration: {
         type: String,
-        required: [true, "Please Enter Your Campaign's Duration"],
+        required: false,
       },
       campaignLiveStatus: {
         type: Boolean,
@@ -240,36 +240,40 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
       CampaignName: {
         type: String,
-        required: [true, "Please Enter Your Campaign Name"],
+        required: false,
       },
       campaignCategory: {
         type: String,
-        required: [true, "Please Enter Your Campaign Category"],
+        required: false,
       },
       investorBrief: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       pitchDeck: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       fundingType: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       amountBeingRaised: {
         type: String,
-        required: [true, "Please Enter Your Investor's Brief."],
+        required: false,
       },
       duration: {
         type: String,
-        required: [true, "Please Enter Your Campaign's Duration"],
+        required: false,
       },
       campaignLiveStatus: {
         type: Boolean,
         required: false,
-        default: false,
+        default: true,
+      },
+      organiser: {
+        type: String,
+        required: false,
       },
       amountInvested: {
         type: Number,
@@ -565,7 +569,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
       lastName: {
         type: String,
-        required: true,
+        required: false,
       },
       phoneNumber: {
         type: Number,
@@ -616,7 +620,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
       productBought: {
         type: String,
-        required: true,
+        required: false,
       },
       pic: {
         type: String,
@@ -688,19 +692,52 @@ const signUpBusinessTemplate = new mongoose.Schema({
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      firstName: {
+      businessName: {
         type: String,
         required: true,
       },
-      lastName: {
+      campaignName: {
         type: String,
         required: true,
+      },
+      pitchDeck: {
+        type: String,
+        required: false,
+      },
+      fundingType: {
+        type: String,
+        required: false,
+      },
+      amountBeingRaised: {
+        type: String,
+        required: false,
+      },
+      campaignCategory: {
+        type: String,
+        required: false,
+      },
+      investorBrief: {
+        type: String,
+        required: false,
+      },
+      duration: {
+        type: String,
+        required: false,
+      },
+      campaignLiveStatus: {
+        type: Boolean,
+        required: false,
+        default: true,
       },
       pic: {
         type: String,
         required: false,
         default:
           "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      },
+      organiser: {
+        type: String,
+        required: false,
       },
       comment: {
         type: String,
@@ -723,11 +760,36 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
       name: {
         type: String,
-        required: true,
+        required: false,
       },
       rating: {
         type: Number,
         default: 0,
+      },
+      productTitle: {
+        type: String,
+        required: false,
+      },
+      shortDescription: {
+        type: String,
+        required: false,
+      },
+      category: {
+        type: String,
+        required: false,
+      },
+      productImageOne: {
+        type: String,
+        required: false,
+        default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+      },
+      ratings: {
+        type: Number,
+        default: 0,
+      },
+      costPrice: {
+        type: Number,
+        required: false,
       },
       pic: {
         type: String,
