@@ -31,11 +31,11 @@ const orderSchema = new mongoose.Schema({
   },
   orderItems: [
     {
-      name: {
+      productTitle: {
         type: String,
         required: true,
       },
-      price: {
+      costPrice: {
         type: Number,
         required: true,
       },
@@ -49,17 +49,12 @@ const orderSchema = new mongoose.Schema({
       },
       product: {
         type: mongoose.Schema.ObjectId,
-        ref: "Product",
+        ref: "StoreProduct",
         required: true,
       },
     },
   ],
-  individualUser: {
-    type: mongoose.Schema.ObjectId,
-    ref: "mySignedUpUserTable",
-    required: false,
-  },
-  businessUser: {
+  user: {
     type: mongoose.Schema.ObjectId,
     ref: "mySignedUpBusinessTable",
     required: false,
@@ -110,4 +105,5 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+const businessOrder = mongoose.model("businessOrder", orderSchema);
+module.exports = businessOrder;

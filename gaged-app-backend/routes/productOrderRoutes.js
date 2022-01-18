@@ -1,52 +1,80 @@
 const express = require("express");
 const {
-  newOrder,
-  getSingleOrder,
-  myOrders,
-  getAllOrders,
-  updateOrder,
-  deleteOrder,
+  deleteBusinessOrder,
+  updateBusinessOrder,
+  getAllBusinessOrders,
+  myBusinessOrders,
+  getSingleBusinessOrder,
+  newBusinessOrder,
+  newIndividualOrder,
+  getSingleIndividualOrder,
+  myIndividualOrders,
+  getAllIndividualOrders,
+  updateIndividualOrder,
+  deleteIndividualOrder,
 } = require("../controllers/productOrdersController");
 const router = express.Router();
 
 const {
-  isAuthenticatedUser,
-  isAuthenticatedBusiness,
+  protectBusiness,
   authorizeRoles,
   protectUser,
-  protectBusiness,
 } = require("../middlewares/authMiddleware");
 
-router.route("/order/new/individual").post(isAuthenticatedUser, newOrder);
-
-router.route("/order/:id/individual").get(isAuthenticatedUser, getSingleOrder);
-
-router.route("/orders/me/individual").get(isAuthenticatedUser, myOrders);
-
-router.route("/order/new/business").post(isAuthenticatedBusiness, newOrder);
+router.route("/order/individual/new").post(protectBusiness, newIndividualOrder);
 
 router
-  .route("/order/:id/business")
-  .get(isAuthenticatedBusiness, getSingleOrder);
+  .route("/order/individual/id/:id")
+  .get(protectBusiness, getSingleIndividualOrder)
+  .put(protectBusiness, updateIndividualOrder)
+  .delete(protectBusiness, deleteIndividualOrder);
 
-router.route("/orders/me/business").get(isAuthenticatedBusiness, myOrders);
+router.route("/orders/individual/me").get(protectBusiness, myIndividualOrders);
 
-router
-  .route("/admin-individual/orders")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllOrders);
-
-router
-  .route("/admin-individual/order/:id")
-  .put(isAuthenticatedUser, authorizeRoles("admin"), updateOrder)
-  .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteOrder);
+router.route("/order/business/new").post(protectBusiness, newBusinessOrder);
 
 router
-  .route("/admin-business/orders")
-  .get(isAuthenticatedBusiness, authorizeRoles("admin"), getAllOrders);
+  .route("/order/business/id/:id")
+  .get(protectBusiness, getSingleBusinessOrder)
+  .put(protectBusiness, updateBusinessOrder)
+  .delete(protectBusiness, deleteBusinessOrder);
+
+router.route("/orders/business/me").get(protectBusiness, myBusinessOrders);
 
 router
-  .route("/admin-business/order/:id")
-  .put(isAuthenticatedBusiness, authorizeRoles("admin"), updateOrder)
-  .delete(isAuthenticatedBusiness, authorizeRoles("admin"), deleteOrder);
+  .route("/admin-individual/orders/business")
+  .get(protectUser, authorizeRoles("admin"), getAllBusinessOrders);
+
+router
+  .route("/admin-individual/order/business/:id")
+  .put(protectUser, authorizeRoles("admin"), updateBusinessOrder)
+  .delete(protectUser, authorizeRoles("admin"), deleteBusinessOrder);
+
+router
+  .route("/admin-individual/orders/individual")
+  .get(protectUser, authorizeRoles("admin"), getAllIndividualOrders);
+
+router
+  .route("/admin-individual/order/individual/:id")
+  .put(protectUser, authorizeRoles("admin"), updateIndividualOrder)
+  .delete(protectUser, authorizeRoles("admin"), deleteIndividualOrder);
+
+router
+  .route("/admin-business/orders/individual")
+  .get(protectBusiness, authorizeRoles("admin"), getAllIndividualOrders);
+
+router
+  .route("/admin-business/order/individual/:id")
+  .put(protectBusiness, authorizeRoles("admin"), updateIndividualOrder)
+  .delete(protectBusiness, authorizeRoles("admin"), deleteIndividualOrder);
+
+router
+  .route("/admin-business/orders/business")
+  .get(protectBusiness, authorizeRoles("admin"), getAllBusinessOrders);
+
+router
+  .route("/admin-business/order/business/:id")
+  .put(protectBusiness, authorizeRoles("admin"), updateBusinessOrder)
+  .delete(protectBusiness, authorizeRoles("admin"), deleteBusinessOrder);
 
 module.exports = router;

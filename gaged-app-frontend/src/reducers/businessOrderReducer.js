@@ -1,42 +1,42 @@
 import {
-  CREATE_ORDER_REQUEST,
-  CREATE_ORDER_SUCCESS,
-  CREATE_ORDER_FAIL,
-  MY_ORDERS_REQUEST,
-  MY_ORDERS_SUCCESS,
-  MY_ORDERS_FAIL,
-  ALL_ORDERS_REQUEST,
-  ALL_ORDERS_SUCCESS,
-  ALL_ORDERS_FAIL,
-  UPDATE_ORDER_REQUEST,
-  UPDATE_ORDER_SUCCESS,
-  UPDATE_ORDER_FAIL,
-  UPDATE_ORDER_RESET,
-  DELETE_ORDER_REQUEST,
-  DELETE_ORDER_SUCCESS,
-  DELETE_ORDER_FAIL,
-  DELETE_ORDER_RESET,
-  ORDER_DETAILS_REQUEST,
-  ORDER_DETAILS_SUCCESS,
-  ORDER_DETAILS_FAIL,
+  CREATE_BUSINESS_ORDER_REQUEST,
+  CREATE_BUSINESS_ORDER_SUCCESS,
+  CREATE_BUSINESS_ORDER_FAIL,
+  MY_BUSINESS_ORDERS_REQUEST,
+  MY_BUSINESS_ORDERS_SUCCESS,
+  MY_BUSINESS_ORDERS_FAIL,
+  ALL_BUSINESS_ORDERS_REQUEST,
+  ALL_BUSINESS_ORDERS_SUCCESS,
+  ALL_BUSINESS_ORDERS_FAIL,
+  UPDATE_BUSINESS_ORDER_REQUEST,
+  UPDATE_BUSINESS_ORDER_SUCCESS,
+  UPDATE_BUSINESS_ORDER_FAIL,
+  UPDATE_BUSINESS_ORDER_RESET,
+  DELETE_BUSINESS_ORDER_REQUEST,
+  DELETE_BUSINESS_ORDER_SUCCESS,
+  DELETE_BUSINESS_ORDER_FAIL,
+  DELETE_BUSINESS_ORDER_RESET,
+  BUSINESS_ORDER_DETAILS_REQUEST,
+  BUSINESS_ORDER_DETAILS_SUCCESS,
+  BUSINESS_ORDER_DETAILS_FAIL,
   CLEAR_ERRORS,
-} from "../constants/orderConstants";
+} from "../constants/businessOrderConstants";
 
-export const newOrderReducer = (state = {}, action) => {
+export const newBusinessOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case CREATE_ORDER_REQUEST:
+    case CREATE_BUSINESS_ORDER_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
-    case CREATE_ORDER_SUCCESS:
+    case CREATE_BUSINESS_ORDER_SUCCESS:
       return {
         loading: false,
         order: action.payload,
       };
 
-    case CREATE_ORDER_FAIL:
+    case CREATE_BUSINESS_ORDER_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -52,20 +52,20 @@ export const newOrderReducer = (state = {}, action) => {
   }
 };
 
-export const myOrdersReducer = (state = { orders: [] }, action) => {
+export const myBusinessOrdersReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
-    case MY_ORDERS_REQUEST:
+    case MY_BUSINESS_ORDERS_REQUEST:
       return {
         loading: true,
       };
 
-    case MY_ORDERS_SUCCESS:
+    case MY_BUSINESS_ORDERS_SUCCESS:
       return {
         loading: false,
         orders: action.payload,
       };
 
-    case MY_ORDERS_FAIL:
+    case MY_BUSINESS_ORDERS_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -81,20 +81,20 @@ export const myOrdersReducer = (state = { orders: [] }, action) => {
   }
 };
 
-export const allOrdersReducer = (state = { orders: [] }, action) => {
+export const allBusinessOrdersReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
-    case ALL_ORDERS_REQUEST:
+    case ALL_BUSINESS_ORDERS_REQUEST:
       return {
         loading: true,
       };
 
-    case ALL_ORDERS_SUCCESS:
+    case ALL_BUSINESS_ORDERS_SUCCESS:
       return {
         loading: false,
         orders: action.payload,
       };
 
-    case ALL_ORDERS_FAIL:
+    case ALL_BUSINESS_ORDERS_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -110,43 +110,43 @@ export const allOrdersReducer = (state = { orders: [] }, action) => {
   }
 };
 
-export const orderReducer = (state = {}, action) => {
+export const updateBusinessOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case UPDATE_ORDER_REQUEST:
-    case DELETE_ORDER_REQUEST:
+    case UPDATE_BUSINESS_ORDER_REQUEST:
+    case DELETE_BUSINESS_ORDER_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
-    case UPDATE_ORDER_SUCCESS:
+    case UPDATE_BUSINESS_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
         isUpdated: action.payload,
       };
 
-    case DELETE_ORDER_SUCCESS:
+    case DELETE_BUSINESS_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
 
-    case UPDATE_ORDER_FAIL:
-    case DELETE_ORDER_FAIL:
+    case UPDATE_BUSINESS_ORDER_FAIL:
+    case DELETE_BUSINESS_ORDER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case UPDATE_ORDER_RESET:
+    case UPDATE_BUSINESS_ORDER_RESET:
       return {
         ...state,
         isUpdated: false,
       };
 
-    case DELETE_ORDER_RESET:
+    case DELETE_BUSINESS_ORDER_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -162,20 +162,20 @@ export const orderReducer = (state = {}, action) => {
   }
 };
 
-export const orderDetailsReducer = (state = { order: {} }, action) => {
+export const businessOrderDetailsReducer = (state = { order: {} }, action) => {
   switch (action.type) {
-    case ORDER_DETAILS_REQUEST:
+    case BUSINESS_ORDER_DETAILS_REQUEST:
       return {
         loading: true,
       };
 
-    case ORDER_DETAILS_SUCCESS:
+    case BUSINESS_ORDER_DETAILS_SUCCESS:
       return {
         loading: false,
         order: action.payload,
       };
 
-    case ORDER_DETAILS_FAIL:
+    case BUSINESS_ORDER_DETAILS_FAIL:
       return {
         loading: false,
         error: action.payload,

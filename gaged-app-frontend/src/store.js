@@ -71,12 +71,20 @@ import {
 
 import { cartReducer } from "./reducers/cartReducer";
 import {
-  allOrdersReducer,
-  myOrdersReducer,
-  newOrderReducer,
-  orderDetailsReducer,
-  orderReducer,
-} from "./reducers/orderReducer";
+  allIndividualOrdersReducer,
+  myIndividualOrdersReducer,
+  newIndividualOrderReducer,
+  individualOrderDetailsReducer,
+  updateIndividualOrderReducer,
+} from "./reducers/individualOrderReducer";
+
+import {
+  allBusinessOrdersReducer,
+  myBusinessOrdersReducer,
+  newBusinessOrderReducer,
+  businessOrderDetailsReducer,
+  updateBusinessOrderReducer,
+} from "./reducers/businessOrderReducer";
 
 const reducer = combineReducers({
   //this will contain our reducers
@@ -141,11 +149,17 @@ const reducer = combineReducers({
   businessCampaignReview: businessCampaignReviewReducer,
   businessCampaignReviews: businessCampaignReviewsReducer,
 
-  allOrders: allOrdersReducer,
-  order: orderReducer,
-  newOrder: newOrderReducer,
-  myOrders: myOrdersReducer,
-  orderDetails: orderDetailsReducer,
+  allIndividualOrders: allIndividualOrdersReducer,
+  updateIndividualOrder: updateIndividualOrderReducer,
+  newIndividualOrder: newIndividualOrderReducer,
+  myIndividualOrders: myIndividualOrdersReducer,
+  individualOrderDetails: individualOrderDetailsReducer,
+
+  allBusinessOrders: allBusinessOrdersReducer,
+  updateBusinessOrder: updateBusinessOrderReducer,
+  newBusinessOrder: newBusinessOrderReducer,
+  myBusinessOrders: myBusinessOrdersReducer,
+  businessOrderDetails: businessOrderDetailsReducer,
 
   cart: cartReducer,
 });

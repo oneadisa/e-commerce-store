@@ -6,21 +6,30 @@ const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
 const getMyProducts = asyncHandler(async (req, res, next) => {
-  const { userId } = req.body;
+  // const { userId } = req.body;
 
-  const products = await StoreProduct.find({
-    user: userId,
-  });
+  // const products = await StoreProduct.find({
+  // user: userId,
+  // });
 
+  // if (!products) {
+  // return next(new ErrorHandler("Product not found", 404));
+  // } else {
+  // res.status(200).json({
+  // success: true,
+  // products,
+  // count: products.length,
+  // });
+  // }
+  const products = await StoreProduct.find({ user: req.user._id });
   if (!products) {
-    return next(new ErrorHandler("Product not found", 404));
-  } else {
-    res.status(200).json({
-      success: true,
-      products,
-      count: products.length,
-    });
+    return next(new ErrorHandler("Order not found with this Id", 404));
   }
+  res.status(200).json({
+    success: true,
+    products,
+    numberOfproducts: products.length,
+  });
 });
 
 // Get All Product

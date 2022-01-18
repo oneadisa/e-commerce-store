@@ -32,7 +32,7 @@ const {
 
 const router = express.Router();
 
-router.route("/me").post(getMyCampaigns);
+router.route("/me").get(getMyCampaigns);
 router.route("/create").post(protectBusiness, CreateCampaign);
 router
   .route("/campaign/:id")

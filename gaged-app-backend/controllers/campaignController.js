@@ -5,23 +5,32 @@ const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 const getMyCampaigns = asyncHandler(async (req, res, next) => {
-  const { userId } = req.body;
+  // const { userId } = req.body;
 
-  const campaigns = await Campaign.find({
-    user: userId,
-  });
+  // const campaigns = await Campaign.find({
+  // user: userId,
+  // });
+
+  // if (!campaigns) {
+  // return next(new ErrorHandler("Campaign not found", 404));
+  // } else {
+  // res.status(200).json({
+  // campaigns,
+  // success: true,
+  // count: campaigns.length,
+  // });
+  // }
+
+  const campaigns = await Campaign.find({ user: req.user._id });
 
   if (!campaigns) {
-    return next(new ErrorHandler("Campaign not found", 404));
-  } else {
-    res.status(200).json({
-      campaigns,
-      success: true,
-      count: campaigns.length,
-    });
+    return next(new ErrorHandler("Order not found with this Id", 404));
   }
-
-  // res.json(campaigns);
+  res.status(200).json({
+    success: true,
+    campaigns,
+    numberOfCampaigns: campaigns.length,
+  });
 });
 
 // Get All Campaign

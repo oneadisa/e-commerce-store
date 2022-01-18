@@ -16,11 +16,6 @@ const storeProductSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Enter Product Details"],
     },
-    standardPrice: {
-      type: Number,
-      required: [true, "Please Enter Standard Product Price"],
-      maxLength: [8, "Price cannot exceed 8 characters"],
-    },
     discountedPrice: {
       type: Number,
       required: [true, "Please Enter Discounted Product Price"],
@@ -31,20 +26,16 @@ const storeProductSchema = new mongoose.Schema(
       required: [true, "Please Enter product Price"],
       maxLength: [8, "Price cannot exceed 8 characters"],
     },
-    productStockCount: {
-      type: Number,
-      required: false,
-    },
     productUnitCount: {
       type: Number,
       required: [true, "Please Enter product Stock"],
       maxLength: [4, "Stock cannot exceed 4 characters"],
       default: 1,
     },
-    productSKU: {
-      type: Number,
-      required: false,
-    },
+    // productSKU: {
+    // type: Number,
+    // required: false,
+    // },
     productImageOne: {
       type: String,
       required: false,

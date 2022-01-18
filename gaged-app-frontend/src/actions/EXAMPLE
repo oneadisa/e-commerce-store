@@ -1,0 +1,5 @@
+allBusinessOrders: allBusinessOrdersReducer,
+updateBusinessOrder: updateBusinessOrderReducer,
+newBusinessOrder: newBusinessOrderReducer,
+myBusinessOrders: myBusinessOrdersReducer,
+BusinessOrderDetails: BusinessOrderDetailsReducer,
