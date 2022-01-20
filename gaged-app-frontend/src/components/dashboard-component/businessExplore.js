@@ -8,11 +8,22 @@ import alot from "../../images/alot.png";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import Header from "./Header";
+import { clearErrors, getProduct } from "../../actions/storeProductsActions";
 import DashBoard from "./DashBoard";
 import { useDispatch, useSelector } from "react-redux";
+import { useAlert } from "react-alert";
 import {} from "react-router-dom";
 import { logout } from "../../actions/businessActions";
 
+const categories = [
+  "Laptop",
+  "Footwear",
+  "Bottom",
+  "Tops",
+  "Attire",
+  "Camera",
+  "SmartPhones",
+];
 function BusinessDashboard() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -21,7 +32,6 @@ function BusinessDashboard() {
   );
   const { signedUpBusinessInfo } = signedUpBusinessLogin;
   useEffect(() => {
-    dispatch();
     if (!signedUpBusinessInfo) {
     }
   }, [dispatch, navigate, signedUpBusinessInfo]);
@@ -29,6 +39,43 @@ function BusinessDashboard() {
   useEffect(() => {}, [signedUpBusinessInfo]);
 
   const [open, setOpen] = useState(false);
+
+  const alert = useAlert();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 25000]);
+  const [category, setCategory] = useState("");
+
+  const [ratings, setRatings] = useState(0);
+
+  const {
+    products,
+    loading,
+    error,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  } = useSelector((state) => state.products);
+
+  const keyword = match.params.keyword;
+
+  const setCurrentPageNo = (e) => {
+    setCurrentPage(e);
+  };
+
+  const priceHandler = (event, newPrice) => {
+    setPrice(newPrice);
+  };
+  let count = filteredProductsCount;
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+  }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
 
   return (
     <div className="mx-auto h-screen">

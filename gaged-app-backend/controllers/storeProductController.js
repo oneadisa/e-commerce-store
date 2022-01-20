@@ -21,14 +21,24 @@ const getMyProducts = asyncHandler(async (req, res, next) => {
   // count: products.length,
   // });
   // }
-  const products = await StoreProduct.find({ user: req.user._id });
-  if (!products) {
-    return next(new ErrorHandler("Order not found with this Id", 404));
-  }
+  const resultPerPage = 20;
+  const productsCount = await StoreProduct.countDocuments();
+  const apiFeature = new ApiFeatures(
+    StoreProduct.find({ user: req.user }),
+    req.query
+  )
+    .search()
+    .filter();
+  let products = await apiFeature.query;
+  let filteredProductsCount = products.length;
+  apiFeature.pagination(resultPerPage);
+  products = await apiFeature.query.clone();
   res.status(200).json({
     success: true,
     products,
-    numberOfproducts: products.length,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
   });
 });
 

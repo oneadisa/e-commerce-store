@@ -21,7 +21,19 @@ const getMyCampaigns = asyncHandler(async (req, res, next) => {
   // });
   // }
 
-  const campaigns = await Campaign.find({ user: req.user._id });
+  //const campaigns = await Campaign.find({ user: req.user });
+  const resultPerPage = 20;
+  const campaignsCount = await Campaign.countDocuments();
+  const apiFeature = new ApiFeatures(
+    Campaign.find({ user: req.user }),
+    req.query
+  )
+    .search()
+    .filter();
+  let campaigns = await apiFeature.query;
+  let filteredCampaignsCount = campaigns.length;
+  apiFeature.pagination(resultPerPage);
+  campaigns = await apiFeature.query.clone();
 
   if (!campaigns) {
     return next(new ErrorHandler("Order not found with this Id", 404));
@@ -29,7 +41,9 @@ const getMyCampaigns = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     campaigns,
-    numberOfCampaigns: campaigns.length,
+    campaignsCount,
+    resultPerPage,
+    filteredCampaignsCount,
   });
 });
 

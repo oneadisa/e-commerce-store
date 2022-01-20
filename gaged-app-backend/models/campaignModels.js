@@ -57,7 +57,7 @@ const campaignSchema = new mongoose.Schema(
       type: String,
       required: [
         true,
-        "Please Indicate whether this campaign should be directed towards the disabled.",
+        "Please Indicate whether this campaign is directed towards people with special needs.",
       ],
     },
     gender: {
