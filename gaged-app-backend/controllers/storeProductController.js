@@ -75,6 +75,30 @@ const getAllProducts = catchAsyncErrors(async (req, res, next) => {
 });
 
 const CreateStoreProduct = asyncHandler(async (req, res) => {
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+  req.body.user = req.user.id;
+
   const {
     productTitle,
     shortDescription,
@@ -189,8 +213,17 @@ const UpdateStoreProduct = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteStoreProduct = asyncHandler(async (req, res) => {
+const deleteStoreProduct = asyncHandler(async (req, res, next) => {
   const storeProduct = await StoreProduct.findById(req.params.id);
+
+  if (!storeProduct) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  // Deleting Images From Cloudinary
+  for (let i = 0; i < storeProduct.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(storeProduct.images[i].public_id);
+  }
 
   if (storeProduct.user.toString() !== req.user._id.toString()) {
     res.status(401);
@@ -356,6 +389,58 @@ const updateProductAdmin = catchAsyncErrors(async (req, res, next) => {
     res.status(404);
     throw new Error("Product not found");
   }
+});
+
+// Update Product -- Admin
+
+const updateProduct = catchAsyncErrors(async (req, res, next) => {
+  let product = await StoreProduct.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  // Images Start Here
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    req.body.images = imagesLinks;
+  }
+
+  product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
 });
 
 // Create New Individual Review or Update an Individual review

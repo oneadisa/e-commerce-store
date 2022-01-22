@@ -222,4 +222,6 @@ router
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateBusinessRole)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteBusiness);
 
+router.route("/profile/business/:id").get(getSingleBusiness);
+
 module.exports = router;

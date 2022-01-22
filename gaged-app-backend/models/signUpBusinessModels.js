@@ -88,12 +88,14 @@ const signUpBusinessTemplate = new mongoose.Schema({
   cacCertificate: {
     type: String,
     required: false,
-    default: "https://icon-library.com/icon/icon-image-file-18.html.html",
+    default:
+      "https://images.unsplash.com/photo-1615799998603-7c6270a45196?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1604&q=80",
   },
   formCO7: {
     type: String,
     required: false,
-    default: "https://icon-library.com/icon/icon-image-file-18.html.html",
+    default:
+      "https://images.unsplash.com/photo-1615799998603-7c6270a45196?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1604&q=80",
   },
   bank: {
     type: String,
@@ -128,7 +130,14 @@ const signUpBusinessTemplate = new mongoose.Schema({
   storeLogo: {
     type: String,
     required: false,
-    default: "https://icon-library.com/icon/icon-image-file-18.html.html",
+    default:
+      "https://images.unsplash.com/photo-1615799998603-7c6270a45196?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1604&q=80",
+  },
+  storeBackground: {
+    type: String,
+    required: false,
+    default:
+      "https://www.seekpng.com/png/full/332-3320905_shadow-768x364-light-gray-gradient-background.png",
   },
   storeProducts: [
     {
@@ -147,7 +156,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       productImageOne: {
         type: String,
         required: false,
-        default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+        default: "https://icon-library.com/icon/icon-image-file-29.html",
       },
       ratings: {
         type: Number,
@@ -781,7 +790,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       productImageOne: {
         type: String,
         required: false,
-        default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+        default: "https://icon-library.com/icon/icon-image-file-29.html",
       },
       ratings: {
         type: Number,

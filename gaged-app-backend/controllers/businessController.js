@@ -43,6 +43,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     storeDescription,
     storeLink,
     storeLogo,
+    storeBackground,
     totalNumberOfCampaignsStarted,
     totalNumberOfCampaignsInvested,
     listOfCampaignsStarted,
@@ -122,6 +123,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     storeDescription,
     storeLink,
     storeLogo,
+    storeBackground,
     totalNumberOfCampaignsStarted,
     totalNumberOfCampaignsInvested,
     listOfCampaignsStarted,
@@ -193,6 +195,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
       storeLogo: user.storeLogo,
+      storeBackground: user.storeBackground,
       storeProducts: user.storeProducts,
       numberOfStoreProducts: user.numberOfStoreProducts,
       deliveryCharge: user.deliveryCharge,
@@ -297,6 +300,7 @@ const authBusiness = asyncHandler(async (req, res) => {
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
       storeLogo: user.storeLogo,
+      storeBackground: user.storeBackground,
       totalNumberOfCampaignsStarted: user.totalNumberOfCampaignsStarted,
       totalNumberOdCampaignsInvested: user.totalNumberOdCampaignsInvested,
       listOfCampaignsStarted: user.listOfCampaignsStarted,
@@ -376,6 +380,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.storeDescription = req.body.storeDescription || user.storeDescription;
     user.storeLink = req.body.storeLink || user.storeLink;
     user.storeLogo = req.body.storeLogo || user.storeLogo;
+    user.storeBackground = req.body.storeBackground || user.storeBackground;
     user.storeProducts = req.body.storeProducts || user.storeProducts;
     user.numberOfStoreProducts =
       req.body.numberOfStoreProducts || user.numberOfStoreProducts;
@@ -483,6 +488,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       storeDescription: updatedBusiness.storeDescription,
       storeLink: updatedBusiness.storeLink,
       storeLogo: updatedBusiness.storeLogo,
+      storeBackground: updatedBusiness.storeBackground,
       storeProducts: updatedBusiness.storeProducts,
       numberOfStoreProducts: updatedBusiness.numberOfStoreProducts,
       deliveryCharge: updatedBusiness.deliveryCharge,

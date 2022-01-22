@@ -32,10 +32,6 @@ const storeProductSchema = new mongoose.Schema(
       maxLength: [4, "Stock cannot exceed 4 characters"],
       default: 1,
     },
-    // productSKU: {
-    // type: Number,
-    // required: false,
-    // },
     productImageOne: {
       type: String,
       required: false,
@@ -51,6 +47,18 @@ const storeProductSchema = new mongoose.Schema(
       required: false,
       default: "https://icon-library.com/icon/icon-image-file-29.html.html",
     },
+    images: [
+      {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     ratings: {
       type: Number,
       default: 0,
