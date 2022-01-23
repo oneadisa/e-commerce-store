@@ -48,6 +48,7 @@ import {
   businessProductReviewsReducer,
   businessProductReviewReducer,
   newBusinessProductReviewReducer,
+  myStoreProductsListReducer,
 } from "./reducers/storeProductsReducer";
 
 import {
@@ -106,6 +107,7 @@ const reducer = combineReducers({
 
   setUpStore: setUpStoreReducer,
   storeProductsList: storeProductsListReducer,
+  myStoreProductsList: myStoreProductsListReducer,
   storeProductCreate: storeProductCreateReducer,
   storeProductDelete: storeProductDeleteReducer,
   storeProductUpdate: storeProductUpdateReducer,

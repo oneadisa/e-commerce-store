@@ -614,7 +614,7 @@ const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -707,17 +707,6 @@ const createIndividualProductCustomer = catchAsyncErrors(
         product.individualCustomers.length + product.businessCustomers.length;
     }
 
-    // let avg = 0;
-
-    // product.individualCustomers.forEach((rev) => {
-    //   avg += rev.rating;
-    // });
-
-    // product.ratings =
-    //   avg /
-    //   (product.individualCustomers.length +
-    // product.businessCustomers.length);
-
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
@@ -755,20 +744,6 @@ const deleteIndividualProductCustomer = catchAsyncErrors(
     const individualCustomers = product.individualCustomers.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
-
-    // let avg = 0;
-
-    // individualCustomers.forEach((rev) => {
-    //   avg += rev.rating;
-    // });
-
-    // let ratings = 0;
-
-    // if (individualCustomers.length === 0) {
-    //   ratings = 0;
-    // } else {
-    //   ratings = avg / individualCustomers.length;
-    // }
 
     const numberOfIndividualCustomers = individualCustomers.length;
 
@@ -871,24 +846,6 @@ const deleteBusinessProductCustomer = catchAsyncErrors(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    // const individualCustomers = product.individualCustomers.filter(
-    // (rev) => rev._id.toString() !== req.query.id.toString()
-    // );
-
-    //   let avg = 0;
-
-    //   businessCustomers.forEach((rev) => {
-    // avg += rev.rating;
-    //   });
-
-    //   let ratings = 0;
-
-    //   if (businessCustomers.length === 0) {
-    // ratings = 0;
-    //   } else {
-    // ratings = avg / businessCustomers.length;
-    //   }
-
     const numberOfBusinessCustomers = businessCustomers.length;
 
     await StoreProduct.findByIdAndUpdate(
@@ -970,7 +927,7 @@ const getIndividualProductOrders = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -991,20 +948,6 @@ const deleteIndividualProductOrder = catchAsyncErrors(
     const individualOrders = product.individualOrders.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
-
-    // let avg = 0;
-
-    // individualOrders.forEach((rev) => {
-    //   avg += rev.rating;
-    // });
-
-    // let ratings = 0;
-
-    // if (individualOrders.length === 0) {
-    //   ratings = 0;
-    // } else {
-    //   ratings = avg / individualOrders.length;
-    // }
 
     const numberOfIndividualOrders = individualOrders.length;
 

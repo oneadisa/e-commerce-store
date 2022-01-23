@@ -2,6 +2,9 @@ import {
   ALL_CAMPAIGN_FAIL,
   ALL_CAMPAIGN_REQUEST,
   ALL_CAMPAIGN_SUCCESS,
+  MY_CAMPAIGN_FAIL,
+  MY_CAMPAIGN_REQUEST,
+  MY_CAMPAIGN_SUCCESS,
   ADMIN_CAMPAIGN_REQUEST,
   ADMIN_CAMPAIGN_SUCCESS,
   ADMIN_CAMPAIGN_FAIL,
@@ -90,6 +93,45 @@ export const campaignsReducer = (state = { campaigns: [] }, action) => {
         campaigns: action.payload,
       };
     case ALL_CAMPAIGN_FAIL:
+    case ADMIN_CAMPAIGN_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const MyCampaignsReducer = (state = { campaigns: [] }, action) => {
+  switch (action.type) {
+    case MY_CAMPAIGN_REQUEST:
+    case ADMIN_CAMPAIGN_REQUEST:
+      return {
+        loading: true,
+        campaigns: [],
+      };
+    case MY_CAMPAIGN_SUCCESS:
+      return {
+        loading: false,
+        campaigns: action.payload.campaigns,
+        campaignsCount: action.payload.campaignsCount,
+        resultPerPage: action.payload.resultPerPage,
+        filteredProductsCount: action.payload.filteredProductsCount,
+      };
+
+    case ADMIN_CAMPAIGN_SUCCESS:
+      return {
+        loading: false,
+        campaigns: action.payload,
+      };
+    case MY_CAMPAIGN_FAIL:
     case ADMIN_CAMPAIGN_FAIL:
       return {
         loading: false,

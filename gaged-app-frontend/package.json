@@ -45,6 +45,7 @@
         "react-icons": "^4.3.1",
         "react-js-pagination": "^3.0.3",
         "react-markdown": "^7.1.1",
+        "react-material-ui-carousel": "^3.1.1",
         "react-rating-stars-component": "^2.2.0",
         "react-redux": "^7.2.6",
         "react-refresh": "^0.8.3",

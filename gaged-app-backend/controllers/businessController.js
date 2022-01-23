@@ -42,6 +42,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     storeTagline,
     storeDescription,
     storeLink,
+    category,
     storeLogo,
     storeBackground,
     totalNumberOfCampaignsStarted,
@@ -122,6 +123,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     storeTagline,
     storeDescription,
     storeLink,
+    category,
     storeLogo,
     storeBackground,
     totalNumberOfCampaignsStarted,
@@ -194,6 +196,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       storeTagline: user.storeTagline,
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
+      category: user.category,
       storeLogo: user.storeLogo,
       storeBackground: user.storeBackground,
       storeProducts: user.storeProducts,
@@ -299,6 +302,7 @@ const authBusiness = asyncHandler(async (req, res) => {
       storeTagline: user.storeTagline,
       storeDescription: user.storeDescription,
       storeLink: user.storeLink,
+      category: user.category,
       storeLogo: user.storeLogo,
       storeBackground: user.storeBackground,
       totalNumberOfCampaignsStarted: user.totalNumberOfCampaignsStarted,
@@ -379,6 +383,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.storeTagline = req.body.storeTagline || user.storeTagline;
     user.storeDescription = req.body.storeDescription || user.storeDescription;
     user.storeLink = req.body.storeLink || user.storeLink;
+    user.category = req.body.category || user.category;
     user.storeLogo = req.body.storeLogo || user.storeLogo;
     user.storeBackground = req.body.storeBackground || user.storeBackground;
     user.storeProducts = req.body.storeProducts || user.storeProducts;
@@ -487,6 +492,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       storeTagline: updatedBusiness.storeTagline,
       storeDescription: updatedBusiness.storeDescription,
       storeLink: updatedBusiness.storeLink,
+      category: updatedBusiness.category,
       storeLogo: updatedBusiness.storeLogo,
       storeBackground: updatedBusiness.storeBackground,
       storeProducts: updatedBusiness.storeProducts,
@@ -679,6 +685,26 @@ const getAllBusiness = catchAsyncErrors(async (req, res, next) => {
     success: true,
     users,
   });
+
+  const resultPerPage = 40;
+  const businessCount = await signedUpBusiness.countDocuments();
+  const apiFeature = new ApiFeatures(signedUpBusiness.find(), req.query)
+    .search()
+    .filter();
+  let businesses = await apiFeature.query;
+  let filteredBusinessCount = businesses.length;
+  apiFeature.pagination(resultPerPage);
+  businesses = await apiFeature.query.clone();
+  if (!businesses) {
+    return next(new ErrorHandler("Order not found with this Id", 404));
+  }
+  res.status(200).json({
+    success: true,
+    businesses,
+    businessCount,
+    resultPerPage,
+    filteredBusinessCount,
+  });
 });
 
 // Get single user (admin)
@@ -735,6 +761,22 @@ const deleteBusiness = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Business Deleted Successfully",
+  });
+});
+
+//Get StoreProducts of a single Business Product
+
+const findStoreProducts = catchAsyncErrors(async (req, res, next) => {
+  const { businessId } = req.body;
+
+  const products = StoreProduct.find({ user: businessId });
+
+  if (!products) {
+    return next(new ErrorHandler("No store products, yet.", 404));
+  }
+  res.status(200).json({
+    success: true,
+    products,
   });
 });
 

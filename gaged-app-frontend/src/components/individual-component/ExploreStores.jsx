@@ -2,37 +2,31 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Header0 from "./Header0";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../../components/Layout/metaData";
 import BusinessCard from "../Home/businessCard";
-import { clearErrors, getProduct } from "../../actions/storeProductsActions";
+import { clearErrors, getBusiness } from "../../actions/businessActions";
 import Loader from "../../components/Loader";
 import Typography from "@material-ui/core/Typography";
 import Pagination from "react-js-pagination";
 
 const categories = [
-  "Laptop",
-  "Footwear",
-  "Bottom",
-  "Tops",
-  "Attire",
-  "Camera",
-  "SmartPhones",
+  "Retail",
+  "Fashion",
+  "Hospitality",
+  "Food Service",
+  "Manufacturing",
+  "Consulting",
+  "Toys",
+  "Gift Items",
+  "Other",
 ];
 
-function ExploreStores({ match }) {
+function ExploreStores() {
   const dispatch = useDispatch();
+  const params = useParams();
   let navigate = useNavigate();
-  const signedUpBusinessLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
-  useEffect(() => {
-    if (!signedUpBusinessInfo) {
-    }
-  }, [dispatch, navigate, signedUpBusinessInfo]);
-  useEffect(() => {}, [signedUpBusinessInfo]);
 
   const alert = useAlert();
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,24 +34,24 @@ function ExploreStores({ match }) {
   const [category, setCategory] = useState("");
 
   const {
-    businesses,
+    allBusinesses,
     loading,
     error,
     businessesCount,
     resultPerPage,
-    filteredProductsCount,
-  } = useSelector((state: RootStateOrAny) => state.businesses);
-  const keyword = match.params.keyword;
+    filteredBusinessCount,
+  } = useSelector((state: RootStateOrAny) => state.allBusinesses);
+  const keyword = params.keyword;
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
-  let count = filteredProductsCount;
+  let count = filteredBusinessCount;
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProduct(keyword, currentPage, category));
+    dispatch(getBusiness(keyword, currentPage, category));
   }, [dispatch, keyword, currentPage, category, alert, error]);
 
   return (
@@ -66,7 +60,7 @@ function ExploreStores({ match }) {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="PRODUCTS -- GAGED" />
+          <MetaData title="Explore Stores" />
           <div className="mx-auto">
             <Header0 />
             <div className="bg-magenta-blue py-14 px-3 lg:px-20 items-center text-center">
@@ -82,8 +76,8 @@ function ExploreStores({ match }) {
                   className="w-full md:w-3/4 h-10 rounded pl-3 outline-none"
                 />
                 <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
-                  {businesses &&
-                    businesses.map((business) => (
+                  {allBusinesses &&
+                    allBusinesses.map((business) => (
                       <BusinessCard key={business._id} business={business} />
                     ))}
                 </div>

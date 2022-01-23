@@ -71,6 +71,8 @@ router.route("/password/forgot").post(forgotPassword);
 
 router.route("/password/reset/:token").put(resetPassword);
 
+router.route("/business/all").get(getAllBusiness);
+
 router.route("/logout").get(logoutBusiness);
 
 router.route("/me").get(protectBusiness, getBusinessDetails);
