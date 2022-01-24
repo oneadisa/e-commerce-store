@@ -85,6 +85,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     fundingType,
     categoryFunding,
     amountBeingRaised,
+    amountAlreadyRaised,
     pledged_profit_to_lenders,
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
@@ -114,6 +115,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     !fundingType ||
     !categoryFunding ||
     !amountBeingRaised ||
+    !amountAlreadyRaised ||
     !pledged_profit_to_lenders ||
     !duration_pledged_profit ||
     !repayment_schedule_pledged_profit ||
@@ -146,6 +148,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       fundingType,
       categoryFunding,
       amountBeingRaised,
+      amountAlreadyRaised,
       pledged_profit_to_lenders,
       duration_pledged_profit,
       repayment_schedule_pledged_profit,
@@ -194,6 +197,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     fundingType,
     categoryFunding,
     amountBeingRaised,
+    amountAlreadyRaised,
     pledged_profit_to_lenders,
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
@@ -231,6 +235,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.fundingType = fundingType;
     campaign.categoryFunding = categoryFunding;
     campaign.amountBeingRaised = amountBeingRaised;
+    campaign.amountAlreadyRaised = amountAlreadyRaised;
     campaign.pledged_profit_to_lenders = pledged_profit_to_lenders;
     campaign.duration_pledged_profit = duration_pledged_profit;
     campaign.repayment_schedule_pledged_profit =
@@ -473,6 +478,13 @@ const createIndividualCampaignDonation = catchAsyncErrors(
         campaign.businessCampaignDonors.length;
     }
 
+    let amountRaised = 0;
+    campaign.individualCampaignDonors.forEach((rev) => {
+      amountRaised += rev.amount;
+    });
+
+    campaign.amountAlreadyRaised = amountRaised;
+
     await campaign.save({ validateBeforeSave: false });
 
     res.status(200).json({
@@ -561,6 +573,12 @@ const createBusinessCampaignDonation = catchAsyncErrors(
         campaign.individualCampaignDonors.length +
         campaign.businessCampaignDonors.length;
     }
+
+    let amountRaised = 0;
+    campaign.businessCampaignDonors.forEach((rev) => {
+      amountRaised += rev.amount;
+    });
+    campaign.amountAlreadyRaised = amountRaised;
     await campaign.save({ validateBeforeSave: false });
 
     res.status(200).json({
@@ -586,7 +604,7 @@ const getBusinessCampaignDonations = catchAsyncErrors(
   }
 );
 
-// Delete Business Review
+// Delete Business Donation
 const deleteBusinessCampaignDonation = catchAsyncErrors(
   async (req, res, next) => {
     const campaign = await Campaign.findById(req.query.campaignId);

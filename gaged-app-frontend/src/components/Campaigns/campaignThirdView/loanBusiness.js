@@ -1,27 +1,86 @@
-import React from "react";
-import fundraiser from "../../images/fundraiser.png";
-import facebook from "../../images/facebook.svg";
-import tags from "../../images/tags.svg";
-import twitter from "../../images/twitter.svg";
-import whatsapp from "../../images/whatsapp.svg";
-import left from "../../images/left.svg";
-import Header0 from "./Header0";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Fragment, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Loader from "../../Loader";
+import Header0 from "../Header0";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
+import facebook from "../../../images/facebook.svg";
+import tags from "../../../images/tags.svg";
+import twitter from "../../../images/twitter.svg";
+import whatsapp from "../../../images/whatsapp.svg";
+import left from "../../../images/left.svg";
+import { useAlert } from "react-alert";
+import MetaData from "../../Layout/metaData";
 import {
   clearErrors,
   getCampaignDetails,
   newBusinessReview,
-  new
-} from "../../actions/productAction";
+} from "../../../actions/campaignActions";
+import {
+  NEW_CAMPAIGN_BUSINESS_REVIEW_RESET
+} from "../../../constants/campaignConstants";
+
+function loanThirdBusiness() {
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  let params = useParams();
+
+  const { campaign, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.campaignDetails
+  );
+
+  const { success, error: reviewError } = useSelector(
+    (state: RootStateOrAny) => state.newIndividualCampaignReview
+  );
+
+//    const submitReviewToggle = () => {
+    //  open ? setOpen(false) : setOpen(true);
+//    };
+    const [open, setOpen] = useState(false);
+    const [comment, setComment] = useState("");
+
+   const reviewSubmitHandler = () => {
+     const myForm = new FormData();
+
+     myForm.set("comment", comment);
+     myForm.set("campaignId", params.id);
+
+     dispatch(newBusinessReview(myForm));
+     
+
+     setOpen(false);
+   };
+
+   useEffect(() => {
+     if (error) {
+       alert.error(error);
+       dispatch(clearErrors());
+     }
+
+     if (reviewError) {
+       alert.error(reviewError);
+       dispatch(clearErrors());
+     }
+
+     if (success) {
+       alert.success("Review Submitted Successfully");
+       dispatch({ type: NEW_CAMPAIGN_BUSINESS_REVIEW_RESET });
+     }
+     dispatch(getCampaignDetails(params.id));
+   }, [dispatch, params.id, error, alert, reviewError, success]);
 
 
-function CampaignsFirst() {
   return (
+     <Fragment>
+ {loading ? (
+   <Loader />
+ ) : (
+   <Fragment>
+     <MetaData title={`${campaign.campaignName} -- GAGED`} />
     <div className="mx-auto">
       <Header0 />
       <div className="pt-3 pb-5 px-1 md:px-2">
         <h2 className="px-5 pt-2 text-2xl font-semibold text-center md:text-left">
-          Alleyway Security Fundraiser
+          {campaign.campaignName}
         </h2>
         <div className="px-2">
           <div className="mt-8 mb-5">
@@ -29,7 +88,7 @@ function CampaignsFirst() {
               <div className="flex flex-col gap-5 w-full">
                 <div>
                   {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                  <img src={fundraiser} alt="" />
+                  <img src={campaign.campaignVideo} alt="" />
                 </div>
                 <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                   <div className="flex gap-1">
@@ -134,7 +193,10 @@ function CampaignsFirst() {
                       <img src={left} alt="" />
                       <div>Back</div>
                     </button>
-                    <button className="py-2 border-2 border-Dark-blue bg-Dark-blue text-white text-base font-medium rounded w-1/3 lg:w-1/4 hover:bg-white hover:text-Dark-blue">
+                    <button
+                      className="py-2 border-2 border-Dark-blue bg-Dark-blue text-white text-base font-medium rounded w-1/3 lg:w-1/4 hover:bg-white hover:text-Dark-blue"
+                      onClick={reviewSubmitHandler}
+                    >
                       Comment
                     </button>
                   </div>
@@ -148,4 +210,4 @@ function CampaignsFirst() {
   );
 }
 
-export default CampaignsFirst;
+export default loanThirdBusiness;

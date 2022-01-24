@@ -12,6 +12,7 @@ import DashBoard from "./DashBoard";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "react-router-dom";
 import { logout } from "../../actions/businessActions";
+import BusinessCard from "../Home/businessCard";
 
 function BusinessDashboard() {
   const dispatch = useDispatch();
@@ -64,47 +65,6 @@ function BusinessDashboard() {
               <div className="bg-white my-10 lg:pl-8 lg:pr-5 py-6">
                 <div className="flex justify-between">
                   <h2 className="text-xl font-semibold">Store Overview</h2>
-                  <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
-                    <div className="flex flex-col">
-                      <div className="mb-20">
-                        <img alt="" src={vibe} className="w-full" />
-                        <h4 className="text-lg font-bold my-2">Vibes Store</h4>
-                        <p className="text-base leading-5">
-                          Brewed for every occassion. Introduce vibes drinks at
-                          your event, get your guests vibing.
-                        </p>
-                      </div>
-                      <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-                        Shop
-                      </button>
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="mb-20">
-                        <img alt="" src={alot} className="w-full" />
-                        <h4 className="text-lg font-bold my-2">Alat Gadgets</h4>
-                        <p className="text-base leading-5">
-                          Brewed for every occassion. Introduce vibes drinks at
-                          your event, get your guests vibing.
-                        </p>
-                      </div>
-                      <button className="w-full border bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-                        Shop
-                      </button>
-                    </div>
-                    <div className="flex flex-col">
-                      <div className="mb-20">
-                        <img alt="" src={password} className="w-full" />
-                        <h4 className="text-lg font-bold my-2">password</h4>
-                        <p className="text-base leading-5">
-                          Brewed for every occassion. Introduce vibes drinks at
-                          your event, get your guests vibing.
-                        </p>
-                      </div>
-                      <button className="w-full border bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-                        Shop
-                      </button>
-                    </div>
-                  </div>
                   <Link to="/explore/stores">
                     <button className="text-base font-medium text-Dark-blue">
                       see more

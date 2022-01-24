@@ -43,7 +43,8 @@ const campaignSchema = new mongoose.Schema(
     campaignVideo: {
       type: String,
       required: false,
-      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+      default:
+        "https://www.seekpng.com/png/full/332-3320905_shadow-768x364-light-gray-gradient-background.png",
     },
     pitchDeck: {
       type: String,
@@ -75,6 +76,11 @@ const campaignSchema = new mongoose.Schema(
     amountBeingRaised: {
       type: Number,
       required: [true, "Please Indicate the amount being raised."],
+    },
+    amountAlreadyRaised: {
+      type: Number,
+      required: false,
+      default: 0,
     },
     pledged_profit_to_lenders: {
       type: Number,

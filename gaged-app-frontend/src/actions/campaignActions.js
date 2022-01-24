@@ -449,7 +449,7 @@ export const getCampaignDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: CAMPAIGN_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/app/campaigns/product/${id}`);
+    const { data } = await axios.get(`/app/campaigns/campaign/${id}`);
 
     dispatch({
       type: CAMPAIGN_DETAILS_SUCCESS,
