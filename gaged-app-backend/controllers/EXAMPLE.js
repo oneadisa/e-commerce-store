@@ -1,129 +1,88 @@
-// const StoreProduct = require("../models/storeProductModels");
-// const ErrorHandler = require("../utils/errorhandler");
-// const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
+// Create New Campaign Payout BusinessProfile or Update a Campaign Payout BusinessProfile
+const createCampaignPayout = catchAsyncErrors(async (req, res, next) => {
+  const { campaignId, amountPaid } = req.body;
 
-// // Create new Individual individualOrder
-// const newIndividualOrder = catchAsyncErrors(async (req, res, next) => {
-//   const {
-//     shippingInfo,
-//     orderItems,
-//     paymentInfo,
-//     itemsPrice,
-//     taxPrice,
-//     shippingPrice,
-//     totalPrice,
-//   } = req.body;
+  const campaign = Campaign.findById(campaignId);
+  const organiser = signedUpBusiness.findById(campaign.user);
 
-//   const order = await individualOrder.create({
-//     shippingInfo,
-//     orderItems,
-//     paymentInfo,
-//     itemsPrice,
-//     taxPrice,
-//     shippingPrice,
-//     totalPrice,
-//     paidAt: Date.now(),
-//     user: req.user._id,
-//   });
+  const campaignPayout = {
+    user: req.user._id,
+    campaignName: campaign.campaignName,
+    campaignCategory: campaign.campaignCategory,
+    investorBrief: campaign.investorBrief,
+    pitchDeck: campaign.pitchDeck,
+    fundingType: campaign.fundingType,
+    amountBeingRaised: campaign.amountBeingRaised,
+    duration: campaign.duration,
+    organiser: organiser,
+    campaignLiveStatus: campaign.campaignLiveStatus,
+    amountPaid,
+  };
 
-//   res.status(201).json({
-//     success: true,
-//     order,
-//   });
-// });
+  const business = await signedUpBusiness.findById(req.user._id);
 
-// // get Single Individual individualOrder
-// const getSingleIndividualOrder = catchAsyncErrors(async (req, res, next) => {
-//   const order = await individualOrder.findById(req.params.id).populate(
-//     "user",
-//     "name email"
-//   );
+  const isPaid = business.listOfCampaignPayouts.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
 
-//   if (!order) {
-//     return next(new ErrorHandler("Order not found with this Id", 404));
-//   }
+  if (!isPaid) {
+  } else {
+    business.listOfCampaignPayouts.push(campaignPayout);
+    business.totalNumberOfCampaignPayouts =
+      business.listOfCampaignsPayout.length;
+  }
 
-//   res.status(200).json({
-//     success: true,
-//     order,
-//   });
-// });
+  await business.save({ validateBeforeSave: false });
 
-// // get logged in user Individual Orders
-// const myIndividualOrders = catchAsyncErrors(async (req, res, next) => {
-//   const orders = await individualOrder.find({ user: req.user._id });
+  res.status(200).json({
+    success: true,
+    listOfCampaignPayouts: business.listOfCampaignsPayouts,
+  });
+});
 
-//   res.status(200).json({
-//     success: true,
-//     orders,
-//   });
-// });
+// Get Campaigns Payout BusinessProfile
+const getListOfCampaignPayouts = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
 
-// // get all Individual Orders -- Admin
-// const getAllIndividualOrders = catchAsyncErrors(async (req, res, next) => {
-//   const orders = await individualOrder.find();
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
 
-//   let totalAmount = 0;
+  res.status(200).json({
+    success: true,
+    listOfCampaignPayouts: business.listOfCampaignsPayouts,
+  });
+});
 
-//   orders.forEach((order) => {
-//     totalAmount += order.totalPrice;
-//   });
+// Delete Campaign Payout BusinessProfile
+const deleteCampaignPayout = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
 
-//   res.status(200).json({
-//     success: true,
-//     totalAmount,
-//     orders,
-//   });
-// });
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
 
-// // update individualOrder Status -- Admin
-// const updateIndividualOrder = catchAsyncErrors(async (req, res, next) => {
-//   const order = await individualOrder.findById(req.params.id);
+  const listOfCampaignPayouts = business.listOfCampaignPayouts.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
 
-//   if (!order) {
-//     return next(new ErrorHandler("Order not found with this Id", 404));
-//   }
+  const totalNumberOfCampaignPayouts = listOfCampaignPayouts.length;
 
-//   if (order.orderStatus === "Delivered") {
-//     return next(new ErrorHandler("You have already delivered this order", 400));
-//   }
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      listOfCampaignPayouts,
+      totalNumberOfCampaignPayouts,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
 
-//   if (req.body.status === "Shipped") {
-//     order.orderItems.forEach(async (o) => {
-//       await updateStock(o.StoreProduct, o.quantity);
-//     });
-//   }
-//   order.orderStatus = req.body.status;
-
-//   if (req.body.status === "Delivered") {
-//     order.deliveredAt = Date.now();
-//   }
-
-//   await order.save({ validateBeforeSave: false });
-//   res.status(200).json({
-//     success: true,
-//   });
-// });
-
-// async function updateStock(id, quantity) {
-//   const StoreProduct = await StoreProduct.findById(id);
-
-//   StoreProduct.Stock -= quantity;
-
-//   await StoreProduct.save({ validateBeforeSave: false });
-// }
-
-// // delete individualOrder -- Admin
-// const deleteIndividualOrder = catchAsyncErrors(async (req, res, next) => {
-//   const order = await individualOrder.findById(req.params.id);
-
-//   if (!order) {
-//     return next(new ErrorHandler("Order not found with this Id", 404));
-//   }
-
-//   await order.remove();
-
-//   res.status(200).json({
-//     success: true,
-//   });
-// });
+  res.status(200).json({
+    success: true,
+    listOfCampaignsPayout: business.listOfCampaignsPayout,
+  });
+});

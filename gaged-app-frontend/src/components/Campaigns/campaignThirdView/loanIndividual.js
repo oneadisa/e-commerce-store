@@ -19,7 +19,7 @@ import {
   NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET
 } from "../../../constants/campaignConstants";
 
-function loanThirdBusiness() {
+function loanThirdIndividual() {
   const dispatch = useDispatch();
   const alert = useAlert();
   let params = useParams();
@@ -209,4 +209,4 @@ function loanThirdBusiness() {
   );
 }
 
-export default loanThirdBusiness;
+export default loanThirdIndividual;

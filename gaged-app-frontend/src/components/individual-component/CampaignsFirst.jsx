@@ -11,9 +11,7 @@ import {
   clearErrors,
   getCampaignDetails,
   newBusinessReview,
-  new
 } from "../../actions/productAction";
-
 
 function CampaignsFirst() {
   return (

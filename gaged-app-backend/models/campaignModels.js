@@ -86,7 +86,7 @@ const campaignSchema = new mongoose.Schema(
       type: Number,
       required: [
         true,
-        "Please Indicate the amount of profit you pledge to the Lenders.",
+        "Please Indicate the amount of profit you pledge to your Lenders.",
       ],
     },
     duration_pledged_profit: {
