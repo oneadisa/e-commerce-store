@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./Products.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import { clearErrors, getProduct } from "../../actions/productAction";
 import Loader from "../layout/Loader/Loader";
-import ProductCard from "../Home/ProductCard";
+import ProductCard from "../Home/productCard";
 import Pagination from "react-js-pagination";
 import Slider from "@material-ui/core/Slider";
 import { useAlert } from "react-alert";
@@ -38,7 +38,7 @@ const Products = ({ match }) => {
     productsCount,
     resultPerPage,
     filteredProductsCount,
-  } = useSelector((state) => state.products);
+  } = useSelector((state: RootStateOrAny) => state.products);
 
   const keyword = match.params.keyword;
 

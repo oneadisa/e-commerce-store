@@ -21,14 +21,24 @@ const getMyProducts = asyncHandler(async (req, res, next) => {
   // count: products.length,
   // });
   // }
-  const products = await StoreProduct.find({ user: req.user._id });
-  if (!products) {
-    return next(new ErrorHandler("Order not found with this Id", 404));
-  }
+  const resultPerPage = 20;
+  const productsCount = await StoreProduct.countDocuments();
+  const apiFeature = new ApiFeatures(
+    StoreProduct.find({ user: req.user }),
+    req.query
+  )
+    .search()
+    .filter();
+  let products = await apiFeature.query;
+  let filteredProductsCount = products.length;
+  apiFeature.pagination(resultPerPage);
+  products = await apiFeature.query.clone();
   res.status(200).json({
     success: true,
     products,
-    numberOfproducts: products.length,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
   });
 });
 
@@ -65,6 +75,30 @@ const getAllProducts = catchAsyncErrors(async (req, res, next) => {
 });
 
 const CreateStoreProduct = asyncHandler(async (req, res) => {
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+  req.body.user = req.user.id;
+
   const {
     productTitle,
     shortDescription,
@@ -179,8 +213,17 @@ const UpdateStoreProduct = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteStoreProduct = asyncHandler(async (req, res) => {
+const deleteStoreProduct = asyncHandler(async (req, res, next) => {
   const storeProduct = await StoreProduct.findById(req.params.id);
+
+  if (!storeProduct) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  // Deleting Images From Cloudinary
+  for (let i = 0; i < storeProduct.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(storeProduct.images[i].public_id);
+  }
 
   if (storeProduct.user.toString() !== req.user._id.toString()) {
     res.status(401);
@@ -346,6 +389,58 @@ const updateProductAdmin = catchAsyncErrors(async (req, res, next) => {
     res.status(404);
     throw new Error("Product not found");
   }
+});
+
+// Update Product -- Admin
+
+const updateProduct = catchAsyncErrors(async (req, res, next) => {
+  let product = await StoreProduct.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  // Images Start Here
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+
+    req.body.images = imagesLinks;
+  }
+
+  product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
 });
 
 // Create New Individual Review or Update an Individual review
@@ -519,7 +614,7 @@ const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -612,17 +707,6 @@ const createIndividualProductCustomer = catchAsyncErrors(
         product.individualCustomers.length + product.businessCustomers.length;
     }
 
-    // let avg = 0;
-
-    // product.individualCustomers.forEach((rev) => {
-    //   avg += rev.rating;
-    // });
-
-    // product.ratings =
-    //   avg /
-    //   (product.individualCustomers.length +
-    // product.businessCustomers.length);
-
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
@@ -660,20 +744,6 @@ const deleteIndividualProductCustomer = catchAsyncErrors(
     const individualCustomers = product.individualCustomers.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
-
-    // let avg = 0;
-
-    // individualCustomers.forEach((rev) => {
-    //   avg += rev.rating;
-    // });
-
-    // let ratings = 0;
-
-    // if (individualCustomers.length === 0) {
-    //   ratings = 0;
-    // } else {
-    //   ratings = avg / individualCustomers.length;
-    // }
 
     const numberOfIndividualCustomers = individualCustomers.length;
 
@@ -776,24 +846,6 @@ const deleteBusinessProductCustomer = catchAsyncErrors(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    // const individualCustomers = product.individualCustomers.filter(
-    // (rev) => rev._id.toString() !== req.query.id.toString()
-    // );
-
-    //   let avg = 0;
-
-    //   businessCustomers.forEach((rev) => {
-    // avg += rev.rating;
-    //   });
-
-    //   let ratings = 0;
-
-    //   if (businessCustomers.length === 0) {
-    // ratings = 0;
-    //   } else {
-    // ratings = avg / businessCustomers.length;
-    //   }
-
     const numberOfBusinessCustomers = businessCustomers.length;
 
     await StoreProduct.findByIdAndUpdate(
@@ -875,7 +927,7 @@ const getIndividualProductOrders = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
-    return next(new ErrorHandler("StoreProduct not found", 404));
+    return next(new ErrorHandler("Product not found", 404));
   }
 
   res.status(200).json({
@@ -896,20 +948,6 @@ const deleteIndividualProductOrder = catchAsyncErrors(
     const individualOrders = product.individualOrders.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
-
-    // let avg = 0;
-
-    // individualOrders.forEach((rev) => {
-    //   avg += rev.rating;
-    // });
-
-    // let ratings = 0;
-
-    // if (individualOrders.length === 0) {
-    //   ratings = 0;
-    // } else {
-    //   ratings = avg / individualOrders.length;
-    // }
 
     const numberOfIndividualOrders = individualOrders.length;
 

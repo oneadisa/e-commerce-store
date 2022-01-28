@@ -1,10 +1,57 @@
-import React from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Logof from "../../images/logo-footer.jpg";
 import drink1 from "../../images/drink1.png";
 import drink2 from "../../images/drink2.png";
 import drink3 from "../../images/drink3.png";
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
+import MetaData from "../../components/Layout/metaData";
+import ProductCard from "../Home/productCard";
+import { clearErrors, getProduct } from "../../actions/storeProductsActions";
+import Loader from "../../components/Loader";
+import Typography from "@material-ui/core/Typography";
+import Pagination from "react-js-pagination";
 
-function PublishedStore() {
+function PublishedStore({ product, match }) {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const signedUpBusinessLogin = useSelector(
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  );
+  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  useEffect(() => {
+    if (!signedUpBusinessInfo) {
+    }
+  }, [dispatch, navigate, signedUpBusinessInfo]);
+  useEffect(() => {}, [signedUpBusinessInfo]);
+
+  const alert = useAlert();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [category, setCategory] = useState("");
+
+  const {
+    products,
+    loading,
+    error,
+    businessesCount,
+    resultPerPage,
+    filteredProductsCount,
+  } = useSelector((state: RootStateOrAny) => state.products);
+  const keyword = match.params.keyword;
+  const setCurrentPageNo = (e) => {
+    setCurrentPage(e);
+  };
+  let count = filteredProductsCount;
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    dispatch(getProduct(keyword, currentPage, category));
+  }, [dispatch, keyword, currentPage, category, alert, error]);
+
   return (
     <div className="mx-auto">
       <head className="flex justify-between bg-medium-blue px-2 md:px-4 lg:px-5 py-2">
@@ -37,159 +84,10 @@ function PublishedStore() {
           </div>
         </div>
         <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-10 text-left py-6 px-4 lg:py-10 lg:px-20 bg-magenta-blue">
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink1} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink2} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink3} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink1} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink2} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink3} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink1} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink2} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
-          <div className="flex flex-col p-2 bg-white rounded">
-            <div className="mb-5">
-              <img src={drink3} className="w-full" />
-              <div className="flex justify-between my-2">
-                <div className="flex flex-col">
-                  <h4 className="font-bold">Name of Product</h4>
-                  <p className="font-medium">subtitle</p>
-                </div>
-                <div className="mt-2 font-bold">
-                  <h4>$50.00</h4>
-                </div>
-              </div>
-            </div>
-            <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-              Shop
-            </button>
-          </div>
+          {products &&
+            products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
         </div>
       </div>
     </div>

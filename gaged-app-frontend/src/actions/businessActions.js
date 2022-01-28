@@ -6,6 +6,9 @@ import {
   SIGNED_UP_BUSINESS_LOGIN_REQUEST,
   SIGNED_UP_BUSINESS_LOGIN_SUCCESS,
   SIGNED_UP_BUSINESS_LOGOUT,
+  ALL_BUSINESSS_REQUEST,
+  ALL_BUSINESSS_SUCCESS,
+  ALL_BUSINESSS_FAIL,
 } from "../constants/businessConstants";
 import axios from "axios";
 
@@ -99,6 +102,33 @@ export const signUpBusiness =
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
+      });
+    }
+  };
+
+// Get All Products
+export const getBusiness =
+  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ALL_BUSINESSS_REQUEST });
+
+      let link = `/app/business/business/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+
+      if (category) {
+        link = `/app/business/business/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({
+        type: ALL_BUSINESSS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_BUSINESSS_FAIL,
+        payload: error.response.data.message,
       });
     }
   };

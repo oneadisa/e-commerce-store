@@ -127,6 +127,7 @@ const signUpTemplate = new mongoose.Schema({
     required: false,
     default: 0,
   },
+
   listOfCampaignsInvested: [
     {
       CampaignName: {
@@ -167,6 +168,63 @@ const signUpTemplate = new mongoose.Schema({
         required: false,
       },
       amountInvested: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+
+  totalNumberOfCampaignPayouts: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+
+  listOfCampaignPayouts: [
+    {
+      CampaignName: {
+        type: String,
+        required: false,
+      },
+      campaignCategory: {
+        type: String,
+        required: false,
+      },
+      investorBrief: {
+        type: String,
+        required: false,
+      },
+      pitchDeck: {
+        type: String,
+        required: false,
+      },
+      fundingType: {
+        type: String,
+        required: false,
+      },
+      amountBeingRaised: {
+        type: String,
+        required: false,
+      },
+      duration: {
+        type: String,
+        required: false,
+      },
+      campaignLiveStatus: {
+        type: Boolean,
+        required: false,
+        default: true,
+      },
+      organiser: {
+        type: String,
+        required: false,
+      },
+      amountPaid: {
         type: Number,
         required: false,
         default: 0,

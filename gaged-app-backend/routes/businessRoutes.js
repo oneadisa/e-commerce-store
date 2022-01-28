@@ -71,6 +71,8 @@ router.route("/password/forgot").post(forgotPassword);
 
 router.route("/password/reset/:token").put(resetPassword);
 
+router.route("/business/all").get(getAllBusiness);
+
 router.route("/logout").get(logoutBusiness);
 
 router.route("/me").get(protectBusiness, getBusinessDetails);
@@ -221,5 +223,7 @@ router
   .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleBusiness)
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateBusinessRole)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteBusiness);
+
+router.route("/profile/business/:id").get(getSingleBusiness);
 
 module.exports = router;

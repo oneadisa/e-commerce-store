@@ -11,6 +11,9 @@ import {
   STORE_PRODUCTS_LIST_FAIL,
   STORE_PRODUCTS_LIST_REQUEST,
   STORE_PRODUCTS_LIST_SUCCESS,
+  MY_STORE_PRODUCTS_LIST_REQUEST,
+  MY_STORE_PRODUCTS_LIST_SUCCESS,
+  MY_STORE_PRODUCTS_LIST_FAIL,
   ADMIN_STORE_PRODUCTS_REQUEST,
   ADMIN_STORE_PRODUCTS_SUCCESS,
   ADMIN_STORE_PRODUCTS_FAIL,
@@ -104,6 +107,40 @@ export const listStoreProducts = () => async (dispatch, getState) => {
         : error.message;
     dispatch({
       type: STORE_PRODUCTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const listMyStoreProducts = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MY_STORE_PRODUCTS_LIST_REQUEST,
+    });
+
+    const {
+      signedUpBusinessLogin: { signedUpBusinessInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/app/store/products/me`, config);
+
+    dispatch({
+      type: MY_STORE_PRODUCTS_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: MY_STORE_PRODUCTS_LIST_FAIL,
       payload: message,
     });
   }

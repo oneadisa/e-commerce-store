@@ -1,41 +1,45 @@
 module.exports = {
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-    darkMode: false, // or 'media' or 'class'
-    theme: {
-        extend: {
-            animation: {
-                bounce200: 'bounce 1s infinite 200ms',
-                bounce400: 'bounce 1s infinite 400ms',
-            },
-            colors: {
-                "light-blue": "rgba(245, 248, 255, 1)",
-                "Dark-blue": "rgba(5, 43, 150, 1)",
-                "medium-blue": "rgba(5, 49, 173, 1)",
-                "faded-blue": "rgba(128, 158, 242, 1)",
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {
+      animation: {
+        bounce200: "bounce 1s infinite 200ms",
+        bounce400: "bounce 1s infinite 400ms",
+      },
+      colors: {
+        "light-blue": "rgba(245, 248, 255, 1)",
+        "Dark-blue": "rgba(5, 43, 150, 1)",
+        "medium-blue": "rgba(5, 49, 173, 1)",
+        "faded-blue": "rgba(128, 158, 242, 1)",
 
-                "magenta-blue": "rgba(234, 234, 255, 1)",
-                "Dark-grey": "rgba(112, 112, 112, 1)",
-                "light-orange": "#ffd1b0",
-                "brown": "#993408",
-            },
-            width: {
-                '52.5/100': '52.5%',
-            }
-
-        },
-        fontFamily: {
-            poppins: 'Poppins',
-
-
-        }
-
+        "magenta-blue": "rgba(234, 234, 255, 1)",
+        "Dark-grey": "rgba(112, 112, 112, 1)",
+        "light-orange": "#ffd1b0",
+        brown: "#993408",
+      },
+      width: {
+        "52.5/100": "52.5%",
+      },
     },
-
-    variants: {
-        extend: {},
+    fontFamily: {
+      poppins: "Poppins",
     },
-    plugins: [],
-}
+  },
+
+  variants: {
+    extend: {},
+  },
+  plugins: [require("daisyui")],
+  daisyui: {
+    styled: false,
+    themes: true,
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+  },
+};
 
 // module.exports = {
 // purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -56,8 +60,8 @@ module.exports = {
 // 'black-text': '#1B381A',
 // },
 // fontFamily:{
-// body: 'Nunito-Sans', 
-// head: 'PT-Serif',	
+// body: 'Nunito-Sans',
+// head: 'PT-Serif',
 // Nunito: ['Nunito Sans'],
 // }
 // },
@@ -70,9 +74,9 @@ module.exports = {
 // '2xl': "1124px"
 // }
 // }
-// 
+//
 // },
-// 
+//
 // variants: {
 // extend: {},
 // },

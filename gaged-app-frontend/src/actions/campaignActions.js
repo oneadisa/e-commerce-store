@@ -2,6 +2,9 @@ import {
   ALL_CAMPAIGN_FAIL,
   ALL_CAMPAIGN_REQUEST,
   ALL_CAMPAIGN_SUCCESS,
+  MY_CAMPAIGN_FAIL,
+  MY_CAMPAIGN_REQUEST,
+  MY_CAMPAIGN_SUCCESS,
   ADMIN_CAMPAIGN_REQUEST,
   ADMIN_CAMPAIGN_SUCCESS,
   ADMIN_CAMPAIGN_FAIL,
@@ -58,10 +61,42 @@ import {
 
 import axios from "axios";
 
-export const listCampaigns = () => async (dispatch, getState) => {
+export const listCampaigns =
+  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: ALL_CAMPAIGN_REQUEST,
+      });
+
+      let link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+
+      if (category) {
+        link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({
+        type: ALL_CAMPAIGN_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: ALL_CAMPAIGN_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const listMyCampaigns = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: ALL_CAMPAIGN_REQUEST,
+      type: MY_CAMPAIGN_REQUEST,
     });
 
     const {
@@ -74,10 +109,10 @@ export const listCampaigns = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`/app/campaigns/`, config);
+    const { data } = await axios.get(`/app/campaigns/me`, config);
 
     dispatch({
-      type: ALL_CAMPAIGN_SUCCESS,
+      type: MY_CAMPAIGN_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -86,27 +121,39 @@ export const listCampaigns = () => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({
-      type: ALL_CAMPAIGN_FAIL,
+      type: MY_CAMPAIGN_FAIL,
       payload: message,
     });
   }
 };
-
 export const createCampaignAction =
   (
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category
+    campaignName,
+    natureOfBusiness,
+    campaignCategory,
+    business_address_country,
+    business_address_city,
+    business_address_office,
+    phoneNumber,
+    investorBrief,
+    campaignVideo,
+    pitchDeck,
+    ideal_target_audience_age,
+    ideal_target_audience_health_issues_or_disabilities,
+    gender,
+    fundingType,
+    categoryFunding,
+    amountBeingRaised,
+    pledged_profit_to_lenders,
+    duration_pledged_profit,
+    repayment_schedule_pledged_profit,
+    equity_offering_percentage,
+    bank,
+    bank_account_name,
+    bank_account_number,
+    duration,
+    go_live_schedule,
+    campaignLiveStatus
   ) =>
   async (dispatch, getState) => {
     try {
@@ -128,19 +175,32 @@ export const createCampaignAction =
       const { data } = await axios.post(
         `/app/campaigns/create`,
         {
-          productTitle,
-          shortDescription,
-          productDetails,
-          standardPrice,
-          discountedPrice,
-          costPrice,
-          productStockCount,
-          productUnitCount,
-          productSKU,
-          productImageOne,
-          productImageTwo,
-          productImageThree,
-          category,
+          campaignName,
+          natureOfBusiness,
+          campaignCategory,
+          business_address_country,
+          business_address_city,
+          business_address_office,
+          phoneNumber,
+          investorBrief,
+          campaignVideo,
+          pitchDeck,
+          ideal_target_audience_age,
+          ideal_target_audience_health_issues_or_disabilities,
+          gender,
+          fundingType,
+          categoryFunding,
+          amountBeingRaised,
+          pledged_profit_to_lenders,
+          duration_pledged_profit,
+          repayment_schedule_pledged_profit,
+          equity_offering_percentage,
+          bank,
+          bank_account_name,
+          bank_account_number,
+          duration,
+          go_live_schedule,
+          campaignLiveStatus,
         },
         config
       );
@@ -389,7 +449,7 @@ export const getCampaignDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: CAMPAIGN_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/app/campaigns/product/${id}`);
+    const { data } = await axios.get(`/app/campaigns/campaign/${id}`);
 
     dispatch({
       type: CAMPAIGN_DETAILS_SUCCESS,

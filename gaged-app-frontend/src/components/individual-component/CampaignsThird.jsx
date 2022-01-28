@@ -22,12 +22,12 @@ function CampaignsThird() {
               <div className="flex flex-col gap-5 w-full">
                 <div>
                   {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                  <img alt="" src={fundraiser} alt="" />
+                  <img alt="" src={fundraiser} />
                 </div>
                 <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                   <div className="flex gap-1">
-                    <img alt="" src={twitter} className="h-8 w-8" alt="" />
-                    <img alt="" src={facebook} className="h-8 w-8" alt="" />
+                    <img alt="" src={twitter} className="h-8 w-8" />
+                    <img alt="" src={facebook} className="h-8 w-8" />
                     <img alt="" src={whatsapp} className="h-8 w-8" />
                   </div>
                   <div className="flex gap-1">

@@ -86,6 +86,9 @@ import {
   DELETE_BUSINESS_REVIEW_SUCCESS,
   DELETE_BUSINESS_REVIEW_RESET,
   DELETE_BUSINESS_REVIEW_FAIL,
+  MY_STORE_PRODUCTS_LIST_REQUEST,
+  MY_STORE_PRODUCTS_LIST_SUCCESS,
+  MY_STORE_PRODUCTS_LIST_FAIL,
   CLEAR_ERRORS,
 } from "../constants/storeProductsConstants";
 //
@@ -99,6 +102,23 @@ export const storeProductsListReducer = (
     case STORE_PRODUCTS_LIST_SUCCESS:
       return { loading: false, storeProducts: action.payload };
     case STORE_PRODUCTS_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    //
+    default:
+      return state;
+  }
+};
+
+export const myStoreProductsListReducer = (
+  state = { storeProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case MY_STORE_PRODUCTS_LIST_REQUEST:
+      return { loading: true };
+    case MY_STORE_PRODUCTS_LIST_SUCCESS:
+      return { loading: false, storeProducts: action.payload };
+    case MY_STORE_PRODUCTS_LIST_FAIL:
       return { loading: false, error: action.payload };
     //
     default:

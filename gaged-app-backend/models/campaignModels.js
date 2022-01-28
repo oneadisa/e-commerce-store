@@ -43,7 +43,8 @@ const campaignSchema = new mongoose.Schema(
     campaignVideo: {
       type: String,
       required: false,
-      default: "https://icon-library.com/icon/icon-image-file-29.html.html",
+      default:
+        "https://www.seekpng.com/png/full/332-3320905_shadow-768x364-light-gray-gradient-background.png",
     },
     pitchDeck: {
       type: String,
@@ -57,7 +58,7 @@ const campaignSchema = new mongoose.Schema(
       type: String,
       required: [
         true,
-        "Please Indicate whether this campaign should be directed towards the disabled.",
+        "Please Indicate whether this campaign is directed towards people with special needs.",
       ],
     },
     gender: {
@@ -76,11 +77,16 @@ const campaignSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please Indicate the amount being raised."],
     },
+    amountAlreadyRaised: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     pledged_profit_to_lenders: {
       type: Number,
       required: [
         true,
-        "Please Indicate the amount of profit you pledge to the Lenders.",
+        "Please Indicate the amount of profit you pledge to your Lenders.",
       ],
     },
     duration_pledged_profit: {
