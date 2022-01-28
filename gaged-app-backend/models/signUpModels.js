@@ -172,6 +172,14 @@ const signUpTemplate = new mongoose.Schema({
         required: false,
         default: 0,
       },
+      amountToBeRepaid: {
+        type: Number,
+        default: 0,
+      },
+      amountAlreadyRepaid: {
+        type: Number,
+        default: 0,
+      },
       createdAt: {
         type: Date,
         default: Date.now,

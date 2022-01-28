@@ -82,27 +82,49 @@ const campaignSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
+    amountRepaid: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    amountToBeRepaid: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    amountToBeRepaidPerPayout: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     pledged_profit_to_lenders: {
       type: Number,
       required: [
         true,
-        "Please Indicate the amount of profit you pledge to your Lenders.",
+        "Please Indicate the percentage of your raised funds to give back in addition.",
       ],
     },
     duration_pledged_profit: {
-      type: String,
+      type: Number,
       required: [true, "Please Indicate the duration you plan to repay."],
     },
     repayment_schedule_pledged_profit: {
-      type: String,
+      type: Number,
       required: [true, "Please Select a schedule for your repayment."],
     },
+    endDatePledgedProfit: {
+      type: Number,
+    },
+    timePerPayment: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+
     equity_offering_percentage: {
       type: Number,
-      required: [
-        true,
-        "Please Indicate the Amount of Equity being offered to Investors.",
-      ],
+      required: false,
+      default: 0,
     },
     bank: {
       type: String,
@@ -117,7 +139,7 @@ const campaignSchema = new mongoose.Schema(
       required: [true, "Please Enter Your BAnk Account Name."],
     },
     duration: {
-      type: String,
+      type: Number,
       required: [true, "Please Enter the Duration of your Campaign."],
     },
     go_live_schedule: {
@@ -127,6 +149,17 @@ const campaignSchema = new mongoose.Schema(
     campaignLiveStatus: {
       type: String,
       required: false,
+      default: "true",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    paymentStartDate: {
+      type: Number,
+    },
+    endDate: {
+      type: Number,
     },
     individualCampaignReviews: [
       {
@@ -208,7 +241,7 @@ const campaignSchema = new mongoose.Schema(
         },
         businessName: {
           type: String,
-          required: true,
+          required: false,
         },
         amount: {
           type: Number,
@@ -227,6 +260,18 @@ const campaignSchema = new mongoose.Schema(
         typeOfDonation: {
           type: String,
           required: false,
+        },
+        amountToBeRepaid: {
+          type: Number,
+          default: 0,
+        },
+        amountToBeRepaidPerTime: {
+          type: Number,
+          default: 0,
+        },
+        amountAlreadyRepaid: {
+          type: Number,
+          default: 0,
         },
       },
     ],
@@ -244,11 +289,11 @@ const campaignSchema = new mongoose.Schema(
         },
         firstName: {
           type: String,
-          required: true,
+          required: false,
         },
         lastName: {
           type: String,
-          required: true,
+          required: false,
         },
         amount: {
           type: Number,
@@ -267,6 +312,18 @@ const campaignSchema = new mongoose.Schema(
         typeOfDonation: {
           type: String,
           required: false,
+        },
+        amountToBeRepaid: {
+          type: Number,
+          default: 0,
+        },
+        amountToBeRepaidPerTime: {
+          type: Number,
+          default: 0,
+        },
+        amountAlreadyRepaid: {
+          type: Number,
+          default: 0,
         },
       },
     ],

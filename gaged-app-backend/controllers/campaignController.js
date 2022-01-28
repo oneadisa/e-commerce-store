@@ -25,7 +25,7 @@ const getMyCampaigns = asyncHandler(async (req, res, next) => {
   const resultPerPage = 20;
   const campaignsCount = await Campaign.countDocuments();
   const apiFeature = new ApiFeatures(
-    Campaign.find({ user: req.user }),
+    Campaign.find({ user: req.user._id }),
     req.query
   )
     .search()
@@ -86,9 +86,14 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     categoryFunding,
     amountBeingRaised,
     amountAlreadyRaised,
+    amountRepaid,
+    amountToBeRepaid,
+    amountToBeRepaidPerPayout,
     pledged_profit_to_lenders,
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
+    endDatePledgedProfit,
+    timePerPayment,
     equity_offering_percentage,
     bank,
     bank_account_name,
@@ -96,6 +101,8 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     duration,
     go_live_schedule,
     campaignLiveStatus,
+    paymentStartDate,
+    endDate,
   } = req.body;
 
   if (
@@ -115,11 +122,9 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     !fundingType ||
     !categoryFunding ||
     !amountBeingRaised ||
-    !amountAlreadyRaised ||
     !pledged_profit_to_lenders ||
     !duration_pledged_profit ||
     !repayment_schedule_pledged_profit ||
-    !equity_offering_percentage ||
     !bank ||
     !bank_account_name ||
     !bank_account_number ||
@@ -149,9 +154,14 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       categoryFunding,
       amountBeingRaised,
       amountAlreadyRaised,
+      amountRepaid,
+      amountToBeRepaid,
+      amountToBeRepaidPerPayout,
       pledged_profit_to_lenders,
       duration_pledged_profit,
       repayment_schedule_pledged_profit,
+      endDatePledgedProfit,
+      timePerPayment,
       equity_offering_percentage,
       bank,
       bank_account_name,
@@ -159,7 +169,53 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       duration,
       go_live_schedule,
       campaignLiveStatus,
+      paymentStartDate,
+      endDate,
     });
+
+    // let amountRaised = 0;
+    // campaign.individualCampaignDonors.forEach((rev) => {
+    // amountRaised += rev.amount;
+    // });
+    // campaign.amountAlreadyRaised = amountRaised;
+
+    campaign.amountToBeRepaid =
+      campaign.amountAlreadyRaised +
+      campaign.amountAlreadyRaised * pledged_profit_to_lenders;
+    campaign.amountToBePaidPerPayout =
+      (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
+      campaign.repayment_schedule_pledged_profit;
+
+    let numWeeks = campaign.duration;
+    let now = new Date();
+    campaign.endDate = now.setTime(
+      now.getTime() + numWeeks * (7 * 1000 * 60 * 60 * 24)
+    );
+
+    //duration pledged profit should be in weeks not months.
+
+    campaign.endDatePledgedProfit = now.setTime(
+      now.getTime() +
+        campaign.duration * (7 * 1000 * 60 * 60 * 24) +
+        campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24)
+    );
+
+    campaign.numberOfPaymentsToBeMade =
+      campaign.duration_pledged_profit /
+      campaign.repayment_schedule_pledged_profit;
+
+    const repaymentTime = campaign.endDatePledgedProfit - campaign.endDate;
+
+    campaign.timePerPayment =
+      repaymentTime /
+      (campaign.duration_pledged_profit /
+        campaign.repayment_schedule_pledged_profit);
+
+    let n =
+      campaign.duration_pledged_profit /
+      campaign.repayment_schedule_pledged_profit;
+
+    for (let i = 0; i < n; i++) {}
 
     const createdCampaign = await campaign.save();
 
@@ -198,9 +254,14 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     categoryFunding,
     amountBeingRaised,
     amountAlreadyRaised,
+    amountRepaid,
+    amountToBeRepaid,
+    amountToBeRepaidPerPayout,
     pledged_profit_to_lenders,
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
+    endDatePledgedProfit,
+    timePerPayment,
     equity_offering_percentage,
     bank,
     bank_account_name,
@@ -208,6 +269,8 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     duration,
     go_live_schedule,
     campaignLiveStatus,
+    endDate,
+    paymentStartDate,
   } = req.body;
 
   const campaign = await Campaign.findById(req.params.id);
@@ -236,10 +299,15 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.categoryFunding = categoryFunding;
     campaign.amountBeingRaised = amountBeingRaised;
     campaign.amountAlreadyRaised = amountAlreadyRaised;
+    campaign.amountRepaid = amountRepaid;
+    campaign.amountToBeRepaid = amountToBeRepaid;
+    campaign.amountToBeRepaidPerPayout = amountToBeRepaidPerPayout;
     campaign.pledged_profit_to_lenders = pledged_profit_to_lenders;
     campaign.duration_pledged_profit = duration_pledged_profit;
     campaign.repayment_schedule_pledged_profit =
       repayment_schedule_pledged_profit;
+    campaign.endDatePledgedProfit = endDatePledgedProfit;
+    campaign.timePerPayment = timePerPayment;
     campaign.equity_offering_percentage = equity_offering_percentage;
     campaign.bank = bank;
     campaign.bank_account_name = bank_account_name;
@@ -247,6 +315,14 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.duration = duration;
     campaign.go_live_schedule = go_live_schedule;
     campaign.campaignLiveStatus = campaignLiveStatus;
+    campaign.paymentStartDate = paymentStartDate;
+    campaign.endDate = endDate;
+
+    campaign.amountToBeRepaid =
+      campaign.amountBeingRaised + campaign.pledged_profit_to_lenders;
+    campaign.amountToBePaidPerPayout =
+      (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
+      campaign.repayment_schedule_pledged_profit;
 
     const updatedCampaign = await campaign.save();
     res.json(updatedCampaign);
@@ -455,6 +531,32 @@ const createIndividualCampaignDonation = catchAsyncErrors(
 
     const campaign = await Campaign.findById(campaignId);
 
+    const repaymentTime = campaign.endDatePledgedProfit - campaign.endDate;
+    var numberOfRepayments = repaymentTime / campaign.timePerPayment;
+    var numberOfTimesPaidAlready =
+      repaymentTime / campaign.timePerPayment - numberOfRepayments;
+    setTimeout(function () {
+      if (numberOfRepayments > 0) {
+        req.user.walletBalance +=
+          (Number(amount) +
+            campaign.pledged_profit_to_lenders * Number(amount)) /
+          (campaign.duration_pledged_profit /
+            campaign.repayment_schedule_pledged_profit);
+        numberOfRepayments -= 1;
+      }
+    }, campaign.timePerPayment);
+
+    const amountRepay =
+      Number(amount) +
+      (campaign.pledged_profit_to_lenders / 100) * Number(amount);
+    const amountAlreadyRaise =
+      (numberOfTimesPaidAlready *
+        ((campaign.pledged_profit_to_lenders / 100) * Number(amount))) /
+      (repaymentTime / campaign.timePerPayment);
+
+    const amountPerTime =
+      amountRepay / (repaymentTime / campaign.timePerPayment);
+
     const review = {
       user: req.user._id,
       firstName: req.user.firstName,
@@ -462,13 +564,16 @@ const createIndividualCampaignDonation = catchAsyncErrors(
       pic: req.user.pic,
       amount: Number(amount),
       typeOfDonation: campaign.fundingType,
+      amountToBeRepaid: amountRepay,
+      amountToBeRepaidPerTime: amountPerTime,
+      amountAlreadyRepaid: amountAlreadyRaise,
     };
 
     const isDonated = campaign.individualCampaignDonors.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (isDonated) {
+    if (!isDonated) {
     } else {
       campaign.individualCampaignDonors.push(review);
       campaign.numberOfIndividualCampaignDonors =
@@ -507,6 +612,26 @@ const getIndividualCampaignDonations = catchAsyncErrors(
       success: true,
       individualCampaignDonors: campaign.individualCampaignDonors,
     });
+  }
+);
+
+// Get particular Individual Donations of a campaign
+const getParticularIndividualCampaignDonation = catchAsyncErrors(
+  async (req, res, next) => {
+    async (req, res, next) => {
+      const campaign = await Campaign.findById(req.query.id);
+      if (!campaign) {
+        return next(new ErrorHandler("Campaign not found", 404));
+      }
+      const myCampaignDonations = await campaign.individualCampaignDonors.find({
+        user: req.user,
+      });
+
+      res.status(200).json({
+        success: true,
+        myCampaignDonations,
+      });
+    };
   }
 );
 
@@ -553,19 +678,48 @@ const createBusinessCampaignDonation = catchAsyncErrors(
 
     const campaign = await Campaign.findById(campaignId);
 
+    const repaymentTime = campaign.endDatePledgedProfit - campaign.endDate;
+    var numberOfRepayments = repaymentTime / campaign.timePerPayment;
+    var numberOfTimesPaidAlready =
+      repaymentTime / campaign.timePerPayment - numberOfRepayments;
+    setTimeout(function () {
+      if (numberOfRepayments > 0) {
+        req.user.walletBalance +=
+          (Number(amount) +
+            campaign.pledged_profit_to_lenders * Number(amount)) /
+          (campaign.duration_pledged_profit /
+            campaign.repayment_schedule_pledged_profit);
+        numberOfRepayments -= 1;
+      }
+    }, campaign.timePerPayment);
+
+    const amountRepay =
+      Number(amount) +
+      (campaign.pledged_profit_to_lenders / 100) * Number(amount);
+    const amountAlreadyRaise =
+      (numberOfTimesPaidAlready *
+        ((campaign.pledged_profit_to_lenders / 100) * Number(amount))) /
+      (repaymentTime / campaign.timePerPayment);
+
+    const amountPerTime =
+      amountRepay / (repaymentTime / campaign.timePerPayment);
+
     const review = {
       user: req.user._id,
       businessName: req.user.businessName,
       pic: req.user.pic,
       amount: Number(amount),
       typeOfDonation: campaign.fundingType,
+      amountToBeRepaid: amountRepay,
+      amountToBeRepaidPerTime: amountPerTime,
+      amountAlreadyRepaid: amountAlreadyRaise,
     };
 
     const isDonated = campaign.businessCampaignDonors.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (isDonated) {
+    if (!isDonated) {
     } else {
       campaign.businessCampaignDonors.push(review);
       campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
@@ -601,6 +755,26 @@ const getBusinessCampaignDonations = catchAsyncErrors(
       success: true,
       businessCampaignDonors: campaign.businessCampaignDonors,
     });
+  }
+);
+
+// Get particular business Donations of a campaign
+const getParticularBusinessCampaignDonation = catchAsyncErrors(
+  async (req, res, next) => {
+    async (req, res, next) => {
+      const campaign = await Campaign.findById(req.query.id);
+      if (!campaign) {
+        return next(new ErrorHandler("Campaign not found", 404));
+      }
+      const myCampaignDonations = await campaign.businessCampaignDonors.find({
+        user: req.user,
+      });
+
+      res.status(200).json({
+        success: true,
+        myCampaignDonations,
+      });
+    };
   }
 );
 

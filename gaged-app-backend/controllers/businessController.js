@@ -904,6 +904,7 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
 
   const campaignInvested = {
     user: req.user._id,
+    campaignId: campaignId,
     campaignName: campaign.campaignName,
     campaignCategory: campaign.campaignCategory,
     investorBrief: campaign.investorBrief,
@@ -911,7 +912,7 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     fundingType: campaign.fundingType,
     amountBeingRaised: campaign.amountBeingRaised,
     duration: campaign.duration,
-    organiser: organiser,
+    organiser: organiser.businessName,
     campaignLiveStatus: campaign.campaignLiveStatus,
     amountInvested,
   };
@@ -950,6 +951,25 @@ const getListOfCampaignsInvested = catchAsyncErrors(async (req, res, next) => {
     listOfCampaignsInvested: business.listOfCampaignsInvested,
   });
 });
+
+// Get One Campaign Invested BusinessProfile
+const getParticularCampaignsInvested = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.query.id);
+    const campaign = await Campaign.find({ user });
+
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    business.listOfCampaignsInvested.find({ campaign });
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignsInvested: business.listOfCampaignsInvested,
+    });
+  }
+);
 
 // Delete Campaign Invested BusinessProfile
 const deleteCampaignInvested = catchAsyncErrors(async (req, res, next) => {
