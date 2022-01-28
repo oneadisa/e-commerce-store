@@ -16,7 +16,7 @@ function ExploreStores() {
         <div className='mx-auto'>
             <Header0 />
             <div className='bg-magenta-blue py-14 px-3 lg:px-20 items-center text-center'>
-                <h1 className='text-2xl md:text-3xl lg:text-3xl font-bold'>Explore  Stores</h1>
+                <h1 className='text-2xl md:text-3xl lg:text-3xl font-bold'>Explore Stores</h1>
                 <p className='text-base md:text-lg lg:text-lg my-3'>Search and discover the digital stores of businesses near you</p>
                 <div>
                     <input placeholder='search' className='w-full md:w-3/4 h-10 rounded pl-3 outline-none' />
