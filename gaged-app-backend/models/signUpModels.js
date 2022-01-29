@@ -90,7 +90,7 @@ const signUpTemplate = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpBusinessTable",
+        ref: "mySignedUpUserTable",
         required: false,
       },
       businessName: {
@@ -132,7 +132,7 @@ const signUpTemplate = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpBusinessTable",
+        ref: "mySignedUpUserTable",
         required: false,
       },
       CampaignName: {
@@ -200,11 +200,56 @@ const signUpTemplate = new mongoose.Schema({
     },
   ],
 
+  totalNumberOfCampaignPayouts: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  listOfCampaignPayouts: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpUserTable",
+        required: false,
+      },
+      CampaignName: {
+        type: String,
+        required: false,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+      amountInvested: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      amountRepayed: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      endDateString: {
+        type: String,
+        required: false,
+      },
+      firstPaymentDateString: {
+        type: String,
+        required: false,
+      },
+      endDatePledgedProfitString: {
+        type: String,
+        required: false,
+      },
+    },
+  ],
+
   campaignReviews: [
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpusinessTable",
+        ref: "mySignedUpUserTable",
         required: false,
       },
       firstName: {
@@ -278,7 +323,7 @@ const signUpTemplate = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpBusinessTable",
+        ref: "mySignedUpUserTable",
         required: false,
       },
       name: {

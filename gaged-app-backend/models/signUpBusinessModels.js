@@ -359,6 +359,71 @@ const signUpBusinessTemplate = new mongoose.Schema({
     },
   ],
 
+  totalNumberOfCampaignPayouts: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+
+  listOfCampaignPayouts: [
+    {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
+      CampaignName: {
+        type: String,
+        required: false,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+      amountInvested: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      amountRepayed: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      endDateString: {
+        type: String,
+        required: false,
+      },
+      firstPaymentDateString: {
+        type: String,
+        required: false,
+      },
+      endDatePledgedProfitString: {
+        type: String,
+        required: false,
+      },
+      duration: {
+        type: String,
+        required: false,
+      },
+      pledged_profit_to_lenders: {
+        type: Number,
+        required: [
+          true,
+          "Please Indicate the percentage of your raised funds to give back in addition.",
+        ],
+      },
+      duration_pledged_profit: {
+        type: Number,
+        required: [true, "Please Indicate the duration you plan to repay."],
+      },
+      repayment_schedule_pledged_profit: {
+        type: Number,
+        required: [true, "Please Select a schedule for your repayment."],
+      },
+    },
+  ],
+
   totalAmountRaised: {
     type: Number,
     required: false,

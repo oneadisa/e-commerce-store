@@ -54,6 +54,10 @@ const {
   createPersonalCampaignReview,
   getPersonalCampaignReviews,
   deletePersonalCampaignReview,
+  deleteCampaignPayout,
+  getParticularCampaignPayouts,
+  getListOfCampaignsPayouts,
+  createCampaignPayout,
 } = require("../controllers/businessController");
 
 const {
@@ -103,6 +107,17 @@ router
   .route("/campaign-invested")
   .get(getListOfCampaignsInvested)
   .delete(protectBusiness, deleteCampaignInvested);
+
+router.route("/campaign-payout").put(protectBusiness, createCampaignPayout);
+
+router
+  .route("/campaign-paid")
+  .get(protectBusiness, getListOfCampaignsPayouts)
+  .delete(protectBusiness, deleteCampaignPayout);
+
+router
+  .route("/campaign-paid/particular")
+  .get(protectBusiness, getParticularCampaignPayouts);
 
 router
   .route("/create-investor/business")

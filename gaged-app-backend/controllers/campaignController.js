@@ -567,21 +567,7 @@ const createIndividualCampaignDonation = catchAsyncErrors(
     var numberOfRepayments = repaymentTime / campaign.timePerPayment;
     var numberOfTimesPaidAlready =
       repaymentTime / campaign.timePerPayment - numberOfRepayments;
-    setTimeout(function () {
-      if (numberOfRepayments > 0) {
-        organiser.walletBalance -=
-          (Number(amount) +
-            campaign.pledged_profit_to_lenders * Number(amount)) /
-          (campaign.duration_pledged_profit /
-            campaign.repayment_schedule_pledged_profit);
-        req.user.walletBalance +=
-          (Number(amount) +
-            campaign.pledged_profit_to_lenders * Number(amount)) /
-          (campaign.duration_pledged_profit /
-            campaign.repayment_schedule_pledged_profit);
-        numberOfRepayments -= 1;
-      }
-    }, campaign.timePerPayment);
+    setTimeout(function () {}, campaign.timePerPayment);
 
     const amountRepay =
       Number(amount) +
@@ -619,6 +605,12 @@ const createIndividualCampaignDonation = catchAsyncErrors(
     );
 
     if (!isDonated) {
+      campaign.individualCampaignDonors.push(review);
+      campaign.numberOfIndividualCampaignDonors =
+        campaign.individualCampaignDonors.length;
+      campaign.totalNumberOfCampaignDonors =
+        campaign.individualCampaignDonors.length +
+        campaign.businessCampaignDonors.length;
     } else {
       campaign.individualCampaignDonors.push(review);
       campaign.numberOfIndividualCampaignDonors =
@@ -730,21 +722,22 @@ const createBusinessCampaignDonation = catchAsyncErrors(
     var numberOfRepayments = repaymentTime / campaign.timePerPayment;
     var numberOfTimesPaidAlready =
       repaymentTime / campaign.timePerPayment - numberOfRepayments;
-    setTimeout(function () {
-      if (numberOfRepayments > 0) {
-        organiser.walletBalance -=
-          (Number(amount) +
-            campaign.pledged_profit_to_lenders * Number(amount)) /
-          (campaign.duration_pledged_profit /
-            campaign.repayment_schedule_pledged_profit);
-        req.user.walletBalance +=
-          (Number(amount) +
-            campaign.pledged_profit_to_lenders * Number(amount)) /
-          (campaign.duration_pledged_profit /
-            campaign.repayment_schedule_pledged_profit);
-        numberOfRepayments -= 1;
-      }
-    }, campaign.timePerPayment);
+
+    // setTimeout(function () {
+    // if (numberOfRepayments > 0) {
+    // organiser.walletBalance -=
+    // (Number(amount) +
+    // campaign.pledged_profit_to_lenders * Number(amount)) /
+    // (campaign.duration_pledged_profit /
+    // campaign.repayment_schedule_pledged_profit);
+    // req.user.walletBalance +=
+    // (Number(amount) +
+    // campaign.pledged_profit_to_lenders * Number(amount)) /
+    // (campaign.duration_pledged_profit /
+    // campaign.repayment_schedule_pledged_profit);
+    // numberOfRepayments -= 1;
+    // }
+    // }, campaign.timePerPayment);
 
     const amountRepay =
       Number(amount) +
