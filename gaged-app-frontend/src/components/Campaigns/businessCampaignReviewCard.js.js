@@ -1,6 +1,6 @@
 import React from "react";
 
-const businessCampaignReviewCard = ({ review }) => {
+const BusinessCampaignReviewCard = ({ review }) => {
   return (
     <div className="flex flex-col gap-2 py-3 md:w-1/2">
       <div className="flex gap-2">
@@ -15,4 +15,4 @@ const businessCampaignReviewCard = ({ review }) => {
   );
 };
 
-export default businessCampaignReviewCard;
+export default BusinessCampaignReviewCard;

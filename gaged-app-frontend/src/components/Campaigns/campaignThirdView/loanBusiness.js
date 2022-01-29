@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../Loader";
@@ -17,8 +18,8 @@ import {
 } from "../../../actions/campaignActions";
 import { NEW_CAMPAIGN_BUSINESS_REVIEW_RESET } from "../../../constants/campaignConstants";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import individualCampaignReviewCard from "../individualCampaignReviewCard";
-import businessCampaignReviewCard from "../businessCampaignReviewCard.js";
+import IndividualCampaignReviewCard from "../individualCampaignReviewCard";
+import BusinessCampaignReviewCard from "../businessCampaignReviewCard.js";
 
 function loanThirdBusiness() {
   const dispatch = useDispatch();
@@ -246,7 +247,7 @@ function loanThirdBusiness() {
                                   {campaign.businessCampaignReviews &&
                                     campaign.businessCampaignReviews.map(
                                       (review) => (
-                                        <businessCampaignReviewCard
+                                        <BusinessCampaignReviewCard
                                           key={review._id}
                                           review={review}
                                         />
@@ -265,8 +266,8 @@ function loanThirdBusiness() {
                                 <div>
                                   {campaign.individualCampaignReviews &&
                                     campaign.individualCampaignReviews.map(
-                                      (review) => (
-                                        <individualCampaignReviewCard
+                                      (review: any) => (
+                                        <IndividualCampaignReviewCard
                                           key={review._id}
                                           review={review}
                                         />
@@ -282,7 +283,10 @@ function loanThirdBusiness() {
                           </TabPanels>
                         </Tabs>
                       </TabPanel>
-                      <TabPanel></TabPanel>
+                      <TabPanel>
+
+                        
+                      </TabPanel>
                     </TabPanels>
                   </Tabs>
                 </div>
