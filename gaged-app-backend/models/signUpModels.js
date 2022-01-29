@@ -130,6 +130,11 @@ const signUpTemplate = new mongoose.Schema({
 
   listOfCampaignsInvested: [
     {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "mySignedUpBusinessTable",
+        required: false,
+      },
       CampaignName: {
         type: String,
         required: false,
@@ -173,69 +178,20 @@ const signUpTemplate = new mongoose.Schema({
         default: 0,
       },
       amountToBeRepaid: {
-        type: Number,
-        default: 0,
-      },
-      amountAlreadyRepaid: {
-        type: Number,
-        default: 0,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
-
-  totalNumberOfCampaignPayouts: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-
-  listOfCampaignPayouts: [
-    {
-      CampaignName: {
         type: String,
         required: false,
       },
-      campaignCategory: {
+      endDateString: {
         type: String,
         required: false,
       },
-      investorBrief: {
+      firstPaymentDateString: {
         type: String,
         required: false,
       },
-      pitchDeck: {
+      endDatePledgedProfitString: {
         type: String,
         required: false,
-      },
-      fundingType: {
-        type: String,
-        required: false,
-      },
-      amountBeingRaised: {
-        type: String,
-        required: false,
-      },
-      duration: {
-        type: String,
-        required: false,
-      },
-      campaignLiveStatus: {
-        type: Boolean,
-        required: false,
-        default: true,
-      },
-      organiser: {
-        type: String,
-        required: false,
-      },
-      amountPaid: {
-        type: Number,
-        required: false,
-        default: 0,
       },
       createdAt: {
         type: Date,
@@ -248,7 +204,7 @@ const signUpTemplate = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpUserTable",
+        ref: "mySignedUpusinessTable",
         required: false,
       },
       firstName: {
@@ -322,7 +278,7 @@ const signUpTemplate = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpUserTable",
+        ref: "mySignedUpBusinessTable",
         required: false,
       },
       name: {

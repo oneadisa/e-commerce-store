@@ -792,6 +792,16 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     duration,
     campaignLiveStatus,
     amountRaised,
+    pledged_profit_to_lenders,
+    amountToBeRepaid,
+    firstPaymentDate,
+    endDate,
+    endDatePledgedProfit,
+    firstPaymentDateString,
+    endDateString,
+    endDatePledgedProfitString,
+    duration_pledged_profit,
+    repayment_schedule_pledged_profit,
   } = req.body;
 
   const campaignStarted = {
@@ -804,7 +814,44 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     duration,
     campaignLiveStatus,
     amountRaised,
+    pledged_profit_to_lenders,
+    amountToBeRepaid,
+    firstPaymentDate,
+    endDate,
+    endDatePledgedProfit,
+    firstPaymentDateString,
+    endDateString,
+    endDatePledgedProfitString,
+    duration_pledged_profit,
+    repayment_schedule_pledged_profit,
   };
+
+  campaignStarted.amountToBeRepaid =
+    campaignStarted.amountRaised +
+    campaignStarted.amountRaised * campaignStarted.pledged_profit_to_lenders;
+  let numWeeks = campaignStarted.duration;
+  var now = new Date().getTime();
+  campaignStarted.endDate = now + numWeeks * 7 * 1000 * 60 * 60 * 24;
+  campaignStarted.endDateString = new Date(campaignStarted.endDate);
+  // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
+  campaignStarted.endDatePledgedProfit =
+    now +
+    campaignStarted.duration * (7 * 1000 * 60 * 60 * 24) +
+    campaignStarted.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
+  campaignStarted.endDatePledgedProfitString = new Date(
+    campaignStarted.endDatePledgedProfit
+  );
+  const repaymentTime = Math.abs(
+    campaignStarted.endDatePledgedProfit - campaignStarted.endDate
+  );
+  const timePerPayment =
+    repaymentTime /
+    (campaignStarted.duration_pledged_profit /
+      campaignStarted.repayment_schedule_pledged_profit);
+  campaignStarted.firstPaymentDate = campaignStarted.endDate + timePerPayment;
+  campaignStarted.firstPaymentDateString = new Date(
+    campaignStarted.firstPaymentDate
+  );
 
   const business = await signedUpBusiness.findById(req.user._id);
 
@@ -813,6 +860,9 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   );
 
   if (!isStarted) {
+    business.listOfCampaignsStarted.push(campaignStarted);
+    business.totalNumberOfCampaignsStarted =
+      business.listOfCampaignsStarted.length;
   } else {
     business.listOfCampaignsStarted.push(campaignStarted);
     business.totalNumberOfCampaignsStarted =
@@ -915,6 +965,9 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     organiser: organiser.businessName,
     campaignLiveStatus: campaign.campaignLiveStatus,
     amountInvested,
+    firstPaymentDateString: campaign.firstPaymentDateString,
+    endDateString: campaign.endDateString,
+    endDatePledgedProfitString: campaign.endDatePledgedProfitString,
   };
 
   const business = await signedUpBusiness.findById(req.user._id);
@@ -923,7 +976,10 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev.user.toString() === req.user._id.toString()
   );
 
-  if (!isStarted) {
+  if (isStarted) {
+    business.listOfCampaignsInvested.push(campaignInvested);
+    business.totalNumberOfCampaignsInvested =
+      business.listOfCampaignsInvested.length;
   } else {
     business.listOfCampaignsInvested.push(campaignInvested);
     business.totalNumberOfCampaignsInvested =
@@ -1019,6 +1075,9 @@ const createBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
     email: req.user.email,
     campaignInvested: campaign.campaignName,
     amountInvested,
+    firstPaymentDateString: campaign.firstPaymentDateString,
+    endDateString: campaign.endDateString,
+    endDatePledgedProfitString: campaign.endDatePledgedProfitString,
   };
 
   const business = await signedUpBusiness.findById(businessInvested);
@@ -1028,6 +1087,12 @@ const createBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
   );
 
   if (!isbusinessInvested) {
+    business.listOfBusinessInvestors.push(businessInvestor);
+    business.numberOfBusinessInvestors =
+      business.listOfBusinessInvestors.length;
+    business.totalNumberOfInvestors =
+      business.listOfIndividualInvestors.length +
+      business.listOfBusinessInvestors.length;
   } else {
     business.listOfBusinessInvestors.push(businessInvestor);
     business.numberOfBusinessInvestors =
@@ -1107,6 +1172,9 @@ const createIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
     email: req.user.email,
     campaignInvested: campaign.campaignName,
     amountInvested,
+    firstPaymentDateString: campaign.firstPaymentDateString,
+    endDateString: campaign.endDateString,
+    endDatePledgedProfitString: campaign.endDatePledgedProfitString,
   };
 
   const business = await signedUpBusiness.findById(businessInvested);
@@ -1116,6 +1184,12 @@ const createIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
   );
 
   if (!isIndividualInvested) {
+    business.listOfIndividualInvestors.push(individualInvestor);
+    business.numberOfIndividualInvestors =
+      business.listOfIndividualInvestors.length;
+    business.totalNumberOfInvestors =
+      business.listOfBusinessInvestors.length +
+      business.listOfIndividualInvestors.length;
   } else {
     business.listOfIndividualInvestors.push(individualInvestor);
     business.numberOfIndividualInvestors =

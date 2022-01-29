@@ -114,6 +114,11 @@ const campaignSchema = new mongoose.Schema(
     },
     endDatePledgedProfit: {
       type: Number,
+      required: false,
+    },
+    endDatePledgedProfitString: {
+      type: String,
+      required: false,
     },
     timePerPayment: {
       type: Number,
@@ -155,11 +160,21 @@ const campaignSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    paymentStartDate: {
+    firstPaymentDate: {
       type: Number,
+      required: false,
+    },
+    firstPaymentDateString: {
+      type: String,
+      required: false,
     },
     endDate: {
       type: Number,
+      required: false,
+    },
+    endDateString: {
+      type: String,
+      required: false,
     },
     individualCampaignReviews: [
       {
@@ -250,6 +265,7 @@ const campaignSchema = new mongoose.Schema(
         date: {
           type: Date,
           default: Date.now,
+          required: false,
         },
         pic: {
           type: String,
@@ -268,6 +284,14 @@ const campaignSchema = new mongoose.Schema(
         amountToBeRepaidPerTime: {
           type: Number,
           default: 0,
+        },
+        firstPaymentDateDonor: {
+          type: String,
+          required: false,
+        },
+        lastPaymentDate: {
+          type: String,
+          required: false,
         },
         amountAlreadyRepaid: {
           type: Number,
@@ -302,6 +326,7 @@ const campaignSchema = new mongoose.Schema(
         date: {
           type: Date,
           default: Date.now,
+          required: false,
         },
         pic: {
           type: String,
@@ -320,6 +345,14 @@ const campaignSchema = new mongoose.Schema(
         amountToBeRepaidPerTime: {
           type: Number,
           default: 0,
+        },
+        firstPaymentDateDonor: {
+          type: String,
+          required: false,
+        },
+        lastPaymentDate: {
+          type: String,
+          required: false,
         },
         amountAlreadyRepaid: {
           type: Number,

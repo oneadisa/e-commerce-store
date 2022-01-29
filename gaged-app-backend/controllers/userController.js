@@ -584,6 +584,9 @@ const createIndividualCampaignInvested = catchAsyncErrors(
       organiser: organiser,
       campaignLiveStatus: campaign.campaignLiveStatus,
       amountInvested,
+      firstPaymentDateString: campaign.firstPaymentDateString,
+      endDateString: campaign.endDateString,
+      endDatePledgedProfitString: campaign.endDatePledgedProfitString,
     };
 
     const individual = await signedUpUser.findById(req.user._id);

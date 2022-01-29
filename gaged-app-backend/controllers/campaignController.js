@@ -1,4 +1,5 @@
 const Campaign = require("../models/campaignModels");
+const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 const ErrorHandler = require("../utils/errorhandler");
@@ -93,6 +94,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
     endDatePledgedProfit,
+    endDatePledgedProfitString,
     timePerPayment,
     equity_offering_percentage,
     bank,
@@ -103,6 +105,9 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     campaignLiveStatus,
     paymentStartDate,
     endDate,
+    firstPaymentDate,
+    firstPaymentDateString,
+    endDateString,
   } = req.body;
 
   if (
@@ -161,6 +166,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       duration_pledged_profit,
       repayment_schedule_pledged_profit,
       endDatePledgedProfit,
+      endDatePledgedProfitString,
       timePerPayment,
       equity_offering_percentage,
       bank,
@@ -171,6 +177,9 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       campaignLiveStatus,
       paymentStartDate,
       endDate,
+      firstPaymentDate,
+      firstPaymentDateString,
+      endDateString,
     });
 
     // let amountRaised = 0;
@@ -181,35 +190,41 @@ const CreateCampaign = asyncHandler(async (req, res) => {
 
     campaign.amountToBeRepaid =
       campaign.amountAlreadyRaised +
-      campaign.amountAlreadyRaised * pledged_profit_to_lenders;
-    campaign.amountToBePaidPerPayout =
-      (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
-      campaign.repayment_schedule_pledged_profit;
+      campaign.amountAlreadyRaised * campaign.pledged_profit_to_lenders;
+    // campaign.amountToBePaidPerPayout =
+    // (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
+    // campaign.repayment_schedule_pledged_profit;
 
     let numWeeks = campaign.duration;
-    let now = new Date();
-    campaign.endDate = now.setTime(
-      now.getTime() + numWeeks * (7 * 1000 * 60 * 60 * 24)
-    );
+    var now = new Date().getTime();
 
-    //duration pledged profit should be in weeks not months.
+    campaign.endDate = now + numWeeks * 7 * 1000 * 60 * 60 * 24;
+    campaign.endDateString = new Date(campaign.endDate);
+    // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
 
-    campaign.endDatePledgedProfit = now.setTime(
-      now.getTime() +
-        campaign.duration * (7 * 1000 * 60 * 60 * 24) +
-        campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24)
+    campaign.endDatePledgedProfit =
+      now +
+      campaign.duration * (7 * 1000 * 60 * 60 * 24) +
+      campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
+
+    campaign.endDatePledgedProfitString = new Date(
+      campaign.endDatePledgedProfit
     );
 
     campaign.numberOfPaymentsToBeMade =
       campaign.duration_pledged_profit /
       campaign.repayment_schedule_pledged_profit;
 
-    const repaymentTime = campaign.endDatePledgedProfit - campaign.endDate;
-
+    const repaymentTime = Math.abs(
+      campaign.endDatePledgedProfit - campaign.endDate
+    );
     campaign.timePerPayment =
       repaymentTime /
       (campaign.duration_pledged_profit /
         campaign.repayment_schedule_pledged_profit);
+
+    campaign.firstPaymentDate = campaign.endDate + campaign.timePerPayment;
+    campaign.firstPaymentDateString = new Date(campaign.firstPaymentDate);
 
     let n =
       campaign.duration_pledged_profit /
@@ -261,6 +276,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
     endDatePledgedProfit,
+    endDatePledgedProfitString,
     timePerPayment,
     equity_offering_percentage,
     bank,
@@ -270,6 +286,9 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     go_live_schedule,
     campaignLiveStatus,
     endDate,
+    firstPaymentDate,
+    firstPaymentDateString,
+    endDateString,
     paymentStartDate,
   } = req.body;
 
@@ -307,6 +326,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.repayment_schedule_pledged_profit =
       repayment_schedule_pledged_profit;
     campaign.endDatePledgedProfit = endDatePledgedProfit;
+    campaign.endDatePledgedProfitString = endDatePledgedProfitString;
     campaign.timePerPayment = timePerPayment;
     campaign.equity_offering_percentage = equity_offering_percentage;
     campaign.bank = bank;
@@ -317,12 +337,15 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.campaignLiveStatus = campaignLiveStatus;
     campaign.paymentStartDate = paymentStartDate;
     campaign.endDate = endDate;
+    campaign.endDateString = endDateString;
+    campaign.firstPaymentDate = firstPaymentDate;
+    campaign.firstPaymentDateString = firstPaymentDateString;
 
-    campaign.amountToBeRepaid =
-      campaign.amountBeingRaised + campaign.pledged_profit_to_lenders;
-    campaign.amountToBePaidPerPayout =
-      (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
-      campaign.repayment_schedule_pledged_profit;
+    // campaign.amountToBeRepaid =
+    // campaign.amountBeingRaised + campaign.pledged_profit_to_lenders;
+    // campaign.amountToBePaidPerPayout =
+    // (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
+    // campaign.repayment_schedule_pledged_profit;
 
     const updatedCampaign = await campaign.save();
     res.json(updatedCampaign);
@@ -457,6 +480,12 @@ const createBusinessCampaignReview = catchAsyncErrors(
     );
 
     if (isReviewed) {
+      campaign.businessCampaignReviews.push(review);
+      campaign.numberOfBusinessReviews =
+        campaign.businessCampaignReviews.length;
+      campaign.totalNumberOfCampaignReviews =
+        campaign.individualCampaignReviews.length +
+        campaign.businessCampaignReviews.length;
     } else {
       campaign.businessCampaignReviews.push(review);
       campaign.numberOfBusinessReviews =
@@ -530,13 +559,21 @@ const createIndividualCampaignDonation = catchAsyncErrors(
     const { amount, campaignId } = req.body;
 
     const campaign = await Campaign.findById(campaignId);
+    const organiser = signedUpBusiness.findById(campaign.user);
 
-    const repaymentTime = campaign.endDatePledgedProfit - campaign.endDate;
+    const repaymentTime = Math.abs(
+      campaign.endDatePledgedProfit - campaign.endDate
+    );
     var numberOfRepayments = repaymentTime / campaign.timePerPayment;
     var numberOfTimesPaidAlready =
       repaymentTime / campaign.timePerPayment - numberOfRepayments;
     setTimeout(function () {
       if (numberOfRepayments > 0) {
+        organiser.walletBalance -=
+          (Number(amount) +
+            campaign.pledged_profit_to_lenders * Number(amount)) /
+          (campaign.duration_pledged_profit /
+            campaign.repayment_schedule_pledged_profit);
         req.user.walletBalance +=
           (Number(amount) +
             campaign.pledged_profit_to_lenders * Number(amount)) /
@@ -557,6 +594,12 @@ const createIndividualCampaignDonation = catchAsyncErrors(
     const amountPerTime =
       amountRepay / (repaymentTime / campaign.timePerPayment);
 
+    var now = new Date().getTime();
+    var firstPayment = campaign.firstPaymentDate;
+    var firstPaymentDateHere = new Date(firstPayment);
+    var lastPayment = campaign.endDatePledgedProfit;
+    var lastPaymentDate = new Date(lastPayment);
+
     const review = {
       user: req.user._id,
       firstName: req.user.firstName,
@@ -566,6 +609,8 @@ const createIndividualCampaignDonation = catchAsyncErrors(
       typeOfDonation: campaign.fundingType,
       amountToBeRepaid: amountRepay,
       amountToBeRepaidPerTime: amountPerTime,
+      firstPaymentDateDonor: campaign.firstPaymentDateString,
+      lastPaymentDate: campaign.endDatePledgedProfitString,
       amountAlreadyRepaid: amountAlreadyRaise,
     };
 
@@ -677,13 +722,21 @@ const createBusinessCampaignDonation = catchAsyncErrors(
     const { amount, campaignId } = req.body;
 
     const campaign = await Campaign.findById(campaignId);
+    const organiser = signedUpBusiness.findById(campaign.user);
 
-    const repaymentTime = campaign.endDatePledgedProfit - campaign.endDate;
+    const repaymentTime = Math.abs(
+      campaign.endDatePledgedProfit - campaign.endDate
+    );
     var numberOfRepayments = repaymentTime / campaign.timePerPayment;
     var numberOfTimesPaidAlready =
       repaymentTime / campaign.timePerPayment - numberOfRepayments;
     setTimeout(function () {
       if (numberOfRepayments > 0) {
+        organiser.walletBalance -=
+          (Number(amount) +
+            campaign.pledged_profit_to_lenders * Number(amount)) /
+          (campaign.duration_pledged_profit /
+            campaign.repayment_schedule_pledged_profit);
         req.user.walletBalance +=
           (Number(amount) +
             campaign.pledged_profit_to_lenders * Number(amount)) /
@@ -704,6 +757,11 @@ const createBusinessCampaignDonation = catchAsyncErrors(
     const amountPerTime =
       amountRepay / (repaymentTime / campaign.timePerPayment);
 
+    var firstPayment = campaign.firstPaymentDate;
+    var firstPaymentDateHere = new Date(firstPayment);
+    var lastPayment = campaign.endDatePledgedProfit;
+    var lastPaymentDate = new Date(lastPayment);
+
     const review = {
       user: req.user._id,
       businessName: req.user.businessName,
@@ -712,6 +770,8 @@ const createBusinessCampaignDonation = catchAsyncErrors(
       typeOfDonation: campaign.fundingType,
       amountToBeRepaid: amountRepay,
       amountToBeRepaidPerTime: amountPerTime,
+      firstPaymentDateDonor: campaign.firstPaymentDateString,
+      lastPaymentDate: campaign.endDatePledgedProfitString,
       amountAlreadyRepaid: amountAlreadyRaise,
     };
 
@@ -719,7 +779,12 @@ const createBusinessCampaignDonation = catchAsyncErrors(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (!isDonated) {
+    if (isDonated) {
+      campaign.businessCampaignDonors.push(review);
+      campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
+      campaign.totalNumberOfCampaignDonors =
+        campaign.individualCampaignDonors.length +
+        campaign.businessCampaignDonors.length;
     } else {
       campaign.businessCampaignDonors.push(review);
       campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;

@@ -233,10 +233,53 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: true,
       },
+      pledged_profit_to_lenders: {
+        type: Number,
+        required: [
+          true,
+          "Please Indicate the percentage of your raised funds to give back in addition.",
+        ],
+      },
+      duration_pledged_profit: {
+        type: Number,
+        required: [true, "Please Indicate the duration you plan to repay."],
+      },
+      repayment_schedule_pledged_profit: {
+        type: Number,
+        required: [true, "Please Select a schedule for your repayment."],
+      },
       amountRaised: {
         type: Number,
         required: false,
         default: 0,
+      },
+      amountToBeRepaid: {
+        type: String,
+        required: false,
+      },
+      firstPaymentDate: {
+        type: Number,
+        required: false,
+      },
+      firstPaymentDateString: {
+        type: String,
+        required: false,
+      },
+      endDate: {
+        type: Number,
+        required: false,
+      },
+      endDateString: {
+        type: String,
+        required: false,
+      },
+      endDatePledgedProfit: {
+        type: Number,
+        required: false,
+      },
+      endDatePledgedProfitString: {
+        type: String,
+        required: false,
       },
       createdAt: {
         type: Date,
@@ -293,60 +336,21 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: 0,
       },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
-  totalNumberOfCampaignPayouts: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  listOfCampaignPayouts: [
-    {
-      CampaignName: {
+      amountToBeRepaid: {
         type: String,
         required: false,
       },
-      campaignCategory: {
+      endDateString: {
         type: String,
         required: false,
       },
-      investorBrief: {
+      firstPaymentDateString: {
         type: String,
         required: false,
       },
-      pitchDeck: {
+      endDatePledgedProfitString: {
         type: String,
         required: false,
-      },
-      fundingType: {
-        type: String,
-        required: false,
-      },
-      amountBeingRaised: {
-        type: String,
-        required: false,
-      },
-      duration: {
-        type: String,
-        required: false,
-      },
-      campaignLiveStatus: {
-        type: Boolean,
-        required: false,
-        default: true,
-      },
-      organiser: {
-        type: String,
-        required: false,
-      },
-      amountPaid: {
-        type: Number,
-        required: false,
-        default: 0,
       },
       createdAt: {
         type: Date,
@@ -397,6 +401,22 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: 0,
       },
+      amountToBeRepaid: {
+        type: String,
+        required: false,
+      },
+      endDateString: {
+        type: String,
+        required: false,
+      },
+      firstPaymentDateString: {
+        type: String,
+        required: false,
+      },
+      endDatePledgedProfitString: {
+        type: String,
+        required: false,
+      },
     },
   ],
   numberOfIndividualInvestors: {
@@ -430,6 +450,22 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         required: false,
         default: 0,
+      },
+      amountToBeRepaid: {
+        type: String,
+        required: false,
+      },
+      endDateString: {
+        type: String,
+        required: false,
+      },
+      firstPaymentDateString: {
+        type: String,
+        required: false,
+      },
+      endDatePledgedProfitString: {
+        type: String,
+        required: false,
       },
     },
   ],
