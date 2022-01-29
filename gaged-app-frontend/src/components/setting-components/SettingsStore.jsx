@@ -71,7 +71,7 @@ function SettingsStore() {
           button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
         />
         <div className="lg:bg-magenta-blue lg:px-2 h-full">
-          <div className="block lg:flex lg:space-x-36">
+          <div className="block lg:flex lg:space-x-32">
             <div className='hidden lg:block'>
               <DashBoard />
             </div>

@@ -17,7 +17,7 @@ function Organisation() {
         handleNav = {() => setOpen(!open)}
         button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
       />
-      <div className="lg:bg-magenta-blue lg:px-4">
+      <div className="lg:bg-magenta-blue lg:px-3">
         <div className="block lg:flex lg:space-x-28">
           <div className='hidden lg:block'>
             <DashboardCamp />

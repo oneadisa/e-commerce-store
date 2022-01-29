@@ -16,8 +16,8 @@ function Demographics() {
         handleNav = {() => setOpen(!open)}
         button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
       />
-      <div className="lg:bg-magenta-blue lg:px-4">
-        <div className="block lg:flex lg:space-x-32">
+      <div className="lg:bg-magenta-blue lg:px-3">
+        <div className="block lg:flex lg:space-x-28">
           <div className='hidden lg:block'>
             <DashboardCamp />
           </div>
@@ -29,16 +29,16 @@ function Demographics() {
               <h2 className="text-lg font-semibold">2 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="p-1 md:p-2">Organization Details</div>
-                  <div className="py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Organization Details</div>
+                  <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
                     Demographics
                   </div>
-                  <div className="p-1 md:p-2">Target</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Target</div>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="p-1 md:p-2">Finance</div>
-                  <div className="p-1 md:p-2">Set Schedule</div>
-                  <div className="p-1 md:p-2">Review</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Finance</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Set Schedule</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Review</div>
                 </div>
               </div>
               <div className="mt-3">
