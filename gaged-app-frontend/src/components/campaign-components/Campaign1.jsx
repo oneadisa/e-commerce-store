@@ -33,10 +33,10 @@ function Campaign1() {
                                 <div className='text-lg font-semibold border-b-4 border-Dark-blue px-4 md:px-10 py-1'>
                                     <h3>All</h3>
                                 </div>
-                                <div className='text-lg font-semibold text-gray-400 px-4 md:px-10 py-1'>
+                                <div className='text-lg font-semibold text-gray-400 px-4 md:px-10 py-1 hover:text-Dark-blue'>
                                     <h3>LIVE</h3>
                                 </div>
-                                <div className='text-lg font-semibold text-gray-400 px-4 md:px-10 py-1'>
+                                <div className='text-lg font-semibold text-gray-400 px-4 md:px-10 py-1 hover:text-Dark-blue'>
                                     <h3>COMPLETED</h3>
                                 </div>
                             </div>

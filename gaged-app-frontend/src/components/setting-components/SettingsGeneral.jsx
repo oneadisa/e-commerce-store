@@ -5,17 +5,16 @@ import React,{useState} from 'react'
 import Header from './Header';
 import DashBoard from './DashBoard'
 import file from '../../images/file.png'
-import { Select } from 'semantic-ui-react';
+import { Menu, Transition } from '@headlessui/react'
+import { Fragment, useRef } from 'react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 
 function SettingsGeneral() {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const identificationOptions = [
-      { key: "nin", value: "nin", text: "National Identification Number(NIN)" },
-      { key: "dl", value: "dl", text: "Driver's License" },
-      { key: "ip", value: "ip", text: "International Passport" },
-      { key: "pvc", value: "pvc", text: "Personal Voter's Card(PVC)" },
-    ];
+  const [identity, setIdentity] = useState('Select');
+
+  const [category, setCategory] = useState('Select');
 
   return (
       <div className='mx-auto'>
@@ -24,7 +23,7 @@ function SettingsGeneral() {
           button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
         />
         <div className='lg:bg-magenta-blue lg:px-2 h-full'>
-          <div className='block lg:flex lg:space-x-36'>
+          <div className='block lg:flex lg:space-x-32'>
             <div className='hidden lg:block'>
                 <DashBoard />
             </div>
@@ -74,7 +73,7 @@ function SettingsGeneral() {
                         />
                       </div>
                     </div>
-                    <div className="flex flex-col gap-2 mt-5">
+                    <div className="flex flex-col gap-2 mt-5 md:w-1/2">
                       <label className="text-lg font-normal">Email Address</label>
                       <input
                         placeholder="Email Address"
@@ -82,16 +81,51 @@ function SettingsGeneral() {
                       />
                     </div>
                     <div className="flex flex-col md:flex-row gap-5 md:gap-12 mt-8">
-                      <div className="flex flex-col gap-5 md:gap-10 md:w-2/5">
+                      <div className="flex flex-col gap-3 md:gap-10 md:w-2/5">
                         <div className="flex flex-col gap-2">
                           <label className="text-lg font-normal">
                             Means of Identification
                           </label>
-                          {/* <input placeholder='Select' className='border-2 border-gray-200 rounded py-3 pl-5 outline-none' /> */}
-                          <Select
-                            placeholder="Select"
-                            options={identificationOptions}
-                          />
+                          <div className="px-2 w-64 h-10 border-2 flex items-center">
+                            <Menu as="div" className="">
+                              <Menu.Button className='flex w-64 items-center px-2'>
+                                <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                  {identity}
+                                </div>
+                                <div className="ml-auto mr-2">
+                                  <ChevronDownIcon
+                                    className="w-6 h-6 text-violet-200 hover:text-violet-100"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                              </Menu.Button>
+                              <Transition
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                              >
+                                <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-80 mt-3 pt-3 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                  <div>
+                                    <div onClick={() => setIdentity("National Identification Number(NIN)")} className="hover:text-blue-600">
+                                    National Identification Number(NIN)
+                                    </div>
+                                    <div onClick={() => setIdentity("Driver's License")} className="hover:text-blue-600">
+                                    Driver's License
+                                    </div>
+                                    <div onClick={() => setIdentity("International Passport")} className="hover:text-blue-600">
+                                      International Passport
+                                    </div>
+                                    <div onClick={() => setIdentity("Personal Voter's Card(PVC)")} className="hover:text-blue-600">
+                                      Personal Voter's Card(PVC)
+                                    </div>
+                                  </div>
+                                </Menu>
+                              </Transition>
+                            </Menu>
+                          </div>
                         </div>
                         <div className="flex flex-col gap-2">
                           <label className="text-lg font-normal">
@@ -101,6 +135,63 @@ function SettingsGeneral() {
                             placeholder="registration number of valid ID"
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <label className="text-lg font-normal">
+                            Category
+                          </label>
+                          <div className="px-2 w-64 h-10 border-2 flex items-center">
+                            <Menu as="div" className="">
+                              <Menu.Button className='flex w-64 items-center px-2'>
+                                <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                  {category}
+                                </div>
+                                <div className="ml-auto mr-2">
+                                  <ChevronDownIcon
+                                    className="w-6 h-6 text-violet-200 hover:text-violet-100"
+                                    aria-hidden="true"
+                                  />
+                                </div>
+                              </Menu.Button>
+                              <Transition
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                              >
+                                <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-40 mt-3 pt-3 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                  <div>
+                                    <div onClick={() => setCategory("Retail")} className="hover:text-blue-600">
+                                      Retail
+                                    </div>
+                                    <div onClick={() => setCategory("Fashion")} className="hover:text-blue-600">
+                                      Fashion
+                                    </div>
+                                    <div onClick={() => setCategory("Food service")} className="hover:text-blue-600">
+                                      Food service
+                                    </div>
+                                    <div onClick={() => setCategory("Manufacturing")} className="hover:text-blue-600">
+                                      Manufacturing
+                                    </div>
+                                    <div onClick={() => setCategory("Consulting")} className="hover:text-blue-600">
+                                      Consulting
+                                    </div>
+                                    <div onClick={() => setCategory("Toys")} className="hover:text-blue-600">
+                                      Toys
+                                    </div>
+                                    <div onClick={() => setCategory("Gift items")} className="hover:text-blue-600">
+                                      Gift items
+                                    </div>
+                                    <div onClick={() => setCategory("Other")} className="hover:text-blue-600">
+                                      Other
+                                    </div>
+                                  </div>
+                                </Menu>
+                              </Transition>
+                            </Menu>
+                          </div>
                         </div>
                       </div>
 
