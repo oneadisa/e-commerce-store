@@ -256,7 +256,7 @@ export const userProfileReducer = (state = {}, action) => {
     default:
       return state;
   }
-};
+}; 
 
 export const forgotUserPasswordReducer = (state = {}, action) => {
   switch (action.type) {

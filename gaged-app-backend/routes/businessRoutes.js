@@ -59,6 +59,9 @@ const {
   getParticularCampaignPayouts,
   getListOfCampaignsPayouts,
   createCampaignPayout,
+  createStoreProduct,
+  getListOfStoreProducts,
+  deleteStoreProduct,
 } = require("../controllers/businessController");
 
 const {
@@ -85,6 +88,13 @@ router.route("/me").get(protectBusiness, getBusinessDetails);
 router.route("/password/update").put(protectBusiness, updatePassword);
 
 router.route("/me/update").put(protectBusiness, updateProfile);
+
+router.route("/new-product").put(protectBusiness, createStoreProduct);
+
+router
+  .route("/products")
+  .get(getListOfStoreProducts)
+  .delete(protectBusiness, deleteStoreProduct);
 
 router
   .route("/business-order-from")

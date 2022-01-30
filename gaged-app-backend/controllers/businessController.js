@@ -1129,8 +1129,8 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     amountBeingRaised: campaign.amountBeingRaised,
     duration: campaign.duration,
     organiser: organiser.businessName,
-    // campaignLiveStatus: campaign.campaignLiveStatus,
-    // amountInvested,
+    campaignLiveStatus: campaign.campaignLiveStatus,
+    amountInvested,
     firstPaymentDateString: campaign.firstPaymentDateString,
     endDateString: campaign.endDateString,
     endDatePledgedProfitString: campaign.endDatePledgedProfitString,
@@ -2238,6 +2238,86 @@ const deletePersonalCampaignReview = catchAsyncErrors(
   }
 );
 
+// Create New Store Product BusinessProfile or Update a Store Product BusinessProfile
+const createStoreProduct = catchAsyncErrors(async (req, res, next) => {
+  const {
+    productTitle,
+    shortDescription,
+    category,
+    productImageOne,
+    ratings,
+    costPrice,
+  } = req.body;
+
+  const newProduct = {
+    productTitle,
+    shortDescription,
+    category,
+    productImageOne,
+    ratings,
+    costPrice,
+  };
+
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  business.storeProducts.push(newProduct);
+  business.numberOfStoreProducts = business.storeProducts.length;
+
+  await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    storeProducts: business.storeProducts,
+  });
+});
+
+// Get Campaigns Invested BusinessProfile
+const getListOfStoreProducts = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    storeProducts: business.storeProducts,
+  });
+});
+
+// Delete Store Product BusinessProfile
+const deleteStoreProduct = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.query.businessId);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const storeProducts = business.storeProducts.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfStoreProducts = storeProducts.length;
+
+  await signedUpBusiness.findByIdAndUpdate(
+    req.query.businessId,
+    {
+      storeProducts,
+      numberOfStoreProducts,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    storeProducts: business.storeProducts,
+  });
+});
+
 module.exports = {
   registerBusiness,
   authBusiness,
@@ -2296,4 +2376,7 @@ module.exports = {
   getParticularCampaignPayouts,
   getListOfCampaignsPayouts,
   createCampaignPayout,
+  createStoreProduct,
+  getListOfStoreProducts,
+  deleteStoreProduct,
 };

@@ -98,13 +98,11 @@ import {
   ALL_STORE_PRODUCTS_FAIL,
   ALL_STORE_PRODUCTS_SUCCESS,
   NEW_STORE_PRODUCT_FAIL,
-  NEW_STORE_PRODUCT_RESET,
   NEW_STORE_PRODUCT_REQUEST,
   NEW_STORE_PRODUCT_SUCCESS,
   DELETE_STORE_PRODUCT_REQUEST,
   DELETE_STORE_PRODUCT_FAIL,
   DELETE_STORE_PRODUCT_SUCCESS,
-  DELETE_STORE_PRODUCT_RESET,
   CLEAR_ERRORS,
 } from "../constants/businessConstants";
 import axios from "axios";
@@ -432,8 +430,74 @@ export const deleteBusiness = (id) => async (dispatch) => {
   }
 };
 
+// // NEW STORE PRODUCT
+export const newProduct = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_STORE_PRODUCT_REQUEST });
 
-// NEW BUSINESS_ORDERED_FROM
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `app/business/new-product`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: NEW_STORE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_STORE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All BusinessOrderedFrom of a Product
+export const getAllProducts = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_STORE_PRODUCTS_REQUEST });
+
+    const { data } = await axios.get(`app/business/products`);
+
+    dispatch({
+      type: ALL_STORE_PRODUCTS_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_STORE_PRODUCTS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Product
+export const deleteStoreProduct = (productId, ) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_STORE_PRODUCT_REQUEST });
+
+    const { data } = await axios.delete(
+      `app/business/products?id=${productId}`
+    );
+
+    dispatch({
+      type: DELETE_STORE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_STORE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// NEW BUSINESS ORDERED FROM
 export const newBusinessOrderedFrom = (orderData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_BUSINESS_ORDERED_FROM_REQUEST });
