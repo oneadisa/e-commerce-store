@@ -1,15 +1,15 @@
 const bcrypt = require("bcrypt");
-const signedUpBusiness = require("../models/signUpBusinessModels");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 const StoreProduct = require("../models/storeProductModels");
-const Campaign = require("../models/campaignModels");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const Campaign = require("../models/campaignModels");
+const signedUpBusiness = require("../models/signUpBusinessModels");
 
 const registerBusiness = asyncHandler(async (req, res) => {
   // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
@@ -786,7 +786,7 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     campaignName,
     pitchDeck,
     fundingType,
-    amountBeingraised,
+    amountBeingRaised,
     campaignCategory,
     investorBrief,
     duration,
@@ -808,7 +808,7 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     campaignName,
     pitchDeck,
     fundingType,
-    amountBeingraised,
+    amountBeingRaised,
     campaignCategory,
     investorBrief,
     duration,
@@ -1060,7 +1060,7 @@ const getListOfCampaignsPayouts = catchAsyncErrors(async (req, res, next) => {
 // Get One Campaign Invested BusinessProfile
 const getParticularCampaignPayouts = catchAsyncErrors(
   async (req, res, next) => {
-    const business = await signedUpBusiness.findById(req.query.id);
+    const business = await signedUpBusiness.findById(req.user._id);
     const campaign = await Campaign.findById(req.params.id);
 
     if (!business) {
@@ -1129,8 +1129,8 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
     amountBeingRaised: campaign.amountBeingRaised,
     duration: campaign.duration,
     organiser: organiser.businessName,
-    campaignLiveStatus: campaign.campaignLiveStatus,
-    amountInvested,
+    // campaignLiveStatus: campaign.campaignLiveStatus,
+    // amountInvested,
     firstPaymentDateString: campaign.firstPaymentDateString,
     endDateString: campaign.endDateString,
     endDatePledgedProfitString: campaign.endDatePledgedProfitString,
@@ -1138,19 +1138,23 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
 
   const business = await signedUpBusiness.findById(req.user._id);
 
-  const isStarted = business.listOfCampaignsInvested.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
-  );
+  business.listOfCampaignsInvested.push(campaignInvested);
+  business.totalNumberOfCampaignsInvested =
+    business.listOfCampaignsInvested.length;
 
-  if (isStarted) {
-    business.listOfCampaignsInvested.push(campaignInvested);
-    business.totalNumberOfCampaignsInvested =
-      business.listOfCampaignsInvested.length;
-  } else {
-    business.listOfCampaignsInvested.push(campaignInvested);
-    business.totalNumberOfCampaignsInvested =
-      business.listOfCampaignsInvested.length;
-  }
+  // const isStarted = business.listOfCampaignsInvested.find(
+  // (rev) => rev.user.toString() === req.user._id.toString()
+  // );
+
+  // if (isStarted) {
+  // business.listOfCampaignsInvested.push(campaignInvested);
+  // business.totalNumberOfCampaignsInvested =
+  // business.listOfCampaignsInvested.length;
+  // } else {
+  // business.listOfCampaignsInvested.push(campaignInvested);
+  // business.totalNumberOfCampaignsInvested =
+  // business.listOfCampaignsInvested.length;
+  // }
 
   await business.save({ validateBeforeSave: false });
 
@@ -1177,8 +1181,8 @@ const getListOfCampaignsInvested = catchAsyncErrors(async (req, res, next) => {
 // Get One Campaign Invested BusinessProfile
 const getParticularCampaignsInvested = catchAsyncErrors(
   async (req, res, next) => {
-    const business = await signedUpBusiness.findById(req.query.id);
-    const campaign = await Campaign.findById(req.params._id);
+    const business = await signedUpBusiness.findById(req.user._id);
+    const campaign = await Campaign.findById(req.params.id);
 
     if (!business) {
       return next(new ErrorHandler("Business not found", 404));
@@ -2137,7 +2141,7 @@ const createPersonalCampaignReview = catchAsyncErrors(
   async (req, res, next) => {
     const { comment, campaignId } = req.body;
 
-    const campaign = await Campaign.find(campaignId);
+    const campaign = await Campaign.findById(campaignId);
 
     const organiser = await signedUpBusiness.findById(campaign.user);
 
@@ -2149,7 +2153,7 @@ const createPersonalCampaignReview = catchAsyncErrors(
       campaignName: campaign.campaignName,
       pitchDeck: campaign.pitchDeck,
       fundingType: campaign.fundingType,
-      amountBeingraised: campaign.amountBeingraised,
+      amountBeingRaised: campaign.amountBeingRaised,
       campaignCategory: campaign.campaignCategory,
       investorBrief: campaign.investorBrief,
       duration: campaign.duration,
@@ -2164,7 +2168,11 @@ const createPersonalCampaignReview = catchAsyncErrors(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
-    if (!isReviewed) {
+    if (isReviewed) {
+      business.campaignReviews.push(review);
+      business.numberOfCampaignsReviewed = business.campaignReviews.length;
+      business.totalNumberOfInteractions =
+        business.campaignReviews.length + business.productReviews.length;
     } else {
       business.campaignReviews.push(review);
       business.numberOfCampaignsReviewed = business.campaignReviews.length;
@@ -2249,6 +2257,7 @@ module.exports = {
   deleteCampaignStarted,
   createCampaignInvested,
   getListOfCampaignsInvested,
+  getParticularCampaignsInvested,
   deleteCampaignInvested,
   createBusinessInvestor,
   getBusinessInvestors,

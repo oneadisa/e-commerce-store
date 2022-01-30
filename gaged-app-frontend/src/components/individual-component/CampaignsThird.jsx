@@ -106,7 +106,7 @@ function CampaignsThird() {
             <div className="mt-6 lg:px-1">
               <div className="flex flex-col text-base font-medium">
                 <div className="flex flex-col md:flex-row gap-2 md:gap-20 border-b-2 pt-4 pb-1 px-2">
-                  <div>01/02/2022</div>
+                  <div>01/02/2022</div> 
                   <div>You lent $50 to this Alleyway Security campaign</div>
                 </div>
                 <div className="flex flex-col md:flex-row gap-2 md:gap-20 border-b-2 pt-4 pb-1 px-2">

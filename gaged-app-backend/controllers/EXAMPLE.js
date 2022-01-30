@@ -1,163 +1,72 @@
-// const createIndividualCampaignPayout = catchAsyncErrors(async (req, res, next) => {
-//   const { campaignId, amountInvested } = req.body;
+// NEW PRODUCT REVIEW
+export const newProductReview = (campaignPayoutData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_STORE_PRODUCT_REQUEST });
 
-//   const campaign = Campaign.findById(campaignId);
-//   const organiser = signedUpBusiness.findById(campaign.user);
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
 
-//   const repaymentTime = Math.abs(
-//     campaign.endDatePledgedProfit - campaign.endDate
-//   );
-//   var numberOfRepayments = repaymentTime / campaign.timePerPayment;
-//   var numberOfTimesPaidAlready =
-//     repaymentTime / campaign.timePerPayment - numberOfRepayments;
-//   setTimeout(function () {
-//   }, campaign.timePerPayment);
-//   const amountRepay =
-//     Number(amountInvested) +
-//     (campaign.pledged_profit_to_lenders / 100) * Number(amountInvested);
-//   const amountAlreadyRaise =
-//     (numberOfTimesPaidAlready *
-//       ((campaign.pledged_profit_to_lenders / 100) * Number(amountInvested))) /
-//     (repaymentTime / campaign.timePerPayment);
-//   const amountPerTime = amountRepay / (repaymentTime / campaign.timePerPayment);
+    const { data } = await axios.put(
+      `app/business/profile-product-review/`,
+      campaignPayoutData,
+      config
+    );
 
-//   const campaignInvested = {
-//     user: req.user._id,
-//     campaignId: campaignId,
-//     campaignName: campaign.campaignName,
-//     campaignCategory: campaign.campaignCategory,
-//     investorBrief: campaign.investorBrief,
-//     pitchDeck: campaign.pitchDeck,
-//     fundingType: campaign.fundingType,
-//     amountBeingRaised: campaign.amountBeingRaised,
-//     duration: campaign.duration,
-//     organiser: organiser.businessName,
-//     campaignLiveStatus: campaign.campaignLiveStatus,
-//     amountInvested,
-//     firstPaymentDateString: campaign.firstPaymentDateString,
-//     endDateString: campaign.endDateString,
-//     endDatePledgedProfitString: campaign.endDatePledgedProfitString,
-//     pledged_profit_to_lenders: campaign.pledged_profit_to_lenders,
-//     amountToBeRepaid: amountRepay,
-//     firstPaymentDate: campaign.firstPaymentDate,
-//     endDate: campaign.endDate,
-//     endDatePledgedProfit: campaign.endDatePledgedProfit,
-//     duration_pledged_profit: campaign.duration_pledged_profit,
-//     repayment_schedule_pledged_profit: campaign.repayment_schedule_pledged_profit,
-//   };
+    dispatch({
+      type: NEW_STORE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_STORE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
-//   const business = await signedUpBusiness.findById(req.user._id);
+// Get All ProductReview of a Business
+export const getAllProductReview = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_PRODUCTS_REVIEWS_REQUEST });
 
-//   const isStarted = business.listOfCampaignPayouts.find(
-//     (rev) => rev.user.toString() === req.user._id.toString()
-//   );
+    const { data } = await axios.get(`app/business/profile-product-review/`);
 
-//   if (isStarted) {
-//     business.listOfCampaignPayouts.push(campaignInvested);
-//     business.totalNumberOfCampaignPayouts =
-//       business.listOfCampaignPayouts.length;
-//        if (numberOfRepayments > 0) {
-//          organiser.walletBalance -=
-//            (Number(amountInvested) +
-//              campaign.pledged_profit_to_lenders * Number(amountInvested)) /
-//            (campaign.duration_pledged_profit /
-//              campaign.repayment_schedule_pledged_profit);
-//          req.user.walletBalance +=
-//            (Number(amountInvested) +
-//              campaign.pledged_profit_to_lenders * Number(amountInvested)) /
-//            (campaign.duration_pledged_profit /
-//              campaign.repayment_schedule_pledged_profit);
-//          numberOfRepayments -= 1;
-//        }
-//   } else {
-//     business.listOfCampaignPayouts.push(campaignInvested);
-//     business.totalNumberOfCampaignPayouts =
-//       business.listOfCampaignPayouts.length;
-//        if (numberOfRepayments > 0) {
-//          organiser.walletBalance -=
-//            (Number(amountInvested) +
-//              campaign.pledged_profit_to_lenders * Number(amountInvested)) /
-//            (campaign.duration_pledged_profit /
-//              campaign.repayment_schedule_pledged_profit);
-//          req.user.walletBalance +=
-//            (Number(amountInvested) +
-//              campaign.pledged_profit_to_lenders * Number(amountInvested)) /
-//            (campaign.duration_pledged_profit /
-//              campaign.repayment_schedule_pledged_profit);
-//          numberOfRepayments -= 1;
-//        }
-//   }
+    dispatch({
+      type: ALL_PRODUCTS_REVIEWS_SUCCESS,
+      payload: data.campaignPayouts,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_PRODUCTS_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
-//   await business.save({ validateBeforeSave: false });
-// z
-//   res.status(200).json({
-//     success: true,
-//     listOfCampaignPayouts: business.listOfCampaignPayouts,
-//   });
-// });
+// Get history of payouts in a particular campaign
+export const particularCampaignPayout =
+  (campaignPayoutId) => async (dispatch) => {
+    try {
+      dispatch({ type: PARTICULAR_CAMPAIGN_PAYOUT_REQUEST });
 
-// // Get Campaigns Invested BusinessProfile
-// const getListOfIndividualCampaignsPayouts = catchAsyncErrors(async (req, res, next) => {
-//   const business = await signedUpBusiness.findById(req.query.id);
+      const { data } = await axios.get(
+        `app/business/campaign-paid/particular/${campaignPayoutId}`
+      );
 
-//   if (!business) {
-//     return next(new ErrorHandler("Business not found", 404));
-//   }
+      dispatch({
+        type: PARTICULAR_CAMPAIGN_PAYOUT_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: PARTICULAR_CAMPAIGN_PAYOUT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
-//   res.status(200).json({
-//     success: true,
-//     listOfCampaignPayouts: business.listOfCampaignPayouts,
-//   });
-// });
-
-// // Get One Campaign Invested BusinessProfile
-// const getParticularIndividualCampaignPayouts = catchAsyncErrors(
-//   async (req, res, next) => {
-//     const business = await signedUpBusiness.findById(req.query.id);
-//     const campaign = await Campaign.findById(req.params.id);
-
-//     if (!business) {
-//       return next(new ErrorHandler("Business not found", 404));
-//     }
-
-//     business.listOfCampaignPayouts.find({ campaignName: campaign.campaignName });
-
-//     res.status(200).json({
-//       success: true,
-//       listOfCampaignPayouts: business.listOfCampaignPayouts,
-//     });
-//   }
-// );
-
-// // Delete Campaign Invested BusinessProfile
-// const deleteIndividualCampaignPayout = catchAsyncErrors(async (req, res, next) => {
-//   const business = await signedUpBusiness.findById(req.query.businessId);
-
-//   if (!business) {
-//     return next(new ErrorHandler("Business not found", 404));
-//   }
-
-//   const listOfCampaignPayouts = business.listOfCampaignPayouts.filter(
-//     (rev) => rev._id.toString() !== req.query.id.toString()
-//   );
-
-//   const totalNumberOfCampaignPayouts = listOfCampaignPayouts.length;
-
-//   await signedUpBusiness.findByIdAndUpdate(
-//     req.query.businessId,
-//     {
-//       listOfCampaignPayouts,
-//       totalNumberOfCampaignPayouts,
-//     },
-//     {
-//       new: true,
-//       runValidators: true,
-//       useFindAndModify: false,
-//     }
-//   );
-
-//   res.status(200).json({
-//     success: true,
-//     listOfCampaignPayouts: business.listOfCampaignPayouts,
-//   });
-// });
+// Clearing Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
+};

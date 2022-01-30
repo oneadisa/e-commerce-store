@@ -19,7 +19,7 @@ function BusinessDashboard() {
   let navigate = useNavigate();
   const signedUpBusinessLogin = useSelector(
     (state) => state.signedUpBusinessLogin
-  );
+  ); 
   const { signedUpBusinessInfo } = signedUpBusinessLogin;
   useEffect(() => {
     dispatch();

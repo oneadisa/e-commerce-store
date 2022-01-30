@@ -294,7 +294,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      CampaignName: {
+      campaignName: {
         type: String,
         required: false,
       },
@@ -325,7 +325,6 @@ const signUpBusinessTemplate = new mongoose.Schema({
       campaignLiveStatus: {
         type: Boolean,
         required: false,
-        default: true,
       },
       organiser: {
         type: String,
@@ -334,7 +333,6 @@ const signUpBusinessTemplate = new mongoose.Schema({
       amountInvested: {
         type: Number,
         required: false,
-        default: 0,
       },
       amountToBeRepaid: {
         type: String,
@@ -372,7 +370,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      CampaignName: {
+      campaignName: {
         type: String,
         required: false,
       },

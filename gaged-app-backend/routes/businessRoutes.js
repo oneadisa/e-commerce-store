@@ -20,6 +20,7 @@ const {
   deleteCampaignStarted,
   createCampaignInvested,
   getListOfCampaignsInvested,
+  getParticularCampaignsInvested,
   deleteCampaignInvested,
   createBusinessInvestor,
   getBusinessInvestors,
@@ -105,8 +106,13 @@ router.route("/campaign-invest").put(protectBusiness, createCampaignInvested);
 
 router
   .route("/campaign-invested")
-  .get(getListOfCampaignsInvested)
+  .get(protectBusiness, getListOfCampaignsInvested)
+  .get(protectBusiness, getParticularCampaignsInvested)
   .delete(protectBusiness, deleteCampaignInvested);
+
+router
+  .route("/campaign-invested/particular/:id")
+  .get(protectBusiness, getParticularCampaignsInvested);
 
 router.route("/campaign-payout").put(protectBusiness, createCampaignPayout);
 
@@ -116,7 +122,7 @@ router
   .delete(protectBusiness, deleteCampaignPayout);
 
 router
-  .route("/campaign-paid/particular")
+  .route("/campaign-paid/particular/:id")
   .get(protectBusiness, getParticularCampaignPayouts);
 
 router

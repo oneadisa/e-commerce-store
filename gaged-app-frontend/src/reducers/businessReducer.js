@@ -39,8 +39,91 @@ import {
   BUSINESS_DETAILS_REQUEST,
   BUSINESS_DETAILS_SUCCESS,
   BUSINESS_DETAILS_FAIL,
+  NEW_BUSINESS_ORDERED_FROM_REQUEST,
+  NEW_BUSINESS_ORDERED_FROM_RESET,
+  NEW_BUSINESS_ORDERED_FROM_SUCCESS,
+  NEW_BUSINESS_ORDERED_FROM_FAIL,
+  ALL_BUSINESS_ORDERED_FROM_SUCCESS,
+  ALL_BUSINESS_ORDERED_FROM_REQUEST,
+  ALL_BUSINESS_ORDERED_FROM_FAIL,
+  DELETE_BUSINESS_ORDERED_FROM_REQUEST,
+  DELETE_BUSINESS_ORDERED_FROM_FAIL,
+  DELETE_BUSINESS_ORDERED_FROM_SUCCESS,
+  DELETE_BUSINESS_ORDERED_FROM_RESET,
+  NEW_CAMPAIGN_INVESTED_REQUEST,
+  NEW_CAMPAIGN_INVESTED_SUCCESS,
+  NEW_CAMPAIGN_INVESTED_RESET ,
+  NEW_CAMPAIGN_INVESTED_FAIL ,
+  NEW_CAMPAIGN_PAYOUT_REQUEST ,
+  NEW_CAMPAIGN_PAYOUT_SUCCESS ,
+  NEW_CAMPAIGN_PAYOUT_RESET ,
+  NEW_CAMPAIGN_PAYOUT_FAIL,
+  ALL_CAMPAIGNS_INVESTED_REQUEST,
+  ALL_CAMPAIGNS_INVESTED_SUCCESS,
+  ALL_CAMPAIGNS_INVESTED_FAIL,
+  ALL_CAMPAIGNS_PAYOUT_REQUEST, 
+  ALL_CAMPAIGNS_PAYOUT_SUCCESS ,
+  ALL_CAMPAIGNS_PAYOUT_FAIL,
+  PARTICULAR_CAMPAIGNS_INVESTED_REQUEST,
+  PARTICULAR_CAMPAIGNS_INVESTED_SUCCESS,
+  PARTICULAR_CAMPAIGNS_INVESTED_FAIL,
+  PARTICULAR_CAMPAIGNS_PAYOUT_REQUEST,
+  PARTICULAR_CAMPAIGNS_PAYOUT_SUCCESS,
+  PARTICULAR_CAMPAIGNS_PAYOUT_FAIL,
+  DELETE_CAMPAIGN_INVESTED_REQUEST,
+  DELETE_CAMPAIGN_INVESTED_SUCCESS,
+  DELETE_CAMPAIGN_INVESTED_RESET ,
+  DELETE_CAMPAIGN_INVESTED_FAIL ,
+  DELETE_CAMPAIGN_PAYOUT_REQUEST ,
+  DELETE_CAMPAIGN_PAYOUT_SUCCESS ,
+  DELETE_CAMPAIGN_PAYOUT_RESET ,
+  DELETE_CAMPAIGN_PAYOUT_FAIL,
+  NEW_CAMPAIGN_REVIEWS_REQUEST,
+  NEW_CAMPAIGN_REVIEWS_SUCCESS,
+  NEW_CAMPAIGN_REVIEWS_RESET,
+  NEW_CAMPAIGN_REVIEWS_FAIL,
+  ALL_CAMPAIGNS_REVIEWS_REQUEST,
+  ALL_CAMPAIGNS_REVIEWS_SUCCESS,
+  ALL_CAMPAIGNS_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_REVIEWS_REQUEST,
+  DELETE_CAMPAIGN_REVIEWS_SUCCESS,
+  DELETE_CAMPAIGN_REVIEWS_RESET,
+  DELETE_CAMPAIGN_REVIEWS_FAIL,
+  NEW_PRODUCT_REVIEWS_REQUEST,
+  NEW_PRODUCT_REVIEWS_SUCCESS,
+  NEW_PRODUCT_REVIEWS_RESET,
+  NEW_PRODUCT_REVIEWS_FAIL,
+  ALL_PRODUCTS_REVIEWS_REQUEST,
+  ALL_PRODUCTS_REVIEWS_SUCCESS,
+  ALL_PRODUCTS_REVIEWS_FAIL,
+  DELETE_PRODUCT_REVIEWS_REQUEST,
+  DELETE_PRODUCT_REVIEWS_SUCCESS,
+  DELETE_PRODUCT_REVIEWS_RESET,
+  DELETE_PRODUCT_REVIEWS_FAIL,
+  NEW_CAMPAIGN_STARTED_SUCCESS,
+  NEW_CAMPAIGN_STARTED_RESET ,
+  NEW_CAMPAIGN_STARTED_REQUEST,
+  NEW_CAMPAIGN_STARTED_FAIL ,
+  ALL_CAMPAIGNS_STARTED_REQUEST,
+  ALL_CAMPAIGNS_STARTED_SUCCESS,
+  ALL_CAMPAIGNS_STARTED_FAIL,
+  DELETE_CAMPAIGN_STARTED_REQUEST,
+  DELETE_CAMPAIGN_STARTED_SUCCESS,
+  DELETE_CAMPAIGN_STARTED_RESET ,
+  DELETE_CAMPAIGN_STARTED_FAIL ,
+  ALL_STORE_PRODUCTS_REQUEST,
+  ALL_STORE_PRODUCTS_FAIL,
+  ALL_STORE_PRODUCTS_SUCCESS,
+  NEW_STORE_PRODUCT_FAIL,
+  NEW_STORE_PRODUCT_RESET,
+  NEW_STORE_PRODUCT_REQUEST,
+  NEW_STORE_PRODUCT_SUCCESS,
+  DELETE_STORE_PRODUCT_REQUEST,
+  DELETE_STORE_PRODUCT_FAIL,
+  DELETE_STORE_PRODUCT_SUCCESS,
+  DELETE_STORE_PRODUCT_RESET,
   CLEAR_ERRORS,
-} from "../constants/businessConstants";
+  } from "../constants/businessConstants";
 
 export const signedUpBusinessLoginReducer = (state = {}, action) => {
   switch (action.type) {
@@ -308,3 +391,962 @@ export const businessDetailsReducer = (
       return state;
   }
 };
+
+export const allBusinessOrderedFromReducer = (state = { businessOrderedFrom: [] }, action) => {
+  switch (action.type) {
+    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+      return {
+        loading: false,
+        businessOrderedFrom: action.payload,
+      };
+    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newBusinessOrderedFromReducer = (state = { businessOrderedFrom: {} }, action) => {
+  switch (action.type) {
+    case NEW_BUSINESS_ORDERED_FROM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_BUSINESS_ORDERED_FROM_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        businessOrderedFrom: action.payload.businessOrderedFrom,
+      };
+    case NEW_BUSINESS_ORDERED_FROM_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_BUSINESS_ORDERED_FROM_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessOrderedFromReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BUSINESS_ORDERED_FROM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_BUSINESS_ORDERED_FROM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_BUSINESS_ORDERED_FROM_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_BUSINESS_ORDERED_FROM_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const allCampaignsInvestedReducer = (
+  state = { campaignsInvested: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_INVESTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_INVESTED_SUCCESS:
+      return {
+        loading: false,
+        campaignsInvested: action.payload,
+      };
+    case ALL_CAMPAIGNS_INVESTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newCampaignInvestedReducer = (
+  state = { campaignsInvested: {} },
+  action
+) => {
+  switch (action.type) {
+    case NEW_CAMPAIGN_INVESTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_CAMPAIGN_INVESTED_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        campaignsInvested: action.payload.CampaignsInvested,
+      };
+    case NEW_CAMPAIGN_INVESTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_CAMPAIGN_INVESTED_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const campaignsInvestedReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CAMPAIGN_INVESTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CAMPAIGN_INVESTED_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_CAMPAIGN_INVESTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_CAMPAIGN_INVESTED_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const allCampaignsPayoutReducer = (
+  state = { campaignsPayout: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_PAYOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_PAYOUT_SUCCESS:
+      return {
+        loading: false,
+        campaignsPayout: action.payload,
+      };
+    case ALL_CAMPAIGNS_PAYOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const particularCampaignsPayoutReducer = (
+  state = { campaignsPayout: [] },
+  action
+) => {
+  switch (action.type) {
+    case PARTICULAR_CAMPAIGNS_PAYOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PARTICULAR_CAMPAIGNS_PAYOUT_SUCCESS:
+      return {
+        loading: false,
+        campaignsPayout: action.payload,
+      };
+    case PARTICULAR_CAMPAIGNS_PAYOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newCampaignPayoutReducer = (
+  state = { campaignsPayout: {} },
+  action
+) => {
+  switch (action.type) {
+    case NEW_CAMPAIGN_PAYOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_CAMPAIGN_PAYOUT_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        campaignsPayout: action.payload.CampaignsPacampaignsPayout,
+      };
+    case NEW_CAMPAIGN_PAYOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_CAMPAIGN_PAYOUT_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const campaignsPayoutReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CAMPAIGN_PAYOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CAMPAIGN_PAYOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_CAMPAIGN_PAYOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_CAMPAIGN_PAYOUT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const particularCampaignsInvestedReducer = (
+  state = { campaignsInvested: [] },
+  action
+) => {
+  switch (action.type) {
+    case PARTICULAR_CAMPAIGNS_INVESTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PARTICULAR_CAMPAIGNS_INVESTED_SUCCESS:
+      return {
+        loading: false,
+        campaignsInvested: action.payload,
+      };
+    case PARTICULAR_CAMPAIGNS_INVESTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const allCampaignsReviewsReducer = (
+  state = { campaignsReviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        campaignsReviews: action.payload,
+      };
+    case ALL_CAMPAIGNS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newCampaignReviewsReducer = (
+  state = { campaignsReviews: {} },
+  action
+) => {
+  switch (action.type) {
+    case NEW_CAMPAIGN_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_CAMPAIGN_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        campaignsReviews: action.payload.campaignsReviews,
+      };
+    case NEW_CAMPAIGN_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_CAMPAIGN_REVIEWS_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const campaignsReviewsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CAMPAIGN_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CAMPAIGN_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_CAMPAIGN_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_CAMPAIGN_REVIEWS_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const allProductsReviewsReducer = (
+  state = { productsReviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_PRODUCTS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_PRODUCTS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        productsReviews: action.payload,
+      };
+    case ALL_PRODUCTS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newProductReviewsReducer = (
+  state = { productsReviews: {} },
+  action
+) => {
+  switch (action.type) {
+    case NEW_PRODUCT_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_PRODUCT_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        productsReviews: action.payload.productsReviews,
+      };
+    case NEW_PRODUCT_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_PRODUCT_REVIEWS_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const productsReviewsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_PRODUCT_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_PRODUCT_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_PRODUCT_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_PRODUCT_REVIEWS_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const allStoreProductsReducer = (
+  state = { storeProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_STORE_PRODUCTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_STORE_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        storeProducts: action.payload,
+      };
+    case ALL_STORE_PRODUCTS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newStoreProductReducer = (
+  state = { storeProducts: {} },
+  action
+) => {
+  switch (action.type) {
+    case NEW_STORE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_STORE_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        storeProducts: action.payload.storeProducts,
+      };
+    case NEW_STORE_PRODUCT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_STORE_PRODUCT_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const storeProductsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_STORE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_STORE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_STORE_PRODUCT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_STORE_PRODUCT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const allCampaignStartedReducer = (
+  state = { campaignStarted: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_STARTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_STARTED_SUCCESS:
+      return {
+        loading: false,
+        campaignStarted: action.payload,
+      };
+    case ALL_CAMPAIGNS_STARTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const newCampaignStartedReducer = (
+  state = { campaignStarted: {} },
+  action
+) => {
+  switch (action.type) {
+    case NEW_CAMPAIGN_STARTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_CAMPAIGN_STARTED_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        campaignStarted: action.payload.campaignStarted,
+      };
+    case NEW_CAMPAIGN_STARTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_CAMPAIGN_STARTED_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const campaignStartedReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CAMPAIGN_STARTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_CAMPAIGN_STARTED_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case DELETE_CAMPAIGN_STARTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_CAMPAIGN_STARTED_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+// Load User
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_BUSINESS_REQUEST });
+
+    const { data } = await axios.get(`/api/v1/me`);
+
+    dispatch({ type: LOAD_BUSINESS_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({ type: LOAD_BUSINESS_FAIL, payload: error.response.data.message });
+  }
+};
+
+// Logout User
+export const logout = () => async (dispatch) => {
+  try {
+    await axios.get(`/api/v1/logout`);
+
+    dispatch({ type: LOGOUT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+  }
+};
+
+// Update Profile
+export const updateProfile = (userData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_BUSINESS_PROFILE_REQUEST });
+
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
+
+    const { data } = await axios.put(`/api/v1/me/update`, userData, config);
+
+    dispatch({ type: UPDATE_BUSINESS_PROFILE_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_BUSINESS_PROFILE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Update Password
+export const updatePassword = (passwords) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_BUSINESS_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/v1/password/update`,
+      passwords,
+      config
+    );
+
+    dispatch({ type: UPDATE_BUSINESS_PASSWORD_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_BUSINESS_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Forgot Password
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: FORGOT_BUSINESS_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.post(`/api/v1/password/forgot`, email, config);
+
+    dispatch({ type: FORGOT_BUSINESS_PASSWORD_SUCCESS, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: FORGOT_BUSINESS_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Reset Password
+export const resetPassword = (token, passwords) => async (dispatch) => {
+  try {
+    dispatch({ type: RESET_BUSINESS_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/v1/password/reset/${token}`,
+      passwords,
+      config
+    );
+
+    dispatch({ type: RESET_BUSINESS_PASSWORD_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: RESET_BUSINESS_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// get All Users
+export const getAllUsers = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESSS_REQUEST });
+    const { data } = await axios.get(`/api/v1/admin/users`);
+
+    dispatch({ type: ALL_BUSINESSS_SUCCESS, payload: data.users });
+  } catch (error) {
+    dispatch({ type: ALL_BUSINESSS_FAIL, payload: error.response.data.message });
+  }
+};
+
+// get  User Details
+export const getUserDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: BUSINESS_DETAILS_REQUEST });
+    const { data } = await axios.get(`/api/v1/admin/user/${id}`);
+
+    dispatch({ type: BUSINESS_DETAILS_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({ type: BUSINESS_DETAILS_FAIL, payload: error.response.data.message });
+  }
+};
+
+// Update User
+export const updateUser = (id, userData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_BUSINESS_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/v1/admin/user/${id}`,
+      userData,
+      config
+    );
+
+    dispatch({ type: UPDATE_BUSINESS_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_BUSINESS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete User
+export const deleteUser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_BUSINESS_REQUEST });
+
+    const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
+
+    dispatch({ type: DELETE_BUSINESS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: DELETE_BUSINESS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Clearing Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
+};
+
+
