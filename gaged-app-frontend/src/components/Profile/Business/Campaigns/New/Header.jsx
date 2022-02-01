@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import Logof from "../../images/logo-footer.jpg";
+import Logof from "../../../../../images/logo-footer.jpg";
 
 function Header(props) {
-
   return (
     <head className="flex justify-between bg-medium-blue px-2 md:px-4 lg:px-4 py-2">
       <div className="flex space-x-5 lg:space-x-28 h-10">
         <div className="flex items-center">
-          <div className="text-2xl lg:hidden text-white" onClick={() => props.handleNav()}>
+          <div
+            className="text-2xl lg:hidden text-white"
+            onClick={() => props.handleNav()}
+          >
             {props.button}
           </div>
           <img alt="" src={Logof} className="w-4/5 lg:w-full" />

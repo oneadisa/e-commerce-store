@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from "react";
-import fundraiser from "../../images/fundraiser.png";
-import facebook from "../../images/facebook.svg";
-import tags from "../../images/tags.svg";
-import twitter from "../../images/twitter.svg";
-import whatsapp from "../../images/whatsapp.svg";
-import left from "../../images/left.svg";
+import fundraiser from "../../../../../images/fundraiser.png";
+import facebook from "../../../../../images/facebook.svg";
+import tags from "../../../../../images/tags.svg";
+import twitter from "../../../../../images/twitter.svg";
+import whatsapp from "../../../../../images/whatsapp.svg";
+import left from "../../../../../images/left.svg";
 import Header0 from "./Header0";
 
 function CampaignsThird() {
@@ -22,7 +22,11 @@ function CampaignsThird() {
               <div className="flex flex-col gap-5 w-full">
                 <div>
                   {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                  <iframe src="example.mp4" width="100px" height="100px"></iframe>
+                  <iframe
+                    src="example.mp4"
+                    width="100px"
+                    height="100px"
+                  ></iframe>
                 </div>
                 <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                   <div className="flex gap-1">
@@ -106,7 +110,7 @@ function CampaignsThird() {
             <div className="mt-6 lg:px-1">
               <div className="flex flex-col text-base font-medium">
                 <div className="flex flex-col md:flex-row gap-2 md:gap-20 border-b-2 pt-4 pb-1 px-2">
-                  <div>01/02/2022</div> 
+                  <div>01/02/2022</div>
                   <div>You lent $50 to this Alleyway Security campaign</div>
                 </div>
                 <div className="flex flex-col md:flex-row gap-2 md:gap-20 border-b-2 pt-4 pb-1 px-2">

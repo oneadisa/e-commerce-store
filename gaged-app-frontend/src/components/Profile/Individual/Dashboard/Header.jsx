@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Fragment } from "react";
-import { logout } from "../../actions/businessActions";
+import { logout } from "../../../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 function Header(props) {

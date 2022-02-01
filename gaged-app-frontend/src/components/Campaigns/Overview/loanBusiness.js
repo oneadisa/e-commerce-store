@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Loader from "../../Loader";
+import Loader from "../../Layout/Loader/Loader";
 import Header0 from "../Header0";
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import facebook from "../../../images/facebook.svg";
@@ -20,8 +20,8 @@ import { NEW_CAMPAIGN_BUSINESS_REVIEW_RESET } from "../../../constants/campaignC
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import IndividualCampaignReviewCard from "../individualCampaignReviewCard";
 import BusinessCampaignReviewCard from "../businessCampaignReviewCard.js.js";
-import LendHistoryCard from "../lendHistoryCard"
-import RepaymentHistoryCard from "../repaymentHistoryCard"
+import LendHistoryCard from "../lendHistoryCard";
+import RepaymentHistoryCard from "../repaymentHistoryCard";
 
 function loanThirdBusiness() {
   const dispatch = useDispatch();
@@ -30,15 +30,14 @@ function loanThirdBusiness() {
   let navigate = useNavigate();
 
   const signedUpBusinessLogin = useSelector(
-  (state: RootStateOrAny) => state.signedUpBusinessLogin
-); 
-const { signedUpBusinessInfo } = signedUpBusinessLogin;
-useEffect(() => {
-  
-  if (!signedUpBusinessInfo) {
-  }
-}, [dispatch, navigate, signedUpBusinessInfo]);
-useEffect(() => {}, [signedUpBusinessInfo]);
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  );
+  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  useEffect(() => {
+    if (!signedUpBusinessInfo) {
+    }
+  }, [dispatch, navigate, signedUpBusinessInfo]);
+  useEffect(() => {}, [signedUpBusinessInfo]);
 
   const { campaign, loading, error } = useSelector(
     (state: RootStateOrAny) => state.campaignDetails
@@ -298,65 +297,61 @@ useEffect(() => {}, [signedUpBusinessInfo]);
                         </Tabs>
                       </TabPanel>
                       <TabPanel>
-                            <div className="mt-6 lg:px-1">
-  <div className="flex flex-col text-base font-medium">
-
-                                <Tabs>
-  <TabList>
-    <div className="flex gap-5 md:gap-10 border-b">
-      <Tab>Loans</Tab>
-      <Tab>Repayments</Tab>
-    </div>
-  </TabList>
-  <TabPanels>
-    <TabPanel>
-      {campaign.businsessCampaignReviews &&
-      campaign.businessCampaignReviews[0] ? (
-        <div>
-          {signedUpBusinessInfo.listOfCampaignsInvested &&
-            signedUpBusinessInfo.listOfCampaignsInvested.map(
-              (lend) => (
-                <LendHistoryCard
-                  key={lend._id}
-                  lend={lend}
-                />
-              )
-            )}
-        </div>
-      ) : (
-        <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-          You haven't invested in this campaign yet.
-        </p>
-      )}
-    </TabPanel>
-    <TabPanel>
-      {campaign.individualCampaignReviews &&
-      campaign.individualCampaignReviews[0] ? (
-        <div>
-          {signedUpBusinessInfo.listOfCampaignPayouts &&
-            signedUpBusinessInfo.listOfCampaignPayouts.map(
-              (repayment) => (
-                <RepaymentHistoryCard
-                  key={repayment._id}
-                  repayment={repayment}
-                />
-              )
-            )}
-        </div>
-      ) : (
-        <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-          You haven't received any payments from this campaign yet.
-        </p>
-      )}
-    </TabPanel>
-  </TabPanels>
-</Tabs>
-
-    
-
-  </div>
-  </div>
-                        
+                        <div className="mt-6 lg:px-1">
+                          <div className="flex flex-col text-base font-medium">
+                            <Tabs>
+                              <TabList>
+                                <div className="flex gap-5 md:gap-10 border-b">
+                                  <Tab>Loans</Tab>
+                                  <Tab>Repayments</Tab>
+                                </div>
+                              </TabList>
+                              <TabPanels>
+                                <TabPanel>
+                                  {campaign.businsessCampaignReviews &&
+                                  campaign.businessCampaignReviews[0] ? (
+                                    <div>
+                                      {signedUpBusinessInfo.listOfCampaignsInvested &&
+                                        signedUpBusinessInfo.listOfCampaignsInvested.map(
+                                          (lend) => (
+                                            <LendHistoryCard
+                                              key={lend._id}
+                                              lend={lend}
+                                            />
+                                          )
+                                        )}
+                                    </div>
+                                  ) : (
+                                    <p className="text-center font-poppins text-bold text-xl h-screen p-20">
+                                      You haven't invested in this campaign yet.
+                                    </p>
+                                  )}
+                                </TabPanel>
+                                <TabPanel>
+                                  {campaign.individualCampaignReviews &&
+                                  campaign.individualCampaignReviews[0] ? (
+                                    <div>
+                                      {signedUpBusinessInfo.listOfCampaignPayouts &&
+                                        signedUpBusinessInfo.listOfCampaignPayouts.map(
+                                          (repayment) => (
+                                            <RepaymentHistoryCard
+                                              key={repayment._id}
+                                              repayment={repayment}
+                                            />
+                                          )
+                                        )}
+                                    </div>
+                                  ) : (
+                                    <p className="text-center font-poppins text-bold text-xl h-screen p-20">
+                                      You haven't received any payments from
+                                      this campaign yet.
+                                    </p>
+                                  )}
+                                </TabPanel>
+                              </TabPanels>
+                            </Tabs>
+                          </div>
+                        </div>
                       </TabPanel>
                     </TabPanels>
                   </Tabs>

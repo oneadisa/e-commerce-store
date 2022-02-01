@@ -1,32 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import fundraiser from "../../images/fundraiser.png";
-import facebook from "../../images/facebook.svg";
-import tags from "../../images/tags.svg";
-import twitter from "../../images/twitter.svg";
-import whatsapp from "../../images/whatsapp.svg";
-import profile from "../../images/profile.svg";
+import fundraiser from "../../../../../images/fundraiser.png";
+import facebook from "../../../../../images/facebook.svg";
+import tags from "../../../../../images/tags.svg";
+import twitter from "../../../../../images/twitter.svg";
+import whatsapp from "../../../../../images/whatsapp.svg";
+import profile from "../../../../../images/profile.svg";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
-
 
 function Comments() {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="mx-auto">
-      <Header 
-        handleNav = {() => setOpen(!open)}
-        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      <Header
+        handleNav={() => setOpen(!open)}
+        button={
+          open ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )
+        }
       />
       <div className="lg:bg-magenta-blue lg:px-4">
         <div className="block lg:flex lg:space-x-32">
-          <div className='hidden lg:block'>
+          <div className="hidden lg:block">
             <DashBoard />
           </div>
-          <div className='lg:hidden'>
-            {open && <DashBoard />}
-          </div>
+          <div className="lg:hidden">{open && <DashBoard />}</div>
           <div className="flex flex-col bg-white lg:my-10 lg:space-y-10 lg:w-4/5 lg:h-2/5">
             <div className="px-1 md:px-2">
               <div className="flex justify-between py-5 md:px-2">

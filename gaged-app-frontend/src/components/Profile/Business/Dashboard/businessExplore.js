@@ -1,19 +1,19 @@
 //eslint-disable jsx-a11y/anchor-is-valid //
 import React, { Fragment, useState, useEffect } from "react";
-import Mainscreen from "../Mainscreen";
+import Mainscreen from "../../../Layout/Mainscreen";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import Loader from "../../components/Loader";
+import Loader from "../../../Layout/Loader/Loader";
 import Header from "./Header";
-import { clearErrors, getProduct } from "../../actions/storeProductsActions";
+import { clearErrors, getProduct } from "../../../../actions/storeProductsActions";
 import DashBoard from "./DashBoard";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
 import {} from "react-router-dom";
-import { logout } from "../../actions/businessActions";
-import MetaData from "../../components/Layout/metaData"
-import BusinessCard from "../Home/businessCard";
+import { logout } from "../../../../actions/businessActions";
+import MetaData from "../../../Layout/metaData"
+import BusinessCard from "../../../Home/businessCard
 
 const categories = [
   "Laptop",

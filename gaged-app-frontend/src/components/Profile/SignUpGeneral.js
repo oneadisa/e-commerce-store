@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import HeaderSignUp from "./SignUpComponents/HeaderSignUp-Login";
-import People from "../../../images/Gaged-images/Group 3577.png";
+import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
+import People from "../../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
 // import {Link}from 'react-router-dom';
 

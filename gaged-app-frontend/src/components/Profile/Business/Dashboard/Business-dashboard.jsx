@@ -1,25 +1,25 @@
 //eslint-disable jsx-a11y/anchor-is-valid //
 import React, { useState, useEffect } from "react";
-import Mainscreen from "../Mainscreen";
+import Mainscreen from "../../../Layout/Mainscreen";
 import { Link, useNavigate } from "react-router-dom";
-import vibe from "../../images/vibe.png";
-import password from "../../images/password.png";
-import alot from "../../images/alot.png";
+import vibe from "../../../../images/vibe.png";
+import password from "../../../../images/password.png";
+import alot from "../../../../images/alot.png";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "react-router-dom";
-import { logout } from "../../actions/businessActions";
-import BusinessCard from "../Home/businessCard";
+import { logout } from "../../../../actions/businessActions";
+import BusinessCard from "../../../Home/businessCard";
 
 function BusinessDashboard() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const signedUpBusinessLogin = useSelector(
     (state) => state.signedUpBusinessLogin
-  ); 
+  );
   const { signedUpBusinessInfo } = signedUpBusinessLogin;
   useEffect(() => {
     dispatch();

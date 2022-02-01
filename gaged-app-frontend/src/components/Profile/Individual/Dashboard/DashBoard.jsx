@@ -1,10 +1,10 @@
 import React from "react";
-import analytics from "../../images/analytics.png";
-import wallet from "../../images/wallet.png";
-import store from "../../images/store.png";
-import settings from "../../images/settings.png";
-import dashboard from "../../images/dashboard.png";
-import campaign from "../../images/campaign.png";
+import analytics from "../../../../images/analytics.png";
+import wallet from "../../../../images/wallet.png";
+import store from "../../../../images/store.png";
+import settings from "../../../../images/settings.png";
+import dashboard from "../../../../images/dashboard.png";
+import campaign from "../../../../images/campaign.png";
 import { Link, useNavigate } from "react-router-dom";
 
 function DashBoard() {

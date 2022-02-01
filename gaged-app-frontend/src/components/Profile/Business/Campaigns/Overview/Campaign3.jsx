@@ -1,28 +1,31 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
-import Header from './Header'
-import Dashboard from './Dashboard';
-import rectangle from "../../images/rectangle.svg";
+import Header from "./Header";
+import Dashboard from "./Dashboard";
+import rectangle from "../../../../../images/rectangle.svg";
 
 function Campaign3() {
-
   const [open, setOpen] = useState(false);
 
   return (
     <div className="mx-auto">
-      <Header 
-          handleNav = {() => setOpen(!open)}
-          button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      <Header
+        handleNav={() => setOpen(!open)}
+        button={
+          open ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )
+        }
       />
       <div className="bg-magenta-blue h-full">
         <div className="block lg:flex lg:space-x-24">
-            <div className='hidden lg:block'>
-              <Dashboard />
-            </div>
-            <div className='lg:hidden'>
-              {open && <Dashboard />}
-            </div>
+          <div className="hidden lg:block">
+            <Dashboard />
+          </div>
+          <div className="lg:hidden">{open && <Dashboard />}</div>
           <div className="py-5 md:py-10 lg:py-0 lg:my-10 w-full px-2">
             <div className="flex flex-col md:flex-row gap-5 justify-between">
               <h1 className="text-3xl font-bold text-medium-blue">

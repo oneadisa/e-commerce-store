@@ -1,15 +1,18 @@
 import React, { Fragment, useState, useEffect } from "react";
-import Logof from "../../images/logo-footer.jpg";
-import drink1 from "../../images/drink1.png";
-import drink2 from "../../images/drink2.png";
-import drink3 from "../../images/drink3.png";
+import Logof from "../../../../images/logo-footer.jpg";
+// import drink1 from "../../../../images/drink1.png";
+// import drink2 from "../../../../images/drink2.png";
+// import drink3 from "../../../../images/drink3.png";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import MetaData from "../../components/Layout/metaData";
-import ProductCard from "../Home/productCard";
-import { clearErrors, getProduct } from "../../actions/storeProductsActions";
-import Loader from "../../components/Loader";
+import MetaData from "../../../Layout/metaData";
+import ProductCard from "../../../Home/productCard";
+import {
+  clearErrors,
+  getProduct,
+} from "../../../../actions/storeProductsActions";
+import Loader from "../../../Layout/Loader/Loader";
 import Typography from "@material-ui/core/Typography";
 import Pagination from "react-js-pagination";
 

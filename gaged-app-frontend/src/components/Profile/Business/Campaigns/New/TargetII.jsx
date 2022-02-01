@@ -1,43 +1,56 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-import left from "../../images/left.svg";
-import right from "../../images/right.svg";
+import left from "../../../../../images/left.svg";
+import right from "../../../../../images/right.svg";
 import { Link } from "react-router-dom";
 
 function TargetII() {
-
   const [open, setOpen] = useState(false);
-  
+
   return (
     <div className="mx-auto">
-      <Header 
-        handleNav = {() => setOpen(!open)}
-        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      <Header
+        handleNav={() => setOpen(!open)}
+        button={
+          open ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )
+        }
       />
       <div className="lg:bg-magenta-blue lg:px-3">
         <div className="block lg:flex lg:space-x-28">
-          <div className='hidden lg:block'>
+          <div className="hidden lg:block">
             <DashboardCamp />
           </div>
-          <div className='lg:hidden'>
-            {open && <DashboardCamp />}
-          </div>
+          <div className="lg:hidden">{open && <DashboardCamp />}</div>
           <div className="bg-white lg:mt-3 lg:mb-8 pb-24 lg:w-3/4">
             <div className="flex flex-col px-2 md:px-4 py-2">
               <h2 className="text-lg font-semibold">3 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Organization Details</div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Demographics</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Organization Details
+                  </div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Demographics
+                  </div>
                   <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
                     Target
                   </div>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Finance</div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Set Schedule</div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Review</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Finance
+                  </div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Set Schedule
+                  </div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Review
+                  </div>
                 </div>
               </div>
               <div className="mt-3">

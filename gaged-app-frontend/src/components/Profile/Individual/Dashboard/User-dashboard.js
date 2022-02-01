@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import Logof from "../../images/logo-footer.jpg";
-import store from "../../images/store.png";
-import settings from "../../images/settings.png";
-import dashboard from "../../images/dashboard.png";
-import campaign from "../../images/campaign.png";
-import Mainscreen from "../Mainscreen";
+import Logof from "../../../../images/logo-footer.jpg";
+import store from "../../../../images/store.png";
+import settings from "../../../../images/settings.png";
+import dashboard from "../../../../images/dashboard.png";
+import campaign from "../../../../images/campaign.png";
+import Mainscreen from "../../../Layout/Mainscreen";
 import { Link } from "react-router-dom";
 import { RootStateOrAny, useSelector } from "react-redux";
-// import vibe from "../../images/vibe.png";
-// import password from "../../images/password.png";
-// import alot from "../../images/alot.png";
+// import vibe from "../../../../images/vibe.png";
+// import password from "../../../../images/password.png";
+// import alot from "../../../../images/alot.png";
 // import { useEffect } from "react";
 
 function UserDashboard() {

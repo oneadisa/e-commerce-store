@@ -1,17 +1,17 @@
 import React from "react";
-import fundraiser from "../../images/fundraiser.png";
-import facebook from "../../images/facebook.svg";
-import tags from "../../images/tags.svg";
-import twitter from "../../images/twitter.svg";
-import whatsapp from "../../images/whatsapp.svg";
-import left from "../../images/left.svg";
+import fundraiser from "../../../../../images/fundraiser.png";
+import facebook from "../../../../../images/facebook.svg";
+import tags from "../../../../../images/tags.svg";
+import twitter from "../../../../../images/twitter.svg";
+import whatsapp from "../../../../../images/whatsapp.svg";
+import left from "../../../../../images/left.svg";
 import Header0 from "./Header0";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
   getCampaignDetails,
   newBusinessReview,
-} from "../../actions/productAction";
+} from "../../../../../actions/productAction";
 
 function CampaignsFirst() {
   return (
@@ -27,7 +27,11 @@ function CampaignsFirst() {
               <div className="flex flex-col gap-5 w-full">
                 <div>
                   {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                  <iframe src={fundraiser} width="100px" height="100px"></iframe>
+                  <iframe
+                    src={fundraiser}
+                    width="100px"
+                    height="100px"
+                  ></iframe>
                 </div>
                 <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                   <div className="flex gap-1">
@@ -141,16 +145,13 @@ function CampaignsFirst() {
             </div>
           </div>
         </div>
-     
       </div>
       <video width="320" height="240" autoplay>
-  <source src="movie.mp4" type="video/mp4"/>
-  <source src="movie.ogg" type="video/ogg"/>
+        <source src="movie.mp4" type="video/mp4" />
+        <source src="movie.ogg" type="video/ogg" />
         Your browser does not support the video tag.
-            </video>
+      </video>
     </div>
-
-    
   );
 }
 

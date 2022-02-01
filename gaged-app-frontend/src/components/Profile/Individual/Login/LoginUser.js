@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
-import HeaderSignUp from "./SignUp/SignUpComponents/HeaderSignUp-Login";
-import People from "../../images/Gaged-images/Group 3577.png";
+import HeaderSignUp from "./../../SignUp/SignUpComponents/HeaderSignUp-Login";
+import People from "../../../../images/Gaged-images/Group 3577.png";
 import { Link } from "react-router-dom";
-import Loader from "../Loader";
+import Loader from "../../../Layout/Loader/Loader";
 import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../actions/userActions";
-import ErrorMessage from "../LoginErrorMessage";
+import { userLogin } from "../../../../actions/userActions";
+import ErrorMessage from "../../../Layout/Errors/LoginErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 function LoginUser() {
@@ -54,7 +54,7 @@ function LoginUser() {
         <div className="">
           <img src={People} />
         </div>
-        
+
         <div className="lg:mt-40">
           {loading && <Loader />}
           <form className="flex flex-col md:w-4/5 justify-center">
@@ -73,7 +73,7 @@ function LoginUser() {
                 className="font-poppins h-12 pl-8 border-2 border-gray-400 text-black font-medium placeholder-gray-400"
                 placeholder="Email"
               />
-  
+
               <input
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}

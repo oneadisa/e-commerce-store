@@ -6,13 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 // import { Fragment } from "react";
 // import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
-import Header from "./Header"
+import Header from "./Header";
 import DashBoard from "./DashBoard";
-import Loader from "../Loader";
-import GeneralErrorMessage from "../GeneralErrorMessage";
-import { createStoreProductAction } from "../../actions/storeProductsActions";
+import Loader from "../../../../../Layout/Loader/Loader";
+import GeneralErrorMessage from "../../../../../Layout/Errors/GeneralErrorMessage";
+import { createStoreProductAction } from "../../../../../../actions/storeProductsActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import "./toggle.css";
+
 function ProductsNew() {
   let navigate = useNavigate();
   const [productCredentials, setProductCredentials] = useState({
@@ -203,18 +203,22 @@ function ProductsNew() {
 
   return (
     <div className="mx-auto">
-      <Header 
-        handleNav = {() => setOpen(!open)}
-        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      <Header
+        handleNav={() => setOpen(!open)}
+        button={
+          open ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )
+        }
       />
       <div className="lg:bg-magenta-blue lg:px-4 h-full">
         <div className="block lg:flex lg:space-x-36">
-          <div className='hidden lg:block'>
+          <div className="hidden lg:block">
             <DashBoard />
           </div>
-          <div className='lg:hidden'>
-            {open && <DashBoard />}
-          </div>
+          <div className="lg:hidden">{open && <DashBoard />}</div>
           <div className="flex flex-col lg:space-y-10 lg:w-4/5">
             <div className="flex flex-col lg:flex-row px-3 pt-2 gap-2 text-base lg:text-lg font-normal bg-white lg:px-5">
               <div className="flex justify-between lg:gap-10">

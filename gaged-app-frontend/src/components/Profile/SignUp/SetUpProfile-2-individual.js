@@ -4,9 +4,9 @@
 import React, { useState, useEffect } from "react";
 import HeaderSignUp from "./SignUpComponents/HeaderSignUp-Login";
 import People from "../../../images/Gaged-images/Group 3577.png";
-import Loader from "../../Loader";
+import Loader from "../../Layout/Loader/Loader";
 import { Link } from "react-router-dom";
-import GeneralErrorMessage from "../../GeneralErrorMessage";
+import GeneralErrorMessage from "../../Layout/Errors/GeneralErrorMessage";
 // import PictureErrorMessage from '../../componenets/PictureErrorMessage';
 import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../../actions/userActions";

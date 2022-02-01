@@ -2,26 +2,26 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
 // import { Switch } from "@headlessui/react";
-import Logof from "../../images/logo-footer.jpg";
-import analytics from "../../images/analytics.png";
-import wallet from "../../images/wallet.png";
-import store from "../../images/store.png";
-import settings from "../../images/settings.png";
-import dashboard from "../../images/dashboard.png";
-import campaign from "../../images/campaign.png";
+import Logof from "../../../../../../images/logo-footer.jpg";
+import analytics from "../../../../../../images/analytics.png";
+import wallet from "../../../../../../images/wallet.png";
+import store from "../../../../../../images/store.png";
+import settings from "../../../../../../images/settings.png";
+import dashboard from "../../../../../../images/dashboard.png";
+import campaign from "../../../../../../images/campaign.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
 // import { Fragment } from "react";
 // import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
 import axios from "axios";
-import Loader from "../Loader";
-import GeneralErrorMessage from "../GeneralErrorMessage";
+import Loader from "../../../../../Layout/Loader/Loader";
+import GeneralErrorMessage from "../../../../../Layout/Errors/GeneralErrorMessage";
 import {
   deleteStoreProductAction,
   updateStoreProductAction,
-} from "../../actions/storeProductsActions";
+} from "../../../../../../actions/storeProductsActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import "./toggle.css";
+
 function SingleStoreProduct() {
   let navigate = useNavigate();
   let params = useParams();

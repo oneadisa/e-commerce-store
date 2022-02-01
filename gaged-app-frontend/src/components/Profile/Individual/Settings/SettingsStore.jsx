@@ -3,13 +3,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
-import Header from './Header';
-import DashBoard from './DashBoard'
-import copyfile from "../../images/copy-file.png";
-import eimage from "../../images/empty-image.png";
+import Header from "./Header";
+import DashBoard from "./DashBoard";
+import copyfile from "../../../../images/copy-file.png";
+import eimage from "../../../../images/empty-image.png";
 
-import Loader from "../Loader";
-import GeneralErrorMessage from "../GeneralErrorMessage";
+import Loader from "../../../Layout/Loader/Loader";
+import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 import { Link } from "react-router-dom";
 
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
@@ -66,18 +66,22 @@ function SettingsStore() {
 
     return (
       <div className="mx-auto">
-        <Header 
-          handleNav = {() => setOpen(!open)}
-          button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+        <Header
+          handleNav={() => setOpen(!open)}
+          button={
+            open ? (
+              <i className="fas fa-times"></i>
+            ) : (
+              <i className="fas fa-bars"></i>
+            )
+          }
         />
         <div className="lg:bg-magenta-blue lg:px-2 h-full">
           <div className="block lg:flex lg:space-x-32">
-            <div className='hidden lg:block'>
+            <div className="hidden lg:block">
               <DashBoard />
             </div>
-            <div className='lg:hidden'>
-              {open && <DashBoard />}
-            </div>
+            <div className="lg:hidden">{open && <DashBoard />}</div>
             <div className="flex flex-col lg:w-4/5 mr-5">
               <div className="px-1 pt-2 md:px-3 text-base md:text-lg font-medium bg-white lg:px-12">
                 <div className="flex gap-5 lg:gap-10">

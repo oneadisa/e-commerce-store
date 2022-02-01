@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable no-unused-vars */
-import "./App.css";
+
 import store from "./store";
 import WebFont from "webfontloader";
 
@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/Landing Page/LandingPage";
 
-import ProductsAll from "./components/Profile/Business/Store/Products/Main/All.jsx"; 
+import ProductsAll from "./components/Profile/Business/Store/Products/Main/All.jsx";
 import ProductsNew from "./components/Profile/Business/Store/Products/Main/New.jsx";
 import ProductsOrders from "./components/Profile/Business/Store/Products/Main/Orders.jsx";
 import SingleStoreProduct from "./components/Profile/Business/Store/Products/Main/Update";
@@ -28,30 +28,28 @@ import SetUpProfile2Individual from "./components/Profile/SignUp/SetUpProfile-2-
 import SetUpProfile2Business from "./components/Profile/SignUp/SetUpProfile-2-business";
 import LoginGeneral from "./components/Profile/LoginGeneral";
 import LoginUser from "./components/Profile/Individual/Login/LoginUser";
-import LoginBusiness from "./components/Profile/Business/Login/LoginBusiness"; 
+import LoginBusiness from "./components/Profile/Business/Login/LoginBusiness";
 
 import Campaigns from "./components/Explore/Businesses/ExploreStores.jsx";
 import ExploreStores from "./components/Explore/Businesses/ExploreStores.jsx";
 // import CampaignsFirst from "./components/individual-component/CampaignsFirst";
 // import CampaignsSecond from "./components/individual-component/CampaignsSecond";
 // import CampaignsThird from "./components/individual-component/Campaigns";
-import loanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js"
-import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.js"
+import loanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
+import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.js";
 
 import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.jsx";
 
 import Campaign1 from "./components/Profile/Business/Campaigns/Overview/Campaign1.jsx";
 // import Campaign2 from "./components/campaign-components/Campaign2";
 // import Campaign3 from "./components/campaign-components/Campaign3";
-// 
+//
 import SettingsBank from "./components/Profile/Business/Settings/SettingsBank.jsx";
 import SettingsGeneral from "./components/Profile/Business/Settings/SettingsGeneral";
 import SettingsStore from "./components/Profile/Business/Settings/SettingsStore";
 
 import SettingsBankIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.jsx";
 import SettingsGeneralIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.jsx";
-
-
 
 import PublishedStore from "./components/Profile/Business/Store/PublishedStore";
 
@@ -113,14 +111,8 @@ function App() {
         <Routes>
           {" "}
           <Route path="/" element={<LandingPage />} />
-          <Route
-            path="/business/dashboard"
-            element={<BusinessDashboard  />}
-          />
-          <Route
-            path="/individual/dashboard"
-            element={<UserDashboard />}
-          />
+          <Route path="/business/dashboard" element={<BusinessDashboard />} />
+          <Route path="/individual/dashboard" element={<UserDashboard />} />
           <Route
             path="/business/campaign/overviewDonation"
             element={<OverviewDonation />}
@@ -189,5 +181,3 @@ function App() {
 }
 
 export default App;
-
-

@@ -2,30 +2,33 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import alot from "../../images/alot.png";
-import vibe from "../../images/vibe.png";
-import password from "../../images/password.png";
+import alot from "../../../../../images/alot.png";
+import vibe from "../../../../../images/vibe.png";
+import password from "../../../../../images/password.png";
 import Header from "../addnew-campaign-component/Header";
 import DashBoard from "./DashBoard";
 
 function Campaigns() {
-
   const [open, setOpen] = useState(false);
 
   return (
     <div className="mx-auto">
-      <Header 
-        handleNav = {() => setOpen(!open)}
-        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      <Header
+        handleNav={() => setOpen(!open)}
+        button={
+          open ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )
+        }
       />
       <div className="lg:bg-magenta-blue lg:px-2 h-full">
         <div className="block lg:flex lg:space-x-28">
-          <div className='hidden lg:block'>
+          <div className="hidden lg:block">
             <DashBoard />
           </div>
-          <div className='lg:hidden'>
-            {open && <DashBoard />}
-          </div>
+          <div className="lg:hidden">{open && <DashBoard />}</div>
           <div className="flex flex-col gap-10 lg:my-7 lg:ml-20 lg:pl-2 lg:pr-16">
             <div className="flex flex-col bg-white px-2 md:px-4 lg:px-8 pt-6 pb-8">
               <h1 className="text-2xl font-bold">Businesses near you.</h1>

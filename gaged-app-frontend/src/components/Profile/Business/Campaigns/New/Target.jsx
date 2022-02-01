@@ -1,50 +1,63 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-import left from "../../images/left.svg";
-import right from "../../images/right.svg";
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useRef } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import left from "../../../../../images/left.svg";
+import right from "../../../../../images/right.svg";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment, useRef } from "react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 
 function Target() {
-
   const [open, setOpen] = useState(false);
 
-  const [schedule, setSchedule] = useState('Select a payment plan');
-  
-  const [duration, setDuration] = useState('Select duration');
+  const [schedule, setSchedule] = useState("Select a payment plan");
+
+  const [duration, setDuration] = useState("Select duration");
 
   return (
     <div className="mx-auto">
-      <Header 
-        handleNav = {() => setOpen(!open)}
-        button = {open ? (<i className="fas fa-times"></i>) : (<i className="fas fa-bars"></i>)} 
+      <Header
+        handleNav={() => setOpen(!open)}
+        button={
+          open ? (
+            <i className="fas fa-times"></i>
+          ) : (
+            <i className="fas fa-bars"></i>
+          )
+        }
       />
       <div className="lg:bg-magenta-blue lg:px-3">
         <div className="block lg:flex lg:space-x-28">
-          <div className='hidden lg:block'>
+          <div className="hidden lg:block">
             <DashboardCamp />
           </div>
-          <div className='lg:hidden'>
-            {open && <DashboardCamp />}
-          </div>
+          <div className="lg:hidden">{open && <DashboardCamp />}</div>
           <div className="bg-white lg:mt-3 lg:mb-8 pb-24 lg:w-3/4">
             <div className="flex flex-col px-2 md:px-4 py-2">
               <h2 className="text-lg font-semibold">3 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Organization Details</div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Demographics</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Organization Details
+                  </div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Demographics
+                  </div>
                   <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
                     Target
                   </div>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Finance</div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Set Schedule</div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">Review</div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Finance
+                  </div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Set Schedule
+                  </div>
+                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                    Review
+                  </div>
                 </div>
               </div>
               <div className="mt-3">
@@ -160,7 +173,7 @@ function Target() {
                       </p>
                       <div className="px-2 bg-gray-200 w-64 h-10 flex items-center">
                         <Menu as="div" className="">
-                          <Menu.Button className='flex w-64 items-center px-2'>
+                          <Menu.Button className="flex w-64 items-center px-2">
                             <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                               {duration}
                             </div>
@@ -181,19 +194,34 @@ function Target() {
                           >
                             <Menu className="absolute cursor-pointer flex flex-col gap-3 w-40 mt-3 py-4 pl-6 pr-10 text-sm font-medium bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                               <div>
-                                <div onClick = {() => setDuration('12 months')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setDuration("12 months")}
+                                  className="hover:text-blue-600"
+                                >
                                   12 months
                                 </div>
-                                <div onClick = {() => setDuration('18 months')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setDuration("18 months")}
+                                  className="hover:text-blue-600"
+                                >
                                   18 months
                                 </div>
-                                <div onClick = {() => setDuration('24 months')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setDuration("24 months")}
+                                  className="hover:text-blue-600"
+                                >
                                   24 months
                                 </div>
-                                <div onClick = {() => setDuration('30 months')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setDuration("30 months")}
+                                  className="hover:text-blue-600"
+                                >
                                   30 months
                                 </div>
-                                <div onClick = {() => setDuration('36 months')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setDuration("36 months")}
+                                  className="hover:text-blue-600"
+                                >
                                   36 months
                                 </div>
                               </div>
@@ -213,7 +241,7 @@ function Target() {
                       </p>
                       <div className="px-2 bg-gray-200 w-64 h-10 flex items-center">
                         <Menu as="div" className="">
-                          <Menu.Button className='flex w-64 items-center px-2'>
+                          <Menu.Button className="flex w-64 items-center px-2">
                             <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                               {schedule}
                             </div>
@@ -234,13 +262,22 @@ function Target() {
                           >
                             <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-40 mt-3 pt-3 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                               <div>
-                                <div onClick={() => setSchedule('Monthly')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setSchedule("Monthly")}
+                                  className="hover:text-blue-600"
+                                >
                                   Monthly
                                 </div>
-                                <div onClick={() => setSchedule('Bi-monthly')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setSchedule("Bi-monthly")}
+                                  className="hover:text-blue-600"
+                                >
                                   Bi-monthly
                                 </div>
-                                <div onClick={() => setSchedule('Quarterly')} className="hover:text-blue-600">
+                                <div
+                                  onClick={() => setSchedule("Quarterly")}
+                                  className="hover:text-blue-600"
+                                >
                                   Quarterly
                                 </div>
                               </div>

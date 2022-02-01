@@ -1,5 +1,5 @@
 import React from 'react'
-import Logof from '../../images/logo-footer.jpg'
+import Logof from "../../../../../images/logo-footer.jpg";
 
 function Header(props) {
     return (

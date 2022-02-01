@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./newProduct.css";
+
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, createProduct } from "../../actions/productAction";
 import { useAlert } from "react-alert";

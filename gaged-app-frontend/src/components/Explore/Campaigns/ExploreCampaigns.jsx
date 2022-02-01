@@ -1,13 +1,13 @@
 import React from "react";
-import vibe from "../../images/vibe.png";
-import password from "../../images/password.png";
-import alot from "../../images/alot.png";
-import volunteer from "../../images/volunteer.png";
-import akhlaq from "../../images/akhlaq.png";
-import duties from "../../images/duties.png";
-import foodsupply from "../../images/food-supply.png";
-import queen from "../../images/queen.png";
-import sincerity from "../../images/sincerity.png";
+// import vibe from "../../images/vibe.png";
+// import password from "../../images/password.png";
+// import alot from "../../images/alot.png";
+// import volunteer from "../../images/volunteer.png";
+// import akhlaq from "../../images/akhlaq.png";
+// import duties from "../../images/duties.png";
+// import foodsupply from "../../images/food-supply.png";
+// import queen from "../../images/queen.png";
+// import sincerity from "../../images/sincerity.png";
 import Header0 from "./Header0";
 import { Link } from "react-router-dom";
 
@@ -29,7 +29,7 @@ function ExploreCampaigns() {
         <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-7 text-left my-10 md:my-14">
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={vibe} className="w-full" />
+              {/* <img alt="" src={vibe} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -56,7 +56,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={alot} className="w-full" />
+              {/* <img alt="" src={alot} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -81,7 +81,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={password} className="w-full" />
+              {/* <img alt="" src={password} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -106,7 +106,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={volunteer} className="w-full" />
+              {/* <img alt="" src={volunteer} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -131,7 +131,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={duties} className="w-full" />
+              {/* <img alt="" src={duties} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -156,7 +156,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={akhlaq} className="w-full" />
+              {/* <img alt="" src={akhlaq} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -181,7 +181,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={sincerity} className="w-full" />
+              {/* <img alt="" src={sincerity} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -206,7 +206,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={foodsupply} className="w-full" />
+              {/* <img alt="" src={foodsupply} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
@@ -231,7 +231,7 @@ function ExploreCampaigns() {
           </div>
           <div className="flex flex-col bg-white p-2">
             <div className="mb-3">
-              <img alt="" src={queen} className="w-full" />
+              {/* <img alt="" src={queen} className="w-full" /> */}
               <h4 className="text-lg font-bold my-2">Build our community</h4>
               <p className="text-base leading-5">
                 Brewed for every occassion. Introduce vibes drinks at your
