@@ -9,7 +9,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useRef } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
-function SettingsGeneral() {
+function SettingsGeneralIndividual() {
   const [open, setOpen] = useState(false);
 
   const [identity, setIdentity] = useState('Select');
@@ -437,4 +437,4 @@ function SettingsGeneral() {
 //   /* </form> */
 // }
 
-export default SettingsGeneral;
+export default SettingsGeneralIndividual;

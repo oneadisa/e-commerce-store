@@ -58,6 +58,20 @@ const signUpTemplate = new mongoose.Schema({
     default:
       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
   },
+  twitter: {
+    type: String,
+    required: false,
+    default: "https://www.twitter.com",
+  },
+  facebook: {
+    type: String,
+    required: false,
+    default: "https://www.facebook.com",
+  },
+  whatsApp: {
+    type: String,
+    required: Number,
+  },
   meansOfID: {
     type: String,
     required: false,

@@ -34,6 +34,9 @@ const registerUser = asyncHandler(async (req, res) => {
     bank,
     bankAccountName,
     bankAccountNumber,
+    twitter,
+    facebook,
+    whatsApp,
     walletBalance,
     businessOrderedFrom,
     numberOfOrderRequests,
@@ -80,6 +83,9 @@ const registerUser = asyncHandler(async (req, res) => {
     numberOfProductsReviewed,
     totallNumberOfInteractions,
     paymentMethod,
+    twitter,
+    facebook,
+    whatsApp,
   });
   if (user) {
     res.status(201).json({
@@ -109,6 +115,9 @@ const registerUser = asyncHandler(async (req, res) => {
       numberOfProductsReviewed: user.numberOfProductReviews,
       totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
+      twitter: user.twitter,
+      facebook: user.facebook,
+      whatsApp: user.whatsApp,
       token: generateToken(user._id),
     });
   } else {
@@ -158,6 +167,9 @@ const authUser = asyncHandler(async (req, res) => {
       numberOfProductsReviewed: user.numberOfProductReviews,
       totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
+      twitter: user.twitter,
+      facebook: user.facebook,
+      whatsApp: user.whatsApp,
       token: generateToken(user._id),
     });
   } else {
@@ -204,6 +216,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       req.body.numberOfProductsReviewed || user.numberOfProductReviews;
     user.totallNumberOfInteractions =
       req.body.totallNumberOfInteractions || user.totalNumberOfInteractions;
+    user.twitter = req.body.twitter || user.twitter;
+    user.facebook = req.body.facebook || user.facebook;
+    user.whatsApp = req.body.whatsApp || user.whatsApp;
 
     if (req.body.password) {
       user.password = req.body.password;
@@ -239,6 +254,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       productReviews: updatedUser.productReviews,
       numberOfProductsReviewed: updatedUser.numberOfProductReviews,
       totallNumberOfInteractions: updatedUser.totalNumberOfInteractions,
+      twitter: updatedUser.twitter,
+      facebook: updatedUser.facebook,
+      whatsApp: updatedUser.whatsApp,
       token: generateToken(updatedUser._id),
     });
   } else {

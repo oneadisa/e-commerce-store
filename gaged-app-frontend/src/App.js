@@ -14,56 +14,67 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/Landing Page/LandingPage";
 
-import ProductsAll from "./components/store-components/ProductsAll";
-import ProductsNew from "./components/store-components/ProductsNew";
-import ProductsOrders from "./components/store-components/ProductsOrders";
-import SingleStoreProduct from "./components/store-components/SingleStoreProduct";
+import ProductsAll from "./components/Profile/Business/Store/Products/Main/All.jsx"; 
+import ProductsNew from "./components/Profile/Business/Store/Products/Main/New.jsx";
+import ProductsOrders from "./components/Profile/Business/Store/Products/Main/Orders.jsx";
+import SingleStoreProduct from "./components/Profile/Business/Store/Products/Main/Update";
+import ProductsCustomers from "./components/Profile/Business/Store/Products/Main/Customers";
+import ProductReviews from "./components/Profile/Business/Store/Products/Main/Reviews";
 
-import SignUpGeneral from "./components/Profile/SignUp/SignUpGeneral";
+import SignUpGeneral from "./components/Profile/SignUpGeneral";
 import SetUpProfile1individual from "./components/Profile/SignUp/SetUpProfile-1-individual";
 import SetUpProfile1Business from "./components/Profile/SignUp/SetUpProfile-1-business";
 import SetUpProfile2Individual from "./components/Profile/SignUp/SetUpProfile-2-individual";
 import SetUpProfile2Business from "./components/Profile/SignUp/SetUpProfile-2-business";
 import LoginGeneral from "./components/Profile/LoginGeneral";
-import LoginUser from "./components/Profile/LoginUser";
-import LoginBusiness from "./components/Profile/LoginBusiness"; 
+import LoginUser from "./components/Profile/Individual/Login/LoginUser";
+import LoginBusiness from "./components/Profile/Business/Login/LoginBusiness"; 
 
-import Campaigns from "./components/individual-component/Campaigns";
-import ExploreStores from "./components/individual-component/ExploreStores";
-import CampaignsFirst from "./components/individual-component/CampaignsFirst";
-import CampaignsSecond from "./components/individual-component/CampaignsSecond";
-import CampaignsThird from "./components/individual-component/Campaigns";
-import ExploreCampaigns from "./components/individual-component/ExploreCampaigns";
+import Campaigns from "./components/Explore/Businesses/ExploreStores.jsx";
+import ExploreStores from "./components/Explore/Businesses/ExploreStores.jsx";
+// import CampaignsFirst from "./components/individual-component/CampaignsFirst";
+// import CampaignsSecond from "./components/individual-component/CampaignsSecond";
+// import CampaignsThird from "./components/individual-component/Campaigns";
+import loanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js"
+import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.js"
 
-import Campaign1 from "./components/campaign-components/Campaign1";
-import Campaign2 from "./components/campaign-components/Campaign2";
-import Campaign3 from "./components/campaign-components/Campaign3";
+import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.jsx";
 
-import SettingsBank from "./components/setting-components/SettingsBank";
-import SettingsGeneral from "./components/setting-components/SettingsGeneral";
-import SettingsStore from "./components/setting-components/SettingsStore";
+import Campaign1 from "./components/Profile/Business/Campaigns/Overview/Campaign1.jsx";
+// import Campaign2 from "./components/campaign-components/Campaign2";
+// import Campaign3 from "./components/campaign-components/Campaign3";
+// 
+import SettingsBank from "./components/Profile/Business/Settings/SettingsBank.jsx";
+import SettingsGeneral from "./components/Profile/Business/Settings/SettingsGeneral";
+import SettingsStore from "./components/Profile/Business/Settings/SettingsStore";
 
-import PublishedStore from "./components/published-component/PublishedStore";
+import SettingsBankIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.jsx";
+import SettingsGeneralIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.jsx";
 
-import Comments from "./components/managecampaign-component/Comments";
-import Lenders from "./components/managecampaign-component/Lenders";
-import OverviewDonation from "./components/managecampaign-component/OverviewDonation";
-import OverviewEquity from "./components/managecampaign-component/OverviewEquity";
-import OverviewLoan from "./components/managecampaign-component/OverviewLoan";
 
-import Demographics from "./components/addnew-campaign-component/Demographics";
-import Finance from "./components/addnew-campaign-component/Finance";
-import Organisation from "./components/addnew-campaign-component/Organisation";
-import Review from "./components/addnew-campaign-component/Review";
-import SetSchedule from "./components/addnew-campaign-component/SetSchedule";
-import Target from "./components/addnew-campaign-component/Target";
-import TargetII from "./components/addnew-campaign-component/TargetII";
 
-import Cart from "./components/cart-component/Cart";
-import BusinessDashboard from "./components/dashboard-component/Business-dashboard";
+import PublishedStore from "./components/Profile/Business/Store/PublishedStore";
 
-import ErrorPage from "./components/ErroPage";
-import UserDashboard from "./components/dashboard-component/User-dashboard";
+// import Comments from "./components/managecampaign-component/Comments";
+// import Lenders from "./components/managecampaign-component/Lenders";
+import OverviewDonation from "./components/Profile/Business/Campaigns/Manage/Donation";
+import OverviewEquity from "./components/Profile/Business/Campaigns/Manage/Equity.jsx";
+import OverviewLoan from "./components/Profile/Business/Campaigns/Manage/Loan.jsx";
+
+import Demographics from "./components/Profile/Business/Campaigns/New/Demographics.jsx";
+import Finance from "./components/Profile/Business/Campaigns/New/Finance.jsx";
+import Organisation from "./components/Profile/Business/Campaigns/New/Organisation";
+import Review from "./components/Profile/Business/Campaigns/New/Review.jsx";
+import SetSchedule from "./components/Profile/Business/Campaigns/New/SetSchedule";
+import Target from "./components/Profile/Business/Campaigns/New/Target";
+import TargetII from "./components/Profile/Business/Campaigns/New/TargetII";
+
+import Cart from "./components/Cart/Cart.jsx";
+
+import BusinessDashboard from "./components/Profile/Business/Dashboard/business-dashboard.jsx";
+
+import ErrorPage from "./components/Layout/Not Found/ErroPage.js";
+import UserDashboard from "./components/Profile/Individual/Dashboard/User-dashboard.js";
 
 import ProtectedRoute from "./components/Routes/protectedRoute";
 
@@ -104,11 +115,11 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route
             path="/business/dashboard"
-            element={<BusinessDashboard navigate={undefined} />}
+            element={<BusinessDashboard  />}
           />
           <Route
             path="/individual/dashboard"
-            element={<UserDashboard navigate={undefined} />}
+            element={<UserDashboard />}
           />
           <Route
             path="/business/campaign/overviewDonation"
@@ -122,8 +133,8 @@ function App() {
             path="/business/campaign/overviewLoan"
             element={<OverviewLoan />}
           />
-          <Route path="/business/campaign/lenders" element={<Lenders />} />
-          <Route path="/business/campaign/comments" element={<Comments />} />
+          {/* <Route path="/business/campaign/lenders" element={<Lenders />} /> */}
+          {/* <Route path="/business/campaign/comments" element={<Comments />} /> */}
           <Route path="/gaged" element={<LandingPage />} />
           <Route path="/signup" element={<SignUpGeneral />} />{" "}
           <Route
@@ -155,14 +166,14 @@ function App() {
           <Route path="/settings/bank" element={<SettingsBank />} />{" "}
           <Route path="/settings/store" element={<SettingsStore />} />{" "}
           <Route path="/published" element={<PublishedStore />} />
-          <Route path="/campaigns/first" element={<CampaignsFirst />} />
-          <Route path="/campaigns/second" element={<CampaignsSecond />} />
-          <Route path="/campaigns/third" element={<CampaignsThird />} />
+          {/* <Route path="/campaigns/first" element={<CampaignsFirst />} /> */}
+          {/* <Route path="/campaigns/second" element={<CampaignsSecond />} /> */}
+          {/* <Route path="/campaigns/third" element={<CampaignsThird />} /> */}
           <Route path="/explore/campaigns" element={<ExploreCampaigns />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/campaigns/all" element={<Campaign1 />} />{" "}
-          <Route path="/campaigns/live" element={<Campaign2 />} />{" "}
-          <Route path="/campaigns/completed" element={<Campaign3 />} />{" "}
+          {/* <Route path="/campaigns/live" element={<Campaign2 />} />{" "} */}
+          {/* <Route path="/campaigns/completed" element={<Campaign3 />} />{" "} */}
           <Route path="/new-campaign/demographics" element={<Demographics />} />{" "}
           <Route path="/new-campaign/finance" element={<Finance />} />{" "}
           <Route path="/new-campaign/organisation" element={<Organisation />} />{" "}

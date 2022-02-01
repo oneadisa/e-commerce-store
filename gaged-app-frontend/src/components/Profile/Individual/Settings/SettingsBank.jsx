@@ -4,7 +4,7 @@ import React,{useState} from 'react'
 import Header from './Header';
 import DashBoard from './DashBoard'
 
-function SettingsBank() {
+function SettingsBankIndividual() {
     const [open, setOpen] = useState(false)
 
     return (
@@ -59,4 +59,4 @@ function SettingsBank() {
     )
 }
 
-export default SettingsBank
+export default SettingsBankIndividual

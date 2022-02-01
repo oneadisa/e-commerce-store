@@ -15,6 +15,9 @@
    listStoreProducts,
    deleteStoreProductAction,
  } from "../../actions/storeProductsActions"
+
+
+
  function ProductsAll() {
    const dispatch = useDispatch();
    let navigate = useNavigate()
@@ -186,13 +189,14 @@
          </div>
        </div>
    );
+                     }
  
  export default ProductsAll
- &&
- storeProducts
- .filter((filteredstoreProduct) =>
- filteredstoreProduct.productTitle
- .toLowerCase()
- .includes(search.toLowerCase())
- )
- .reverse()
+//  &&
+//  storeProducts
+//  .filter((filteredstoreProduct) =>
+//  filteredstoreProduct.productTitle
+//  .toLowerCase()
+//  .includes(search.toLowerCase())
+//  )
+//  .reverse()

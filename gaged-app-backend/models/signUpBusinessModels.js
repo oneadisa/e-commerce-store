@@ -43,6 +43,22 @@ const signUpBusinessTemplate = new mongoose.Schema({
     default: "user",
     required: false,
   },
+  twitter: {
+    type: String,
+    required: false,
+    default: "https://www.twitter.com",
+  },
+  facebook: {
+    type: String,
+    required: false,
+    default: "https://www.facebook.com",
+  },
+
+  whatsApp: {
+    type: String,
+    required: Number,
+  },
+
   avatar: {
     public_id: {
       type: String,

@@ -25,6 +25,9 @@ const registerBusiness = asyncHandler(async (req, res) => {
     phoneNumber,
     password,
     pic,
+    twitter,
+    facebook,
+    whatsApp,
     isAdmin,
     role,
     meansOfID,
@@ -108,6 +111,9 @@ const registerBusiness = asyncHandler(async (req, res) => {
     isAdmin,
     role,
     pic,
+    twitter,
+    facebook,
+    whatsApp,
     meansOfID,
     IDpic,
     regNum,
@@ -184,6 +190,9 @@ const registerBusiness = asyncHandler(async (req, res) => {
       meansOfID: user.meansOfID,
       IDpic: user.IDpic,
       regNum: user.regNum,
+      twitter: user.twitter,
+      facebook: user.facebook,
+      whatsApp: user.whatsApp,
       natureOfBusiness: user.natureOfBusiness,
       businessEmail: user.businessEmail,
       businessAddress: user.businessAddress,
@@ -286,6 +295,9 @@ const authBusiness = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       role: user.role,
       pic: user.pic,
+      twitter: user.twitter,
+      facebook: user.facebook,
+      whatsApp: user.whatsApp,
       token: generateToken(user._id),
       meansOfID: user.meansOfID,
       IDpic: user.IDpic,
@@ -460,6 +472,9 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.totallNumberOfInteractions =
       req.body.totallNumberOfInteractions || user.totalNumberOfInteractions;
     user.paymentMethod = req.body.paymentMethod || user.paymentMethod;
+    user.twitter = req.body.twitter || user.twitter;
+    user.facebook = req.body.facebook || user.facebook;
+    user.whatsApp = req.body.whatsApp || user.whatsApp;
 
     if (req.body.password) {
       user.password = req.body.password;

@@ -149,8 +149,13 @@ const CreateStoreProduct = asyncHandler(async (req, res) => {
     });
 
     const createdStoreProduct = await storeProduct.save();
+    const product = await storeProduct.create(req.body);
 
-    res.status(201).json(createdStoreProduct);
+    res.status(201).json({
+      success: true,
+      createdStoreProduct,
+      product,
+    });
   }
 });
 
