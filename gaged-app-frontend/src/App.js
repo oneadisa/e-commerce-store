@@ -12,7 +12,7 @@ import React, { useState, useEffect } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import LandingPage from "./components/landing-pages-components/LandingPage";
+import LandingPage from "./components/Landing Page/LandingPage";
 
 import ProductsAll from "./components/store-components/ProductsAll";
 import ProductsNew from "./components/store-components/ProductsNew";
@@ -26,7 +26,7 @@ import SetUpProfile2Individual from "./components/Profile/SignUp/SetUpProfile-2-
 import SetUpProfile2Business from "./components/Profile/SignUp/SetUpProfile-2-business";
 import LoginGeneral from "./components/Profile/LoginGeneral";
 import LoginUser from "./components/Profile/LoginUser";
-import LoginBusiness from "./components/Profile/LoginBusiness";
+import LoginBusiness from "./components/Profile/LoginBusiness"; 
 
 import Campaigns from "./components/individual-component/Campaigns";
 import ExploreStores from "./components/individual-component/ExploreStores";
@@ -178,3 +178,5 @@ function App() {
 }
 
 export default App;
+
+

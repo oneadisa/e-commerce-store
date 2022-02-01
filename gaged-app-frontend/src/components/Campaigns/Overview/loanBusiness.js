@@ -19,7 +19,7 @@ import {
 import { NEW_CAMPAIGN_BUSINESS_REVIEW_RESET } from "../../../constants/campaignConstants";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import IndividualCampaignReviewCard from "../individualCampaignReviewCard";
-import BusinessCampaignReviewCard from "../businessCampaignReviewCard.js";
+import BusinessCampaignReviewCard from "../businessCampaignReviewCard.js.js";
 import LendHistoryCard from "../lendHistoryCard"
 import RepaymentHistoryCard from "../repaymentHistoryCard"
 

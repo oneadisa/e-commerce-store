@@ -22,7 +22,7 @@ function CampaignsThird() {
               <div className="flex flex-col gap-5 w-full">
                 <div>
                   {/* this image is suppose to be a video, for now we dnt have a video so i made it an image for fast work */}
-                  <img alt="" src={fundraiser} />
+                  <iframe src="example.mp4" width="100px" height="100px"></iframe>
                 </div>
                 <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                   <div className="flex gap-1">
