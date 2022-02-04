@@ -79,21 +79,50 @@ class Target extends Component {
                   </h2>
                   <div className="mt-3 border-t-2 border-b-2 border-gray-400 md:w-3/4 lg:w-4/6">
                     <div className="pt-5 pb-7 flex flex-col gap-5 md:flex-row justify-between">
-                      <div className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-Dark-blue border-2 border-Dark-blue">
-                        <div className="text-white font-medium text-lg ml-auto pl-6">
-                          Loan
-                        </div>
-                        <div className="bg-white h-4 w-4 text-center text-Dark-blue text-xs font-medium rounded-full ml-auto">
-                          ?
-                        </div>
+                      <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 ">
+                        <label class="cursor-pointer label">
+                          <input
+                            type="radio"
+                            name="fundingType"
+                            checked="checked"
+                            class="radio"
+                            value="Loan"
+                            onChange={handleChange("fundingType")}
+                          />
+                          <span class="label-text">
+                            <div className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-Dark-blue border-2 border-Dark-blue">
+                              <div className="text-white font-medium text-lg ml-auto pl-6">
+                                Loan
+                              </div>
+                              <div className="bg-white h-4 w-4 text-center text-Dark-blue text-xs font-medium rounded-full ml-auto">
+                                ?
+                              </div>
+                            </div>
+                          </span>
+                        </label>
                       </div>
-                      <div className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-white border-2 border-gray-400">
-                        <div className="text-gray-500 font-medium text-lg ml-auto pl-6">
-                          Equity
-                        </div>
-                        <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
-                          ?
-                        </div>
+                      <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 ">
+                        <label class="cursor-pointer label">
+                          <input
+                            type="radio"
+                            name="fundingType"
+                            checked="checked"
+                            class="radio"
+                            value="Equity"
+                            onChange={handleChange("fundingType")}
+                            disabled="disabled"
+                          />
+                          <span class="label-text">
+                            <button className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-white border-2 border-gray-400 disabled">
+                              <div className="text-gray-500 font-medium text-lg ml-auto pl-6">
+                                Equity
+                              </div>
+                              <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
+                                ?
+                              </div>
+                            </button>
+                          </span>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -118,10 +147,11 @@ class Target extends Component {
                               </span>
                               <input
                                 type="radio"
-                                name="opt"
+                                name="categoryFunding"
                                 checked="checked"
                                 class="radio"
-                                value=""
+                                onChange={handleChange("categoryFunding")}
+                                value="$0 – $999"
                               />
                             </label>
                           </div>
@@ -137,10 +167,11 @@ class Target extends Component {
                               </span>
                               <input
                                 type="radio"
-                                name="opt"
+                                name="categoryFunding"
                                 checked="checked"
                                 class="radio"
-                                value=""
+                                onChange={handleChange("categoryFunding")}
+                                value="$1000 – $9,999"
                               />
                             </label>
                           </div>
@@ -158,10 +189,11 @@ class Target extends Component {
                               </span>
                               <input
                                 type="radio"
-                                name="opt"
+                                name="categoryFunding"
                                 checked="checked"
                                 class="radio"
-                                value=""
+                                onChange={handleChange("categoryFunding")}
+                                value="$10,000 – $99,999"
                               />
                             </label>
                           </div>
@@ -177,10 +209,11 @@ class Target extends Component {
                               </span>
                               <input
                                 type="radio"
-                                name="opt"
+                                name="categoryFunding"
                                 checked="checked"
                                 class="radio"
-                                value=""
+                                onChange={handleChange("categoryFunding")}
+                                value="> $100,000"
                               />
                             </label>
                           </div>
@@ -195,7 +228,11 @@ class Target extends Component {
                         <p className="text-sm text-gray-800 md:4/5 lg:w-3/4">
                           Please indicate the specific amount being raised
                         </p>
-                        <input className="border-2 border-gray-400 w-56 h-10 outline-none" />
+                        <input
+                          className="border-2 border-gray-400 w-56 h-10 outline-none"
+                          name="amountBeingRaised"
+                          onChange={handleChange("amountBeingRaised")}
+                        />
                       </div>
                     </div>
                     <div className="flex flex-col gap-2 py-2">
@@ -241,40 +278,70 @@ class Target extends Component {
                               <Menu className="absolute cursor-pointer flex flex-col gap-3 w-40 mt-3 py-4 pl-6 pr-10 text-sm font-medium bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ duration: "12 months" })
+                                    name="duration_pledged_profit"
+                                    value="12"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "12 months",
+                                        }),
+                                      handleChange("duration_pledged_profit"))
                                     }
                                     className="hover:text-blue-600"
                                   >
                                     12 months
                                   </div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ duration: "18 months" })
+                                    name="duration_pledged_profit"
+                                    value="18"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "18 months",
+                                        }),
+                                      handleChange("duration_pledged_profit"))
                                     }
                                     className="hover:text-blue-600"
                                   >
                                     18 months
                                   </div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ duration: "24 months" })
+                                    name="duration_pledged_profit"
+                                    value="24"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "24 months",
+                                        }),
+                                      handleChange("duration_pledged_profit"))
                                     }
                                     className="hover:text-blue-600"
                                   >
                                     24 months
                                   </div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ duration: "30 months" })
+                                    name="duration_pledged_profit"
+                                    value="30"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "30 months",
+                                        }),
+                                      handleChange("duration_pledged_profit"))
                                     }
                                     className="hover:text-blue-600"
                                   >
                                     30 months
                                   </div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ duration: "36 months" })
+                                    name="duration_pledged_profit"
+                                    value="36"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "36 months",
+                                        }),
+                                      handleChange("duration_pledged_profit"))
                                     }
                                     className="hover:text-blue-600"
                                   >
@@ -319,24 +386,46 @@ class Target extends Component {
                               <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-40 mt-3 pt-3 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ schedule: "Monthly" })
+                                    name="repayment_schedule_pledged_profit"
+                                    value="1"
+                                    onClick={
+                                      (() =>
+                                        this.setState({ duration: "Monthly" }),
+                                      handleChange(
+                                        "repayment_schedule_pledged_profit"
+                                      ))
                                     }
                                     className="hover:text-blue-600"
                                   >
                                     Monthly
                                   </div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ schedule: "Bi-monthly" })
+                                    name="repayment_schedule_pledged_profit"
+                                    value="2"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "Bi-monthly",
+                                        }),
+                                      handleChange(
+                                        "repayment_schedule_pledged_profit"
+                                      ))
                                     }
                                     className="hover:text-blue-600"
                                   >
                                     Bi-monthly
                                   </div>
                                   <div
-                                    onClick={() =>
-                                      this.setState({ schedule: "Quarterly" })
+                                    name="repayment_schedule_pledged_profit"
+                                    value="3"
+                                    onClick={
+                                      (() =>
+                                        this.setState({
+                                          duration: "Quarterly",
+                                        }),
+                                      handleChange(
+                                        "repayment_schedule_pledged_profit"
+                                      ))
                                     }
                                     className="hover:text-blue-600"
                                   >

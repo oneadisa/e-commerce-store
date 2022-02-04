@@ -97,7 +97,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     endDatePledgedProfitString,
     timePerPayment,
     equity_offering_percentage,
-    bank,
+    bankCode,
     bank_account_name,
     bank_account_number,
     duration,
@@ -132,7 +132,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     !pledged_profit_to_lenders ||
     !duration_pledged_profit ||
     !repayment_schedule_pledged_profit ||
-    !bank ||
+    !bankCode ||
     !bank_account_name ||
     !bank_account_number ||
     !duration ||
@@ -173,7 +173,7 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       endDatePledgedProfitString,
       timePerPayment,
       equity_offering_percentage: Number(equity_offering_percentage),
-      bank,
+      bankCode,
       bank_account_name,
       bank_account_number,
       duration: Number(duration),
@@ -204,7 +204,14 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     let numWeeks = campaign.duration;
     var now = new Date().getTime();
 
-    campaign.endDate = now + numWeeks * 7 * 1000 * 60 * 60 * 24;
+    var goLive = new Date(campaign.go_live_Schedule);
+    
+
+    campaign.go_ = Math.abs( now);
+   
+
+
+    campaign.endDate =  + now + numWeeks * 7 * 1000 * 60 * 60 * 24;
     campaign.endDateString = new Date(campaign.endDate);
     // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
 
@@ -285,7 +292,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     endDatePledgedProfitString,
     timePerPayment,
     equity_offering_percentage,
-    bank,
+    bankCode,
     bank_account_name,
     bank_account_number,
     duration,
@@ -338,7 +345,7 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.endDatePledgedProfitString = endDatePledgedProfitString;
     campaign.timePerPayment = timePerPayment;
     campaign.equity_offering_percentage = Number(equity_offering_percentage);
-    campaign.bank = bank;
+    campaign.bankCode = bankCode;
     campaign.bank_account_name = bank_account_name;
     campaign.bank_account_number = bank_account_number;
     campaign.duration = duration;

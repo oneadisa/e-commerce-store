@@ -100,6 +100,7 @@ class Finance extends Component {
                           id="bankCode"
                           name="bankCode"
                           class="form-control form-control-alternative"
+                          onChange={handleChange("bankCode")}
                         >
                           <option value="">--Select Bank--</option>
 
@@ -227,10 +228,14 @@ class Finance extends Component {
                       <input
                         className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                         placeholder="Account Name"
+                        name="bank_account_name"
+                        onChange={handleChange("bank_account_name")}
                       />
                       <input
                         className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                         placeholder="Account Number"
+                        name="bank_account_number"
+                        onChange={handleChange("bank_account_number")}
                       />
                     </div>
                     <div className="flex justify-between mt-14 md:w-3/5 lg:w-1/2">

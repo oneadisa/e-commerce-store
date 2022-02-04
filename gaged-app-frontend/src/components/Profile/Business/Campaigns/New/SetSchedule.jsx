@@ -81,7 +81,7 @@ class SetSchedule extends Component {
                       <div className="px-2 h-12 flex items-center w-11/12 border-2 border-gray-400">
                         <Menu as="div" className="w-11/12">
                           <Menu.Button className="flex w-full items-center ">
-                            <div className="flex text-base font-medium text-gray-400 pl-3 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                            <div className="flex  text-gray-400 pl-3 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                               {this.state.duration}
                             </div>
                             <div className="ml-auto">
@@ -102,56 +102,98 @@ class SetSchedule extends Component {
                             <Menu className="absolute cursor-pointer flex flex-col gap-4 text-sm font-medium w-40 mt-5 pt-5 pb-7 pl-6 pr-10 bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                               <div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "2 weeks" })
+                                  name="duration"
+                                  value="2"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "2 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
                                   2 weeks
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "3 weeks" })
+                                  name="duration"
+                                  value="3"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "3 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
                                   3 weeks
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "4 weeks" })
+                                  name="duration"
+                                  value="4"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "4 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
                                   4 weeks
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "5 weeks" })
+                                  name="duration"
+                                  value="5"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "5 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
                                   5 weeks
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "6 weeks" })
+                                  name="duration"
+                                  value="6"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "6 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
                                   6 weeks
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "7 weeks" })
+                                  name="duration"
+                                  value="7"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "7 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
                                   7 weeks
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    this.setState({ duration: "8 weeks" })
+                                  name="duration"
+                                  value="8"
+                                  onClick={
+                                    (() =>
+                                      this.setState({
+                                        duration: "8 weeks",
+                                      }),
+                                    handleChange("duration"))
                                   }
                                   className="hover:text-blue-600"
                                 >
@@ -185,9 +227,10 @@ class SetSchedule extends Component {
                       <input
                         className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                         type="date"
-                        name="bday"
+                        name="go_live_schedule"
                         required
-                        pattern="\d{4}-\d{2}-\d{2}"
+                        pattern="\d{2}-\m{2}-\y{4}"
+                        onChage={handleChange("go_live_schedule")}
                       />
                       <button className="mt-5 mb-9 text-base font-medium w-48 h-10 border border-Dark-blue hover:bg-medium-blue hover:text-white">
                         Set schedule

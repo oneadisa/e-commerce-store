@@ -94,7 +94,7 @@ class Organisation extends Component {
                               <label class="cursor-pointer label">
                                 <input
                                   type="radio"
-                                  name="campaignName"
+                                  name="natureOfBusiness"
                                   checked="checked"
                                   class="radio"
                                   value="Limited Liability Company"
@@ -111,7 +111,7 @@ class Organisation extends Component {
                               <label class="cursor-pointer label">
                                 <input
                                   type="radio"
-                                  name="campaignName"
+                                  name="natureOfBusiness"
                                   checked="checked"
                                   class="radio"
                                   value="Sole Proprietorship"
@@ -129,7 +129,7 @@ class Organisation extends Component {
                             <label class="cursor-pointer label">
                               <input
                                 type="radio"
-                                name="campaignName"
+                                name="natureOfBusiness"
                                 checked="checked"
                                 class="radio"
                                 value="Unregistered"

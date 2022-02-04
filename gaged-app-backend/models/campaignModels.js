@@ -131,7 +131,7 @@ const campaignSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
-    bank: {
+    bankCode: {
       type: String,
       required: [true, "Please Enter Your Bank Name."],
     },
