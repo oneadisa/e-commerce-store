@@ -140,7 +140,7 @@ const campaignSchema = new mongoose.Schema(
       required: [true, "Please Enter Your Bank Account Name."],
     },
     bank_account_number: {
-      type: Number,
+      type: String,
       required: [true, "Please Enter Your BAnk Account Name."],
     },
     duration: {
@@ -154,7 +154,15 @@ const campaignSchema = new mongoose.Schema(
     campaignLiveStatus: {
       type: String,
       required: false,
-      default: "true",
+      default: "false",
+    },
+    familiarWithCrowdFunding: {
+      type: String,
+      required: false,
+    },
+    storeOnGaged: {
+      type: String,
+      required: false,
     },
     createdAt: {
       type: Date,

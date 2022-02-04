@@ -47,34 +47,6 @@ function SetUpProfile2Business() {
     (state: RootStateOrAny) => state.businessSignUp
   );
   const { loading, error, signedUpBusinessInfo } = businessSignUp;
-  //
-  // function postDetails (pics): any
-  //    {
-  // if (pics === "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg")
-  // {
-  // return setPicMessage("Please select an image.");
-  // }
-  // setPicMessage(null);
-  // if (pics.type === 'image/jpeg' || pics.type === 'image/png')
-  // {
-  // const data = new FormData();
-  // data.append('file',pics);
-  // data.append('uploead_preset','gaged');
-  // data.append('cloud_name','gaged');
-  // fetch("https://api.cloudinary.com/v1_1/gaged/image/upload",{
-  // method: "post",
-  // body: data
-  // }).then((res) => res.json())
-  // .then((data) => { console.log(data); setCredentials.pic(data.url.toString()); })
-  // .catch((err) =>
-  // {
-  // console.log(err);
-  // });
-  // } else
-  // {
-  // return setPicMessage("Please select an image.");
-  // }
-  //    }
 
   useEffect(() => {
     if (signedUpBusinessInfo) {
@@ -98,59 +70,6 @@ function SetUpProfile2Business() {
           credentials.pic
         )
       );
-
-    // window.location = "/explore"
-
-    // const registered = {
-    // businessName: credentials.businessName,
-    // accountHolderName: credentials.accountHolderName,
-    // email: credentials.email,
-    // phoneNumber: credentials.phoneNumber,
-    // password: credentials.password,
-    // pic: credentials.pic,
-    // confirmPassword: credentials.confirmPassword
-
-    // }
-
-    //  if (registered.password !== registered.confirmPassword) {
-    //  setMessage('Passswords do not match!')
-    // } else {
-    //    setMessage(null)
-    // try {
-    // const config = {
-    // headers: {
-    // "Content-type": "application/json",
-    // }
-    // }
-    // const {data} = await axios.post("/app/signup/2/individual",
-    //  registered,
-    //  config)
-    //  console.log(data)
-    //  localStorage.setItem('signedUpBusinessInfo', JSON.stringify(data))
-    //  setLoading(false)
-    //  }
-    //  catch (error) {
-    //  setError(error.response.data.message)
-    //  setLoading(false) }
-    //
-
-    // }
-
-    // axios.post('http://localhost:8080/app/signup/2/business', registered)
-    // .then(res => console.log(res.data)
-    // )
-
-    // setCredentials(
-    // {
-    // businessName: '',
-    // accountHolderName: '',
-    // email: '',
-    // phoneNumber: '',
-    // password: '',
-    // pic: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
-    // confirmPassword: ''
-    // }
-    // )
   };
 
   return (

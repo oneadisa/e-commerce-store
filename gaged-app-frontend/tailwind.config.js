@@ -32,12 +32,12 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    styled: false,
+    styled: true,
     themes: true,
-    base: true,
+    base: false,
     utils: true,
     logs: true,
-    rtl: false,
+    rtl: true,
   },
 };
 
@@ -66,7 +66,7 @@ module.exports = {
 // }
 // },
 // container: {
-// center: true,
+// center: false,
 // padding: '1rem',
 // screens:{
 // lg: '1124px',

@@ -103,6 +103,8 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     duration,
     go_live_schedule,
     campaignLiveStatus,
+    familiarWithCrowdFunding,
+    storeOnGaged,
     paymentStartDate,
     endDate,
     firstPaymentDate,
@@ -157,24 +159,28 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       gender,
       fundingType,
       categoryFunding,
-      amountBeingRaised,
-      amountAlreadyRaised,
+      amountBeingRaised: Number(amountBeingRaised),
+      amountAlreadyRaised: Number(amountAlreadyRaised),
       amountRepaid,
       amountToBeRepaid,
       amountToBeRepaidPerPayout,
-      pledged_profit_to_lenders,
-      duration_pledged_profit,
-      repayment_schedule_pledged_profit,
+      pledged_profit_to_lenders: Number(pledged_profit_to_lenders),
+      duration_pledged_profit: Number(duration_pledged_profit),
+      repayment_schedule_pledged_profit: Number(
+        repayment_schedule_pledged_profit
+      ),
       endDatePledgedProfit,
       endDatePledgedProfitString,
       timePerPayment,
-      equity_offering_percentage,
+      equity_offering_percentage: Number(equity_offering_percentage),
       bank,
       bank_account_name,
       bank_account_number,
-      duration,
+      duration: Number(duration),
       go_live_schedule,
       campaignLiveStatus,
+      familiarWithCrowdFunding,
+      storeOnGaged,
       paymentStartDate,
       endDate,
       firstPaymentDate,
@@ -285,6 +291,8 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     duration,
     go_live_schedule,
     campaignLiveStatus,
+    familiarWithCrowdFunding,
+    storeOnGaged,
     endDate,
     firstPaymentDate,
     firstPaymentDateString,
@@ -316,25 +324,28 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.gender = gender;
     campaign.fundingType = fundingType;
     campaign.categoryFunding = categoryFunding;
-    campaign.amountBeingRaised = amountBeingRaised;
-    campaign.amountAlreadyRaised = amountAlreadyRaised;
+    campaign.amountBeingRaised = Number(amountBeingRaised);
+    campaign.amountAlreadyRaised = Number(amountAlreadyRaised);
     campaign.amountRepaid = amountRepaid;
     campaign.amountToBeRepaid = amountToBeRepaid;
     campaign.amountToBeRepaidPerPayout = amountToBeRepaidPerPayout;
-    campaign.pledged_profit_to_lenders = pledged_profit_to_lenders;
+    campaign.pledged_profit_to_lenders = Number(pledged_profit_to_lenders);
     campaign.duration_pledged_profit = duration_pledged_profit;
-    campaign.repayment_schedule_pledged_profit =
-      repayment_schedule_pledged_profit;
+    campaign.repayment_schedule_pledged_profit = Number(
+      repayment_schedule_pledged_profit
+    );
     campaign.endDatePledgedProfit = endDatePledgedProfit;
     campaign.endDatePledgedProfitString = endDatePledgedProfitString;
     campaign.timePerPayment = timePerPayment;
-    campaign.equity_offering_percentage = equity_offering_percentage;
+    campaign.equity_offering_percentage = Number(equity_offering_percentage);
     campaign.bank = bank;
     campaign.bank_account_name = bank_account_name;
     campaign.bank_account_number = bank_account_number;
     campaign.duration = duration;
     campaign.go_live_schedule = go_live_schedule;
     campaign.campaignLiveStatus = campaignLiveStatus;
+    campaign.familiarWithCrowdFunding = familiarWithCrowdFunding;
+    campaign.storeOnGaged = storeOnGaged;
     campaign.paymentStartDate = paymentStartDate;
     campaign.endDate = endDate;
     campaign.endDateString = endDateString;

@@ -17,25 +17,21 @@ const options = {
 };
 
 ReactDOM.render(
-  <Router>
-    <Wallet />
-  </Router>,
+  <Provider store={store}>
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
+  </Provider>,
+
   document.getElementById("root")
 );
 
 {
-  /* <Provider store={store}> */
+  /* <Router> */
 }
 {
-  /* <AlertProvider template={AlertTemplate} {...options}> */
-}
-// <App />
-{
-  /* <Wallet/> */
+  /* <Wallet /> */
 }
 {
-  /* </AlertProvider> */
-}
-{
-  /* </Provider>, */
+  /* </Router>, */
 }

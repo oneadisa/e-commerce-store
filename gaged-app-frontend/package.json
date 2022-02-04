@@ -54,6 +54,7 @@
         "react-refresh": "^0.8.3",
         "react-router-dom": "^6.0.1",
         "react-scripts": "^4.0.1",
+        "react-step-builder": "^3.0.3",
         "redux": "^4.1.2",
         "redux-devtools-extension": "^2.13.9",
         "redux-thunk": "^2.4.0",
