@@ -1,6 +1,10 @@
+const express = require("express");
 const app = require("./app");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
+const mongoose = require("mongoose");
+
+require("dotenv").config();
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
