@@ -5,7 +5,7 @@
 import store from "./store";
 import WebFont from "webfontloader";
 
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 import { loadUser } from "./actions/userActions";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
@@ -76,10 +76,14 @@ import UserDashboard from "./components/Profile/Individual/Dashboard/User-dashbo
 
 import ProtectedRoute from "./components/Routes/protectedRoute";
 
+import CampaignForm from "./components/Profile/Business/Campaigns/New/campaignForm";
+
 function App() {
   const [search, setSearch] = useState("");
 
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector(
+    (state: RootStateOrAny) => state.user
+  );
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
@@ -121,6 +125,7 @@ function App() {
             path="/business/campaign/overviewEquity"
             element={<OverviewEquity />}
           />
+          <Route path="/business/campaign/new" element={<CampaignForm />} />
           <Route
             path="/business/campaign/overviewLoan"
             element={<OverviewLoan />}
@@ -157,7 +162,10 @@ function App() {
           <Route path="/settings/general" element={<SettingsGeneral />} />{" "}
           <Route path="/settings/bank" element={<SettingsBank />} />{" "}
           <Route path="/settings/store" element={<SettingsStore />} />{" "}
-          <Route path="/published" element={<PublishedStore />} />
+          <Route
+            path="/published"
+            element={<PublishedStore product={undefined} match={undefined} />}
+          />
           {/* <Route path="/campaigns/first" element={<CampaignsFirst />} /> */}
           {/* <Route path="/campaigns/second" element={<CampaignsSecond />} /> */}
           {/* <Route path="/campaigns/third" element={<CampaignsThird />} /> */}

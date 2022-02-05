@@ -127,35 +127,7 @@ export const listMyCampaigns = () => async (dispatch, getState) => {
   }
 };
 export const createCampaignAction =
-  (
-    campaignName,
-    natureOfBusiness,
-    campaignCategory,
-    business_address_country,
-    business_address_city,
-    business_address_office,
-    phoneNumber,
-    investorBrief,
-    campaignVideo,
-    pitchDeck,
-    ideal_target_audience_age,
-    ideal_target_audience_health_issues_or_disabilities,
-    gender,
-    fundingType,
-    categoryFunding,
-    amountBeingRaised,
-    pledged_profit_to_lenders,
-    duration_pledged_profit,
-    repayment_schedule_pledged_profit,
-    equity_offering_percentage,
-    bank,
-    bank_account_name,
-    bank_account_number,
-    duration,
-    go_live_schedule,
-    campaignLiveStatus
-  ) =>
-  async (dispatch, getState) => {
+  (campaignData) => async (dispatch, getState) => {
     try {
       dispatch({
         type: NEW_CAMPAIGN_REQUEST,
@@ -174,34 +146,7 @@ export const createCampaignAction =
 
       const { data } = await axios.post(
         `/app/campaigns/create`,
-        {
-          campaignName,
-          natureOfBusiness,
-          campaignCategory,
-          business_address_country,
-          business_address_city,
-          business_address_office,
-          phoneNumber,
-          investorBrief,
-          campaignVideo,
-          pitchDeck,
-          ideal_target_audience_age,
-          ideal_target_audience_health_issues_or_disabilities,
-          gender,
-          fundingType,
-          categoryFunding,
-          amountBeingRaised,
-          pledged_profit_to_lenders,
-          duration_pledged_profit,
-          repayment_schedule_pledged_profit,
-          equity_offering_percentage,
-          bank,
-          bank_account_name,
-          bank_account_number,
-          duration,
-          go_live_schedule,
-          campaignLiveStatus,
-        },
+        { campaignData },
         config
       );
 
