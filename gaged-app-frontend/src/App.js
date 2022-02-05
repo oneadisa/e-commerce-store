@@ -35,12 +35,12 @@ import ExploreStores from "./components/Explore/Businesses/ExploreStores.jsx";
 // import CampaignsFirst from "./components/individual-component/CampaignsFirst";
 // import CampaignsSecond from "./components/individual-component/CampaignsSecond";
 // import CampaignsThird from "./components/individual-component/Campaigns";
-import loanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
+import LoanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
 import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.js";
 
 import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.jsx";
 
-import Campaign1 from "./components/Profile/Business/Campaigns/Overview/Campaign1.jsx";
+import Campaign1 from "./components/Profile/Business/Campaigns/Overview/myCampaigns";
 // import Campaign2 from "./components/campaign-components/Campaign2";
 // import Campaign3 from "./components/campaign-components/Campaign3";
 //
@@ -130,6 +130,7 @@ function App() {
             path="/business/campaign/overviewLoan"
             element={<OverviewLoan />}
           />
+          <Route path="/business/campaign" element={<LoanThirdBusiness />} />
           {/* <Route path="/business/campaign/lenders" element={<Lenders />} /> */}
           {/* <Route path="/business/campaign/comments" element={<Comments />} /> */}
           <Route path="/gaged" element={<LandingPage />} />

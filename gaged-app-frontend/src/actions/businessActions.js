@@ -115,12 +115,12 @@ export const businessLogin = (email, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
     };
 
     const { data } = await axios.post(
-      "/app/loginBusiness",
+      `/app/business/login`,
       {
         email,
         password,
@@ -155,12 +155,12 @@ export const signUpBusiness =
 
       const config = {
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       };
 
       const { data } = await axios.post(
-        "/app/signup/2/business",
+        `/app/business/signup/2/business`,
         {
           businessName,
           accountHolderName,
@@ -228,7 +228,7 @@ export const login = (email, password) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
-      `/app/loginBusiness`,
+      `/app/business/login`,
       { email, password },
       config
     );

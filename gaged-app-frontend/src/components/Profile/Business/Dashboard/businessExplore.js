@@ -13,7 +13,8 @@ import { useAlert } from "react-alert";
 import {} from "react-router-dom";
 import { logout } from "../../../../actions/businessActions";
 import MetaData from "../../../Layout/metaData"
-import BusinessCard from "../../../Home/businessCard
+import BusinessCard from "../../../Home/businessCard"
+import CampaignCard from "../../../Home/campaignCard"
 
 const categories = [
   "Laptop",
@@ -124,7 +125,7 @@ function BusinessDashboard({ match }) {
                         <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
                           {businesses &&
                           businesses.map((business) => (
-                            <BusinessCard key={business._id} business={business} />
+                            <BusinessCard key={business._id} business={business} product={undefined} />
                           ))}
                         </div>
                         <Link to="/explore/stores">

@@ -28,7 +28,7 @@ function SignUpGeneral() {
                 Individual
               </button>
             </Link>
-            <Link to="to='/signup/1/business">
+            <Link to="/signup/1/business">
               <button className="h-14 w-36 font-poppins border-2 border-Dark-blue bg-white text-Dark-blue text-base md:text-lg font-medium hover:bg-Dark-blue hover:text-white">
                 Business
               </button>

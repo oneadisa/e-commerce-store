@@ -78,23 +78,13 @@ import {
 } from "../constants/storeProductsConstants";
 import axios from "axios";
 
-export const listStoreProducts = () => async (dispatch, getState) => {
+export const listStoreProducts = () => async (dispatch) => {
   try {
     dispatch({
       type: STORE_PRODUCTS_LIST_REQUEST,
     });
 
-    const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/app/store/products/`, config);
+    const { data } = await axios.get(`/app/store/products/`);
 
     dispatch({
       type: STORE_PRODUCTS_LIST_SUCCESS,

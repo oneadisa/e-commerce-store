@@ -8,13 +8,12 @@ import Loader from "../../Layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import GeneralErrorMessage from "../../Layout/Errors/GeneralErrorMessage";
 // import PictureErrorMessage from '../../componenets/PictureErrorMessage';
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../../actions/userActions";
 // import { useForm } from "react-hook-form";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import "./SignUp.css";
 
 function SetUpProfile2Individual() {
   // const [error, setError] = useState(false)
@@ -50,7 +49,7 @@ function SetUpProfile2Individual() {
 
   const dispatch = useDispatch();
 
-  const userSignUp = useSelector((state) => state.userSignUp);
+  const userSignUp = useSelector((state: RootStateOrAny) => state.userSignUp);
   const { loading, error, signedUpUserInfo } = userSignUp;
 
   // const postDetails = (pics) => {
@@ -104,58 +103,6 @@ function SetUpProfile2Individual() {
           credentials.phoneNumber
         )
       );
-
-    // window.location = "/gaged"
-
-    // const registered = {
-    // firstName: credentials.firstName,
-    // lastName: credentials.lastName,
-    // email: credentials.email,
-    // phoneNumber: credentials.phoneNumber,
-    // password: credentials.password,
-    // pic: credentials.pic,
-    // confirmPassword: credentials.confirmPassword
-    // }
-    //
-    // if (registered.password !== registered.confirmPassword) {
-    // setMessage('Passswords do not match!')
-    //    } else {
-    //    setMessage(null)
-    //    try {
-    //    const config = {
-    //    headers: {
-    //    "Content-type": "application/json",
-    //
-    //    }
-    //    }
-    //    const {data} = await axios.post("/app/signup/2/individual",
-    // registered,
-    // config)
-    // console.log(data)
-    // localStorage.setItem('signedUpUserInfo', JSON.stringify(data))
-    //
-    // setLoading(false)
-    // }
-    // catch (error) {
-    // setError(error.response.data.message)
-    // setLoading(false) }
-    //    }
-
-    // axios.post('http://localhost:8080/app/signup/2/individual', registered)
-    // .then(response => console.log(response.data)
-    // )
-
-    // setCredentials(
-    // {
-    //  firstName: '',
-    // lastName: '',
-    // email: '',
-    // phoneNumber: '',
-    // password: '',
-    // pic: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
-    // confirmPassword: ''
-    // }
-    // )
   };
 
   return (
@@ -374,7 +321,7 @@ function SetUpProfile2Individual() {
 
               <p className="font-poppins text-sm font-normal">
                 Already on Gaged?
-                <Link to="/userLogin" className="text-indigo-400">
+                <Link to="/individualLogin" className="text-indigo-400">
                   {" "}
                   Login Here
                 </Link>

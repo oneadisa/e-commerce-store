@@ -9,14 +9,18 @@ import Loader from "../../../Layout/Loader/Loader";
 // import GeneralErrorMessage from "../componenets/GeneralErrorMessage";
 import ErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { logout, businessLogin } from "../../../../actions/businessActions";
+import {
+  clearErrors,
+  businessLogin,
+} from "../../../../actions/businessActions";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 function LoginBusiness() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
-
+  const alert = useAlert();
   // eslint-disable-next-line no-unused-vars
 
   // useEffect(() => {
@@ -33,10 +37,15 @@ function LoginBusiness() {
   );
   const { loading, error, signedUpBusinessInfo } = signedUpBusinessLogin;
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
     if (signedUpBusinessInfo) {
       navigate("/business/dashboard");
     }
-  }, [navigate, signedUpBusinessInfo]);
+  }, [alert, dispatch, error, navigate, signedUpBusinessInfo]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -46,7 +55,7 @@ function LoginBusiness() {
   return (
     <>
       <HeaderSignUp children={undefined} title={undefined} />
-      {error && <ErrorMessage />}
+      {error && <ErrorMessage children={undefined} />}
 
       <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10 mx-auto">
         <div className="">
