@@ -62,17 +62,17 @@ import {
 import axios from "axios";
 
 export const listCampaigns =
-  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
+  (keyword = "", currentPage = 1, campaignCategory) =>
   async (dispatch) => {
     try {
       dispatch({
         type: ALL_CAMPAIGN_REQUEST,
       });
 
-      let link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}`;
 
-      if (category) {
-        link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      if (campaignCategory) {
+        link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&campaignCategory=${campaignCategory}`;
       }
 
       const { data } = await axios.get(link);
@@ -215,7 +215,7 @@ export const updateCampaignAction =
     productImageOne,
     productImageTwo,
     productImageThree,
-    category
+    campaignCategory
   ) =>
   async (dispatch, getState) => {
     try {
@@ -249,7 +249,7 @@ export const updateCampaignAction =
           productImageOne,
           productImageTwo,
           productImageThree,
-          category,
+          campaignCategory,
         },
         config
       );
@@ -272,15 +272,21 @@ export const updateCampaignAction =
 
 // Get All Campaigns
 export const getCampaign =
-  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
+  (
+    keyword = "",
+    currentPage = 1,
+    price = [0, 25000],
+    campaignCategory,
+    ratings = 0
+  ) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_CAMPAIGN_REQUEST });
 
       let link = `/app/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 
-      if (category) {
-        link = `/app/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      if (campaignCategory) {
+        link = `/app/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&campaignCategory=${campaignCategory}&ratings[gte]=${ratings}`;
       }
 
       const { data } = await axios.get(link);

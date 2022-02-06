@@ -399,6 +399,38 @@ export const allBusinessOrderedFromReducer = (
   }
 };
 
+export const myBusinessOrderedFromReducer = (
+  state = { businessOrderedFrom: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+      return {
+        loading: false,
+        businessOrderedFrom: action.payload,
+      };
+    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const newBusinessOrderedFromReducer = (
   state = { businessOrderedFrom: {} },
   action
@@ -503,6 +535,38 @@ export const allCampaignsInvestedReducer = (
   }
 };
 
+export const myCampaignsInvestedReducer = (
+  state = { campaignsInvested: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_INVESTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_INVESTED_SUCCESS:
+      return {
+        loading: false,
+        campaignsInvested: action.payload,
+      };
+    case ALL_CAMPAIGNS_INVESTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const newCampaignInvestedReducer = (
   state = { campaignsInvested: {} },
   action
@@ -576,6 +640,38 @@ export const campaignsInvestedReducer = (state = {}, action) => {
 };
 
 export const allCampaignsPayoutReducer = (
+  state = { campaignsPayout: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_PAYOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_PAYOUT_SUCCESS:
+      return {
+        loading: false,
+        campaignsPayout: action.payload,
+      };
+    case ALL_CAMPAIGNS_PAYOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const myCampaignsPayoutReducer = (
   state = { campaignsPayout: [] },
   action
 ) => {
@@ -775,6 +871,38 @@ export const allCampaignsReviewsReducer = (
   }
 };
 
+export const myCampaignsReviewsReducer = (
+  state = { campaignsReviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        campaignsReviews: action.payload,
+      };
+    case ALL_CAMPAIGNS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const newCampaignReviewsReducer = (
   state = { campaignsReviews: {} },
   action
@@ -848,6 +976,38 @@ export const campaignsReviewsReducer = (state = {}, action) => {
 };
 
 export const allProductsReviewsReducer = (
+  state = { productsReviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_PRODUCTS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_PRODUCTS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        productsReviews: action.payload,
+      };
+    case ALL_PRODUCTS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const myProductsReviewsReducer = (
   state = { productsReviews: [] },
   action
 ) => {

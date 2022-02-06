@@ -914,6 +914,20 @@ const getListOfCampaignsStarted = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Get CampaignsStarted BusinessProfile
+const getMyListOfCampaignsStarted = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user.id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignsStarted: business.listOfCampaignsStarted,
+  });
+});
+
 // Delete CampaignStarted BusinessProfile
 const deleteCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.businessId);
@@ -1059,6 +1073,20 @@ const createCampaignPayout = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Campaigns Invested BusinessProfile
+const getMyListOfCampaignsPayouts = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfCampaignPayouts: business.listOfCampaignPayouts,
+  });
+});
+
+// Get Campaigns Invested BusinessProfile
 const getListOfCampaignsPayouts = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1180,6 +1208,22 @@ const createCampaignInvested = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Campaigns Invested BusinessProfile
+const getMyListOfCampaignsInvested = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.user._id);
+
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignsInvested: business.listOfCampaignsInvested,
+    });
+  }
+);
+
+// Get Campaigns Invested BusinessProfile
 const getListOfCampaignsInvested = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1298,6 +1342,20 @@ const createBusinessInvestor = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Business Invested BusinessProfile
+const getMyBusinessInvestors = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfBusinessInvestors: business.listOfBusinessInvestors,
+  });
+});
+
+// Get Business Invested BusinessProfile
 const getBusinessInvestors = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1395,6 +1453,20 @@ const createIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Individual Invested IndividualProfile
+const getMyIndividualInvestors = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Individual not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    listOfIndividualInvestors: business.listOfIndividualInvestors,
+  });
+});
+
+// Get Individual Invested IndividualProfile
 const getIndividualInvestors = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1473,6 +1545,20 @@ const createBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
   }
 
   await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    businessOrderedFrom: business.businessOrderedFrom,
+  });
+});
+
+// Get Order  BusinessProfile
+const getMyBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Order not found", 404));
+  }
 
   res.status(200).json({
     success: true,
@@ -1573,6 +1659,20 @@ const createIndividualReview = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Individual Reviews of a business BusinessProfile
+const getMyIndividualReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualReviews: business.individualReviews,
+  });
+});
+
+// Get Individual Reviews of a business BusinessProfile
 const getIndividualReviews = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1664,6 +1764,20 @@ const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Business Reviews of a business BusinessProfile
+const getMyBusinessReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessReviews: business.businessReviews,
+  });
+});
+
+// Get Business Reviews of a business BusinessProfile
 const getBusinessReviews = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1743,6 +1857,20 @@ const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
   }
 
   await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    businessOrders: business.businessOrders,
+  });
+});
+
+// Get Business Orders of a business BusinessProfile
+const getMyBusinessOrders = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
 
   res.status(200).json({
     success: true,
@@ -1838,6 +1966,22 @@ const createBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Business Customers of a business BusinessProfile
+const getMyBusinessCustomers = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessCustomers: business.businessCustomers,
+  });
+});
+
+// Delete Business Customer
+
+// Get Business Customers of a business BusinessProfile
 const getBusinessCustomers = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -1918,6 +2062,20 @@ const createindividualCustomer = catchAsyncErrors(async (req, res, next) => {
   }
 
   await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    individualCustomers: business.individualCustomers,
+  });
+});
+
+// Get individual Customers of a individual individualProfile
+const getMyIndividualCustomers = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
 
   res.status(200).json({
     success: true,
@@ -2014,7 +2172,21 @@ const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get individual Orders of a individual individualProfile
-const getindividualOrders = catchAsyncErrors(async (req, res, next) => {
+const getMyIndividualOrders = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualOrders: business.individualOrders,
+  });
+});
+
+// Get individual Orders of a individual individualProfile
+const getIndividualOrders = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
   if (!business) {
@@ -2097,6 +2269,20 @@ const createPersonalProductReview = catchAsyncErrors(async (req, res, next) => {
   }
 
   await business.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    productReviews: business.productReviews,
+  });
+});
+
+// Get Personal Reviews of a business BusinessProfile
+const getMyPersonalProductReviews = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
 
   res.status(200).json({
     success: true,
@@ -2205,6 +2391,22 @@ const createPersonalCampaignReview = catchAsyncErrors(
 );
 
 // Get Personal Reviews of a business BusinessProfile
+const getMyPersonalCampaignReviews = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.user._id);
+
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      campaignReviews: business.campaignReviews,
+    });
+  }
+);
+
+// Get Personal Reviews of a business BusinessProfile
 const getPersonalCampaignReviews = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -2287,6 +2489,20 @@ const createStoreProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get Campaigns Invested BusinessProfile
+const getMyListOfStoreProducts = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
+
+  if (!business) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    storeProducts: business.storeProducts,
+  });
+});
+
+// Get Campaigns Invested BusinessProfile
 const getListOfStoreProducts = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.query.id);
 
@@ -2349,49 +2565,64 @@ module.exports = {
   deleteBusiness,
   createCampaignStarted,
   getListOfCampaignsStarted,
+  getMyListOfCampaignsStarted,
   deleteCampaignStarted,
   createCampaignInvested,
   getListOfCampaignsInvested,
+  getMyListOfCampaignsInvested,
   getParticularCampaignsInvested,
   deleteCampaignInvested,
   createBusinessInvestor,
+  getMyBusinessInvestors,
   getBusinessInvestors,
   deleteBusinessInvestor,
   createIndividualInvestor,
+  getMyIndividualInvestors,
   getIndividualInvestors,
   deleteIndividualInvestor,
   createBusinessOrderedFrom,
+  getMyBusinessOrderedFrom,
   getBusinessOrderedFrom,
   deleteBusinessOrderedFrom,
   createIndividualReview,
+  getMyIndividualReviews,
   getIndividualReviews,
   deleteIndividualReview,
   createBusinessReview,
+  getMyBusinessReviews,
   getBusinessReviews,
   deleteBusinessReview,
   createBusinessOrder,
+  getMyBusinessOrders,
   getBusinessOrders,
   deleteBusinessOrder,
   createBusinessCustomer,
+  getMyBusinessCustomers,
   getBusinessCustomers,
   deleteBusinessCustomer,
   createindividualCustomer,
+  getMyIndividualCustomers,
   getIndividualCustomers,
   deleteindividualCustomer,
   createindividualOrder,
-  getindividualOrders,
+  getMyIndividualOrders,
+  getIndividualOrders,
   deleteindividualOrder,
   createPersonalProductReview,
+  getMyPersonalProductReviews,
   getPersonalProductReviews,
   deletePersonalProductReview,
   createPersonalCampaignReview,
+  getMyPersonalCampaignReviews,
   getPersonalCampaignReviews,
   deletePersonalCampaignReview,
   deleteCampaignPayout,
   getParticularCampaignPayouts,
+  getMyListOfCampaignsPayouts,
   getListOfCampaignsPayouts,
   createCampaignPayout,
   createStoreProduct,
+  getMyListOfStoreProducts,
   getListOfStoreProducts,
   deleteStoreProduct,
 };

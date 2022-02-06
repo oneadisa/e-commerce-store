@@ -533,6 +533,22 @@ const individualCreateBusinessOrderedFrom = catchAsyncErrors(
 );
 
 // Get Order  IndividualProfile
+const getMyIndividualBusinessOrderedFrom = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.user._id);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      businessOrderedFrom: individual.businessOrderedFrom,
+    });
+  }
+);
+
+// Get Order  IndividualProfile
 const getIndividualBusinessOrderedFrom = catchAsyncErrors(
   async (req, res, next) => {
     const individual = await signedUpUser.findById(req.query.id);
@@ -621,6 +637,22 @@ const createIndividualCampaignInvested = catchAsyncErrors(
     }
 
     await individual.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignsInvested: individual.listOfCampaignsInvested,
+    });
+  }
+);
+
+// Get Campaigns Invested BusinessProfile
+const getMyListOfIndividualCampaignsInvested = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.user._id);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
 
     res.status(200).json({
       success: true,
@@ -782,6 +814,22 @@ const createIndividualCampaignPayout = catchAsyncErrors(
 );
 
 // Get Campaigns Invested BusinessProfile
+const getMyListOfIndividualCampaignsPayouts = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.user._id);
+
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      listOfCampaignPayouts: business.listOfCampaignPayouts,
+    });
+  }
+);
+
+// Get Campaigns Invested BusinessProfile
 const getListOfIndividualCampaignsPayouts = catchAsyncErrors(
   async (req, res, next) => {
     const business = await signedUpBusiness.findById(req.query.id);
@@ -901,6 +949,22 @@ const createIndividualPersonalProductReview = catchAsyncErrors(
 );
 
 // Get Personal Reviews of a individual BusinessProfile
+const getMyIndividualPersonalProductReviews = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.user._id);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      productReviews: individual.productReviews,
+    });
+  }
+);
+
+// Get Personal Reviews of a individual BusinessProfile
 const getIndividualPersonalProductReviews = catchAsyncErrors(
   async (req, res, next) => {
     const individual = await signedUpUser.findById(req.query.id);
@@ -1002,6 +1066,22 @@ const createIndividualPersonalCampaignReview = catchAsyncErrors(
 );
 
 // Get Personal Reviews of a individual BusinessProfile
+const getMyIndividualPersonalCampaignReviews = catchAsyncErrors(
+  async (req, res, next) => {
+    const individual = await signedUpUser.findById(req.user._id);
+
+    if (!individual) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      campaignReviews: individual.campaignReviews,
+    });
+  }
+);
+
+// Get Personal Reviews of a individual BusinessProfile
 const getIndividualPersonalCampaignReviews = catchAsyncErrors(
   async (req, res, next) => {
     const individual = await signedUpUser.findById(req.query.id);
@@ -1067,19 +1147,24 @@ module.exports = {
   updateUserRole,
   deleteUser,
   individualCreateBusinessOrderedFrom,
+  getMyIndividualBusinessOrderedFrom,
   getIndividualBusinessOrderedFrom,
   deleteIndividualBusinessOrderedFrom,
   createIndividualCampaignInvested,
+  getMyListOfIndividualCampaignsInvested,
   getListOfIndividualCampaignsInvested,
   deleteIndividualCampaignInvested,
   createIndividualPersonalProductReview,
+  getMyIndividualPersonalProductReviews,
   getIndividualPersonalProductReviews,
   deleteIndividualPersonalProductReview,
   createIndividualPersonalCampaignReview,
+  getMyIndividualPersonalCampaignReviews,
   getIndividualPersonalCampaignReviews,
   deleteIndividualPersonalCampaignReview,
   deleteIndividualCampaignPayout,
   getParticularIndividualCampaignPayouts,
   getListOfIndividualCampaignsPayouts,
+  getMyListOfIndividualCampaignsPayouts,
   createIndividualCampaignPayout,
 };

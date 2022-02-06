@@ -28,6 +28,9 @@ import {
   ALL_BUSINESSS_REQUEST,
   ALL_BUSINESSS_SUCCESS,
   ALL_BUSINESSS_FAIL,
+  SINGLE_BUSINESS_REQUEST,
+  SINGLE_BUSINESS_SUCCESS,
+  SINGLE_BUSINESS_FAIL,
   DELETE_BUSINESS_REQUEST,
   DELETE_BUSINESS_SUCCESS,
   DELETE_BUSINESS_FAIL,
@@ -357,6 +360,38 @@ export const allBusinessesReducer = (state = { businesses: [] }, action) => {
   }
 };
 
+export const singleBusinessesReducer = (state = { businesses: [] }, action) => {
+  switch (action.type) {
+    case SINGLE_BUSINESS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SINGLE_BUSINESS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        businesses: action.payload,
+      };
+
+    case SINGLE_BUSINESS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
 export const businessDetailsReducer = (
   state = { signedUpBusinessInfo: {} },
   action
@@ -423,6 +458,41 @@ export const businessAllBusinessOrderedFromReducer = (
       return state;
   }
 };
+
+export const businessMyBusinessOrderedFromReducer = (
+  state = { businessOrderedFrom: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+      return {
+        loading: false,
+        businessOrderedFrom: action.payload,
+      };
+    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+
+
 
 export const businessNewBusinessOrderedFromReducer = (
   state = { businessOrderedFrom: {} },
@@ -498,6 +568,38 @@ export const businessBusinessOrderedFromReducer = (state = {}, action) => {
 
 export const businessAllCampaignsInvestedReducer = (
   state = { campaignsInvested: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_INVESTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_INVESTED_SUCCESS:
+      return {
+        loading: false,
+        campaignsInvested: action.payload,
+      };
+    case ALL_CAMPAIGNS_INVESTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessMyCampaignsInvestedReducer = (
+  state = { campaignsInvested: [
   action
 ) => {
   switch (action.type) {
@@ -631,6 +733,39 @@ export const businessAllCampaignsPayoutReducer = (
       return state;
   }
 };
+
+export const businessMyCampaignsPayoutReducer = (
+  state = { campaignsPayout: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_PAYOUT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_PAYOUT_SUCCESS:
+      return {
+        loading: false,
+        campaignsPayout: action.payload,
+      };
+    case ALL_CAMPAIGNS_PAYOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 
 export const businessParticularCampaignsPayoutReducer = (
   state = { campaignsPayout: [] },
@@ -800,6 +935,38 @@ export const businessAllCampaignsReviewsReducer = (
   }
 };
 
+export const businessMyCampaignsReviewsReducer = (
+  state = { campaignsReviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        campaignsReviews: action.payload,
+      };
+    case ALL_CAMPAIGNS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const businessNewCampaignReviewsReducer = (
   state = { campaignsReviews: {} },
   action
@@ -903,6 +1070,40 @@ export const businessAllProductsReviewsReducer = (
       return state;
   }
 };
+
+export const businessMyProductsReviewsReducer = (
+  state = { productsReviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_PRODUCTS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_PRODUCTS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        productsReviews: action.payload,
+      };
+    case ALL_PRODUCTS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+
 
 export const businessNewProductReviewsReducer = (
   state = { productsReviews: {} },
@@ -1008,6 +1209,38 @@ export const businessAllStoreProductsReducer = (
   }
 };
 
+export const businessMyStoreProductsReducer = (
+  state = { storeProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_STORE_PRODUCTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_STORE_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        storeProducts: action.payload,
+      };
+    case ALL_STORE_PRODUCTS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const businessNewStoreProductReducer = (
   state = { storeProducts: {} },
   action
@@ -1081,6 +1314,38 @@ export const businessStoreProductsReducer = (state = {}, action) => {
 };
 
 export const businessAllCampaignStartedReducer = (
+  state = { campaignStarted: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_CAMPAIGNS_STARTED_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_CAMPAIGNS_STARTED_SUCCESS:
+      return {
+        loading: false,
+        campaignStarted: action.payload,
+      };
+    case ALL_CAMPAIGNS_STARTED_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const businessMyCampaignStartedReducer = (
   state = { campaignStarted: [] },
   action
 ) => {

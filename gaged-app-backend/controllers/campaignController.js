@@ -26,7 +26,7 @@ const getMyCampaigns = asyncHandler(async (req, res, next) => {
   const resultPerPage = 20;
   const campaignsCount = await Campaign.countDocuments();
   const apiFeature = new ApiFeatures(
-    Campaign.find({ user: req.user._id }),
+    Campaign.find({ user: req.user.id }),
     req.query
   )
     .search()
@@ -159,24 +159,22 @@ const CreateCampaign = asyncHandler(async (req, res) => {
       gender,
       fundingType,
       categoryFunding,
-      amountBeingRaised: Number(amountBeingRaised),
-      amountAlreadyRaised: Number(amountAlreadyRaised),
+      amountBeingRaised: amountBeingRaised,
+      amountAlreadyRaised: amountAlreadyRaised,
       amountRepaid,
       amountToBeRepaid,
       amountToBeRepaidPerPayout,
-      pledged_profit_to_lenders: Number(pledged_profit_to_lenders),
-      duration_pledged_profit: Number(duration_pledged_profit),
-      repayment_schedule_pledged_profit: Number(
-        repayment_schedule_pledged_profit
-      ),
+      pledged_profit_to_lenders: pledged_profit_to_lenders,
+      duration_pledged_profit: duration_pledged_profit,
+      repayment_schedule_pledged_profit: repayment_schedule_pledged_profit,
       endDatePledgedProfit,
       endDatePledgedProfitString,
       timePerPayment,
-      equity_offering_percentage: Number(equity_offering_percentage),
+      equity_offering_percentage: equity_offering_percentage,
       bankCode,
       bank_account_name,
       bank_account_number,
-      duration: Number(duration),
+      duration: duration,
       go_live_schedule,
       campaignLiveStatus,
       familiarWithCrowdFunding,
@@ -204,18 +202,17 @@ const CreateCampaign = asyncHandler(async (req, res) => {
     let numWeeks = campaign.duration;
     var now = new Date().getTime();
 
-    var goLive = +new Date(campaign.go_live_Schedule).valueOf() - new Date().getTime().valueOf();
-    
+    var goLive =
+      new Date(campaign.go_live_schedule).getTime() - new Date().getTime();
 
-    campaign.go_ = Math.abs( now);
-   
-
+    campaign.go_ = Math.abs(now);
 
     campaign.endDate = goLive + now + numWeeks * 7 * 1000 * 60 * 60 * 24;
     campaign.endDateString = new Date(campaign.endDate);
     // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
 
-    campaign.endDatePledgedProfit = goLive
+    campaign.endDatePledgedProfit =
+      goLive +
       now +
       campaign.duration * (7 * 1000 * 60 * 60 * 24) +
       campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
@@ -362,20 +359,35 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     let numWeeks = campaign.duration;
     var now = new Date().getTime();
     var goLive =
-      +new Date(campaign.go_live_Schedule).valueOf() -
-      new Date().getTime().valueOf();
-
+      new Date(campaign.go_live_schedule).getTime() - new Date().getTime();
     campaign.go_ = Math.abs(now);
     campaign.endDate = goLive + now + numWeeks * 7 * 1000 * 60 * 60 * 24;
     campaign.endDateString = new Date(campaign.endDate);
     // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
-    campaign.endDatePledgedProfit = goLive;
-    now +
+    campaign.endDatePledgedProfit =
+      goLive +
+      now +
       campaign.duration * (7 * 1000 * 60 * 60 * 24) +
       campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
     campaign.endDatePledgedProfitString = new Date(
       campaign.endDatePledgedProfit
     );
+    campaign.numberOfPaymentsToBeMade =
+      campaign.duration_pledged_profit /
+      campaign.repayment_schedule_pledged_profit;
+    const repaymentTime = Math.abs(
+      campaign.endDatePledgedProfit - campaign.endDate
+    );
+    campaign.timePerPayment =
+      repaymentTime /
+      (campaign.duration_pledged_profit /
+        campaign.repayment_schedule_pledged_profit);
+    campaign.firstPaymentDate = campaign.endDate + campaign.timePerPayment;
+    campaign.firstPaymentDateString = new Date(campaign.firstPaymentDate);
+    let n =
+      campaign.duration_pledged_profit /
+      campaign.repayment_schedule_pledged_profit;
+    for (let i = 0; i < n; i++) {}
 
     const updatedCampaign = await campaign.save();
     res.json(updatedCampaign);

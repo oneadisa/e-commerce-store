@@ -130,7 +130,7 @@ function App() {
             path="/business/campaign/overviewLoan"
             element={<OverviewLoan />}
           />
-          <Route path="/business/campaign" element={<LoanThirdBusiness />} />
+          <Route path="/campaign/:id" element={<LoanThirdBusiness />} />
           {/* <Route path="/business/campaign/lenders" element={<Lenders />} /> */}
           {/* <Route path="/business/campaign/comments" element={<Comments />} /> */}
           <Route path="/gaged" element={<LandingPage />} />

@@ -33,6 +33,7 @@
         "express-fileupload": "^1.2.1",
         "jshint": "^2.13.4",
         "jsonwebtoken": "^8.5.1",
+        "moment": "^2.29.1",
         "mongoose": "^6.0.12",
         "mongoose-serial": "^1.0.4",
         "nodemailer": "^6.7.2",

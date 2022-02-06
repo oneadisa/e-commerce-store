@@ -84,7 +84,7 @@ export const campaignsReducer = (state = { campaigns: [] }, action) => {
         campaigns: action.payload.campaigns,
         campaignsCount: action.payload.campaignsCount,
         resultPerPage: action.payload.resultPerPage,
-        filteredProductsCount: action.payload.filteredProductsCount,
+        filteredCampaignsCount: action.payload.filteredCampaignsCount,
       };
 
     case ADMIN_CAMPAIGN_SUCCESS:
@@ -123,7 +123,7 @@ export const MyCampaignsReducer = (state = { campaigns: [] }, action) => {
         campaigns: action.payload.campaigns,
         campaignsCount: action.payload.campaignsCount,
         resultPerPage: action.payload.resultPerPage,
-        filteredProductsCount: action.payload.filteredProductsCount,
+        filteredCampaignsCount: action.payload.filteredCampaignsCount,
       };
 
     case ADMIN_CAMPAIGN_SUCCESS:

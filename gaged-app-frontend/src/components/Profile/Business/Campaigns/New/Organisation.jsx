@@ -536,17 +536,20 @@ function Organisation(props) {
                       </h3>
                       <div className="md:w-8/12 lg:w-52.5/100">
                         <div className="flex flex-col pt-16 pb-3 w-full bg-gray-100 items-center text-center my-3">
-                          <img alt="" src={file} className="h-10 w-10" />
                           <div>
                             <input
                               type="file"
                               name="pitchDeck"
                               multiple
+                              accept="image/*"
                               className="sr-only"
                               onChange={(e) => props.handleChange(e)}
                               defaultValue={props.campaignCredentials.pitchDeck}
                               value={props.campaignCredentials.pitchDeck}
-                            />
+                            >
+                              {" "}
+                              <img alt="" src={file} className="h-10 w-10" />
+                            </input>
                           </div>
                           <label className="text-sm text-gray-600 mt-3">
                             Click to add document or drag

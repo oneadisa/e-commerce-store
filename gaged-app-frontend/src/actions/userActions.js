@@ -446,6 +446,25 @@ export const getAllBusinessOrderedFrom = (id) => async (dispatch) => {
   }
 };
 
+// Get My BusinessOrderedFrom of a Product
+export const getMyBusinessOrderedFrom = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESS_ORDERED_FROM_REQUEST });
+
+    const { data } = await axios.get(`app/business/business-ordered-from/me`);
+
+    dispatch({
+      type: ALL_BUSINESS_ORDERED_FROM_SUCCESS,
+      payload: data.orders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_BUSINESS_ORDERED_FROM_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Delete BusinessOrderedFrom of a Product
 export const deleteBusinessOrderedFrom =
   (orderId, productId) => async (dispatch) => {
@@ -502,6 +521,25 @@ export const getAllCampaignInvested = (id) => async (dispatch) => {
     dispatch({ type: ALL_CAMPAIGNS_INVESTED_REQUEST });
 
     const { data } = await axios.get(`app/business/campaign-invest`);
+
+    dispatch({
+      type: ALL_CAMPAIGNS_INVESTED_SUCCESS,
+      payload: data.campaignInvesteds,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_CAMPAIGNS_INVESTED_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get My CampaignInvested of a Business
+export const getMyCampaignInvested = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CAMPAIGNS_INVESTED_REQUEST });
+
+    const { data } = await axios.get(`app/business/campaign-invest/me`);
 
     dispatch({
       type: ALL_CAMPAIGNS_INVESTED_SUCCESS,
@@ -605,6 +643,24 @@ export const getAllCampaignPayout = (id) => async (dispatch) => {
   }
 };
 
+export const getMyCampaignPayout = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CAMPAIGNS_PAYOUT_REQUEST });
+
+    const { data } = await axios.get(`app/business/campaign-paid/me`);
+
+    dispatch({
+      type: ALL_CAMPAIGNS_PAYOUT_SUCCESS,
+      payload: data.campaignPayouts,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_CAMPAIGNS_PAYOUT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Get history of payouts in a particular campaign
 export const particularCampaignPayout =
   (campaignPayoutId) => async (dispatch) => {
@@ -695,6 +751,25 @@ export const getAllCampaignReview = (id) => async (dispatch) => {
   }
 };
 
+// Get My CampaignReview of a Business
+export const getMyCampaignReview = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CAMPAIGNS_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(`app/business/profile-campaign-review/me`);
+
+    dispatch({
+      type: ALL_CAMPAIGNS_REVIEWS_SUCCESS,
+      payload: data.campaignReviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_CAMPAIGNS_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Delete CampaignReview of a Business
 export const deleteCampaignReview =
   (campaignReviewId, productId) => async (dispatch) => {
@@ -750,6 +825,25 @@ export const getAllProductReview = (id) => async (dispatch) => {
     dispatch({ type: ALL_PRODUCTS_REVIEWS_REQUEST });
 
     const { data } = await axios.get(`app/business/profile-product-review/`);
+
+    dispatch({
+      type: ALL_PRODUCTS_REVIEWS_SUCCESS,
+      payload: data.productReviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_PRODUCTS_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get My ProductReview of a Business
+export const getMyProductReview = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_PRODUCTS_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(`app/business/profile-product-review/me`);
 
     dispatch({
       type: ALL_PRODUCTS_REVIEWS_SUCCESS,
