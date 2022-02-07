@@ -61,7 +61,9 @@ const CampaignCard = ({ campaign }) => {
     p = <p className="text-lg">EXPIRED</p>;
   }
 
-  const progress = campaign.amountAlreadyRaised / campaign.amountBeingRaised;
+  const progress = (
+    campaign.amountAlreadyRaised / campaign.amountBeingRaised
+  ).toString();
 
   return (
     <Link to={`/campaign/${campaign._id}`}>

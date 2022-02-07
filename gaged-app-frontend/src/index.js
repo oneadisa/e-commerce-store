@@ -9,6 +9,8 @@ import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductR from "../src/components/Profile/Business/Store/Products/ProductRB";
+import LoanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
+import CampaignForm from "./components/Profile/Business/Campaigns/New/campaignForm";
 
 const options = {
   timeout: 5000,
@@ -19,7 +21,9 @@ const options = {
 ReactDOM.render(
   <Provider store={store}>
     <AlertProvider template={AlertTemplate} {...options}>
-      <App />
+      <Router>
+        <CampaignForm />
+      </Router>
     </AlertProvider>
   </Provider>,
 

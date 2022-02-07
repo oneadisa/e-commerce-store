@@ -14,11 +14,11 @@ import {
 import { newCampaignStarted } from "../../../../../actions/businessActions";
 import { NEW_CAMPAIGN_STARTED_RESET } from "../../../../../constants/businessConstants";
 import { NEW_CAMPAIGN_RESET } from "../../../../../constants/campaignConstants";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 function CampaignForm() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const { loading, error, success } = useSelector(
     (state: RootStateOrAny) => state.newCampaign,
     (state: RootStateOrAny) => state.businessNewCampaignStarted
@@ -31,11 +31,11 @@ function CampaignForm() {
     }
     if (success) {
       alert.success("Campaign Created Successfully");
-      navigate("/admin/dashboard");
+      // navigate("/admin/dashboard");
       dispatch({ type: NEW_CAMPAIGN_RESET });
       dispatch({ NEW_CAMPAIGN_STARTED_RESET });
     }
-  }, [dispatch, alert, error, navigate, success]);
+  }, [dispatch, alert, error, success]);
   const [step, setStep] = useState(1);
 
   const [campaignCredentials, setCampaignCredentials] = useState({
@@ -171,45 +171,55 @@ function CampaignForm() {
   };
 
   // Proceed to next step
-  const nextStep = (step) => {
+  const nextStep = () => {
     setStep(step + 1);
   };
 
   // Go back to prev step
-  const prevStep = (step) => {
+  const prevStep = () => {
     setStep(step - 1);
   };
 
   // Go to first step from review page
 
-  const firstStep = (step) => {
-    setStep(step - 5);
+  const firstStep = () => {
+    setStep(1);
   };
 
   // Go to second step from review page
 
-  const secondStep = (step) => {
-    setStep(step - 4);
+  const secondStep = () => {
+    setStep(2);
   };
 
   // Go to third step from review page
 
-  const thirdStep = (step) => {
-    setStep(step - 3);
+  const thirdStep = () => {
+    setStep(3);
   };
 
   // Go to fourth step from review page
 
-  const fourthStep = (step) => {
-    setStep(step - 2);
+  const fourthStep = () => {
+    setStep(4);
   };
 
   // Go to fifth step from review page
 
-  const fifthStep = (step) => {
-    setStep(step - 1);
+  const fifthStep = () => {
+    setStep(5);
   };
 
+  const sixthStep = () => {
+    setStep(6);
+  };
+
+  // const [payBack, setPayBack] = useState(1000);
+
+  // const handlePayBackChange = (e) => {
+  // const value = (e.value / 100 + 1) * 1000;
+  // setPayBack(value);
+  // };
   // Handle fields change
   function handleChange(e) {
     const { value, name } = e.currentTarget;
@@ -221,13 +231,25 @@ function CampaignForm() {
     });
   }
 
+  const clear = () => {
+    setCampaignCredentials.bank_account_name = "";
+    setCampaignCredentials.bank_account_number = "";
+  };
+
   switch (step) {
     case 1:
       return (
         <Organisation
           nextStep={nextStep}
           handleChange={handleChange}
+          firstStep={firstStep}
+          secondStep={secondStep}
+          thirdStep={thirdStep}
+          fourthStep={fourthStep}
+          fifthStep={fifthStep}
+          sixthStep={sixthStep}
           campaignCredentials={campaignCredentials}
+          prevStep={prevStep}
         />
       );
     case 2:
@@ -235,6 +257,12 @@ function CampaignForm() {
         <Demographics
           nextStep={nextStep}
           prevStep={prevStep}
+          firstStep={firstStep}
+          secondStep={secondStep}
+          thirdStep={thirdStep}
+          fourthStep={fourthStep}
+          fifthStep={fifthStep}
+          sixthStep={sixthStep}
           handleChange={handleChange}
           campaignCredentials={campaignCredentials}
         />
@@ -244,6 +272,12 @@ function CampaignForm() {
         <Target
           nextStep={nextStep}
           prevStep={prevStep}
+          firstStep={firstStep}
+          secondStep={secondStep}
+          thirdStep={thirdStep}
+          fourthStep={fourthStep}
+          fifthStep={fifthStep}
+          sixthStep={sixthStep}
           handleChange={handleChange}
           campaignCredentials={campaignCredentials}
         />
@@ -253,8 +287,15 @@ function CampaignForm() {
         <Finance
           nextStep={nextStep}
           prevStep={prevStep}
+          firstStep={firstStep}
+          secondStep={secondStep}
+          thirdStep={thirdStep}
+          fourthStep={fourthStep}
+          fifthStep={fifthStep}
+          sixthStep={sixthStep}
           handleChange={handleChange}
           campaignCredentials={campaignCredentials}
+          clear={clear}
         />
       );
     case 5:
@@ -262,6 +303,12 @@ function CampaignForm() {
         <SetSchedule
           nextStep={nextStep}
           prevStep={prevStep}
+          firstStep={firstStep}
+          secondStep={secondStep}
+          thirdStep={thirdStep}
+          fourthStep={fourthStep}
+          fifthStep={fifthStep}
+          sixthStep={sixthStep}
           handleChange={handleChange}
           campaignCredentials={campaignCredentials}
         />
@@ -277,6 +324,7 @@ function CampaignForm() {
           thirdStep={thirdStep}
           fourthStep={fourthStep}
           fifthStep={fifthStep}
+          sixthStep={sixthStep}
           handleChange={handleChange}
           createCampaignSubmitHandler={createCampaignSubmitHandler}
           loading={loading}

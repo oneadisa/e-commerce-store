@@ -38,6 +38,11 @@ function Review(props) {
     props.fifthStep();
   };
 
+  const sixth = (e) => {
+    e.preventDefault();
+    props.sixthStep();
+  };
+
   const [open, setOpen] = useState(false);
   return (
     <div className="mx-auto">
@@ -62,26 +67,44 @@ function Review(props) {
               <h2 className="text-lg font-semibold">6 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={first}
+                  >
                     Organization Details
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={second}
+                  >
                     Demographics
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={third}
+                  >
                     Target
-                  </div>
+                  </button>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fourth}
+                  >
                     Finance
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fifth}
+                  >
                     Set Schedule
-                  </div>
-                  <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  </button>
+                  <button
+                    className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded"
+                    onClick={sixth}
+                  >
                     Review
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-3">

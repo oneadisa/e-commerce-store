@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -12,6 +12,7 @@ import Header0 from "./Header0";
 
 function ExploreCampaigns() {
   const dispatch = useDispatch();
+  let params = useParams();
   const alert = useAlert();
   const [currentPage, setCurrentPage] = useState(1);
   const [campaignCategory, setCampaignCategory] = useState("");
@@ -25,7 +26,7 @@ function ExploreCampaigns() {
     filteredCampaignsCount,
   } = useSelector((state) => state.campaigns);
 
-  const keyword = match.params.keyword;
+  const keyword = params.keyword;
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -37,7 +38,7 @@ function ExploreCampaigns() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getcampaign(keyword, currentPage, campaignCategory, ratings));
+    dispatch(listCampaigns(keyword, currentPage, campaignCategory));
   }, [dispatch, keyword, currentPage, campaignCategory, alert, error]);
 
   return (

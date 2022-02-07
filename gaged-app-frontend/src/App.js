@@ -40,7 +40,7 @@ import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.
 
 import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.jsx";
 
-import Campaign1 from "./components/Profile/Business/Campaigns/Overview/myCampaigns";
+import Campaign1 from "./components/Profile/Business/Campaigns/Overview/myCampaigns.js";
 // import Campaign2 from "./components/campaign-components/Campaign2";
 // import Campaign3 from "./components/campaign-components/Campaign3";
 //

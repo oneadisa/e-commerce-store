@@ -6,6 +6,11 @@ import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
 
 function Finance(props) {
+  const clear = (e) => {
+    e.preventDefault();
+    props.clear();
+  };
+
   const forward = (e) => {
     e.preventDefault();
     props.nextStep();
@@ -14,6 +19,31 @@ function Finance(props) {
     e.preventDefault();
     props.prevStep();
   };
+  const first = (e) => {
+    e.preventDefault();
+    props.firstStep();
+  };
+  const second = (e) => {
+    e.preventDefault();
+    props.secondStep();
+  };
+  const third = (e) => {
+    e.preventDefault();
+    props.thirdStep();
+  };
+  const fourth = (e) => {
+    e.preventDefault();
+    props.fourthStep();
+  };
+  const fifth = (e) => {
+    e.preventDefault();
+    props.fifthStep();
+  };
+  const sixth = (e) => {
+    e.preventDefault();
+    props.sixthStep();
+  };
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -39,26 +69,45 @@ function Finance(props) {
               <h2 className="text-lg font-semibold">4 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={first}
+                  >
                     Organization Details
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={second}
+                  >
                     Demographics
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={third}
+                  >
                     Target
-                  </div>
+                  </button>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  <button
+                    className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white
+text-medium-blue rounded "
+                    onClick={fourth}
+                  >
                     Finance
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fifth}
+                  >
                     Set Schedule
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={sixth}
+                  >
                     Review
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-3">
@@ -84,16 +133,20 @@ function Finance(props) {
                 <div className="flex flex-col">
                   <div className="my-5 flex flex-col gap-7 md:w-3/5 lg:w-1/2">
                     <div className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none">
-                      <label class="form-control-label" for="input-last-name">
-                        Select Bank
-                      </label>
                       <select
                         id="bankCode"
                         name="bankCode"
                         class="form-control form-control-alternative"
-                        onChange={props.handleChange}
+                        onChange={(e) => props.handleChange(e)}
                       >
-                        <option value="">--Select Bank--</option>
+                        <option value="">
+                          <label
+                            class="form-control-label"
+                            for="input-last-name"
+                          >
+                            Select Bank
+                          </label>
+                        </option>
 
                         <option value="801">Abbey Mortgage Bank</option>
 
@@ -214,19 +267,22 @@ function Finance(props) {
                       className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                       placeholder="Account Name"
                       name="bank_account_name"
-                      onChange={props.handleChange}
+                      onChange={(e) => props.handleChange(e)}
                       value={props.campaignCredentials.bank_account_name}
                     />
                     <input
                       className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                       placeholder="Account Number"
                       name="bank_account_number"
-                      onChange={props.handleChange}
+                      onChange={(e) => props.handleChange(e)}
                       value={props.campaignCredentials.bank_account_number}
                     />
                   </div>
                   <div className="flex justify-between mt-14 md:w-3/5 lg:w-1/2">
-                    <button className="text-base text-gray-500 font-medium bg-white border-2 border-gray-400 h-10 w-32 hover:bg-Dark-blue hover:text-white hover:border-Dark-blue">
+                    <button
+                      className="text-base text-gray-500 font-medium bg-white border-2 border-gray-400 h-10 w-32 hover:bg-Dark-blue hover:text-white hover:border-Dark-blue"
+                      onClick={clear}
+                    >
                       Clear
                     </button>
                     <button className="text-base font-medium bg-Dark-blue border-2 border-Dark-blue text-white h-10 w-32 hover:bg-white hover:text-gray-500 hover:border-gray-400">

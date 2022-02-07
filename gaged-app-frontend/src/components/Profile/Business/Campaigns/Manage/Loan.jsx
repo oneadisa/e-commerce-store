@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import fundraiser from "../../../../../images/fundraiser.png";

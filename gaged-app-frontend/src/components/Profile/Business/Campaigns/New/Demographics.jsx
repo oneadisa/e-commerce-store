@@ -16,6 +16,32 @@ function Demographics(props) {
     e.preventDefault();
     props.prevStep();
   };
+
+  const first = (e) => {
+    e.preventDefault();
+    props.firstStep();
+  };
+  const second = (e) => {
+    e.preventDefault();
+    props.secondStep();
+  };
+  const third = (e) => {
+    e.preventDefault();
+    props.thirdStep();
+  };
+  const fourth = (e) => {
+    e.preventDefault();
+    props.fourthStep();
+  };
+  const fifth = (e) => {
+    e.preventDefault();
+    props.fifthStep();
+  };
+  const sixth = (e) => {
+    e.preventDefault();
+    props.sixthStep();
+  };
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -41,26 +67,44 @@ function Demographics(props) {
               <h2 className="text-lg font-semibold">2 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className=" cursor-pointer p-1 md:p-2 hover:text-medium-blue  "
+                    onClick={first}
+                  >
                     Organization Details
-                  </div>
-                  <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  </button>
+                  <button
+                    className="  cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded"
+                    onClick={second}
+                  >
                     Demographics
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue "
+                    onClick={third}
+                  >
                     Target
-                  </div>
+                  </button>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fourth}
+                  >
                     Finance
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fifth}
+                  >
                     Set Schedule
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={sixth}
+                  >
                     Review
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-3">
@@ -83,7 +127,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_age"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Children (0-11)"
                         />
                       </label>
@@ -99,7 +143,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_age"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Youths (12-25)"
                         />
                       </label>
@@ -113,7 +157,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_age"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Older (60+)"
                         />
                       </label>
@@ -136,7 +180,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Physical disabilities"
                         />
                       </label>
@@ -152,7 +196,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Addiction Issues"
                         />
                       </label>
@@ -168,7 +212,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Cognitive Or Learning Disabilities"
                         />
                       </label>
@@ -187,7 +231,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Male"
                         />
                       </label>
@@ -201,7 +245,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Female"
                         />
                       </label>
@@ -217,7 +261,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Gender Neutral"
                         />
                       </label>
@@ -231,7 +275,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onChange={props.handleChange}
+                          onClick={(e) => props.handleChange(e)}
                           value="Non-Binary"
                         />
                       </label>

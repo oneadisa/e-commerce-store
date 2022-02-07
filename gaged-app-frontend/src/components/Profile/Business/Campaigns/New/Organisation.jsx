@@ -1,4 +1,6 @@
 /* eslint-disable no-restricted-globals */
+import left from "../../../../../images/left.svg";
+import right from "../../../../../images/right.svg";
 import React, { useState } from "react";
 import file from "../../../../../images/file.png";
 import Header from "./Header";
@@ -6,15 +8,40 @@ import DashboardCamp from "./DashboardCamp";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-function Organisation(props) {
-  function forward(e: { preventDefault: () => void }) {
-    e.preventDefault();
-    props.nextStep(e);
-  }
+function Organisation(props, nextStep) {
+  // function forward(e) {
+  // e.preventDefault();
+  // props.nextStep(e);
+  // }
 
   const back = (e) => {
     e.preventDefault();
     props.prevStep();
+  };
+
+  const first = (e) => {
+    e.preventDefault();
+    props.firstStep();
+  };
+  const second = (e) => {
+    e.preventDefault();
+    props.secondStep();
+  };
+  const third = (e) => {
+    e.preventDefault();
+    props.thirdStep();
+  };
+  const fourth = (e) => {
+    e.preventDefault();
+    props.fourthStep();
+  };
+  const fifth = (e) => {
+    e.preventDefault();
+    props.fifthStep();
+  };
+  const sixth = (e) => {
+    e.preventDefault();
+    props.sixthStep();
   };
 
   const [open, setOpen] = useState(false);
@@ -41,28 +68,46 @@ function Organisation(props) {
           <div className="bg-white lg:mt-3 lg:mb-8 pb-24 lg:w-3/4">
             <div className="flex flex-col px-2 md:px-4 py-2">
               <h2 className="text-lg font-semibold">1 of 6</h2>
-              <div className="flex flex-col md:flex-row md:gap-4 my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
+              <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded cursor-pointer">
+                  <button
+                    className="  cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded"
+                    onClick={first}
+                  >
                     Organization Details
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className=" cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={second}
+                  >
                     Demographics
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={third}
+                  >
                     Target
-                  </div>
+                  </button>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fourth}
+                  >
                     Finance
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fifth}
+                  >
                     Set Schedule
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={sixth}
+                  >
                     Review
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-4">
@@ -537,19 +582,19 @@ function Organisation(props) {
                       <div className="md:w-8/12 lg:w-52.5/100">
                         <div className="flex flex-col pt-16 pb-3 w-full bg-gray-100 items-center text-center my-3">
                           <div>
+                            <img alt="" src={file} className="h-10 w-10" />
                             <input
                               type="file"
                               name="pitchDeck"
                               multiple
                               accept="image/*"
                               className="sr-only"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.handleChange(e.target.files[0])
+                              }
                               defaultValue={props.campaignCredentials.pitchDeck}
                               value={props.campaignCredentials.pitchDeck}
-                            >
-                              {" "}
-                              <img alt="" src={file} className="h-10 w-10" />
-                            </input>
+                            />
                           </div>
                           <label className="text-sm text-gray-600 mt-3">
                             Click to add document or drag
@@ -641,6 +686,7 @@ function Organisation(props) {
                     className="text-base text-gray-500 font-medium bg-gray-300 h-10 w-32 hover:bg-Dark-blue hover:text-white"
                     onClick={back}
                   >
+                    <img alt="" src={left} />
                     Back
                   </button>
 
@@ -648,6 +694,7 @@ function Organisation(props) {
                     className="text-base font-medium bg-Dark-blue text-white h-10 w-32 hover:bg-gray-300 hover:text-gray-500"
                     onClick={props.nextStep}
                   >
+                    <img alt="" src={right} />
                     Next
                   </button>
                 </div>

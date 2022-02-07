@@ -18,15 +18,35 @@ function Target(props) {
     e.preventDefault();
     props.prevStep();
   };
+
+  const first = (e) => {
+    e.preventDefault();
+    props.firstStep();
+  };
+  const second = (e) => {
+    e.preventDefault();
+    props.secondStep();
+  };
+  const third = (e) => {
+    e.preventDefault();
+    props.thirdStep();
+  };
+  const fourth = (e) => {
+    e.preventDefault();
+    props.fourthStep();
+  };
+  const fifth = (e) => {
+    e.preventDefault();
+    props.fifthStep();
+  };
+  const sixth = (e) => {
+    e.preventDefault();
+    props.sixthStep();
+  };
+
   const [open, setOpen] = useState(false);
   const [duration, setDuration] = useState("Select a Duration");
   const [schedule, setSchedule] = useState("Select a Payment Plan");
-  const [payBack, setPayBack] = useState(1000);
-
-  const handlePayBackChange = (e) => {
-    const value = (e.value / 100 + 1) * 1000;
-    setPayBack(value);
-  };
 
   return (
     <div className="mx-auto">
@@ -51,26 +71,44 @@ function Target(props) {
               <h2 className="text-lg font-semibold">3 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={first}
+                  >
                     Organization Details
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={second}
+                  >
                     Demographics
-                  </div>
-                  <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  </button>
+                  <button
+                    className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded"
+                    onClick={third}
+                  >
                     Target
-                  </div>
+                  </button>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fourth}
+                  >
                     Finance
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fifth}
+                  >
                     Set Schedule
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue "
+                    onClick={sixth}
+                  >
                     Review
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-3">
@@ -87,7 +125,7 @@ function Target(props) {
                           checked="checked"
                           class="radio"
                           value="Loan"
-                          onChange={props.handleChange}
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span class="label-text">
                           <div className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-Dark-blue border-2 border-Dark-blue">
@@ -109,7 +147,7 @@ function Target(props) {
                           checked="checked"
                           class="radio"
                           value="Equity"
-                          onChange={props.handleChange}
+                          onChange={(e) => props.handleChange(e)}
                           disabled="disabled"
                         />
                         <span class="label-text">
@@ -136,7 +174,15 @@ function Target(props) {
                     <div className="flex flex-col gap-6 card p-6">
                       <div className="flex flex-col gap-6 md:flex-row justify-between">
                         <div className="flex items-center gap-2 border-2 border-gray-400 px-2 w-full md:w-56 h-12 form-control">
-                          <label class="cursor-pointer label">
+                          <label class="cursor-pointer label gap-4 md:flex-row justify-between">
+                            <input
+                              type="radio"
+                              name="categoryFunding"
+                              checked="checked"
+                              class="radio"
+                              onChange={(e) => props.handleChange(e)}
+                              value="$0 – $999"
+                            />
                             <span class="label-text">
                               <div className="text-base text-gray-600 font-medium">
                                 $0 – $999
@@ -145,14 +191,6 @@ function Target(props) {
                                 ?
                               </div>
                             </span>
-                            <input
-                              type="radio"
-                              name="categoryFunding"
-                              checked="checked"
-                              class="radio"
-                              onChange={props.handleChange}
-                              value="$0 – $999"
-                            />
                           </label>
                         </div>
                         <div className="flex items-center gap-2 border-2 border-gray-400 px-2 w-full md:w-56 h-12 form-control">
@@ -170,7 +208,7 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={props.handleChange}
+                              onChange={(e) => props.handleChange(e)}
                               value="$1000 – $9,999"
                             />
                           </label>
@@ -192,7 +230,7 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={props.handleChange}
+                              onChange={(e) => props.handleChange(e)}
                               value="$10,000 – $99,999"
                             />
                           </label>
@@ -212,7 +250,7 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={props.handleChange}
+                              onChange={(e) => props.handleChange(e)}
                               value="> $100,000"
                             />
                           </label>
@@ -231,7 +269,7 @@ function Target(props) {
                       <input
                         className="border-2 border-gray-400 w-56 h-10 outline-none"
                         name="amountBeingRaised"
-                        onChange={props.handleChange}
+                        onChange={(e) => props.handleChange(e)}
                         value={props.campaignCredentials.amountBeingRaised}
                       />
                     </div>
@@ -251,13 +289,13 @@ function Target(props) {
                         value={
                           props.campaignCredentials.pledged_profit_to_lenders
                         }
-                        onChange={props.handleChange}
-                        onChange={handlePayBackChange}
+                        onChange={(e) => props.handleChange(e)}
+                        // onChange={(e) => props.handleChange(e)}
                       />
                       <br />
                       <p>
-                        If you raise $1000, you will have to pay ${payBack} back
-                        to your Lenders.
+                        If you raise $1000, you will have to pay $
+                        {props.payBack} back to your Lenders.
                       </p>
                     </div>
                   </div>
@@ -271,7 +309,12 @@ function Target(props) {
                       <div className="px-2 bg-gray-200 w-64 h-10 flex items-center">
                         <Menu as="div" className="">
                           <Menu.Button className="flex w-64 items-center px-2">
-                            <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                            <div
+                              className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                              onChange={(e) => props.handleChange(e)}
+                              name="duration_pledged_profit"
+                              value={duration}
+                            >
                               {duration}
                             </div>
                             <div className="ml-auto mr-2">
@@ -294,10 +337,7 @@ function Target(props) {
                                 <div
                                   name="duration_pledged_profit"
                                   value="12"
-                                  onClick={
-                                    (() => setDuration("12 months"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setDuration("12 months")}
                                   className="hover:text-blue-600"
                                 >
                                   12 months
@@ -305,10 +345,7 @@ function Target(props) {
                                 <div
                                   name="duration_pledged_profit"
                                   value="18"
-                                  onClick={
-                                    (() => setDuration("18 months"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setDuration("18 months")}
                                   className="hover:text-blue-600"
                                 >
                                   18 months
@@ -316,10 +353,7 @@ function Target(props) {
                                 <div
                                   name="duration_pledged_profit"
                                   value="24"
-                                  onClick={
-                                    (() => setDuration("24 months"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setDuration("24 months")}
                                   className="hover:text-blue-600"
                                 >
                                   24 months
@@ -327,10 +361,7 @@ function Target(props) {
                                 <div
                                   name="duration_pledged_profit"
                                   value="30"
-                                  onClick={
-                                    (() => setDuration("30 months"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setDuration("30 months")}
                                   className="hover:text-blue-600"
                                 >
                                   30 months
@@ -338,10 +369,7 @@ function Target(props) {
                                 <div
                                   name="duration_pledged_profit"
                                   value="36"
-                                  onClick={
-                                    (() => setDuration("36 months"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setDuration("36 months")}
                                   className="hover:text-blue-600"
                                 >
                                   36 months
@@ -364,7 +392,12 @@ function Target(props) {
                       <div className="px-2 bg-gray-200 w-64 h-10 flex items-center">
                         <Menu as="div" className="">
                           <Menu.Button className="flex w-64 items-center px-2">
-                            <div className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                            <div
+                              className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                              onChange={(e) => props.handleChange(e)}
+                              name="repayment_schedule_pledged_profit"
+                              value={schedule}
+                            >
                               {schedule}
                             </div>
                             <div className="ml-auto mr-2">
@@ -387,10 +420,7 @@ function Target(props) {
                                 <div
                                   name="repayment_schedule_pledged_profit"
                                   value="1"
-                                  onClick={
-                                    (() => setSchedule("Monthly"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setSchedule("Monthly")}
                                   className="hover:text-blue-600"
                                 >
                                   Monthly
@@ -398,10 +428,7 @@ function Target(props) {
                                 <div
                                   name="repayment_schedule_pledged_profit"
                                   value="2"
-                                  onClick={
-                                    (() => setSchedule("Bi-monthly"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setSchedule("Bi-monthly")}
                                   className="hover:text-blue-600"
                                 >
                                   Bi-monthly
@@ -409,10 +436,7 @@ function Target(props) {
                                 <div
                                   name="repayment_schedule_pledged_profit"
                                   value="3"
-                                  onClick={
-                                    (() => setSchedule("Quarterly"),
-                                    props.handleChange)
-                                  }
+                                  onClick={() => setSchedule("Quarterly")}
                                   className="hover:text-blue-600"
                                 >
                                   Quarterly

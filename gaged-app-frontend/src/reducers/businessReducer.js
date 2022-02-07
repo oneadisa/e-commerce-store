@@ -491,9 +491,6 @@ export const businessMyBusinessOrderedFromReducer = (
   }
 };
 
-
-
-
 export const businessNewBusinessOrderedFromReducer = (
   state = { businessOrderedFrom: {} },
   action
@@ -599,7 +596,7 @@ export const businessAllCampaignsInvestedReducer = (
 };
 
 export const businessMyCampaignsInvestedReducer = (
-  state = { campaignsInvested: [
+  state = { campaignsInvested: [] },
   action
 ) => {
   switch (action.type) {
@@ -765,7 +762,6 @@ export const businessMyCampaignsPayoutReducer = (
       return state;
   }
 };
-
 
 export const businessParticularCampaignsPayoutReducer = (
   state = { campaignsPayout: [] },
@@ -1102,8 +1098,6 @@ export const businessMyProductsReviewsReducer = (
       return state;
   }
 };
-
-
 
 export const businessNewProductReviewsReducer = (
   state = { productsReviews: {} },

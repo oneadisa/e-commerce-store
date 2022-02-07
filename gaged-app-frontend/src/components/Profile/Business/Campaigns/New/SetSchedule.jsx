@@ -16,6 +16,31 @@ function SetSchedule(props) {
     e.preventDefault();
     props.prevStep();
   };
+
+  const first = (e) => {
+    e.preventDefault();
+    props.firstStep();
+  };
+  const second = (e) => {
+    e.preventDefault();
+    props.secondStep();
+  };
+  const third = (e) => {
+    e.preventDefault();
+    props.thirdStep();
+  };
+  const fourth = (e) => {
+    e.preventDefault();
+    props.fourthStep();
+  };
+  const fifth = (e) => {
+    e.preventDefault();
+    props.fifthStep();
+  };
+  const sixth = (e) => {
+    e.preventDefault();
+    props.sixthStep();
+  };
   const [open, setOpen] = useState(false);
   const [duration, setDuration] = useState("Campaign Duration");
 
@@ -42,26 +67,44 @@ function SetSchedule(props) {
               <h2 className="text-lg font-semibold">5 of 6</h2>
               <div className="flex flex-col md:gap-4 md:flex-row my-2 py-2 px-1 md:px-3 bg-magenta-blue text-base font-medium">
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={first}
+                  >
                     Organization Details
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={second}
+                  >
                     Demographics
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={third}
+                  >
                     Target
-                  </div>
+                  </button>
                 </div>
                 <div className="flex gap-2 md:gap-4">
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={fourth}
+                  >
                     Finance
-                  </div>
-                  <div className="cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded">
+                  </button>
+                  <button
+                    className=" cursor-pointer py-1 md:py-2 px-1 md:px-3 bg-white text-medium-blue rounded"
+                    onClick={fifth}
+                  >
                     Set Schedule
-                  </div>
-                  <div className="cursor-pointer p-1 md:p-2 hover:text-medium-blue">
+                  </button>
+                  <button
+                    className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
+                    onClick={sixth}
+                  >
                     Review
-                  </div>
+                  </button>
                 </div>
               </div>
               <div className="mt-3">
@@ -75,7 +118,12 @@ function SetSchedule(props) {
                     <div className="px-2 h-12 flex items-center w-11/12 border-2 border-gray-400">
                       <Menu as="div" className="w-11/12">
                         <Menu.Button className="flex w-full items-center ">
-                          <div className="flex  text-gray-400 pl-3 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                          <div
+                            className="flex  text-gray-400 pl-3 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                            onChange={(e) => props.handleChange(e)}
+                            name="duration_pledged_profit"
+                            value={duration}
+                          >
                             {duration}
                           </div>
                           <div className="ml-auto">
@@ -98,10 +146,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="2"
-                                onClick={
-                                  (() => setDuration("2 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("2 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 2 weeks
@@ -109,10 +154,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="3"
-                                onClick={
-                                  (() => setDuration("3 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("3 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 3 weeks
@@ -120,10 +162,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="4"
-                                onClick={
-                                  (() => setDuration("4 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("4 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 4 weeks
@@ -131,10 +170,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="5"
-                                onClick={
-                                  (() => setDuration("5 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("5 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 5 weeks
@@ -142,10 +178,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="6"
-                                onClick={
-                                  (() => setDuration("6 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("6 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 6 weeks
@@ -153,10 +186,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="7"
-                                onClick={
-                                  (() => setDuration("7 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("7 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 7 weeks
@@ -164,10 +194,7 @@ function SetSchedule(props) {
                               <div
                                 name="duration"
                                 value="8"
-                                onClick={
-                                  (() => setDuration("8 weeks"),
-                                  props.handleChange)
-                                }
+                                onClick={() => setDuration("8 weeks")}
                                 className="hover:text-blue-600"
                               >
                                 8 weeks
@@ -202,8 +229,8 @@ function SetSchedule(props) {
                       type="date"
                       name="go_live_schedule"
                       required
-                      pattern="\d{2}-\m{2}-\y{4}"
-                      onChange={props.handleChange}
+                      pattern="\m{2}-\d{2}-\y{4}"
+                      onChange={(e) => props.handleChange(e)}
                       value={props.campaignCredentials.go_live_schedule}
                     />
                     <button
