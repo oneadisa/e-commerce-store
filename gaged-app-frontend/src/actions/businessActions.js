@@ -413,7 +413,7 @@ export const getSingleBusiness = (id) => async (dispatch) => {
 };
 
 // get  Business Details
-export const getBusinessDetails = (id) => async (dispatch) => {
+export const getBusinessDetails = () => async (dispatch) => {
   try {
     dispatch({ type: BUSINESS_DETAILS_REQUEST });
     const { data } = await axios.get(`/app/business/me`);

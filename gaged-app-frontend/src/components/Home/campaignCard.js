@@ -69,7 +69,7 @@ const CampaignCard = ({ campaign }) => {
     <Link to={`/campaign/${campaign._id}`}>
       <div className="flex flex-col">
         <div className="mb-3">
-          <img alt="" src={campaign.campaignVideo} className="w-full h-fit" />
+          <img alt="" src={campaign.ownerLogo} className="w-full h-fit" />
           <h4 className="text-lg font-bold my-2">{campaign.campaignName}</h4>
           <p className="text-base leading-5">{shortForm}...</p>
         </div>

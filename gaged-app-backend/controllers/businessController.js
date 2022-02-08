@@ -34,7 +34,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     IDpic,
     regNum,
     natureOfBusiness,
-    businessEmail,
+    personalEmail,
     businessAddress,
     cacCertificate,
     formCO7,
@@ -118,7 +118,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     IDpic,
     regNum,
     natureOfBusiness,
-    businessEmail,
+    personalEmail,
     businessAddress,
     cacCertificate,
     formCO7,
@@ -194,7 +194,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       facebook: user.facebook,
       whatsApp: user.whatsApp,
       natureOfBusiness: user.natureOfBusiness,
-      businessEmail: user.businessEmail,
+      personalEmail: user.personalEmail,
       businessAddress: user.businessAddress,
       cacCertificate: user.cacCertificate,
       formCO7: user.formCO7,
@@ -303,7 +303,7 @@ const authBusiness = asyncHandler(async (req, res) => {
       IDpic: user.IDpic,
       regNum: user.regNum,
       natureOfBusiness: user.natureOfBusiness,
-      businessEmail: user.businessEmail,
+      personalEmail: user.personalEmail,
       businessAddress: user.businessAddress,
       cacCertificate: user.cacCertificate,
       formCO7: user.formCO7,
@@ -383,7 +383,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.IDpic = req.body.IDpic || user.IDpic;
     user.regNum = req.body.regNum || user.regNum;
     user.natureOfBusiness = req.body.natureOfBusiness || user.natureOfBusiness;
-    user.businessEmail = req.body.businessEmail || user.businessEmail;
+    user.personalEmail = req.body.personalEmail || user.personalEmail;
     user.businessAddress = req.body.businessAddress || user.businessAddress;
     user.cacCertificate = req.body.cacCertificate || user.cacCertificate;
     user.formCO7 = req.body.formCO7 || user.formCO7;
@@ -496,7 +496,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       IDpic: updatedBusiness.IDpic,
       regNum: updatedBusiness.regNum,
       natureOfBusiness: updatedBusiness.natureOfBusiness,
-      businessEmail: updatedBusiness.businessEmail,
+      personalEmail: updatedBusiness.personalEmail,
       businessAddress: updatedBusiness.businessAddress,
       cacCertificate: updatedBusiness.cacCertificate,
       formCO7: updatedBusiness.formCO7,
@@ -1826,11 +1826,28 @@ const deleteBusinessReview = catchAsyncErrors(async (req, res, next) => {
 
 // Create New Business Order BusinessProfile or Update an Business Order BusinessProfile
 const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
-  const { productId } = req.body;
+  const {
+    productId,
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
 
   const product = await StoreProduct.find(productId);
 
   const order = {
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    paidAt: Date.now(),
     user: req.user._id,
     businessName: req.user.businessName,
     pic: req.body.pic,
@@ -1863,6 +1880,42 @@ const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
     businessOrders: business.businessOrders,
   });
 });
+
+// update Order Status -- Admin
+const updateBusinessOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await signedUpBusiness.businessOrders.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHandler("Order not found with this Id", 404));
+  }
+
+  if (order.orderStatus === "Delivered") {
+    return next(new ErrorHandler("You have already delivered this order", 400));
+  }
+
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (o) => {
+      await updateStock(o.product, o.quantity);
+    });
+  }
+  order.orderStatus = req.body.status;
+
+  if (req.body.status === "Delivered") {
+    order.deliveredAt = Date.now();
+  }
+
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  });
+});
+async function updateStock(id, quantity) {
+  const product = await StoreProduct.findById(id);
+
+  product.Stock -= quantity;
+
+  await product.save({ validateBeforeSave: false });
+}
 
 // Get Business Orders of a business BusinessProfile
 const getMyBusinessOrders = catchAsyncErrors(async (req, res, next) => {
@@ -2132,11 +2185,28 @@ const deleteindividualCustomer = catchAsyncErrors(async (req, res, next) => {
 
 // Create New individual Order individualProfile or Update an individual Order individualProfile
 const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
-  const { businessId, productId } = req.body;
+  const {
+    productId,
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
 
   const product = await StoreProduct.find(productId);
 
   const order = {
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    paidAt: Date.now(),
     user: req.user._id,
     firstName: req.user.firstName,
     lastName: req.user.lastName,
@@ -2149,7 +2219,7 @@ const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
     },
   };
 
-  const business = await signedUpBusiness.findById(businessId);
+  const business = await signedUpBusiness.findById(req.user._id);
 
   const isOrdered = business.individualOrders.find(
     (rev) => rev.user.toString() === req.user._id.toString()

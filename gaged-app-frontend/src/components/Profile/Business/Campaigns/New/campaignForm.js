@@ -37,6 +37,7 @@ function CampaignForm() {
     }
   }, [dispatch, alert, error, success]);
   const [step, setStep] = useState(1);
+  const [picMessage, setPicMessage] = useState(null);
 
   const [campaignCredentials, setCampaignCredentials] = useState({
     campaignName: "",
@@ -180,31 +181,31 @@ function CampaignForm() {
     setStep(step - 1);
   };
 
-  // Go to first step from review page
+  // Go to first step from any page
 
   const firstStep = () => {
     setStep(1);
   };
 
-  // Go to second step from review page
+  // Go to second step from any page
 
   const secondStep = () => {
     setStep(2);
   };
 
-  // Go to third step from review page
+  // Go to third step from any page
 
   const thirdStep = () => {
     setStep(3);
   };
 
-  // Go to fourth step from review page
+  // Go to fourth step from any page
 
   const fourthStep = () => {
     setStep(4);
   };
 
-  // Go to fifth step from review page
+  // Go to fifth step from any page
 
   const fifthStep = () => {
     setStep(5);
@@ -231,9 +232,14 @@ function CampaignForm() {
     });
   }
 
-  const clear = () => {
-    setCampaignCredentials.bank_account_name = "";
-    setCampaignCredentials.bank_account_number = "";
+  const clear = (e) => {
+    const { name } = e.currentTarget;
+    setCampaignCredentials((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: "",
+      };
+    });
   };
 
   switch (step) {

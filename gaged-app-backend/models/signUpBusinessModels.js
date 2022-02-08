@@ -93,7 +93,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: String,
     required: false,
   },
-  businessEmail: {
+  personalEmail: {
     type: String,
     required: false,
   },
@@ -698,33 +698,102 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   businessOrders: [
     {
+      shippingInfo: {
+        address: {
+          type: String,
+          required: true,
+        },
+        city: {
+          type: String,
+          required: true,
+        },
+        state: {
+          type: String,
+          required: true,
+        },
+        country: {
+          type: String,
+          required: true,
+        },
+        pinCode: {
+          type: Number,
+          required: true,
+        },
+        phoneNo: {
+          type: Number,
+          required: true,
+        },
+      },
+      orderItems: [
+        {
+          productTitle: {
+            type: String,
+            required: true,
+          },
+          costPrice: {
+            type: Number,
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
+          image: {
+            type: String,
+            required: true,
+          },
+          product: {
+            type: mongoose.Schema.ObjectId,
+            ref: "StoreProduct",
+            required: true,
+          },
+        },
+      ],
       user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpBusinessTable",
         required: false,
       },
-      productOrdered: {
-        type: String,
-        required: false,
+      paymentInfo: {
+        id: {
+          type: String,
+          required: true,
+        },
+        status: {
+          type: String,
+          required: true,
+        },
       },
-      businessName: {
-        type: String,
-        required: false,
+      paidAt: {
+        type: Date,
+        required: true,
       },
-      phoneNumber: {
+      itemsPrice: {
         type: Number,
-        required: false,
+        required: true,
+        default: 0,
       },
-      pic: {
+      taxPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      totalPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      orderStatus: {
         type: String,
-        required: false,
-        default:
-          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        required: true,
+        default: "Processing",
       },
-      email: {
-        type: String,
-        required: false,
-      },
+      deliveredAt: Date,
       createdAt: {
         type: Date,
         default: Date.now,
@@ -737,37 +806,102 @@ const signUpBusinessTemplate = new mongoose.Schema({
   },
   individualOrders: [
     {
+      shippingInfo: {
+        address: {
+          type: String,
+          required: true,
+        },
+        city: {
+          type: String,
+          required: true,
+        },
+        state: {
+          type: String,
+          required: true,
+        },
+        country: {
+          type: String,
+          required: true,
+        },
+        pinCode: {
+          type: Number,
+          required: true,
+        },
+        phoneNo: {
+          type: Number,
+          required: true,
+        },
+      },
+      orderItems: [
+        {
+          productTitle: {
+            type: String,
+            required: true,
+          },
+          costPrice: {
+            type: Number,
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
+          images: {
+            type: String,
+            required: true,
+          },
+          product: {
+            type: mongoose.Schema.ObjectId,
+            ref: "StoreProduct",
+            required: true,
+          },
+        },
+      ],
       user: {
         type: mongoose.Schema.ObjectId,
         ref: "mySignedUpUserTable",
         required: false,
       },
-      productOrdered: {
-        type: String,
-        required: false,
+      paymentInfo: {
+        id: {
+          type: String,
+          required: true,
+        },
+        status: {
+          type: String,
+          required: true,
+        },
       },
-      firstName: {
-        type: String,
-        required: false,
+      paidAt: {
+        type: Date,
+        required: true,
       },
-      lastName: {
-        type: String,
-        required: false,
-      },
-      phoneNumber: {
+      itemsPrice: {
         type: Number,
-        required: false,
+        required: true,
+        default: 0,
       },
-      pic: {
+      taxPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      totalPrice: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      orderStatus: {
         type: String,
-        required: false,
-        default:
-          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        required: true,
+        default: "Processing",
       },
-      email: {
-        type: String,
-        required: false,
-      },
+      deliveredAt: Date,
       createdAt: {
         type: Date,
         default: Date.now,

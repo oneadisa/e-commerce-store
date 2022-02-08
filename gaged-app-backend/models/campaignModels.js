@@ -24,6 +24,14 @@ const campaignSchema = new mongoose.Schema(
         "Please Fill in your Business's Main coutry of Operation",
       ],
     },
+    ownerLogo: {
+      type: String,
+      required: false,
+    },
+    ownerName: {
+      type: String,
+      required: false,
+    },
     business_address_city: {
       type: String,
       required: [true, "Please Enter a City for your Business."],

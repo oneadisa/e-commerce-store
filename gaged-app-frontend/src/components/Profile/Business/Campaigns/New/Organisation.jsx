@@ -137,7 +137,7 @@ function Organisation(props, nextStep) {
                                 name="natureOfBusiness"
                                 className="radio"
                                 value="Limited Liability Company"
-                                onChange={(e) => props.handleChange(e)}
+                                onClick={(e) => props.handleChange(e)}
                               />
                               <span className="label-text">
                                 <h4 className="text-xs font-normal">
@@ -153,7 +153,7 @@ function Organisation(props, nextStep) {
                                 name="natureOfBusiness"
                                 className="radio"
                                 value="Sole Proprietorship"
-                                onChange={(e) => props.handleChange(e)}
+                                onClick={(e) => props.handleChange(e)}
                               />
                               <span className="label-text">
                                 <h4 className="text-xs font-normal">
@@ -170,7 +170,7 @@ function Organisation(props, nextStep) {
                               name="natureOfBusiness"
                               className="radio"
                               value="Unregistered"
-                              onChange={(e) => props.handleChange(e)}
+                              onClick={(e) => props.handleChange(e)}
                             />
                             <span className="label-text">
                               <h4 className="text-xs font-normal">
@@ -622,7 +622,7 @@ function Organisation(props, nextStep) {
                             name="familiarWithCrowdFunding"
                             className="radio"
                             value="Yes"
-                            onChange={(e) => props.handleChange(e)}
+                            onClick={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>
@@ -660,7 +660,7 @@ function Organisation(props, nextStep) {
                             name="storeOnGaged"
                             className="radio"
                             value="Yes"
-                            onChange={(e) => props.handleChange(e)}
+                            onClick={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>
@@ -674,7 +674,7 @@ function Organisation(props, nextStep) {
                             name="storeOnGaged"
                             className="radio"
                             value="No"
-                            onChange={(e) => props.handleChange(e)}
+                            onClick={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>

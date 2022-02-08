@@ -228,8 +228,9 @@ function SetSchedule(props) {
                       className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                       type="date"
                       name="go_live_schedule"
+                      placeholder="MM-DD-YYYY"
                       required
-                      pattern="\m{2}-\d{2}-\y{4}"
+                      pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}"
                       onChange={(e) => props.handleChange(e)}
                       value={props.campaignCredentials.go_live_schedule}
                     />
