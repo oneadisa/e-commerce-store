@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   BUSINESS_SIGN_UP_FAIL,
   BUSINESS_SIGN_UP_REQUEST,
@@ -106,6 +107,94 @@ import {
   DELETE_STORE_PRODUCT_REQUEST,
   DELETE_STORE_PRODUCT_FAIL,
   DELETE_STORE_PRODUCT_SUCCESS,
+  NEW_INDIVIDUAL_ORDER_REQUEST,
+  NEW_INDIVIDUAL_ORDER_SUCCESS,
+  NEW_INDIVIDUAL_ORDER_RESET,
+  NEW_INDIVIDUAL_ORDER_FAIL,
+  NEW_BUSINESS_ORDER_REQUEST,
+  NEW_BUSINESS_ORDER_SUCCESS,
+  NEW_BUSINESS_ORDER_RESET,
+  NEW_BUSINESS_ORDER_FAIL,
+  ALL_INDIVIDUAL_ORDER_REQUEST,
+  ALL_INDIVIDUAL_ORDER_SUCCESS,
+  ALL_INDIVIDUAL_ORDER_RESET,
+  ALL_INDIVIDUAL_ORDER_FAIL,
+  ALL_BUSINESS_ORDER_REQUEST,
+  ALL_BUSINESS_ORDER_SUCCESS,
+  ALL_BUSINESS_ORDER_RESET,
+  ALL_BUSINESS_ORDER_FAIL,
+  UPDATE_INDIVIDUAL_ORDER_REQUEST,
+  UPDATE_INDIVIDUAL_ORDER_SUCCESS,
+  UPDATE_INDIVIDUAL_ORDER_RESET,
+  UPDATE_INDIVIDUAL_ORDER_FAIL,
+  UPDATE_BUSINESS_ORDER_REQUEST,
+  UPDATE_BUSINESS_ORDER_SUCCESS,
+  UPDATE_BUSINESS_ORDER_RESET,
+  UPDATE_BUSINESS_ORDER_FAIL,
+  DELETE_INDIVIDUAL_ORDER_REQUEST,
+  DELETE_INDIVIDUAL_ORDER_SUCCESS,
+  DELETE_INDIVIDUAL_ORDER_RESET,
+  DELETE_INDIVIDUAL_ORDER_FAIL,
+  DELETE_BUSINESS_ORDER_REQUEST,
+  DELETE_BUSINESS_ORDER_SUCCESS,
+  DELETE_BUSINESS_ORDER_RESET,
+  DELETE_BUSINESS_ORDER_FAIL,
+  DELETE_INDIVIDUAL_CUSTOMER_REQUEST,
+  DELETE_INDIVIDUAL_CUSTOMER_SUCCESS,
+  DELETE_INDIVIDUAL_CUSTOMER_RESET,
+  DELETE_INDIVIDUAL_CUSTOMER_FAIL,
+  DELETE_BUSINESS_CUSTOMER_REQUEST,
+  DELETE_BUSINESS_CUSTOMER_SUCCESS,
+  DELETE_BUSINESS_CUSTOMER_RESET,
+  DELETE_BUSINESS_CUSTOMER_FAIL,
+  NEW_INDIVIDUAL_CUSTOMER_REQUEST,
+  NEW_INDIVIDUAL_CUSTOMER_SUCCESS,
+  NEW_INDIVIDUAL_CUSTOMER_RESET,
+  NEW_INDIVIDUAL_CUSTOMER_FAIL,
+  NEW_BUSINESS_CUSTOMER_REQUEST,
+  NEW_BUSINESS_CUSTOMER_SUCCESS,
+  NEW_BUSINESS_CUSTOMER_RESET,
+  NEW_BUSINESS_CUSTOMER_FAIL,
+  ALL_INDIVIDUAL_CUSTOMER_REQUEST,
+  ALL_INDIVIDUAL_CUSTOMER_SUCCESS,
+  ALL_INDIVIDUAL_CUSTOMER_RESET,
+  ALL_INDIVIDUAL_CUSTOMER_FAIL,
+  ALL_BUSINESS_CUSTOMER_REQUEST,
+  ALL_BUSINESS_CUSTOMER_SUCCESS,
+  ALL_BUSINESS_CUSTOMER_RESET,
+  ALL_BUSINESS_CUSTOMER_FAIL,
+  ALL_INDIVIDUAL_REVIEWS_REQUEST,
+  ALL_INDIVIDUAL_REVIEWS_SUCCESS,
+  ALL_INDIVIDUAL_REVIEWS_RESE,
+  ALL_INDIVIDUAL_REVIEWS_FAIL,
+  ALL_BUSINESS_REVIEWS_REQUEST,
+  ALL_BUSINESS_REVIEWS_SUCCESS,
+  ALL_BUSINESS_REVIEWS_FAIL,
+  ALL_BUSINESS_REVIEWS_RESET,
+  NEW_INDIVIDUAL_REVIEW_REQUEST,
+  NEW_INDIVIDUAL_REVIEW_SUCCESS,
+  NEW_INDIVIDUAL_REVIEW_RESET,
+  NEW_INDIVIDUAL_REVIEW_FAIL,
+  NEW_BUSINESS_REVIEW_REQUEST,
+  NEW_BUSINESS_REVIEW_SUCCESS,
+  NEW_BUSINESS_REVIEW_RESET,
+  NEW_BUSINESS_REVIEW_FAIL,
+  UPDATE_INDIVIDUAL_REVIEW_REQUEST,
+  UPDATE_INDIVIDUAL_REVIEW_SUCCESS,
+  UPDATE_INDIVIDUAL_REVIEW_RESET,
+  UPDATE_INDIVIDUAL_REVIEW_FAIL,
+  UPDATE_BUSINESS_REVIEW_REQUEST,
+  UPDATE_BUSINESS_REVIEW_SUCCESS,
+  UPDATE_BUSINESS_REVIEW_RESET,
+  UPDATE_BUSINESS_REVIEW_FAIL,
+  DELETE_INDIVIDUAL_REVIEW_REQUEST,
+  DELETE_INDIVIDUAL_REVIEW_SUCCESS,
+  DELETE_INDIVIDUAL_REVIEW_RESET,
+  DELETE_INDIVIDUAL_REVIEW_FAIL,
+  DELETE_BUSINESS_REVIEW_REQUEST,
+  DELETE_BUSINESS_REVIEW_SUCCESS,
+  DELETE_BUSINESS_REVIEW_RESET,
+  DELETE_BUSINESS_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/businessConstants";
 import axios from "axios";
@@ -1105,6 +1194,449 @@ export const deleteProductReview =
       });
     }
   };
+
+// NEW INDIVIDUAL REVIEW
+export const newIndividualReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_INDIVIDUAL_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/review`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_INDIVIDUAL_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_INDIVIDUAL_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Individual Reviews of a Product
+export const getAllIndividualReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_INDIVIDUAL_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(`/app/business/reviews?id=${id}`);
+
+    dispatch({
+      type: ALL_INDIVIDUAL_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_INDIVIDUAL_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Individual Review of a Product
+export const deleteIndividualReviews =
+  (reviewId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_INDIVIDUAL_REVIEW_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/reviews?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_INDIVIDUAL_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_INDIVIDUAL_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW INDIVIDUAL CUSTOMER
+export const newIndividualCustomer = (customerData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_INDIVIDUAL_CUSTOMER_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/customer`,
+      customerData,
+      config
+    );
+
+    dispatch({
+      type: NEW_INDIVIDUAL_CUSTOMER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_INDIVIDUAL_CUSTOMER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Individual Customers of a Product
+export const getAllIndividualCustomers = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_INDIVIDUAL_CUSTOMER_REQUEST });
+
+    const { data } = await axios.get(`/app/business/customers?id=${id}`);
+
+    dispatch({
+      type: ALL_INDIVIDUAL_CUSTOMER_SUCCESS,
+      payload: data.customers,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_INDIVIDUAL_CUSTOMER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Individual Customer of a Product
+export const deleteIndividualCustomers =
+  (customerId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_INDIVIDUAL_CUSTOMER_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/customers?id=${customerId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_INDIVIDUAL_CUSTOMER_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_INDIVIDUAL_CUSTOMER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW INDIVIDUAL ORDER
+export const newIndividualOrder = (orderData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_INDIVIDUAL_ORDER_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(`/app/business/order`, orderData, config);
+
+    dispatch({
+      type: NEW_INDIVIDUAL_ORDER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_INDIVIDUAL_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Individual Orders of a Product
+export const getAllIndividualOrders = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_INDIVIDUAL_ORDER_REQUEST });
+
+    const { data } = await axios.get(`/app/business/orders?id=${id}`);
+
+    dispatch({
+      type: ALL_INDIVIDUAL_ORDER_SUCCESS,
+      payload: data.orders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_INDIVIDUAL_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Individual Order of a Product
+export const deleteIndividualOrders =
+  (orderId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_INDIVIDUAL_ORDER_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/orders?id=${orderId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_INDIVIDUAL_ORDER_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_INDIVIDUAL_ORDER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// Delete Individual Order of a Product
+export const updateIndividualOrders =
+  (orderId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_INDIVIDUAL_ORDER_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/orders?id=${orderId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: UPDATE_INDIVIDUAL_ORDER_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_INDIVIDUAL_ORDER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW BUSINESS REVIEW
+export const newBusinessReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_BUSINESS_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/review`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_BUSINESS_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_BUSINESS_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Business Reviews of a Product
+export const getAllBusinessReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESS_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(`/app/business/reviews?id=${id}`);
+
+    dispatch({
+      type: ALL_BUSINESS_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_BUSINESS_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Business Review of a Product
+export const deleteBusinessReviews =
+  (reviewId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_BUSINESS_REVIEW_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/reviews?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_BUSINESS_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_BUSINESS_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW BUSINESS CUSTOMER
+export const newBusinessCustomer = (customerData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_BUSINESS_CUSTOMER_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/customer`,
+      customerData,
+      config
+    );
+
+    dispatch({
+      type: NEW_BUSINESS_CUSTOMER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_BUSINESS_CUSTOMER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Business Customers of a Product
+export const getAllBusinessCustomers = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESS_CUSTOMER_REQUEST });
+
+    const { data } = await axios.get(`/app/business/customers?id=${id}`);
+
+    dispatch({
+      type: ALL_BUSINESS_CUSTOMER_SUCCESS,
+      payload: data.customers,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_BUSINESS_CUSTOMER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Business Customer of a Product
+export const deleteBusinessCustomers =
+  (customerId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_BUSINESS_CUSTOMER_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/customers?id=${customerId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_BUSINESS_CUSTOMER_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_BUSINESS_CUSTOMER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW BUSINESS ORDER
+export const newBusinessOrder = (orderData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_BUSINESS_ORDER_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(`/app/business/order`, orderData, config);
+
+    dispatch({
+      type: NEW_BUSINESS_ORDER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_BUSINESS_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Business Orders of a Product
+export const getAllBusinessOrders = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESS_ORDER_REQUEST });
+
+    const { data } = await axios.get(`/app/business/orders?id=${id}`);
+
+    dispatch({
+      type: ALL_BUSINESS_ORDER_SUCCESS,
+      payload: data.orders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_BUSINESS_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Business Order of a Product
+export const deleteBusinessOrders =
+  (orderId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_BUSINESS_ORDER_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/orders?id=${orderId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_BUSINESS_ORDER_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_BUSINESS_ORDER_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// Delete Business Order of a Product
+export const BusinessOrders = (orderId, productId) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_BUSINESS_ORDER_REQUEST });
+
+    const { data } = await axios.delete(
+      `/app/business/orders?id=${orderId}&productId=${productId}`
+    );
+
+    dispatch({
+      type: UPDATE_BUSINESS_ORDER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_BUSINESS_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

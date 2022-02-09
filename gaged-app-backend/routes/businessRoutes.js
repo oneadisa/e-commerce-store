@@ -77,6 +77,8 @@ const {
   getMyListOfStoreProducts,
   getListOfStoreProducts,
   deleteStoreProduct,
+  updateBusinessOrder,
+  updateIndividualOrder,
 } = require("../controllers/businessController");
 
 const {
@@ -253,7 +255,12 @@ router
   .put(protectBusiness, createBusinessOrder);
 router
   .route("/orders/business")
-  .get(getBusinessOrders)
+  .get(protectBusiness, getBusinessOrders)
+  .delete(protectBusiness, deleteBusinessOrder)
+  .put(protectBusiness, updateBusinessOrder);
+
+router
+  .route("/orders/business/id")
   .delete(protectBusiness, deleteBusinessOrder);
 
 router.route("/orders/business/me").get(getMyBusinessOrders);
@@ -263,8 +270,9 @@ router
   .put(isAuthenticatedUser, createindividualOrder);
 router
   .route("/orders/individual")
-  .get(getIndividualOrders)
-  .delete(isAuthenticatedUser, deleteindividualOrder);
+  .get(protectBusiness, getIndividualOrders)
+  .delete(protectBusiness, deleteindividualOrder)
+  .put(protectBusiness, updateIndividualOrder);
 
 router.route("/orders/individual/me").get(getMyIndividualOrders);
 

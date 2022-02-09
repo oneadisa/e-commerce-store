@@ -125,7 +125,93 @@ import {
   DELETE_STORE_PRODUCT_FAIL,
   DELETE_STORE_PRODUCT_SUCCESS,
   DELETE_STORE_PRODUCT_RESET,
+  NEW_INDIVIDUAL_ORDER_RESET,
+  NEW_INDIVIDUAL_ORDER_FAIL,
+  NEW_BUSINESS_ORDER_REQUEST,
+  NEW_BUSINESS_ORDER_SUCCESS,
+  NEW_BUSINESS_ORDER_RESET,
+  NEW_BUSINESS_ORDER_FAIL,
+  ALL_INDIVIDUAL_ORDER_REQUEST,
+  ALL_INDIVIDUAL_ORDER_SUCCESS,
+  ALL_INDIVIDUAL_ORDER_FAIL,
+  ALL_BUSINESS_ORDER_REQUEST,
+  ALL_BUSINESS_ORDER_SUCCESS,
+  ALL_BUSINESS_ORDER_FAIL,
+  UPDATE_INDIVIDUAL_ORDER_REQUEST,
+  UPDATE_INDIVIDUAL_ORDER_SUCCESS,
+  UPDATE_INDIVIDUAL_ORDER_RESET,
+  UPDATE_INDIVIDUAL_ORDER_FAIL,
+  UPDATE_BUSINESS_ORDER_REQUEST,
+  UPDATE_BUSINESS_ORDER_SUCCESS,
+  UPDATE_BUSINESS_ORDER_RESET,
+  UPDATE_BUSINESS_ORDER_FAIL,
+  DELETE_INDIVIDUAL_ORDER_REQUEST,
+  DELETE_INDIVIDUAL_ORDER_SUCCESS,
+  DELETE_INDIVIDUAL_ORDER_RESET,
+  DELETE_INDIVIDUAL_ORDER_FAIL,
+  DELETE_BUSINESS_ORDER_REQUEST,
+  DELETE_BUSINESS_ORDER_SUCCESS,
+  DELETE_BUSINESS_ORDER_RESET,
+  DELETE_BUSINESS_ORDER_FAIL,
+  DELETE_INDIVIDUAL_CUSTOMER_REQUEST,
+  DELETE_INDIVIDUAL_CUSTOMER_SUCCESS,
+  DELETE_INDIVIDUAL_CUSTOMER_RESET,
+  DELETE_INDIVIDUAL_CUSTOMER_FAIL,
+  DELETE_BUSINESS_CUSTOMER_REQUEST,
+  DELETE_BUSINESS_CUSTOMER_SUCCESS,
+  DELETE_BUSINESS_CUSTOMER_RESET,
+  DELETE_BUSINESS_CUSTOMER_FAIL,
+  NEW_INDIVIDUAL_CUSTOMER_REQUEST,
+  NEW_INDIVIDUAL_CUSTOMER_SUCCESS,
+  NEW_INDIVIDUAL_CUSTOMER_RESET,
+  NEW_INDIVIDUAL_CUSTOMER_FAIL,
+  NEW_BUSINESS_CUSTOMER_REQUEST,
+  NEW_BUSINESS_CUSTOMER_SUCCESS,
+  NEW_BUSINESS_CUSTOMER_RESET,
+  NEW_BUSINESS_CUSTOMER_FAIL,
+  ALL_INDIVIDUAL_CUSTOMER_REQUEST,
+  ALL_INDIVIDUAL_CUSTOMER_SUCCESS,
+  ALL_INDIVIDUAL_CUSTOMER_FAIL,
+  ALL_BUSINESS_CUSTOMER_REQUEST,
+  ALL_BUSINESS_CUSTOMER_SUCCESS,
+  ALL_BUSINESS_CUSTOMER_FAIL,
+  ALL_INDIVIDUAL_REVIEWS_REQUEST,
+  ALL_INDIVIDUAL_REVIEWS_SUCCESS,
+  ALL_INDIVIDUAL_REVIEWS_FAIL,
+  ALL_BUSINESS_REVIEWS_REQUEST,
+  ALL_BUSINESS_REVIEWS_SUCCESS,
+  ALL_BUSINESS_REVIEWS_FAIL,
+  NEW_INDIVIDUAL_REVIEW_REQUEST,
+  NEW_INDIVIDUAL_REVIEW_SUCCESS,
+  NEW_INDIVIDUAL_REVIEW_RESET,
+  NEW_INDIVIDUAL_REVIEW_FAIL,
+  NEW_BUSINESS_REVIEW_REQUEST,
+  NEW_BUSINESS_REVIEW_SUCCESS,
+  NEW_BUSINESS_REVIEW_RESET,
+  NEW_BUSINESS_REVIEW_FAIL,
+  DELETE_INDIVIDUAL_REVIEW_REQUEST,
+  DELETE_INDIVIDUAL_REVIEW_SUCCESS,
+  DELETE_INDIVIDUAL_REVIEW_RESET,
+  DELETE_INDIVIDUAL_REVIEW_FAIL,
+  DELETE_BUSINESS_REVIEW_REQUEST,
+  DELETE_BUSINESS_REVIEW_SUCCESS,
+  DELETE_BUSINESS_REVIEW_RESET,
+  DELETE_BUSINESS_REVIEW_FAIL,
+  STORE_PRODUCTS_CREATE_RESET,
+  STORE_PRODUCTS_CREATE_SUCCESS,
+  STORE_PRODUCTS_CREATE_FAIL,
+  STORE_PRODUCTS_CREATE_REQUEST,
+  STORE_PRODUCTS_UPDATE_RESET,
+  STORE_PRODUCTS_UPDATE_SUCCESS,
+  STORE_PRODUCTS_UPDATE_FAIL,
+  STORE_PRODUCTS_UPDATE_REQUEST,
+  STORE_PRODUCTS_DELETE_RESET,
+  STORE_PRODUCTS_DELETE_SUCCESS,
+  STORE_PRODUCTS_DELETE_FAIL,
+  STORE_PRODUCTS_DELETE_REQUEST,
   CLEAR_ERRORS,
+  NEW_INDIVIDUAL_ORDER_REQUEST,
+  NEW_INDIVIDUAL_ORDER_SUCCESS,
 } from "../constants/businessConstants";
 
 export const signedUpBusinessLoginReducer = (state = {}, action) => {
@@ -1443,173 +1529,870 @@ export const businessCampaignStartedReducer = (state = {}, action) => {
   }
 };
 
-// // Load User
-// export const loadUser = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: LOAD_BUSINESS_REQUEST });
+export const businessStoreProductCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case STORE_PRODUCTS_CREATE_REQUEST:
+      return { loading: true };
+    case STORE_PRODUCTS_CREATE_SUCCESS:
+      return { loading: false, success: true };
+    case STORE_PRODUCTS_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    //
+    default:
+      return state;
+  }
+};
+//
+export const businessStoreProductDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case STORE_PRODUCTS_DELETE_REQUEST:
+      return { loading: true };
+    case STORE_PRODUCTS_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case STORE_PRODUCTS_DELETE_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    //
+    default:
+      return state;
+  }
+};
+//
+export const businessStoreProductUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case STORE_PRODUCTS_UPDATE_REQUEST:
+      return { loading: true };
+    case STORE_PRODUCTS_UPDATE_SUCCESS:
+      return { loading: false, success: true };
+    case STORE_PRODUCTS_UPDATE_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    //
+    default:
+      return state;
+  }
+};
 
-//     const { data } = await axios.get(`/api/v1/me`);
+// export const productsReducer = (state = { products: [] }, action) => {
+// switch (action.type) {
+// case STORE_PRODUCTS_LIST_REQUEST:
+// case ADMIN_STORE_PRODUCTS_REQUEST:
+// return {
+// loading: true,
+// products: [],
+// };
+// case STORE_PRODUCTS_LIST_SUCCESS:
+// return {
+// loading: false,
+// products: action.payload.products,
+// productsCount: action.payload.productsCount,
+// resultPerPage: action.payload.resultPerPage,
+// filteredProductsCount: action.payload.filteredProductsCount,
+// };
+//
+// case ADMIN_STORE_PRODUCTS_SUCCESS:
+// return {
+// loading: false,
+// products: action.payload,
+// };
+// case STORE_PRODUCTS_LIST_FAIL:
+// case ADMIN_STORE_PRODUCTS_FAIL:
+// return {
+// loading: false,
+// error: action.payload,
+// };
+//
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
+//
+export const businessNewProductReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case STORE_PRODUCTS_CREATE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case STORE_PRODUCTS_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        product: action.payload.product,
+      };
+    case STORE_PRODUCTS_CREATE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case STORE_PRODUCTS_CREATE_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: LOAD_BUSINESS_SUCCESS, payload: data.user });
-//   } catch (error) {
-//     dispatch({ type: LOAD_BUSINESS_FAIL, payload: error.response.data.message });
-//   }
+export const businessProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case STORE_PRODUCTS_DELETE_REQUEST:
+    case STORE_PRODUCTS_UPDATE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case STORE_PRODUCTS_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case STORE_PRODUCTS_UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+    case STORE_PRODUCTS_DELETE_FAIL:
+    case STORE_PRODUCTS_UPDATE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case STORE_PRODUCTS_DELETE_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case STORE_PRODUCTS_UPDATE_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+// export const productDetailsReducer = (state = { product: {} }, action) => {
+// switch (action.type) {
+// case STORE_PRODUCTS_DETAILS_REQUEST:
+// return {
+// loading: true,
+// ...state,
+// };
+// case STORE_PRODUCTS_DETAILS_SUCCESS:
+// return {
+// loading: false,
+// product: action.payload,
+// };
+// case STORE_PRODUCTS_DETAILS_FAIL:
+// return {
+// loading: false,
+// error: action.payload,
+// };
+//
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
 // };
 
-// // Logout User
-// export const logout = () => async (dispatch) => {
-//   try {
-//     await axios.get(`/api/v1/logout`);
+export const businessNewIndividualProductOrderReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case NEW_INDIVIDUAL_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_INDIVIDUAL_ORDER_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_INDIVIDUAL_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_INDIVIDUAL_ORDER_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: LOGOUT_SUCCESS });
-//   } catch (error) {
-//     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
-//   }
-// };
+export const businessIndividualProductOrdersReducer = (
+  state = { orders: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_INDIVIDUAL_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_INDIVIDUAL_ORDER_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+    case ALL_INDIVIDUAL_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
-// // Update Profile
-// export const updateProfile = (userData) => async (dispatch) => {
-//   try {
-//     dispatch({ type: UPDATE_BUSINESS_PROFILE_REQUEST });
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     const config = { headers: { "Content-Type": "multipart/form-data" } };
+export const updateIndividualProductOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_INDIVIDUAL_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UPDATE_INDIVIDUAL_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case UPDATE_INDIVIDUAL_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_INDIVIDUAL_ORDER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     const { data } = await axios.put(`/api/v1/me/update`, userData, config);
+export const businessIndividualProductOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_INDIVIDUAL_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_INDIVIDUAL_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_INDIVIDUAL_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_INDIVIDUAL_ORDER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: UPDATE_BUSINESS_PROFILE_SUCCESS, payload: data.success });
-//   } catch (error) {
-//     dispatch({
-//       type: UPDATE_BUSINESS_PROFILE_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+export const businessNewIndividualProductCustomerReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case NEW_INDIVIDUAL_CUSTOMER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_INDIVIDUAL_CUSTOMER_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_INDIVIDUAL_CUSTOMER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_INDIVIDUAL_CUSTOMER_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-// // Update Password
-// export const updatePassword = (passwords) => async (dispatch) => {
-//   try {
-//     dispatch({ type: UPDATE_BUSINESS_PASSWORD_REQUEST });
+export const businessIndividualProductCustomersReducer = (
+  state = { customers: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_INDIVIDUAL_CUSTOMER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_INDIVIDUAL_CUSTOMER_SUCCESS:
+      return {
+        loading: false,
+        customers: action.payload,
+      };
+    case ALL_INDIVIDUAL_CUSTOMER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
-//     const config = { headers: { "Content-Type": "application/json" } };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     const { data } = await axios.put(
-//       `/api/v1/password/update`,
-//       passwords,
-//       config
-//     );
+export const businessIndividualProductCustomerReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case DELETE_INDIVIDUAL_CUSTOMER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_INDIVIDUAL_CUSTOMER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_INDIVIDUAL_CUSTOMER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_INDIVIDUAL_CUSTOMER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: UPDATE_BUSINESS_PASSWORD_SUCCESS, payload: data.success });
-//   } catch (error) {
-//     dispatch({
-//       type: UPDATE_BUSINESS_PASSWORD_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+export const businessNewIndividualProductReviewReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case NEW_INDIVIDUAL_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_INDIVIDUAL_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_INDIVIDUAL_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_INDIVIDUAL_REVIEW_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-// // Forgot Password
-// export const forgotPassword = (email) => async (dispatch) => {
-//   try {
-//     dispatch({ type: FORGOT_BUSINESS_PASSWORD_REQUEST });
+export const businessIndividualProductReviewsReducer = (
+  state = { reviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_INDIVIDUAL_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_INDIVIDUAL_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        reviews: action.payload,
+      };
+    case ALL_INDIVIDUAL_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
-//     const config = { headers: { "Content-Type": "application/json" } };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     const { data } = await axios.post(`/api/v1/password/forgot`, email, config);
+export const businessIndividualProductReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_INDIVIDUAL_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_INDIVIDUAL_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_INDIVIDUAL_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_INDIVIDUAL_REVIEW_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: FORGOT_BUSINESS_PASSWORD_SUCCESS, payload: data.message });
-//   } catch (error) {
-//     dispatch({
-//       type: FORGOT_BUSINESS_PASSWORD_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+export const businessNewBusinessProductOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NEW_BUSINESS_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_BUSINESS_ORDER_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_BUSINESS_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_BUSINESS_ORDER_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-// // Reset Password
-// export const resetPassword = (token, passwords) => async (dispatch) => {
-//   try {
-//     dispatch({ type: RESET_BUSINESS_PASSWORD_REQUEST });
+export const businessBusinessProductOrdersReducer = (
+  state = { orders: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_BUSINESS_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_ORDER_SUCCESS:
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+    case ALL_BUSINESS_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
-//     const config = { headers: { "Content-Type": "application/json" } };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     const { data } = await axios.put(
-//       `/api/v1/password/reset/${token}`,
-//       passwords,
-//       config
-//     );
+export const businessBusinessProductOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BUSINESS_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_BUSINESS_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_BUSINESS_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_BUSINESS_ORDER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: RESET_BUSINESS_PASSWORD_SUCCESS, payload: data.success });
-//   } catch (error) {
-//     dispatch({
-//       type: RESET_BUSINESS_PASSWORD_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+export const updateProductOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_BUSINESS_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UPDATE_BUSINESS_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case UPDATE_BUSINESS_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_BUSINESS_ORDER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-// // get All Users
-// export const getAllUsers = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: ALL_BUSINESSS_REQUEST });
-//     const { data } = await axios.get(`/api/v1/admin/users`);
+export const businessNewBusinessProductCustomerReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case NEW_BUSINESS_CUSTOMER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_BUSINESS_CUSTOMER_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_BUSINESS_CUSTOMER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_BUSINESS_CUSTOMER_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: ALL_BUSINESSS_SUCCESS, payload: data.users });
-//   } catch (error) {
-//     dispatch({ type: ALL_BUSINESSS_FAIL, payload: error.response.data.message });
-//   }
-// };
+export const businessBusinessProductCustomersReducer = (
+  state = { customers: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_BUSINESS_CUSTOMER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_CUSTOMER_SUCCESS:
+      return {
+        loading: false,
+        customers: action.payload,
+      };
+    case ALL_BUSINESS_CUSTOMER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
-// // get  User Details
-// export const getUserDetails = (id) => async (dispatch) => {
-//   try {
-//     dispatch({ type: BUSINESS_DETAILS_REQUEST });
-//     const { data } = await axios.get(`/api/v1/admin/user/${id}`);
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: BUSINESS_DETAILS_SUCCESS, payload: data.user });
-//   } catch (error) {
-//     dispatch({ type: BUSINESS_DETAILS_FAIL, payload: error.response.data.message });
-//   }
-// };
+export const businessBusinessProductCustomerReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BUSINESS_CUSTOMER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_BUSINESS_CUSTOMER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_BUSINESS_CUSTOMER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_BUSINESS_CUSTOMER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-// // Update User
-// export const updateUser = (id, userData) => async (dispatch) => {
-//   try {
-//     dispatch({ type: UPDATE_BUSINESS_REQUEST });
+export const businessNewBusinessProductReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case NEW_BUSINESS_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_BUSINESS_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+      };
+    case NEW_BUSINESS_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_BUSINESS_REVIEW_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     const config = { headers: { "Content-Type": "application/json" } };
+export const businessBusinessProductReviewsReducer = (
+  state = { reviews: [] },
+  action
+) => {
+  switch (action.type) {
+    case ALL_BUSINESS_REVIEWS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_BUSINESS_REVIEWS_SUCCESS:
+      return {
+        loading: false,
+        reviews: action.payload,
+      };
+    case ALL_BUSINESS_REVIEWS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
-//     const { data } = await axios.put(
-//       `/api/v1/admin/user/${id}`,
-//       userData,
-//       config
-//     );
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//     dispatch({ type: UPDATE_BUSINESS_SUCCESS, payload: data.success });
-//   } catch (error) {
-//     dispatch({
-//       type: UPDATE_BUSINESS_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
-
-// // Delete User
-// export const deleteUser = (id) => async (dispatch) => {
-//   try {
-//     dispatch({ type: DELETE_BUSINESS_REQUEST });
-
-//     const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
-
-//     dispatch({ type: DELETE_BUSINESS_SUCCESS, payload: data });
-//   } catch (error) {
-//     dispatch({
-//       type: DELETE_BUSINESS_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
-
-// // Clearing Errors
-// export const clearErrors = () => async (dispatch) => {
-//   dispatch({ type: CLEAR_ERRORS });
-// };
+export const businessBusinessProductReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_BUSINESS_REVIEW_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_BUSINESS_REVIEW_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case DELETE_BUSINESS_REVIEW_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_BUSINESS_REVIEW_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};

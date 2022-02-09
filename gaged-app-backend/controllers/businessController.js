@@ -1881,9 +1881,11 @@ const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// update Order Status -- Admin
+// update Business Order Status
 const updateBusinessOrder = catchAsyncErrors(async (req, res, next) => {
-  const order = await signedUpBusiness.businessOrders.findById(req.params.id);
+  const order = await signedUpBusiness.find({
+    "businessOrders._id": req.params.id,
+  });
 
   if (!order) {
     return next(new ErrorHandler("Order not found with this Id", 404));
@@ -1912,7 +1914,7 @@ const updateBusinessOrder = catchAsyncErrors(async (req, res, next) => {
 async function updateStock(id, quantity) {
   const product = await StoreProduct.findById(id);
 
-  product.Stock -= quantity;
+  product.productUnitCount -= quantity;
 
   await product.save({ validateBeforeSave: false });
 }
@@ -2241,6 +2243,37 @@ const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// update Indivdual Order Status
+const updateIndividualOrder = catchAsyncErrors(async (req, res, next) => {
+  const order = await signedUpBusiness.find({
+    "individualOrders._id": req.params.id,
+  });
+
+  if (!order) {
+    return next(new ErrorHandler("Order not found with this Id", 404));
+  }
+
+  if (order.orderStatus === "Delivered") {
+    return next(new ErrorHandler("You have already delivered this order", 400));
+  }
+
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (o) => {
+      await updateStock(o.product, o.quantity);
+    });
+  }
+  order.orderStatus = req.body.status;
+
+  if (req.body.status === "Delivered") {
+    order.deliveredAt = Date.now();
+  }
+
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  });
+});
+
 // Get individual Orders of a individual individualProfile
 const getMyIndividualOrders = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.user._id);
@@ -2530,19 +2563,35 @@ const createStoreProduct = catchAsyncErrors(async (req, res, next) => {
   const {
     productTitle,
     shortDescription,
-    category,
-    productImageOne,
-    ratings,
+    productDetails,
+    standardPrice,
+    discountedPrice,
     costPrice,
+    productStockCount,
+    productUnitCount,
+    productSKU,
+    productImageOne,
+    productImageTwo,
+    productImageThree,
+    category,
+    ratings,
   } = req.body;
 
   const newProduct = {
     productTitle,
     shortDescription,
-    category,
-    productImageOne,
-    ratings,
+    productDetails,
+    standardPrice,
+    discountedPrice,
     costPrice,
+    productStockCount,
+    productUnitCount,
+    productSKU,
+    productImageOne,
+    productImageTwo,
+    productImageThree,
+    category,
+    ratings,
   };
 
   const business = await signedUpBusiness.findById(req.user._id);
@@ -2695,4 +2744,6 @@ module.exports = {
   getMyListOfStoreProducts,
   getListOfStoreProducts,
   deleteStoreProduct,
+  updateBusinessOrder,
+  updateIndividualOrder,
 };
