@@ -51,11 +51,11 @@ const storeProductSchema = new mongoose.Schema(
       {
         public_id: {
           type: String,
-          required: true,
+          required: false,
         },
         url: {
           type: String,
-          required: true,
+          required: false,
         },
       },
     ],
@@ -76,11 +76,11 @@ const storeProductSchema = new mongoose.Schema(
         },
         firstName: {
           type: String,
-          required: true,
+          required: false,
         },
         lastName: {
           type: String,
-          required: true,
+          required: false,
         },
         rating: {
           type: Number,
@@ -94,7 +94,7 @@ const storeProductSchema = new mongoose.Schema(
         },
         comment: {
           type: String,
-          required: true,
+          required: false,
         },
         commentedAt: {
           type: Date,
@@ -116,7 +116,7 @@ const storeProductSchema = new mongoose.Schema(
         },
         name: {
           type: String,
-          required: true,
+          required: false,
         },
         rating: {
           type: Number,
@@ -130,7 +130,7 @@ const storeProductSchema = new mongoose.Schema(
         },
         comment: {
           type: String,
-          required: true,
+          required: false,
         },
         commentedAt: {
           type: Date,
@@ -238,7 +238,7 @@ const storeProductSchema = new mongoose.Schema(
         },
         lastName: {
           type: String,
-          required: true,
+          required: false,
         },
         phoneNumber: {
           type: Number,
@@ -334,11 +334,11 @@ module.exports = StoreProduct;
 // {
 // public_id: {
 // type: String,
-// required: true,
+// required: false,
 // },
 // url: {
 // type: String,
-// required: true,
+// required: false,
 // },
 // },
 // ],

@@ -1623,12 +1623,9 @@ const createIndividualReview = catchAsyncErrors(async (req, res, next) => {
     user: req.user._id,
     firstName: req.user.firstName,
     lastName: req.user.lastName,
-    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
     rating: Number(rating),
-    product: {
-      productId: product._id,
-      productName: product.productTitle,
-    },
+    productTitle: product.productTitle,
     comment,
   };
 
@@ -1728,12 +1725,9 @@ const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
   const review = {
     user: req.user._id,
     businessName: req.user.businessNameName,
-    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
     rating: Number(rating),
-    product: {
-      productId: product._id,
-      productName: product.productTitle,
-    },
+    productTitle: product.productTitle,
     comment,
   };
 
@@ -1992,10 +1986,7 @@ const createBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
     pic: req.body.pic,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
-    productBought: {
-      productId: product._id,
-      productName: product.productTitle,
-    },
+    productTitle: product.productTitle,
   };
 
   const business = await signedUpBusiness.findById(businessId);

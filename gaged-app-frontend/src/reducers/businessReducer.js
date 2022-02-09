@@ -1757,7 +1757,7 @@ export const businessNewIndividualProductOrderReducer = (
 };
 
 export const businessIndividualProductOrdersReducer = (
-  state = { orders: [] },
+  state = { individualOrders: [] },
   action
 ) => {
   switch (action.type) {
@@ -1998,7 +1998,7 @@ export const businessNewIndividualProductReviewReducer = (
 };
 
 export const businessIndividualProductReviewsReducer = (
-  state = { reviews: [] },
+  state = { individualReviews: [] },
   action
 ) => {
   switch (action.type) {
@@ -2010,7 +2010,7 @@ export const businessIndividualProductReviewsReducer = (
     case ALL_INDIVIDUAL_REVIEWS_SUCCESS:
       return {
         loading: false,
-        reviews: action.payload,
+        individualReviews: action.payload,
       };
     case ALL_INDIVIDUAL_REVIEWS_FAIL:
       return {
@@ -2097,31 +2097,31 @@ export const businessNewBusinessProductOrderReducer = (state = {}, action) => {
 };
 
 export const businessBusinessProductOrdersReducer = (
-  state = { orders: [] },
+  state = { businessOrders: [] },
   action
 ) => {
   switch (action.type) {
     case ALL_BUSINESS_ORDER_REQUEST:
       return {
         ...state,
-        loading: true,
+        loadingBusiness: true,
       };
     case ALL_BUSINESS_ORDER_SUCCESS:
       return {
-        loading: false,
-        orders: action.payload,
+        loadingBusiness: false,
+        businessOrders: action.payload,
       };
     case ALL_BUSINESS_ORDER_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        loadingBusiness: false,
+        errorBusiness: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        errorBusiness: null,
       };
     default:
       return state;
@@ -2233,31 +2233,31 @@ export const businessNewBusinessProductCustomerReducer = (
 };
 
 export const businessBusinessProductCustomersReducer = (
-  state = { customers: [] },
+  state = { businessCustomers: [] },
   action
 ) => {
   switch (action.type) {
     case ALL_BUSINESS_CUSTOMER_REQUEST:
       return {
         ...state,
-        loading: true,
+        loadingBusiness: true,
       };
     case ALL_BUSINESS_CUSTOMER_SUCCESS:
       return {
-        loading: false,
-        customers: action.payload,
+        loadingBusiness: false,
+        businessCustomers: action.payload,
       };
     case ALL_BUSINESS_CUSTOMER_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        loadingBusiness: false,
+        errorBusiness: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        errorBusiness: null,
       };
     default:
       return state;
@@ -2332,31 +2332,31 @@ export const businessNewBusinessProductReviewReducer = (state = {}, action) => {
 };
 
 export const businessBusinessProductReviewsReducer = (
-  state = { reviews: [] },
+  state = { businessReviews: [] },
   action
 ) => {
   switch (action.type) {
     case ALL_BUSINESS_REVIEWS_REQUEST:
       return {
         ...state,
-        loading: true,
+        loadingBusiness: true,
       };
     case ALL_BUSINESS_REVIEWS_SUCCESS:
       return {
-        loading: false,
-        reviews: action.payload,
+        loadingBuiness: false,
+        businessReviews: action.payload,
       };
     case ALL_BUSINESS_REVIEWS_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        loadingBusiness: false,
+        errorBusiness: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        errorBusiness: null,
       };
     default:
       return state;

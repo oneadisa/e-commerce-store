@@ -99,57 +99,10 @@ const CreateStoreProduct = asyncHandler(async (req, res) => {
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
-  const {
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category,
-  } = req.body;
 
-  if (
-    !productTitle ||
-    !shortDescription ||
-    !category ||
-    !productDetails ||
-    !costPrice ||
-    !standardPrice ||
-    !discountedPrice ||
-    !productStockCount ||
-    !productUnitCount
-    // || !productImageOne
-  ) {
-    res.status(400);
-    throw new Error("Please fill all required feilds");
-    return;
-  } else {
-    const storeProduct = new StoreProduct({
-      user: req.user._id,
-      productTitle,
-      shortDescription,
-      productDetails,
-      standardPrice,
-      discountedPrice,
-      costPrice,
-      productStockCount,
-      productUnitCount,
-      productSKU,
-      productImageOne,
-      productImageTwo,
-      productImageThree,
-      category,
-    });
 
-    const createdStoreProduct = await storeProduct.save();
-    const product = await storeProduct.create(req.body);
+    const createdStoreProduct = await StoreProduct.save();
+    const product = await StoreProduct.create(req.body);
 
     res.status(201).json({
       success: true,
@@ -171,51 +124,47 @@ const getStoreProductById = asyncHandler(async (req, res) => {
   res.json(storeProduct);
 });
 
-const UpdateStoreProduct = asyncHandler(async (req, res) => {
-  const {
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category,
-  } = req.body;
+const UpdateStoreProduct = asyncHandler(async (req, res, next) => {
 
-  const storeProduct = await StoreProduct.findById(req.params.id);
-
-  if (storeProduct.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("You can't perform this action");
+let product = await StoreProduct.findById(req.params.id);
+if (!product) {
+  return next(new ErrorHandler("Product not found", 404));
+}
+// Images Start Here
+let images = [];
+if (typeof req.body.images === "string") {
+  images.push(req.body.images);
+} else {
+  images = req.body.images;
+}
+if (images !== undefined) {
+  // Deleting Images From Cloudinary
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);
   }
-
-  if (storeProduct) {
-    storeProduct.productTitle = productTitle;
-    storeProduct.shortDescription = shortDescription;
-    storeProduct.productDetails = productDetails;
-    storeProduct.standardPrice = standardPrice;
-    storeProduct.discountedPrice = discountedPrice;
-    storeProduct.costPrice = costPrice;
-    storeProduct.productStockCount = productStockCount;
-    storeProduct.productUnitCount = productUnitCount;
-    storeProduct.productSKU = productSKU;
-    storeProduct.productImageOne = productImageOne;
-    storeProduct.productImageTwo = productImageTwo;
-    storeProduct.productImageThree = productImageThree;
-    storeProduct.category = category;
-
-    const updatedStoreProduct = await storeProduct.save();
-    res.json(updatedStoreProduct);
-  } else {
-    res.status(404);
-    throw new Error("Product not found");
+  const imagesLinks = [];
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "products",
+    });
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
   }
+  req.body.images = imagesLinks;
+}
+product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
+  new: true,
+  runValidators: true,
+  useFindAndModify: false,
+});
+res.status(200).json({
+  success: true,
+  product,
+});
+
+
 });
 
 const deleteStoreProduct = asyncHandler(async (req, res, next) => {

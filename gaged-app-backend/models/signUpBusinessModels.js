@@ -625,7 +625,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: true,
       },
-      product: {
+      productTitle: {
         type: String,
         required: true,
       },
@@ -633,11 +633,9 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
-      pic: {
+      phoneNumber: {
         type: String,
         required: false,
-        default:
-          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
       },
       comment: {
         type: String,
@@ -668,15 +666,13 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
-      product: {
+      productTitle: {
         type: String,
         required: true,
       },
-      pic: {
+      phoneNumber: {
         type: String,
         required: false,
-        default:
-          "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
       },
       comment: {
         type: String,
@@ -935,7 +931,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         required: false,
       },
-      productBought: {
+      productTitle: {
         type: String,
         required: false,
       },
@@ -984,7 +980,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: true,
       },
-      productBought: {
+      productTitle: {
         type: String,
         required: false,
       },

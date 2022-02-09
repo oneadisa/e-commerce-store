@@ -1,6 +1,6 @@
 import { Rating } from "@material-ui/lab";
 import React from "react";
-import profilePng from "../../images/Profile.png";
+import profilePng from "../../../../../images/Profile.png";
 
 const businessReviewCard = ({ review }) => {
   const options = {
@@ -10,11 +10,14 @@ const businessReviewCard = ({ review }) => {
   };
 
   return (
-    <div className="reviewCard">
+    <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between mt-5 pb-2 px-2 hover:bg-light-blue">
+      <p>{review.productTitle}</p>
       <img src={profilePng} alt="User" />
       <p>{review.businessName}</p>
       <Rating {...options} />
-      <span className="reviewCardComment">{review.comment}</span>
+
+      <p>{review.phoneNumber}</p>
+      <p>{review.comment}</p>
     </div>
   );
 };

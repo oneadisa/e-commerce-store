@@ -137,22 +137,7 @@ export const listMyStoreProducts = () => async (dispatch, getState) => {
 };
 
 export const createStoreProductAction =
-  (
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category
-  ) =>
-  async (dispatch, getState) => {
+  (productData) => async (dispatch, getState) => {
     try {
       dispatch({
         type: STORE_PRODUCTS_CREATE_REQUEST,
@@ -171,21 +156,7 @@ export const createStoreProductAction =
 
       const { data } = await axios.post(
         `/app/store/products/create`,
-        {
-          productTitle,
-          shortDescription,
-          productDetails,
-          standardPrice,
-          discountedPrice,
-          costPrice,
-          productStockCount,
-          productUnitCount,
-          productSKU,
-          productImageOne,
-          productImageTwo,
-          productImageThree,
-          category,
-        },
+        productData,
         config
       );
 
@@ -240,23 +211,7 @@ export const deleteStoreProductAction = (id) => async (dispatch, getState) => {
 };
 
 export const updateStoreProductAction =
-  (
-    id,
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category
-  ) =>
-  async (dispatch, getState) => {
+  (id, productData) => async (dispatch, getState) => {
     try {
       dispatch({
         type: STORE_PRODUCTS_UPDATE_REQUEST,
@@ -275,21 +230,7 @@ export const updateStoreProductAction =
 
       const { data } = await axios.put(
         `/app/store/products/${id}`,
-        {
-          productTitle,
-          shortDescription,
-          productDetails,
-          standardPrice,
-          discountedPrice,
-          costPrice,
-          productStockCount,
-          productUnitCount,
-          productSKU,
-          productImageOne,
-          productImageTwo,
-          productImageThree,
-          category,
-        },
+        productData,
         config
       );
 

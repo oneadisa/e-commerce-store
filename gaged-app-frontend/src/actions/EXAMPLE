@@ -135,3 +135,38 @@ ETE_INDIVIDUAL_REVIEW_SUCCESS";
 
  const STORE_PRODUCT_CREATE_REQUEST = "STORE_PRODUCT_CREATE_REQUEST";
  
+
+ function postThirdImageDetails(pics) {
+  setPicMessage(null);
+  if (
+    pics.type === "image/jpeg" ||
+    pics.type === "image/png" ||
+    pics.type === "image/jpg"
+  ) {
+    const data = new FormData();
+    data.append("file", pics);
+    data.append("upload_preset", "gagedio");
+    data.append("cloud_name", "gaged");
+    fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setProductCredentials.productImageThree(data.url.toString());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    // return setPicMessage("Please select at least one image.");
+  }
+}
+
+<input
+  onChange={(e) => postFirstImageDetails(e.target.files[0])}
+  id="custom-file"
+  type="file"
+  className="hidden"
+/>
