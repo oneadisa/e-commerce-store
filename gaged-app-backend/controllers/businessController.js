@@ -738,6 +738,24 @@ const getSingleBusiness = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Get single user (admin)
+const getSingleProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.params.id,
+  });
+
+  if (!product) {
+    return next(
+      new ErrorHandler(`Product does not exist with Id: ${req.params.id}`)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
 // update Business Role -- Admin
 const updateBusinessRole = catchAsyncErrors(async (req, res, next) => {
   const newBusinessData = {
@@ -1860,6 +1878,10 @@ const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
   );
 
   if (!isOrdered) {
+    business.businessOrders.push(order);
+    business.numberOfBusinessOrders = business.businessOrders.length;
+    business.totalNumberOfOrders =
+      business.individualOrders.length + business.businessOrders.length;
   } else {
     business.businessOrders.push(order);
     business.numberOfBusinessOrders = business.businessOrders.length;
@@ -2549,45 +2571,46 @@ const deletePersonalCampaignReview = catchAsyncErrors(
   }
 );
 
+// Get Product Details
+const getProductDetails = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
 // Create New Store Product BusinessProfile or Update a Store Product BusinessProfile
 const createStoreProduct = catchAsyncErrors(async (req, res, next) => {
-  const {
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category,
-    ratings,
-  } = req.body;
-
-  const newProduct = {
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    category,
-    ratings,
-  };
+  let images = [];
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+  const imagesLinks = [];
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "products",
+    });
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+  req.body.images = imagesLinks;
+  req.body.user = req.user.id;
+  const createdStoreProduct = await StoreProduct.save();
+  const product = await StoreProduct.create(req.body);
 
   const business = await signedUpBusiness.findById(req.user._id);
 
-  business.storeProducts.push(newProduct);
+  business.storeProducts.push(product);
   business.numberOfStoreProducts = business.storeProducts.length;
 
   await business.save({ validateBeforeSave: false });
@@ -2627,18 +2650,27 @@ const getListOfStoreProducts = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Store Product BusinessProfile
-const deleteStoreProduct = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.query.businessId);
+const deleteBusinessStoreProduct = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.find(req.user._id);
+  let product = await signedUpBusiness.find({
+    "storeProduct._id": req.params.id,
+  });
 
   if (!business) {
     return next(new ErrorHandler("Business not found", 404));
   }
 
+  // Deleting Images From Cloudinary
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+  }
+  await product.remove();
+
   const storeProducts = business.storeProducts.filter(
     (rev) => rev._id.toString() !== req.query.id.toString()
   );
 
-  const numberOfStoreProducts = storeProducts.length;
+  const numberOfStoreProducts = business.storeProducts.length;
 
   await signedUpBusiness.findByIdAndUpdate(
     req.query.businessId,
@@ -2658,6 +2690,731 @@ const deleteStoreProduct = catchAsyncErrors(async (req, res, next) => {
     storeProducts: business.storeProducts,
   });
 });
+
+const UpdateBusinessStoreProduct = asyncHandler(async (req, res, next) => {
+  let product = await signedUpBusiness.find({
+    "storeProduct._id": req.params.id,
+  });
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+  // Images Start Here
+  let images = [];
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+    }
+    const imagesLinks = [];
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+      imagesLinks.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    req.body.images = imagesLinks;
+  }
+  product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
+// Create New Individual Review BusinessProfile or Update an Individual review BusinessProfile
+const createIndividualReviewProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const { rating, comment, productId } = req.body;
+
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": productId,
+    });
+
+    const review = {
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      phoneNumber: req.body.phoneNumber,
+      rating: Number(rating),
+      productTitle: product.productTitle,
+      comment,
+    };
+
+    const isReviewed = product.individualReviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (isReviewed) {
+      product.individualReviews.forEach((rev) => {
+        if (rev.user.toString() === req.user._id.toString())
+          (rev.rating = rating), (rev.comment = comment);
+      });
+    } else {
+      product.individualReviews.push(review);
+      product.numberOfIndividualReviews = product.individualReviews.length;
+      product.totalNumberOfReviews =
+        product.individualReviews.length + product.businessReviews.length;
+    }
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      individualReviews: product.individualReviews,
+    });
+  }
+);
+
+// Get Individual Reviews of a product BusinessProfile
+const getIndividualReviewsProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.id,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Review not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualReviews: product.individualReviews,
+  });
+});
+
+// Delete Individual Review
+const deleteIndividualReviewProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": req.query.businessId,
+    });
+
+    if (!product) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+
+    const individualReviews = product.individualReviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfIndividualReviews = individualReviews.length;
+
+    await signedUpBusiness.findOneAndUpdate(
+      { "storeProducts._id": req.query.businessId },
+      {
+        individualReviews,
+        numberOfIndividualReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      individualReviews: product.individualReviews,
+    });
+  }
+);
+
+// Create New Business Review BusinessProfile or Update an Business review BusinessProfile
+const createBusinessReviewProduct = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, productId } = req.body;
+
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
+
+  const review = {
+    user: req.user._id,
+    businessName: req.user.businessNameName,
+    phoneNumber: req.body.phoneNumber,
+    rating: Number(rating),
+    productTitle: product.productTitle,
+    comment,
+  };
+
+  const isReviewed = product.businessReviews.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (isReviewed) {
+    product.businessReviews.forEach((rev) => {
+      if (rev.user.toString() === req.user._id.toString())
+        (rev.rating = rating), (rev.comment = comment);
+    });
+  } else {
+    product.businessReviews.push(review);
+    product.numberOfBusinessReviews = product.businessReviews.length;
+    product.totalNumberOfReviews =
+      product.individualReviews.length + product.businessReviews.length;
+  }
+
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    BusinessReviews: product.businessReviews,
+  });
+});
+
+// Get Business Reviews of a product BusinessProfile
+const getBusinessReviewsProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.id,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessReviews: product.businessReviews,
+  });
+});
+
+// Delete Business Review
+const deleteBusinessReviewProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.businessId,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const businessReviews = product.businessReviews.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfBusinessReviews = businessReviews.length;
+
+  await signedUpBusiness.findOneAndUpdate(
+    { "storeProducts._id": req.query.businessId },
+    {
+      businessReviews,
+      numberOfBusinessReviews,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    businessReviews: product.businessReviews,
+  });
+});
+
+// Create New Business Order BusinessProfile or Update an Business Order BusinessProfile
+const createBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
+  const {
+    productId,
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+  } = req.body;
+
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
+
+  const order = {
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
+    shippingPrice,
+    totalPrice,
+    paidAt: Date.now(),
+    user: req.user._id,
+    businessName: req.user.businessName,
+    pic: req.body.pic,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email,
+    productOrdered: {
+      productId: product._id,
+      productName: product.productTitle,
+    },
+  };
+
+  const isOrdered = product.businessOrders.find(
+    (rev) => rev.user.toString() === req.user._id.toString()
+  );
+
+  if (!isOrdered) {
+    product.businessOrders.push(order);
+    product.numberOfBusinessOrders = product.businessOrders.length;
+    product.totalNumberOfOrders =
+      product.individualOrders.length + product.businessOrders.length;
+  } else {
+    product.businessOrders.push(order);
+    product.numberOfBusinessOrders = product.businessOrders.length;
+    product.totalNumberOfOrders =
+      product.individualOrders.length + product.businessOrders.length;
+  }
+
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    businessOrders: product.businessOrders,
+  });
+});
+
+// update Business Order Status
+const updateBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
+  const order = await signedUpBusiness.find({
+    "businessOrders._id": req.params.id,
+  });
+
+  if (!order) {
+    return next(new ErrorHandler("Order not found with this Id", 404));
+  }
+
+  if (order.orderStatus === "Delivered") {
+    return next(new ErrorHandler("You have already delivered this order", 400));
+  }
+
+  if (req.body.status === "Shipped") {
+    order.orderItems.forEach(async (o) => {
+      await updateStock(o.product, o.quantity);
+    });
+  }
+  order.orderStatus = req.body.status;
+
+  if (req.body.status === "Delivered") {
+    order.deliveredAt = Date.now();
+  }
+
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  });
+});
+async function updateStock(id, quantity) {
+  const product = await signedUpBusiness.find({ "storeProducts._id": id });
+
+  product.productUnitCount -= quantity;
+
+  await product.save({ validateBeforeSave: false });
+}
+
+// Get Business Orders of a product BusinessProfile
+const getBusinessOrdersProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.businessId,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessOrders: product.businessOrders,
+  });
+});
+
+// Delete Business Order
+const deleteBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.businessId,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  const businessOrders = product.businessOrders.filter(
+    (rev) => rev._id.toString() !== req.query.id.toString()
+  );
+
+  const numberOfBusinessOrders = businessOrders.length;
+
+  await signedUpBusiness.findOneAndUpdate(
+    { "storeProducts._id": req.query.businessId },
+    {
+      businessOrders,
+      numberOfBusinessOrders,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    businessOrders: product.businessOrders,
+  });
+});
+
+// Create New Business Customer BusinessProfile or Update an Business Customer BusinessProfile
+const createBusinessCustomerProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const { businessId, productId } = req.body;
+
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": productId,
+    });
+
+    const customer = {
+      user: req.user._id,
+      businessName: req.user.businessName,
+      pic: req.body.pic,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      productTitle: product.productTitle,
+    };
+
+    const isBought = product.businessCustomers.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (!isBought) {
+    } else {
+      product.businessCustomers.push(customer);
+      product.numberOfBusinessCustomers = product.businessCustomers.length;
+      product.totalNumberOfCustomers =
+        product.individualCustomers.length + product.businessCustomers.length;
+    }
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      businessCustomers: product.businessCustomers,
+    });
+  }
+);
+
+// Delete Business Customer
+
+// Get Business Customers of a product BusinessProfile
+const getBusinessCustomersProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.businessId,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    businessCustomers: product.businessCustomers,
+  });
+});
+
+// Delete Business Customer
+const deleteBusinessCustomerProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": req.query.businessId,
+    });
+
+    if (!product) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    const businessCustomers = product.businessCustomers.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfBusinessCustomers = businessCustomers.length;
+
+    await signedUpBusiness.findOneAndUpdate(
+      { "storeProducts._id": req.query.businessId },
+      {
+        businessCustomers,
+        numberOfBusinessCustomers,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      businessCustomers: product.businessCustomers,
+    });
+  }
+);
+
+// Create New individual Customer individualProfile or Update an individual Customer individualProfile
+const createindividualCustomerProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const { businessId, productId } = req.body;
+
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": productId,
+    });
+
+    const customer = {
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      pic: req.body.pic,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      productBought: {
+        productId: product._id,
+        productName: product.productTitle,
+      },
+    };
+
+    const isBought = product.individualCustomers.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (!isBought) {
+    } else {
+      product.individualCustomers.push(customer);
+      product.numberOfindividualCustomers = product.individualCustomers.length;
+      product.totalNumberOfCustomers =
+        product.businessCustomers.length + product.individualCustomers.length;
+    }
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      individualCustomers: product.individualCustomers,
+    });
+  }
+);
+
+// Get individual Customers of a individual individualProfile
+const getIndividualCustomersProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": req.query.businessId,
+    });
+
+    if (!product) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      individualCustomers: product.individualCustomers,
+    });
+  }
+);
+
+// Delete individual Customer
+const deleteindividualCustomerProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": req.query.businessId,
+    });
+
+    if (!product) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    const individualCustomers = product.individualCustomers.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfindividualCustomers = individualCustomers.length;
+
+    await signedUpBusiness.findOneAndUpdate(
+      { "storeProducts._id": req.query.businessId },
+      {
+        individualCustomers,
+        numberOfindividualCustomers,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      individualCustomers: product.individualCustomers,
+    });
+  }
+);
+
+// Create New individual Order individualProfile or Update an individual Order individualProfile
+const createindividualOrderProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const {
+      productId,
+      shippingInfo,
+      orderItems,
+      paymentInfo,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+    } = req.body;
+
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": productId,
+    });
+
+    const order = {
+      shippingInfo,
+      orderItems,
+      paymentInfo,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+      paidAt: Date.now(),
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      pic: req.body.pic,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      productOrdered: {
+        productId: product._id,
+        productName: product.productTitle,
+      },
+    };
+
+    const isOrdered = product.individualOrders.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+
+    if (!isOrdered) {
+      product.individualOrders.push(order);
+      product.numberOfindividualOrders = product.individualOrders.length;
+      product.totalNumberOfOrders =
+        product.businessOrders.length + product.individualOrders.length;
+    } else {
+      product.individualOrders.push(order);
+      product.numberOfindividualOrders = product.individualOrders.length;
+      product.totalNumberOfOrders =
+        product.businessOrders.length + product.individualOrders.length;
+    }
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      individualOrders: product.individualOrders,
+    });
+  }
+);
+
+// update Indivdual Order Status
+const updateIndividualOrderProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const order = await signedUpBusiness.find({
+      "individualOrders._id": req.params.id,
+    });
+
+    if (!order) {
+      return next(new ErrorHandler("Order not found with this Id", 404));
+    }
+
+    if (order.orderStatus === "Delivered") {
+      return next(
+        new ErrorHandler("You have already delivered this order", 400)
+      );
+    }
+
+    if (req.body.status === "Shipped") {
+      order.orderItems.forEach(async (o) => {
+        await updateStock(o.product, o.quantity);
+      });
+    }
+    order.orderStatus = req.body.status;
+
+    if (req.body.status === "Delivered") {
+      order.deliveredAt = Date.now();
+    }
+
+    await order.save({ validateBeforeSave: false });
+    res.status(200).json({
+      success: true,
+    });
+  }
+);
+
+// Get individual Orders of a individual individualProfile
+const getIndividualOrdersProduct = catchAsyncErrors(async (req, res, next) => {
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.query.id,
+  });
+
+  if (!product) {
+    return next(new ErrorHandler("Business not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    individualOrders: product.individualOrders,
+  });
+});
+
+// Delete individual Order
+const deleteindividualOrderProduct = catchAsyncErrors(
+  async (req, res, next) => {
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": req.query.businessId,
+    });
+
+    if (!product) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    const individualOrders = product.individualOrders.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfindividualOrders = individualOrders.length;
+
+    await signedUpBusiness.findOneAndUpdate(
+      { "storeProducts._id": req.query.businessId },
+      {
+        individualOrders,
+        numberOfindividualOrders,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      individualOrders: product.individualOrders,
+    });
+  }
+);
 
 module.exports = {
   registerBusiness,
@@ -2734,7 +3491,30 @@ module.exports = {
   createStoreProduct,
   getMyListOfStoreProducts,
   getListOfStoreProducts,
-  deleteStoreProduct,
+  deleteBusinessStoreProduct,
   updateBusinessOrder,
   updateIndividualOrder,
+  UpdateBusinessStoreProduct,
+
+  createIndividualReviewProduct,
+  getIndividualReviewsProduct,
+  deleteIndividualReviewProduct,
+  createindividualCustomerProduct,
+  getIndividualCustomersProduct,
+  deleteindividualCustomerProduct,
+  createindividualOrderProduct,
+  updateIndividualOrderProduct,
+  getIndividualOrdersProduct,
+  deleteindividualOrderProduct,
+  createBusinessReviewProduct,
+  getBusinessReviewsProduct,
+  deleteBusinessReviewProduct,
+  createBusinessCustomerProduct,
+  getBusinessCustomersProduct,
+  deleteBusinessCustomerProduct,
+  createBusinessOrderProduct,
+  updateBusinessOrderProduct,
+  getBusinessOrdersProduct,
+  deleteBusinessOrderProduct,
+  getSingleProduct,
 };

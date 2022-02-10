@@ -212,6 +212,9 @@ import {
   CLEAR_ERRORS,
   NEW_INDIVIDUAL_ORDER_REQUEST,
   NEW_INDIVIDUAL_ORDER_SUCCESS,
+  STORE_PRODUCTS_DETAILS_REQUEST,
+  STORE_PRODUCTS_DETAILS_SUCCESS,
+  STORE_PRODUCTS_DETAILS_FAIL,
 } from "../constants/businessConstants";
 
 export const signedUpBusinessLoginReducer = (state = {}, action) => {
@@ -1532,11 +1535,11 @@ export const businessCampaignStartedReducer = (state = {}, action) => {
 export const businessStoreProductCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case STORE_PRODUCTS_CREATE_REQUEST:
-      return { loading: true };
+      return { businessLoading: true };
     case STORE_PRODUCTS_CREATE_SUCCESS:
-      return { loading: false, success: true };
+      return { businessLoading: false, businessSuccess: true };
     case STORE_PRODUCTS_CREATE_FAIL:
-      return { loading: false, error: action.payload };
+      return { businessLoading: false, businessError: action.payload };
     //
     default:
       return state;
@@ -1692,33 +1695,33 @@ export const businessProductReducer = (state = {}, action) => {
   }
 };
 
-// export const productDetailsReducer = (state = { product: {} }, action) => {
-// switch (action.type) {
-// case STORE_PRODUCTS_DETAILS_REQUEST:
-// return {
-// loading: true,
-// ...state,
-// };
-// case STORE_PRODUCTS_DETAILS_SUCCESS:
-// return {
-// loading: false,
-// product: action.payload,
-// };
-// case STORE_PRODUCTS_DETAILS_FAIL:
-// return {
-// loading: false,
-// error: action.payload,
-// };
-//
-// case CLEAR_ERRORS:
-// return {
-// ...state,
-// error: null,
-// };
-// default:
-// return state;
-// }
-// };
+export const productDetailsReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case STORE_PRODUCTS_DETAILS_REQUEST:
+      return {
+        loading: true,
+        ...state,
+      };
+    case STORE_PRODUCTS_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        product: action.payload,
+      };
+    case STORE_PRODUCTS_DETAILS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
 export const businessNewIndividualProductOrderReducer = (
   state = {},

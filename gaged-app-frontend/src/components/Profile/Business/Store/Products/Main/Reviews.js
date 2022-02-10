@@ -4,7 +4,7 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { useSelector, useDispatch } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import {
   clearErrors,
   getAllIndividualOrders,
@@ -13,19 +13,19 @@ import {
 import BusinessReviewCard from "../businessReviewCard";
 import IndividualReviewCard from "../individualReviewCard";
 import { useAlert } from "react-alert";
-import MetaData from "../layout/MetaData";
+import MetaData from "../../../../../Layout/MetaData";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
-import Loader from "../../../../../Layout/Loader";
+import Loader from "../../../../../Layout/Loader/Loader";
 
 function ProductsReviews() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const { individualReviews, loading, error } = useSelector(
-    (state) => state.businessIndividualProductReviews
+    (state: RootStateOrAny) => state.businessIndividualProductReviews
   );
   const { businessReviews, loadingBusiness, errorBusiness } = useSelector(
-    (state) => state.businessBusinessProductReviews
+    (state: RootStateOrAny) => state.businessBusinessProductReviews
   );
   useEffect(() => {
     if (error) {

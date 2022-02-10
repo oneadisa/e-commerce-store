@@ -4,7 +4,6 @@
 
 import store from "./store";
 import WebFont from "webfontloader";
-
 import { RootStateOrAny, useSelector } from "react-redux";
 import { loadUser } from "./actions/userActions";
 import axios from "axios";

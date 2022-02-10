@@ -12,21 +12,14 @@ import Loader from "../../../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../../../Layout/Errors/GeneralErrorMessage";
 import {
   clearErrors,
-  createProduct,
   createStoreProductAction,
 } from "../../../../../../actions/storeProductsActions";
+import { newProduct } from "../../../../../../actions/businessActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import "./newProduct.css";
-import {} from "../../actions/productAction";
 import { useAlert } from "react-alert";
-import { Button } from "@material-ui/core";
-import MetaData from "../layout/MetaData";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
-import DescriptionIcon from "@material-ui/icons/Description";
-import StorageIcon from "@material-ui/icons/Storage";
-import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import { NEW_PRODUCT_RESET } from "../../../../../../constants/storeProductsConstants";
+import MetaData from "../../../../../Layout/MetaData";
+import { NEW_STORE_PRODUCTS_RESET } from "../../../../../../constants/businessConstants";
+import { STORE_PRODUCTS_CREATE_RESET } from "../../../../../../constants/storeProductsConstants";
 import {} from "../../../../../../constants/businessConstants";
 
 function ProductsNew() {
@@ -35,7 +28,11 @@ function ProductsNew() {
   const storeProductCreate = useSelector(
     (state: RootStateOrAny) => state.storeProductCreate
   );
-  const { loading, error, storeProduct } = storeProductCreate;
+  const { loading, error, success } = storeProductCreate;
+
+  const { businessLoading, businessError, businessSuccess } = useSelector(
+    (state: RootStateOrAny) => state.businessStoreProductCreate
+  );
 
   const [productCredentials, setProductCredentials] = useState({
     productTitle: "",
@@ -44,46 +41,50 @@ function ProductsNew() {
     standardPrice: "",
     discountedPrice: "",
     costPrice: "",
-    productStockCount: "",
-    productUnitCount: "",
-    productSKU: "",
-    productImageOne:
-      "https://icon-library.com/icon/icon-image-file-29.html.html",
-    productImageTwo:
-      "https://icon-library.com/icon/icon-image-file-29.html.html",
-    productImageThree:
-      "https://icon-library.com/icon/icon-image-file-29.html.html",
     category: "",
+    productUnitCount: "",
   });
 
   const alert = useAlert();
-  const { loading, error, success } = useSelector((state) => state.newProduct);
+
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
   useEffect(() => {
-    if (error) {
+    if (error || businessError) {
       alert.error(error);
+      alert.error(businessError);
       dispatch(clearErrors());
     }
-    if (success) {
+    if (success || businessSuccess) {
       alert.success("Product Created Successfully");
-      history.push("/admin/dashboard");
-      dispatch({ type: NEW_PRODUCT_RESET });
+      navigate("/business/dashboard");
+      dispatch({ type: NEW_STORE_PRODUCTS_RESET });
+      dispatch({ type: STORE_PRODUCTS_CREATE_RESET });
     }
-  }, [dispatch, alert, error, history, success]);
+  }, [
+    dispatch,
+    alert,
+    error,
+    navigate,
+    success,
+    businessError,
+    businessSuccess,
+  ]);
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    myForm.set("name", name);
-    myForm.set("price", price);
-    myForm.set("description", description);
-    myForm.set("category", category);
-    myForm.set("Stock", Stock);
+    myForm.set("productTitle", productCredentials.productTitle);
+    myForm.set("standardPrice", productCredentials.standardPrice);
+    myForm.set("shortDescription", productCredentials.shortDescription);
+    // myForm.set("category", category);
+    myForm.set("productUnitCount", productCredentials.productUnitCount);
     images.forEach((image) => {
       myForm.append("images", image);
     });
-    dispatch(createProduct(myForm));
+    dispatch(createStoreProductAction(myForm));
+    resetHandler();
+    navigate("/store/products/all");
   };
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
@@ -111,8 +112,6 @@ function ProductsNew() {
     });
   }
 
-  console.log(storeProduct);
-
   const resetHandler = () => {
     setProductCredentials({
       productTitle: "",
@@ -121,50 +120,9 @@ function ProductsNew() {
       standardPrice: "",
       discountedPrice: "",
       costPrice: "",
-      productStockCount: "",
       productUnitCount: "",
-      productSKU: "",
-      productImageOne: "",
-      productImageTwo: "",
-      productImageThree: "",
       category: "",
     });
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(
-      createStoreProductAction(
-        productCredentials.productTitle,
-        productCredentials.shortDescription,
-        productCredentials.productDetails,
-        productCredentials.standardPrice,
-        productCredentials.discountedPrice,
-        productCredentials.costPrice,
-        productCredentials.productStockCount,
-        productCredentials.productUnitCount,
-        productCredentials.productSKU,
-        productCredentials.productImageOne,
-        productCredentials.productImageTwo,
-        productCredentials.productImageThree,
-        productCredentials.category
-      )
-    );
-    if (
-      !productCredentials.productTitle ||
-      !productCredentials.shortDescription ||
-      !productCredentials.productDetails ||
-      !productCredentials.standardPrice ||
-      !productCredentials.discountedPrice ||
-      !productCredentials.costPrice ||
-      !productCredentials.productUnitCount ||
-      !productCredentials.productImageOne ||
-      !productCredentials.category
-    )
-      return;
-
-    resetHandler();
-    navigate("/store/products/all");
   };
 
   const [open, setOpen] = useState(false);
@@ -283,7 +241,7 @@ function ProductsNew() {
                           {/* </div> */}
                           <div className="pb-5 flex gap-3">
                             <label
-                              for="toggleB"
+                              htmlFor="toggleB"
                               className="flex items-center
                         bg-gray-400 rounded-full shadow border-2
                         border-transparent h-6 w-12 transition duration-200
@@ -311,7 +269,7 @@ function ProductsNew() {
                             Preview
                           </button>
                           <button
-                            onClick={submitHandler}
+                            onClick={createProductSubmitHandler}
                             className="border py-2 px-2 bg-Dark-blue text-white hover:bg-white hover:text-Dark-blue"
                             type="submit"
                             disabled={loading ? true : false}
@@ -359,16 +317,6 @@ function ProductsNew() {
                   </div>
                   <div className="mt-5 grid grid-rows-1 gap-5 lg:gap-0 lg:grid-cols-3">
                     <div className="flex flex-col">
-                      <h4 className="text-lg font-medium">Stock</h4>
-                      <input
-                        onChange={handlechange}
-                        name="productStockCount"
-                        value={productCredentials.productStockCount}
-                        placeholder="Product count"
-                        className="border-2 lg:w-52 h-10 outline-none text-center"
-                      />
-                    </div>
-                    <div className="flex flex-col">
                       <h4 className="text-lg font-medium">Unit</h4>
                       <input
                         onChange={handlechange}
@@ -378,23 +326,8 @@ function ProductsNew() {
                         className="border-2 lg:w-52 h-10 outline-none text-center"
                       />
                     </div>
-                    <div className="flex flex-col">
-                      <h4 className="text-lg font-medium">SKU</h4>
-                      <input
-                        onChange={handlechange}
-                        name="productSKU"
-                        value={productCredentials.productSKU}
-                        placeholder="Product SKU"
-                        className="border-2 lg:w-52 h-10 outline-none text-center"
-                      />
-                    </div>
                   </div>
                 </div>
-                {picMessage && (
-                  <GeneralErrorMessage variant="danger">
-                    {picMessage}
-                  </GeneralErrorMessage>
-                )}
                 <div className="border-2 my-5 lg:w-2/3 px-6 pt-6">
                   <h2 className="text-lg font-medium">Product images</h2>
 

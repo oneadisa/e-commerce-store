@@ -160,7 +160,7 @@ product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
   useFindAndModify: false,
 });
 res.status(200).json({
-  success: true,
+  success: true, 
   product,
 });
 
