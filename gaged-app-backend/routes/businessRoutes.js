@@ -16,6 +16,7 @@ const {
   updateBusinessRole,
   deleteBusiness,
 
+  getAllCampaigns,
   createCampaignStarted,
   getListOfCampaignsStarted,
   getMyListOfCampaignsStarted,
@@ -163,6 +164,8 @@ router
   .delete(protectBusiness, deleteBusinessOrderedFrom);
 
 router.route("/business-ordered-from/me").get(getMyBusinessOrderedFrom);
+
+router.route("/campaigns", getAllCampaigns);
 
 router.route("/campaign-start").put(protectBusiness, createCampaignStarted);
 

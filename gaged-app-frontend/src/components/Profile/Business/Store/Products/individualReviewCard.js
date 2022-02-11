@@ -1,8 +1,8 @@
 import { Rating } from "@material-ui/lab";
 import React from "react";
-import profilePng from "../../../../../images/Profile.png";
+import profilePng from "../../../../../images/Gaged-images/Profile.png";
 
-const individualReviewCard = ({ review }) => {
+const IndividualReviewCard = ({ review }) => {
   const options = {
     value: review.rating,
     readOnly: true,
@@ -23,4 +23,4 @@ const individualReviewCard = ({ review }) => {
   );
 };
 
-export default individualReviewCard;
+export default IndividualReviewCard;

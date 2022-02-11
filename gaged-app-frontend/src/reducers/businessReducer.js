@@ -542,7 +542,7 @@ export const allBusinessesReducer = (state = { businesses: [] }, action) => {
   }
 };
 
-export const singleBusinessesReducer = (state = { businesses: [] }, action) => {
+export const singleBusinessesReducer = (state = { business: {} }, action) => {
   switch (action.type) {
     case SINGLE_BUSINESS_REQUEST:
       return {
@@ -553,7 +553,7 @@ export const singleBusinessesReducer = (state = { businesses: [] }, action) => {
       return {
         ...state,
         loading: false,
-        businesses: action.payload,
+        business: action.payload,
       };
 
     case SINGLE_BUSINESS_FAIL:
@@ -2402,28 +2402,28 @@ export const businessNewBusinessProductReviewReducer = (state = {}, action) => {
     case NEW_BUSINESS_REVIEW_REQUEST:
       return {
         ...state,
-        loading: true,
+        loadingBusiness: true,
       };
     case NEW_BUSINESS_REVIEW_SUCCESS:
       return {
-        loading: false,
-        success: action.payload,
+        loadingBusiness: false,
+        successBusiness: action.payload,
       };
     case NEW_BUSINESS_REVIEW_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        loadingBusiness: false,
+        errorBusiness: action.payload,
       };
     case NEW_BUSINESS_REVIEW_RESET:
       return {
         ...state,
-        success: false,
+        successBusiness: false,
       };
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        errorBusiness: null,
       };
     default:
       return state;
@@ -2501,28 +2501,28 @@ export const newBusinessSingleProductReviewReducer = (state = {}, action) => {
     case NEW_BUSINESS_PRODUCT_REVIEW_REQUEST:
       return {
         ...state,
-        loading: true,
+        loadingProductBusiness: true,
       };
     case NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS:
       return {
-        loading: false,
-        success: action.payload,
+        loadingProductBusiness: false,
+        successProductBusiness: action.payload,
       };
     case NEW_BUSINESS_PRODUCT_REVIEW_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        loadingProductBusiness: false,
+        errorProductBusiness: action.payload,
       };
     case NEW_BUSINESS_PRODUCT_REVIEW_RESET:
       return {
         ...state,
-        success: false,
+        successProductBusiness: false,
       };
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        errorProductBusiness: null,
       };
     default:
       return state;
@@ -2600,28 +2600,28 @@ export const newIndividualSingleProductReviewReducer = (state = {}, action) => {
     case NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST:
       return {
         ...state,
-        loading: true,
+        loadingProduct: true,
       };
     case NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS:
       return {
-        loading: false,
+        loadingProduct: false,
         success: action.payload,
       };
     case NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        loadingProduct: false,
+        errorProduct: action.payload,
       };
     case NEW_INDIVIDUAL_PRODUCT_REVIEW_RESET:
       return {
         ...state,
-        success: false,
+        successProduct: false,
       };
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        errorProduct: null,
       };
     default:
       return state;

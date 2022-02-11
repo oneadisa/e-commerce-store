@@ -117,7 +117,6 @@ function ProductsNew() {
       productTitle: "",
       shortDescription: "",
       productDetails: "",
-      standardPrice: "",
       discountedPrice: "",
       costPrice: "",
       productUnitCount: "",

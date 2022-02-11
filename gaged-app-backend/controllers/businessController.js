@@ -1,3 +1,5 @@
+import { SIGNED_UP_BUSINESS_LOGIN_REQUEST } from "../../gaged-app-frontend/src/constants/businessConstants";
+
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
@@ -813,78 +815,157 @@ const findStoreProducts = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Get All Campaign
+const getAllCampaigns = catchAsyncErrors(async (req, res) => {
+  const resultPerPage = 20;
+
+  const business = await signedUpBusiness.find();
+  const campaignsCount = await signedUpBusiness.countDocuments();
+  const apiFeature = new ApiFeatures(signedUpBusiness.find(), req.query)
+    .search()
+    .filter();
+  let campaigns = await apiFeature.query;
+  let filteredCampaignsCount = campaigns.length;
+  apiFeature.pagination(resultPerPage);
+  campaigns = await apiFeature.query.clone();
+  res.status(200).json({
+    success: true,
+    campaigns,
+    campaignsCount,
+    resultPerPage,
+    filteredCampaignsCount,
+  });
+});
+
 // Create New CampaignStarted BusinessProfile or Update a CampaignStarted BusinessProfile
 const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   const {
     campaignName,
-    pitchDeck,
-    fundingType,
-    amountBeingRaised,
+    natureOfBusiness,
     campaignCategory,
+    business_address_country,
+    business_address_city,
+    business_address_office,
+    phoneNumber,
     investorBrief,
-    duration,
-    campaignLiveStatus,
-    amountRaised,
-    pledged_profit_to_lenders,
+    campaignVideo,
+    pitchDeck,
+    ideal_target_audience_age,
+    ideal_target_audience_health_issues_or_disabilities,
+    gender,
+    ownerLogo,
+    ownerName,
+    fundingType,
+    categoryFunding,
+    amountBeingRaised,
+    amountAlreadyRaised,
+    amountRepaid,
     amountToBeRepaid,
-    firstPaymentDate,
-    endDate,
-    endDatePledgedProfit,
-    firstPaymentDateString,
-    endDateString,
-    endDatePledgedProfitString,
+    amountToBeRepaidPerPayout,
+    pledged_profit_to_lenders,
     duration_pledged_profit,
     repayment_schedule_pledged_profit,
+    endDatePledgedProfit,
+    endDatePledgedProfitString,
+    timePerPayment,
+    equity_offering_percentage,
+    bankCode,
+    bank_account_name,
+    bank_account_number,
+    duration,
+    go_live_schedule,
+    campaignLiveStatus,
+    familiarWithCrowdFunding,
+    storeOnGaged,
+    paymentStartDate,
+    endDate,
+    firstPaymentDate,
+    firstPaymentDateString,
+    endDateString,
+    numberOfPaymentsToBeMade,
   } = req.body;
 
-  const campaignStarted = {
+  const campaign = {
+    user: req.user._id,
     campaignName,
-    pitchDeck,
-    fundingType,
-    amountBeingRaised,
+    natureOfBusiness,
     campaignCategory,
+    business_address_country,
+    business_address_city,
+    business_address_office,
+    phoneNumber,
     investorBrief,
-    duration,
-    campaignLiveStatus,
-    amountRaised,
-    pledged_profit_to_lenders,
+    campaignVideo,
+    pitchDeck,
+    ownerLogo,
+    ownerName,
+    ideal_target_audience_age,
+    ideal_target_audience_health_issues_or_disabilities,
+    gender,
+    fundingType,
+    categoryFunding,
+    amountBeingRaised: amountBeingRaised,
+    amountAlreadyRaised: amountAlreadyRaised,
+    amountRepaid,
     amountToBeRepaid,
-    firstPaymentDate,
-    endDate,
+    amountToBeRepaidPerPayout,
+    pledged_profit_to_lenders: pledged_profit_to_lenders,
+    duration_pledged_profit: duration_pledged_profit,
+    repayment_schedule_pledged_profit: repayment_schedule_pledged_profit,
     endDatePledgedProfit,
+    endDatePledgedProfitString,
+    timePerPayment,
+    equity_offering_percentage: equity_offering_percentage,
+    bankCode,
+    bank_account_name,
+    bank_account_number,
+    duration: duration,
+    go_live_schedule,
+    campaignLiveStatus,
+    familiarWithCrowdFunding,
+    storeOnGaged,
+    paymentStartDate,
+    endDate,
+    firstPaymentDate,
     firstPaymentDateString,
     endDateString,
-    endDatePledgedProfitString,
-    duration_pledged_profit,
-    repayment_schedule_pledged_profit,
+    numberOfPaymentsToBeMade,
   };
 
-  campaignStarted.amountToBeRepaid =
-    campaignStarted.amountRaised +
-    campaignStarted.amountRaised * campaignStarted.pledged_profit_to_lenders;
-  let numWeeks = campaignStarted.duration;
+  (campaign.ownerLogo = req.user.storeLogo),
+    (campaign.ownerName = req.user.businessName),
+    (campaign.amountToBeRepaid =
+      campaign.amountAlreadyRaised +
+      campaign.amountAlreadyRaised * campaign.pledged_profit_to_lenders);
+  // campaign.amountToBePaidPerPayout =
+  // (campaign.amountToBeRepaid / campaign.duration_pledged_profit) *
+  // campaign.repayment_schedule_pledged_profit;
+  let numWeeks = campaign.duration;
   var now = new Date().getTime();
-  campaignStarted.endDate = now + numWeeks * 7 * 1000 * 60 * 60 * 24;
-  campaignStarted.endDateString = new Date(campaignStarted.endDate);
+  var goLive =
+    new Date(campaign.go_live_schedule).getTime() - new Date().getTime();
+  // campaign.go_ = Math.abs(now);
+  campaign.endDate = goLive + now + numWeeks * 7 * 1000 * 60 * 60 * 24;
+  campaign.endDateString = new Date(campaign.endDate);
   // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
-  campaignStarted.endDatePledgedProfit =
+  campaign.endDatePledgedProfit =
+    goLive +
     now +
-    campaignStarted.duration * (7 * 1000 * 60 * 60 * 24) +
-    campaignStarted.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
-  campaignStarted.endDatePledgedProfitString = new Date(
-    campaignStarted.endDatePledgedProfit
-  );
+    campaign.duration * (7 * 1000 * 60 * 60 * 24) +
+    campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
+  campaign.endDatePledgedProfitString = new Date(campaign.endDatePledgedProfit);
+  campaign.numberOfPaymentsToBeMade =
+    campaign.duration_pledged_profit /
+    campaign.repayment_schedule_pledged_profit;
   const repaymentTime = Math.abs(
-    campaignStarted.endDatePledgedProfit - campaignStarted.endDate
+    campaign.endDatePledgedProfit - campaign.endDate
   );
-  const timePerPayment =
+  campaign.timePerPayment =
     repaymentTime /
-    (campaignStarted.duration_pledged_profit /
-      campaignStarted.repayment_schedule_pledged_profit);
-  campaignStarted.firstPaymentDate = campaignStarted.endDate + timePerPayment;
-  campaignStarted.firstPaymentDateString = new Date(
-    campaignStarted.firstPaymentDate
-  );
+    (campaign.duration_pledged_profit /
+      campaign.repayment_schedule_pledged_profit);
+  campaign.firstPaymentDate = campaign.endDate + campaign.timePerPayment;
+  campaign.firstPaymentDateString = new Date(campaign.firstPaymentDate);
 
   const business = await signedUpBusiness.findById(req.user._id);
 
@@ -893,11 +974,11 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   );
 
   if (!isStarted) {
-    business.listOfCampaignsStarted.push(campaignStarted);
+    business.listOfCampaignsStarted.push(campaign);
     business.totalNumberOfCampaignsStarted =
       business.listOfCampaignsStarted.length;
   } else {
-    business.listOfCampaignsStarted.push(campaignStarted);
+    business.listOfCampaignsStarted.push(campaign);
     business.totalNumberOfCampaignsStarted =
       business.listOfCampaignsStarted.length;
   }
@@ -3970,6 +4051,7 @@ module.exports = {
   updateBusinessRole,
   deleteBusiness,
 
+  getAllCampaigns,
   createCampaignStarted,
   getListOfCampaignsStarted,
   getMyListOfCampaignsStarted,

@@ -603,6 +603,10 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
+      numberOfPaymentsToBeMade: {
+        type: Number,
+        required: false,
+      },
       timePerPayment: {
         type: Number,
         required: false,
@@ -958,7 +962,6 @@ const signUpBusinessTemplate = new mongoose.Schema({
       pitchDeck: { type: String, required: false },
       fundingType: { type: String, required: false },
       amountBeingRaised: { type: String, required: false },
-      duration: { type: String, required: false },
       organiser: { type: String, required: false },
       campaignLiveStatus: { type: String, required: false },
       createdAt: {
