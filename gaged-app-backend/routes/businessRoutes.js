@@ -15,10 +15,25 @@ const {
   getSingleBusiness,
   updateBusinessRole,
   deleteBusiness,
+
   createCampaignStarted,
   getListOfCampaignsStarted,
   getMyListOfCampaignsStarted,
   deleteCampaignStarted,
+
+  createIndividualCampaignReview,
+  getIndividualCampaignReviews,
+  deleteIndividualCampaignReview,
+  createBusinessCampaignReview,
+  getBusinessCampaignReviews,
+  deleteBusinessCampaignReview,
+  createIndividualCampaignDonation,
+  getIndividualCampaignDonations,
+  deleteIndividualCampaignDonation,
+  createBusinessCampaignDonation,
+  getBusinessCampaignDonations,
+  deleteBusinessCampaignDonation,
+
   createCampaignInvested,
   getListOfCampaignsInvested,
   getMyListOfCampaignsInvested,
@@ -47,6 +62,7 @@ const {
   createBusinessOrder,
   getMyBusinessOrders,
   getBusinessOrders,
+  updateBusinessOrder,
   deleteBusinessOrder,
   createBusinessCustomer,
   getMyBusinessCustomers,
@@ -59,6 +75,7 @@ const {
   createindividualOrder,
   getMyIndividualOrders,
   getIndividualOrders,
+  updateIndividualOrder,
   deleteindividualOrder,
   createPersonalProductReview,
   getMyPersonalProductReviews,
@@ -77,10 +94,7 @@ const {
   getMyListOfStoreProducts,
   getListOfStoreProducts,
   deleteBusinessStoreProduct,
-  updateBusinessOrder,
-  updateIndividualOrder,
   UpdateBusinessStoreProduct,
-
   createIndividualReviewProduct,
   getIndividualReviewsProduct,
   deleteIndividualReviewProduct,
@@ -101,7 +115,6 @@ const {
   updateBusinessOrderProduct,
   getBusinessOrdersProduct,
   deleteBusinessOrderProduct,
-
   getSingleProduct,
 } = require("../controllers/businessController");
 
@@ -157,6 +170,42 @@ router
   .route("/campaign-started")
   .get(getListOfCampaignsStarted)
   .delete(protectBusiness, deleteCampaignStarted);
+
+router
+  .route("/create-review/business")
+  .put(protectBusiness, createBusinessCampaignReview);
+
+router
+  .route("/reviews/business")
+  .get(getBusinessCampaignReviews)
+  .delete(protectBusiness, deleteBusinessCampaignReview);
+
+router
+  .route("/create-review/individual")
+  .put(protectUser, createIndividualCampaignReview);
+
+router
+  .route("/reviews/individual")
+  .get(getIndividualCampaignReviews)
+  .delete(protectUser, deleteIndividualCampaignReview);
+
+router
+  .route("/create-donation/business")
+  .put(protectBusiness, createBusinessCampaignDonation);
+
+router
+  .route("/donations/business")
+  .get(getBusinessCampaignDonations)
+  .delete(protectBusiness, deleteBusinessCampaignDonation);
+
+router
+  .route("/create-donation/individual")
+  .put(protectUser, createIndividualCampaignDonation);
+
+router
+  .route("/donations/individual")
+  .get(getIndividualCampaignDonations)
+  .delete(protectUser, deleteIndividualCampaignDonation);
 
 router
   .route("/campaign-started/me")

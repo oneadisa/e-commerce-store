@@ -953,6 +953,14 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
+      campaignCategory: { type: String, required: false },
+      investorBrief: { type: String, required: false },
+      pitchDeck: { type: String, required: false },
+      fundingType: { type: String, required: false },
+      amountBeingRaised: { type: String, required: false },
+      duration: { type: String, required: false },
+      organiser: { type: String, required: false },
+      campaignLiveStatus: { type: String, required: false },
       createdAt: {
         type: Date,
         default: Date.now,
@@ -962,7 +970,12 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         default: 0,
       },
-      amountRepayed: {
+      amountRepaid: {
+        type: Number,
+        required: false,
+        default: 0,
+      },
+      amountRepaidPerTime: {
         type: Number,
         required: false,
         default: 0,

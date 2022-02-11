@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 
-const ProductCard = ({ product, business }) => {
+const ProductCard = ({ product }) => {
   const options = {
     value: product.ratings,
     readOnly: true,
@@ -14,7 +14,7 @@ const ProductCard = ({ product, business }) => {
         <div className="mb-5">
           <img
             src={product.images[0].url}
-            alt={product.name}
+            alt={product.productTitle}
             className="w-full"
           />
           <div className="flex justify-between my-2">
@@ -28,7 +28,7 @@ const ProductCard = ({ product, business }) => {
           </div>
         </div>
         <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-          <Link to={`/product/${product._id}`}>Shop</Link>
+          <Link to={`/products/business/id/${product._id}`}>Shop</Link>
         </button>
       </div>
     </>

@@ -198,6 +198,98 @@ import {
   STORE_PRODUCTS_DETAILS_REQUEST,
   STORE_PRODUCTS_DETAILS_SUCCESS,
   STORE_PRODUCTS_DETAILS_FAIL,
+  ALL_INDIVIDUAL_PRODUCT_REVIEWS_REQUEST,
+  ALL_INDIVIDUAL_PRODUCT_REVIEWS_SUCCESS,
+  ALL_INDIVIDUAL_PRODUCT_REVIEWS_RESET,
+  ALL_INDIVIDUAL_PRODUCT_REVIEWS_FAIL,
+  ALL_BUSINESS_PRODUCT_REVIEWS_REQUEST,
+  ALL_BUSINESS_PRODUCT_REVIEWS_SUCCESS,
+  ALL_BUSINESS_PRODUCT_REVIEWS_FAIL,
+  ALL_BUSINESS_PRODUCT_REVIEWS_RESET,
+  NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST,
+  NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
+  NEW_INDIVIDUAL_PRODUCT_REVIEW_RESET,
+  NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
+  NEW_BUSINESS_PRODUCT_REVIEW_REQUEST,
+  NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS,
+  NEW_BUSINESS_PRODUCT_REVIEW_RESET,
+  NEW_BUSINESS_PRODUCT_REVIEW_FAIL,
+  DELETE_INDIVIDUAL_PRODUCT_REVIEW_REQUEST,
+  DELETE_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
+  DELETE_INDIVIDUAL_PRODUCT_REVIEW_RESET,
+  DELETE_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
+  DELETE_BUSINESS_PRODUCT_REVIEW_REQUEST,
+  DELETE_BUSINESS_PRODUCT_REVIEW_SUCCESS,
+  DELETE_BUSINESS_PRODUCT_REVIEW_RESET,
+  DELETE_BUSINESS_PRODUCT_REVIEW_FAIL,
+  NEW_INDIVIDUAL_DONOR_SUCCESS,
+  NEW_INDIVIDUAL_DONOR_FAIL,
+  NEW_INDIVIDUAL_DONOR_RESET,
+  NEW_INDIVIDUAL_DONOR_REQUEST,
+  ALL_INDIVIDUAL_DONORS_REQUEST,
+  ALL_INDIVIDUAL_DONORS_SUCCESS,
+  ALL_INDIVIDUAL_DONORS_FAIL,
+  DELETE_INDIVIDUAL_DONOR_REQUEST,
+  DELETE_INDIVIDUAL_DONOR_SUCCESS,
+  DELETE_INDIVIDUAL_DONOR_FAIL,
+  DELETE_INDIVIDUAL_DONOR_RESET,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
+  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
+  NEW_BUSINESS_DONOR_SUCCESS,
+  NEW_BUSINESS_DONOR_FAIL,
+  NEW_BUSINESS_DONOR_RESET,
+  NEW_BUSINESS_DONOR_REQUEST,
+  ALL_BUSINESS_DONORS_REQUEST,
+  ALL_BUSINESS_DONORS_SUCCESS,
+  ALL_BUSINESS_DONORS_FAIL,
+  DELETE_BUSINESS_DONOR_REQUEST,
+  DELETE_BUSINESS_DONOR_SUCCESS,
+  DELETE_BUSINESS_DONOR_FAIL,
+  DELETE_BUSINESS_DONOR_RESET,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+  NEW_CAMPAIGN_BUSINESS_REVIEW_RESET,
+  ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+  DELETE_CAMPAIGN_BUSINESS_REVIEW_RESET,
+  ALL_CAMPAIGN_FAIL,
+  ALL_CAMPAIGN_REQUEST,
+  ALL_CAMPAIGN_SUCCESS,
+  MY_CAMPAIGN_FAIL,
+  MY_CAMPAIGN_REQUEST,
+  MY_CAMPAIGN_SUCCESS,
+  ADMIN_CAMPAIGN_REQUEST,
+  ADMIN_CAMPAIGN_SUCCESS,
+  ADMIN_CAMPAIGN_FAIL,
+  NEW_CAMPAIGN_REQUEST,
+  NEW_CAMPAIGN_SUCCESS,
+  NEW_CAMPAIGN_FAIL,
+  NEW_CAMPAIGN_RESET,
+  UPDATE_CAMPAIGN_REQUEST,
+  UPDATE_CAMPAIGN_SUCCESS,
+  UPDATE_CAMPAIGN_FAIL,
+  UPDATE_CAMPAIGN_RESET,
+  DELETE_CAMPAIGN_REQUEST,
+  DELETE_CAMPAIGN_SUCCESS,
+  DELETE_CAMPAIGN_FAIL,
+  DELETE_CAMPAIGN_RESET,
+  CAMPAIGN_DETAILS_REQUEST,
+  CAMPAIGN_DETAILS_FAIL,
+  CAMPAIGN_DETAILS_SUCCESS,
   CLEAR_ERRORS,
 } from "../constants/businessConstants";
 import axios from "axios";
@@ -1286,6 +1378,76 @@ export const deleteIndividualReviews =
     }
   };
 
+// NEW INDIVIDUAL REVIEW
+export const newIndividualProductReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/products/review/individual`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Individual Reviews of a Product
+export const getAllIndividualProductReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_INDIVIDUAL_PRODUCT_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(
+      `/app/business/products/reviews/individual?id=${id}`
+    );
+
+    dispatch({
+      type: ALL_INDIVIDUAL_PRODUCT_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_INDIVIDUAL_PRODUCT_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Individual Review of a Product
+export const deleteIndividualProductReviews =
+  (reviewId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_INDIVIDUAL_PRODUCT_REVIEW_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/products/reviews/individual?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 // NEW INDIVIDUAL CUSTOMER
 export const newIndividualCustomer = (customerData) => async (dispatch) => {
   try {
@@ -1508,6 +1670,76 @@ export const deleteBusinessReviews =
     }
   };
 
+// NEW BUSINESS REVIEW
+export const newBusinessProductReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_BUSINESS_PRODUCT_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/products/review/business`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_BUSINESS_PRODUCT_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Business Reviews of a Product
+export const getAllBusinessProductReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESS_PRODUCT_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(
+      `/app/business/products/reviews/business?id=${id}`
+    );
+
+    dispatch({
+      type: ALL_BUSINESS_PRODUCT_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_BUSINESS_PRODUCT_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Business Review of a Product
+export const deleteBusinessProductReviews =
+  (reviewId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_BUSINESS_PRODUCT_REVIEW_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/products/reviews/business?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_BUSINESS_PRODUCT_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_BUSINESS_PRODUCT_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 // NEW BUSINESS CUSTOMER
 export const newBusinessCustomer = (customerData) => async (dispatch) => {
   try {
@@ -1660,6 +1892,640 @@ export const BusinessOrders = (orderId, productId) => async (dispatch) => {
     });
   }
 };
+
+export const listCampaigns =
+  (keyword = "", currentPage = 1, campaignCategory) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: ALL_CAMPAIGN_REQUEST,
+      });
+
+      let link = `/app/business/campaigns/all?keyword=${keyword}&page=${currentPage}`;
+
+      if (campaignCategory) {
+        link = `/app/business/campaigns/all?keyword=${keyword}&page=${currentPage}&campaignCategory=${campaignCategory}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({
+        type: ALL_CAMPAIGN_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: ALL_CAMPAIGN_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+export const listMyCampaigns = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: MY_CAMPAIGN_REQUEST,
+    });
+
+    const {
+      signedUpBusinessLogin: { signedUpBusinessInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/app/business/campaigns/me`, config);
+
+    dispatch({
+      type: MY_CAMPAIGN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: MY_CAMPAIGN_FAIL,
+      payload: message,
+    });
+  }
+};
+export const createCampaignAction =
+  (campaignData) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: { NEW_CAMPAIGN_REQUEST, UPDATE_CAMPAIGN_REQUEST },
+      });
+
+      const {
+        signedUpBusinessLogin: { signedUpBusinessInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `/app/business/campaign-start`,
+        { campaignData },
+        config
+      );
+
+      dispatch({
+        type: { NEW_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_SUCCESS },
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: { NEW_CAMPAIGN_FAIL, UPDATE_CAMPAIGN_FAIL },
+        payload: message,
+      });
+    }
+  };
+
+export const deleteCampaignAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DELETE_CAMPAIGN_REQUEST,
+    });
+
+    const {
+      signedUpBusinessLogin: { signedUpBusinessInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(
+      `/app/business/campaign-started/${id}`,
+      config
+    );
+
+    dispatch({
+      type: DELETE_CAMPAIGN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: DELETE_CAMPAIGN_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const updateCampaignAction =
+  (
+    id,
+    productTitle,
+    shortDescription,
+    productDetails,
+    standardPrice,
+    discountedPrice,
+    costPrice,
+    productStockCount,
+    productUnitCount,
+    productSKU,
+    productImageOne,
+    productImageTwo,
+    productImageThree,
+    campaignCategory
+  ) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: UPDATE_CAMPAIGN_REQUEST,
+      });
+
+      const {
+        signedUpBusinessLogin: { signedUpBusinessInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/app/business/campaigns/${id}`,
+        {
+          productTitle,
+          shortDescription,
+          productDetails,
+          standardPrice,
+          discountedPrice,
+          costPrice,
+          productStockCount,
+          productUnitCount,
+          productSKU,
+          productImageOne,
+          productImageTwo,
+          productImageThree,
+          campaignCategory,
+        },
+        config
+      );
+
+      dispatch({
+        type: UPDATE_CAMPAIGN_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: UPDATE_CAMPAIGN_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+// Get All Campaigns
+export const getCampaign =
+  (
+    keyword = "",
+    currentPage = 1,
+    price = [0, 25000],
+    campaignCategory,
+    ratings = 0
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ALL_CAMPAIGN_REQUEST });
+
+      let link = `/app/business/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+
+      if (campaignCategory) {
+        link = `/app/business/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&campaignCategory=${campaignCategory}&ratings[gte]=${ratings}`;
+      }
+
+      const { data } = await axios.get(link);
+
+      dispatch({
+        type: ALL_CAMPAIGN_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_CAMPAIGN_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// Get All Campaigns For Admin
+export const getAdminCampaign = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_CAMPAIGN_REQUEST });
+
+    const { data } = await axios.get("/app/business/campaigns/admin/products");
+
+    dispatch({
+      type: ADMIN_CAMPAIGN_SUCCESS,
+      payload: data.products,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_CAMPAIGN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Create Campaign
+export const createCampaign = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_CAMPAIGN_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.post(
+      `/app/business/campaigns/admin/product/new`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: NEW_CAMPAIGN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_CAMPAIGN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Update Campaign
+export const updateCampaign = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_CAMPAIGN_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/campaigns/admin/product/${id}`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_CAMPAIGN_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_CAMPAIGN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Campaign
+export const deleteCampaign = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_CAMPAIGN_REQUEST });
+
+    const { data } = await axios.delete(
+      `/app/business/campaigns/admin/product/${id}`
+    );
+
+    dispatch({
+      type: DELETE_CAMPAIGN_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_CAMPAIGN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get Campaigns Details
+export const getCampaignDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CAMPAIGN_DETAILS_REQUEST });
+
+    const { data } = await axios.get(`/app/business/campaigns/campaign/${id}`);
+
+    dispatch({
+      type: CAMPAIGN_DETAILS_SUCCESS,
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: CAMPAIGN_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// NEW CAMPAIGN_BUSINESS REVIEW
+export const newBusinessCampaignReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/campaigns/review`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Business Reviews of a Campaign
+export const getAllBusinessCampaignReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(
+      `/app/business/campaigns/reviews?id=${id}`
+    );
+
+    dispatch({
+      type: ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Business Review of a Campaign
+export const deleteBusinessCampaignReviews =
+  (reviewId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/campaigns/reviews?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW BUSINESS DONOR
+export const newBusinessDonor = (donorData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_BUSINESS_DONOR_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/campaigns/donor`,
+      donorData,
+      config
+    );
+
+    dispatch({
+      type: NEW_BUSINESS_DONOR_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_BUSINESS_DONOR_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Business Customers of a Campaign
+export const getAllBusinessDonor = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BUSINESS_DONORS_REQUEST });
+
+    const { data } = await axios.get(`/app/business/campaigns/donors?id=${id}`);
+
+    dispatch({
+      type: ALL_BUSINESS_DONORS_SUCCESS,
+      payload: data.donors,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_BUSINESS_DONORS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Business Customer of a Campaign
+export const deleteBusinessDonors =
+  (donorId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_BUSINESS_DONOR_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/campaigns/donors?id=${donorId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_BUSINESS_DONOR_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_BUSINESS_DONOR_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW CAMPAIGN_INDIVIDUAL REVIEW
+export const newIndividualCampaignReview = (reviewData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/campaigns/review`,
+      reviewData,
+      config
+    );
+
+    dispatch({
+      type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Individual Reviews of a Campaign
+export const getAllIndividualCampaignReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(
+      `/app/business/campaigns/reviews?id=${id}`
+    );
+
+    dispatch({
+      type: ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Individual Review of a Campaign
+export const deleteIndividualCampaignReviews =
+  (reviewId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/campaigns/reviews?id=${reviewId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+// NEW INDIVIDUAL DONOR
+export const newIndividualDonor = (donorData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_INDIVIDUAL_DONOR_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/app/business/campaigns/donor`,
+      donorData,
+      config
+    );
+
+    dispatch({
+      type: NEW_INDIVIDUAL_DONOR_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_INDIVIDUAL_DONOR_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Get All Individual Customers of a Campaign
+export const getAllIndividualDonors = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_INDIVIDUAL_DONORS_REQUEST });
+
+    const { data } = await axios.get(`/app/business/campaigns/donors?id=${id}`);
+
+    dispatch({
+      type: ALL_INDIVIDUAL_DONORS_SUCCESS,
+      payload: data.donors,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_INDIVIDUAL_DONORS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Individual Customer of a Campaign
+export const deleteIndividualDonor =
+  (donorId, productId) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_INDIVIDUAL_DONOR_REQUEST });
+
+      const { data } = await axios.delete(
+        `/app/business/campaigns/donors?id=${donorId}&productId=${productId}`
+      );
+
+      dispatch({
+        type: DELETE_INDIVIDUAL_DONOR_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_INDIVIDUAL_DONOR_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
