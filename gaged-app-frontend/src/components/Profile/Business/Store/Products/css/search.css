@@ -32,7 +32,7 @@
     border: none;
     padding: 1vmax;
     width: 10%;
-    font: 300 1.1vmax "Roboto";
+    font: 300 1.1vmax "Poppins";
     cursor: pointer;
     color: white;
     transition: all 0.5s;
@@ -51,6 +51,6 @@
     .searchBox>input[type="submit"] {
         height: 10%;
         width: 30%;
-        font: 300 4vw "Roboto";
+        font: 300 4vw "Poppins";
     }
 }

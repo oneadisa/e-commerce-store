@@ -11,7 +11,7 @@
 
 .orderSuccess>svg {
     font-size: 7vmax;
-    color: tomato;
+    color: rgb(76, 102, 250);
 }
 
 .orderSuccess>p {
@@ -24,7 +24,7 @@
     border: none;
     padding: 1vmax 3vmax;
     cursor: pointer;
-    font: 400 1vmax "Roboto";
+    font: 400 1vmax "Poppins";
     text-decoration: none;
     margin: 2vmax;
 }
@@ -32,7 +32,7 @@
 @media screen and (max-width: 600px) {
     .orderSuccess>a {
         padding: 3vw 6vw;
-        font: 400 4vw "Roboto";
+        font: 400 4vw "Poppins";
         margin: 2vmax;
     }
     .orderSuccess>svg {

@@ -15,7 +15,7 @@ footer {
 }
 
 .leftFooter>h4 {
-    font-family: "Roboto";
+    font-family: "Poppins";
     font-size: 1vmax;
 }
 
@@ -38,7 +38,7 @@ footer {
 
 .midFooter>h1 {
     font-size: 4vmax;
-    font-family: "Roboto";
+    font-family: "Poppins";
     color: #eb4034;
 }
 
@@ -56,7 +56,7 @@ footer {
 }
 
 .rightFooter>h4 {
-    font-family: "Roboto";
+    font-family: "Poppins";
     font-size: 1.4vmax;
     text-decoration: underline;
 }

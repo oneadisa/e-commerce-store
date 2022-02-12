@@ -1,14 +1,23 @@
 import React, { Fragment } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
-import { useSelector } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 import MetaData from "../layout/MetaData";
 import "./ConfirmOrder.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import "./ConfirmOrder.css";
 
-const ConfirmOrder = ({ history }) => {
-  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
+const ConfirmOrder = () => {
+  const navigate = useNavigate();
+  const { shippingInfo, cartItems } = useSelector(
+    (state: RootStateOrAny) => state.cart
+  );
+  const { signedUpBusinessInfo } = useSelector(
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  );
+  const { signedUpUserInfo } = useSelector(
+    (state: RootStateOrAny) => state.signedUpUserLogin
+  );
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -33,7 +42,7 @@ const ConfirmOrder = ({ history }) => {
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-    history.push("/process/payment");
+    navigate("/process/payment");
   };
 
   return (
@@ -47,7 +56,13 @@ const ConfirmOrder = ({ history }) => {
             <div className="confirmshippingAreaBox">
               <div>
                 <p>Name:</p>
-                <span>{user.name}</span>
+                if(!signedUpBusinessInfo)
+                {
+                  <span>
+                    {signedUpUserInfo.firstName} {signedUpUserInfo.lastName}
+                  </span>
+                }
+                else{<span>{signedUpBusinessInfo.businessName}</span>}
               </div>
               <div>
                 <p>Phone:</p>
@@ -70,8 +85,8 @@ const ConfirmOrder = ({ history }) => {
                       {item.name}
                     </Link>{" "}
                     <span>
-                      {item.quantity} X ₹{item.price} ={" "}
-                      <b>₹{item.price * item.quantity}</b>
+                      {item.quantity} X ₦{item.price} ={" "}
+                      <b>₦{item.price * item.quantity}</b>
                     </span>
                   </div>
                 ))}
@@ -81,19 +96,19 @@ const ConfirmOrder = ({ history }) => {
         {/*  */}
         <div>
           <div className="orderSummary">
-            <Typography>Order Summery</Typography>
+            <Typography>Order Summary</Typography>
             <div>
               <div>
                 <p>Subtotal:</p>
-                <span>₹{subtotal}</span>
+                <span>₦{subtotal}</span>
               </div>
               <div>
                 <p>Shipping Charges:</p>
-                <span>₹{shippingCharges}</span>
+                <span>₦{shippingCharges}</span>
               </div>
               <div>
                 <p>GST:</p>
-                <span>₹{tax}</span>
+                <span>₦{tax}</span>
               </div>
             </div>
 
@@ -101,7 +116,7 @@ const ConfirmOrder = ({ history }) => {
               <p>
                 <b>Total:</b>
               </p>
-              <span>₹{totalPrice}</span>
+              <span>₦{totalPrice}</span>
             </div>
 
             <button onClick={proceedToPayment}>Proceed To Payment</button>

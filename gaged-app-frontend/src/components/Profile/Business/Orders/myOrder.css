@@ -14,7 +14,7 @@
 
 #myOrdersHeading {
     text-align: center;
-    font: 400 1.2vmax "Roboto";
+    font: 400 1.2vmax "Poppins";
     padding: 0.5vmax;
     box-sizing: border-box;
     color: rgb(255, 255, 255);
@@ -27,7 +27,7 @@
 }
 
 .myOrdersTable div {
-    font: 300 1vmax "Roboto";
+    font: 300 1vmax "Poppins";
     color: rgba(0, 0, 0, 0.678);
     border: none;
 }
@@ -48,7 +48,7 @@
 
 .MuiDataGrid-columnHeader div {
     color: rgb(255, 255, 255);
-    font: 500 1.1vmax "Roboto" !important;
+    font: 500 1.1vmax "Poppins" !important;
 }
 
 .MuiDataGrid-iconSeparator {
@@ -61,16 +61,16 @@
         height: 93vh;
     }
     #myOrdersHeading {
-        font: 400 2.2vmax "Roboto";
+        font: 400 2.2vmax "Poppins";
         padding: 4vw;
     }
     .myOrdersTable div {
-        font: 300 4vw "Roboto";
+        font: 300 4vw "Poppins";
     }
     .MuiDataGrid-columnHeader {
         padding: 20px !important;
     }
     .MuiDataGrid-columnHeader div {
-        font: 500 5vw "Roboto" !important;
+        font: 500 5vw "Poppins" !important;
     }
 }

@@ -12,7 +12,7 @@
 }
 
 .paymentForm>p {
-    font: 400 2vmax "Roboto";
+    font: 400 2vmax "Poppins";
     color: rgba(0, 0, 0, 0.753);
     border-bottom: 1px solid rgba(0, 0, 0, 0.13);
     padding: 1vmax 0;
@@ -46,9 +46,9 @@
 
 .paymentFormBtn {
     border: none;
-    background-color: tomato;
+    background-color: rgb(58, 118, 248);
     color: white;
-    font: 300 0.9vmax "Roboto";
+    font: 300 0.9vmax "Poppins";
     width: 100%;
     padding: 0.8vmax;
     cursor: pointer;
@@ -57,7 +57,7 @@
 }
 
 .paymentFormBtn:hover {
-    background-color: rgb(179, 66, 46);
+    background-color: rgb(32, 28, 241);
 }
 
 @media screen and (max-width: 600px) {
@@ -65,7 +65,7 @@
         width: 90%;
     }
     .paymentForm>p {
-        font: 400 8vw "Roboto";
+        font: 400 8vw "Poppins";
         padding: 4vw 0;
         width: 60%;
     }
@@ -79,7 +79,7 @@
         font-size: 6vw;
     }
     .paymentFormBtn {
-        font: 300 4vw "Roboto";
+        font: 300 4vw "Poppins";
         padding: 4vw;
     }
 }

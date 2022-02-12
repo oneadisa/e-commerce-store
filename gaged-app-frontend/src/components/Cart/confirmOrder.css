@@ -15,7 +15,7 @@
 }
 
 .confirmshippingArea>p {
-    font: 400 1.8vmax "Roboto";
+    font: 400 1.8vmax "Poppins";
 }
 
 .confirmshippingAreaBox,
@@ -29,18 +29,18 @@
 }
 
 .confirmshippingAreaBox>div>p {
-    font: 400 1vmax "Roboto";
+    font: 400 1vmax "Poppins";
     color: black;
 }
 
 .confirmshippingAreaBox>div>span {
     margin: 0 1vmax;
-    font: 100 1vmax "Roboto";
+    font: 100 1vmax "Poppins";
     color: #575757;
 }
 
 .confirmCartItems>p {
-    font: 400 1.8vmax "Roboto";
+    font: 400 1.8vmax "Poppins";
 }
 
 .confirmCartItems {
@@ -55,7 +55,7 @@
 
 .confirmCartItemsContainer>div {
     display: flex;
-    font: 400 1vmax "Roboto";
+    font: 400 1vmax "Poppins";
     align-items: center;
     justify-content: space-between;
     margin: 2vmax 0;
@@ -73,7 +73,7 @@
 }
 
 .confirmCartItemsContainer>div>span {
-    font: 100 1vmax "Roboto";
+    font: 100 1vmax "Poppins";
     color: #5e5e5e;
 }
 
@@ -83,7 +83,7 @@
 
 .orderSummary>p {
     text-align: center;
-    font: 400 1.8vmax "Roboto";
+    font: 400 1.8vmax "Poppins";
     border-bottom: 1px solid rgba(0, 0, 0, 0.267);
     padding: 1vmax;
     width: 100%;
@@ -93,7 +93,7 @@
 
 .orderSummary>div>div {
     display: flex;
-    font: 300 1vmax "Roboto";
+    font: 300 1vmax "Poppins";
     justify-content: space-between;
     margin: 2vmax 0;
 }
@@ -104,7 +104,7 @@
 
 .orderSummaryTotal {
     display: flex;
-    font: 300 1vmax "Roboto";
+    font: 300 1vmax "Poppins";
     justify-content: space-between;
     border-top: 1px solid rgba(0, 0, 0, 0.363);
     padding: 2vmax 0;
@@ -119,7 +119,7 @@
     margin: auto;
     cursor: pointer;
     transition: 0.5s;
-    font: 400 1vmax "Roboto";
+    font: 400 1vmax "Poppins";
 }
 
 .orderSummary>button:hover {
@@ -136,26 +136,26 @@
         border-top: 1px solid rgba(0, 0, 0, 0.247);
     }
     .confirmshippingArea>p {
-        font: 400 6vw "Roboto";
+        font: 400 6vw "Poppins";
     }
     .confirmshippingAreaBox>div {
         display: flex;
         margin: 6vw 0;
     }
     .confirmshippingAreaBox>div>p {
-        font: 400 4vw "Roboto";
+        font: 400 4vw "Poppins";
     }
     .confirmshippingAreaBox>div>span {
-        font: 100 4vw "Roboto";
+        font: 100 4vw "Poppins";
     }
     .confirmCartItems>p {
-        font: 400 6vw "Roboto";
+        font: 400 6vw "Poppins";
     }
     .confirmCartItemsContainer {
         max-height: 50vw;
     }
     .confirmCartItemsContainer>div {
-        font: 400 4vw "Roboto";
+        font: 400 4vw "Poppins";
         margin: 4vw 0;
     }
     .confirmCartItemsContainer>div>img {
@@ -166,25 +166,25 @@
         width: 30%;
     }
     .confirmCartItemsContainer>div>span {
-        font: 100 4vw "Roboto";
+        font: 100 4vw "Poppins";
     }
     .orderSummary {
         padding: 12vw;
     }
     .orderSummary>p {
-        font: 400 6vw "Roboto";
+        font: 400 6vw "Poppins";
         padding: 4vw;
     }
     .orderSummary>div>div {
-        font: 300 4vw "Roboto";
+        font: 300 4vw "Poppins";
     }
     .orderSummaryTotal {
-        font: 300 4vw "Roboto";
+        font: 300 4vw "Poppins";
         padding: 5vw 0;
     }
     .orderSummary>button {
         padding: 4vw;
         margin: 4vw auto;
-        font: 400 4vw "Roboto";
+        font: 400 4vw "Poppins";
     }
 }

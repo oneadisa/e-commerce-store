@@ -14,7 +14,7 @@
 
 .dashboardContainer>h1 {
     color: rgba(0, 0, 0, 0.733);
-    font: 300 2rem "Roboto";
+    font: 300 2rem "Poppins";
     text-align: center;
     width: 50%;
     padding: 1.5rem;
@@ -34,7 +34,7 @@
 .dashboardSummary>div>p {
     background-color: rgba(70, 117, 218, 0.932);
     color: white;
-    font: 300 1.3rem "Roboto";
+    font: 300 1.3rem "Poppins";
     text-align: center;
     padding: 1.5rem;
     width: 100%;
@@ -43,7 +43,7 @@
 
 .dashboardSummaryBox2>a {
     color: rgb(0, 0, 0);
-    font: 300 2rem "Roboto";
+    font: 300 2rem "Poppins";
     text-align: center;
     background-color: rgb(255, 233, 174);
     text-decoration: none;
@@ -91,6 +91,6 @@
     .dashboardSummaryBox2>a {
         padding: 0.5rem;
         margin: 1rem;
-        font: 300 0.9rem "Roboto";
+        font: 300 0.9rem "Poppins";
     }
 }

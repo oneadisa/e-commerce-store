@@ -21,7 +21,7 @@
 
 .profileContainer>div:first-child>h1 {
     color: rgba(0, 0, 0, 0.555);
-    font: 500 2.2vmax "Roboto";
+    font: 500 2.2vmax "Poppins";
     transform: translateX(-10vmax) translateY(-2vmax);
 }
 
@@ -38,7 +38,7 @@
 .profileContainer>div:first-child>a {
     border: none;
     background-color: tomato;
-    font: 400 1vmax "Roboto";
+    font: 400 1vmax "Poppins";
     color: white;
     text-decoration: none;
     padding: 0.5vmax;
@@ -61,7 +61,7 @@
 
 .profileContainer>div:last-child>div>h4 {
     color: black;
-    font: 400 1.2vmax "Roboto";
+    font: 400 1.2vmax "Poppins";
 }
 
 .profileContainer>div:last-child>div>p {
@@ -79,7 +79,7 @@
 .profileContainer>div:last-child>div:last-child>a {
     border: none;
     background-color: rgb(68, 68, 68);
-    font: 400 1vmax "Roboto";
+    font: 400 1vmax "Poppins";
     color: white;
     text-decoration: none;
     padding: 0.5vmax;
@@ -97,11 +97,11 @@
         flex-direction: column;
     }
     .profileContainer>div:first-child>h1 {
-        font: 500 3.2vmax "Roboto";
+        font: 500 3.2vmax "Poppins";
         transform: translateY(-2vmax);
     }
     .profileContainer>div:first-child>a {
-        font: 400 1.7vmax "Roboto";
+        font: 400 1.7vmax "Poppins";
         padding: 1vmax;
     }
     .profileContainer>div:last-child {
@@ -109,14 +109,14 @@
         align-items: center;
     }
     .profileContainer>div:last-child>div>h4 {
-        font: 400 2.5vmax "Roboto";
+        font: 400 2.5vmax "Poppins";
     }
     .profileContainer>div:last-child>div>p {
         font: 400 2vmax cursive;
         margin: 0.5vmax 0;
     }
     .profileContainer>div:last-child>div:last-child>a {
-        font: 400 1.8vmax "Roboto";
+        font: 400 1.8vmax "Poppins";
         padding: 1vmax;
         margin: 2vmax 0;
     }
