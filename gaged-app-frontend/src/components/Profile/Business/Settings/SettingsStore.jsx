@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
@@ -27,50 +28,14 @@ function SettingsStore(props) {
     e.preventDefault();
     props.thirdStep();
   };
-  // const [message, setMessage] = useState(null);
-  // let navigate = useNavigate();
 
-  // const [props.businessCredentials, setprops.businessCredentials] = useState({
-  // storeName: "",
-  // tagLine: "",
-  // description: "",
-  // eslint-disable-next-line no-useless-concat
-  // link: "" + ".gaged.io",
-  // logo: "https://www.freepik.com/free-photo/blue-concrete-wall-textures-background_4202473.htm#page=1&query=blue%20background&position=3&from_view=keyword",
-  // });
-
-  // function handlechange(event) {
-  // const { value, name } = event.target;
-  // setprops.businessCredentials((prevValue) => {
-  // return {
-  // ...prevValue,
-  // [name]: value,
-  // };
-  // });
-  // }
-
-  // const dispatch = useDispatch();
-  // const storeSetUp = useSelector((state: RootStateOrAny) => state.storeSetUp);
-  // const { loading, error, storeInfo } = storeSetUp;
-
-  // useEffect(() => {
-  // if (storeInfo) {
-  // navigate("/store/products/all");
-  // }
-  // }, [navigate, storeInfo]);
-
-  // const submitHandler = async (event) => {
-  // event.preventDefault();
-  // dispatch(
-  // createStore(
-  // props.businessCredentials.storeName,
-  // props.businessCredentials.tagLine,
-  // props.businessCredentials.description,
-  // props.businessCredentials.link,
-  // props.businessCredentials.logo
-  // )
-  // );
-  //}
+  function copyToClipboard(element) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+  }
 
   const [open, setOpen] = useState(false);
 
@@ -95,24 +60,27 @@ function SettingsStore(props) {
           <div className="flex flex-col lg:w-4/5 mr-5">
             <div className="px-1 pt-2 md:px-3 text-base md:text-lg font-medium bg-white lg:px-12">
               <div className="flex gap-5 lg:gap-10">
-                <Link
+                <button
                   to=""
                   className="p-1 lg:p-2 cursor-pointer hover:text-Dark-blue"
+                  onClick={first}
                 >
                   General
-                </Link>
-                <Link
+                </button>
+                <button
                   to=""
                   className="p-1 lg:p-2 cursor-pointer hover:text-Dark-blue"
+                  onClick={second}
                 >
                   Bank Information
-                </Link>
-                <Link
+                </button>
+                <button
                   to=""
                   className="p-1 lg:p-2 cursor-pointer border-b-4 border-Dark-blue hover:text-Dark-blue"
+                  onClick={third}
                 >
                   Store settings
-                </Link>
+                </button>
               </div>
             </div>
             <div className="px-3 lg:px-7 pt-5 pb-8 md:pt-5 md:pb-20 mt-4 md:mt-5 md:mb-14 bg-white">
@@ -131,12 +99,14 @@ function SettingsStore(props) {
                   />
                 </div>
                 <div className="flex flex-col gap-2 md:w-2/5">
-                  <label className="text-base font-medium">Shipping Cost</label>
+                  <label className="text-base font-medium">
+                    Delivery Charge{" "}
+                  </label>
                   <input
                     name="storeName"
                     value={props.businessCredentials.shippingCost}
                     onChange={(e) => props.handleChange(e)}
-                    placeholder="Shipping Cost"
+                    placeholder="Delivery Charge"
                     className="border-2 py-2 pl-5 pr-3 rounded outline-none"
                   />
                 </div>
@@ -170,10 +140,11 @@ function SettingsStore(props) {
                   <div className="flex flex-col md:flex-row">
                     <div className="flex flex-col md:flex-row md:w-3/5">
                       <input
+                        id="p1"
                         name="link"
-                        value={"${props.businessCredentials.link}.gaged.io"}
+                        value={`${props.businessCredentials.link}.gaged.io`}
                         onChange={(e) => props.handleChange(e)}
-                        placeholder="example"
+                        placeholder={props.businessCredentials.link}
                         className="border-2 border-b md:border-b-2 md:border-r rounded rounded-b-none md:rounded-b md:rounded-r-none py-2 pl-5 pr-3 md:w-3/5"
                       />
                       <div
@@ -184,7 +155,11 @@ function SettingsStore(props) {
                       />
                     </div>
                     <div className="flex mt-3 md:mt-7 md:ml-1">
-                      <img src={copyfile} className="w-4 h-4" />
+                      <img
+                        src={copyfile}
+                        className="w-4 h-4"
+                        onclick={copyToClipboard("#p1")}
+                      />
                       <p className="text-medium-blue text-xs">copy link</p>
                     </div>
                   </div>
@@ -193,10 +168,28 @@ function SettingsStore(props) {
                 <div className="flex flex-col gap-2 mt-10 md:mt-5">
                   <h3 className="text-base font-medium">Store Logo</h3>
                   <div className="flex flex-col items-center text-center bg-gray-100 md:w-1/3 lg:w-1/5 p-5 mt-1">
-                    <img src={eimage} className="w-20 h-20" />
-                    <p className="text-base text-gray-500 font-semibold">
-                      Drag image here
-                    </p>
+                    <div className="flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3">
+                      <label className="text-base font-normal text-gray-700 mt-3">
+                        <img
+                          src={props.businessCredentials.storeLogo}
+                          className="w-20 h-20"
+                        />
+                      </label>
+                      <div>
+                        <input
+                          onChange={(e) => props.postLogoPic(e.target.files[0])}
+                          type="file"
+                          name="file"
+                          multiple
+                          className="sr-only"
+                        />
+                      </div>
+                      <div className="text-base font-normal text-gray-700 mt-3">
+                        <p className="text-base text-gray-500 font-semibold">
+                          Drag image here
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div className="mt-10">
                     <button

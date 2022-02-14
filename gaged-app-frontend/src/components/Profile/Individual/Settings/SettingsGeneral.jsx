@@ -19,12 +19,13 @@ import {
 import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/signedUpUserInfoConstants";
 import Loader from "../../../Layout/Loader/Loader";
 import MetaData from "../../../Layout/metaData";
+import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 
 function SettingsGeneralIndividual() {
   let navigate = useNavigate();
-
   const dispatch = useDispatch();
   const alert = useAlert();
+  const [message, setMessage] = useState(null);
   const { loading, error, isUpdated } = useSelector(
     (state: RootStateOrAny) => state.userProfile
   );
@@ -55,6 +56,7 @@ function SettingsGeneralIndividual() {
     bankCode: "",
     bankAccountName: "",
     bankAccountNumber: "",
+    confirmPassword: "",
   });
   useEffect(() => {
     if (signedUpUserInfo) {
@@ -131,20 +133,12 @@ function SettingsGeneralIndividual() {
     myForm.set("bankCode", userCredentials.bankCode);
     myForm.set("bankAccountName", userCredentials.bankAccountName);
     myForm.set("bankAccountNumber", userCredentials.bankAccountNumber);
-    dispatch(updateProfile(myForm));
+    if (userCredentials.password !== userCredentials.confirmPassword) {
+      setMessage("Oops, Passwords do not match. Please try again.");
+    } else dispatch(updateProfile(myForm));
   };
 
-  function handleChange(e) {
-    const { value, name } = e.currentTarget;
-    setUserCredentials((prevValue) => {
-      return {
-        ...prevValue,
-        [name]: value,
-      };
-    });
-  }
-
-  function postDetails(pics) {
+  function postIDpic(pics) {
     if (
       pics.type === "image/jpeg" ||
       pics.type === "image/png" ||
@@ -170,6 +164,42 @@ function SettingsGeneralIndividual() {
       // return setPicMessage("Please select at least one image.");
     }
   }
+  function handleChange(e) {
+    const { value, name } = e.currentTarget;
+    setUserCredentials((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  }
+
+  // function postDetails(pics) {
+  // if (
+  // pics.type === "image/jpeg" ||
+  // pics.type === "image/png" ||
+  // pics.type === "image/jpg"
+  // ) {
+  // const data = new FormData();
+  // data.append("file", pics);
+  // data.append("upload_preset", "gagedio");
+  // data.append("cloud_name", "gaged");
+  // fetch("https://api.cloudinary.com/v1_1/gaged/image/upload", {
+  // method: "post",
+  // body: data,
+  // })
+  // .then((res) => res.json())
+  // .then((data) => {
+  // console.log(data);
+  // setUserCredentials.IDPic(data.url.toString());
+  // })
+  // .catch((err) => {
+  // console.log(err);
+  // });
+  // } else {
+  //return setPicMessage("Please select at least one image.");
+  // }
+  // }
 
   const [open, setOpen] = useState(false);
 
@@ -193,6 +223,8 @@ function SettingsGeneralIndividual() {
                 )
               }
             />
+            {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
+            {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <div className="lg:bg-magenta-blue lg:px-2 h-full">
               <div className="block lg:flex lg:space-x-32">
                 <div className="hidden lg:block">
@@ -366,23 +398,24 @@ function SettingsGeneralIndividual() {
                               Upload your valid means of ID
                             </p>
                             <div className="flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3">
-                              <img src={file} className="h-20 w-20" />
+                              <label className="text-base font-normal text-gray-700 mt-3">
+                                <img src={file} className="h-20 w-20" />
+                              </label>
+
                               <div>
                                 <input
-                                  onChange={(e) =>
-                                    postDetails(e.target.files[0])
-                                  }
+                                  onChange={(e) => postIDpic(e.target.files[0])}
                                   type="file"
                                   name="file"
                                   multiple
                                   className="sr-only"
                                 />
                               </div>
-                              <label className="text-base font-normal text-gray-700 mt-3">
+                              <div className="text-base font-normal text-gray-700 mt-3">
                                 Click to add document or drag
                                 <br />
                                 file here
-                              </label>
+                              </div>
                             </div>
                             <p className="text-sm text-center">
                               Your document must be no larger than 2Mb
@@ -398,20 +431,26 @@ function SettingsGeneralIndividual() {
                         <div className="flex flex-col md:flex-row gap-5 mt-5">
                           <div className="flex flex-col gap-2">
                             <label className="text-lg font-normal">
-                              Old Password
-                            </label>
-                            <input
-                              placeholder="Old Password"
-                              className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                            />
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <label className="text-lg font-normal">
                               New Password
                             </label>
                             <input
                               placeholder="New Password"
                               className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
+                              onChange={(e) => handleChange(e)}
+                              name="password"
+                              value={userCredentials.password}
+                            />
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <label className="text-lg font-normal">
+                              Confirm Password
+                            </label>
+                            <input
+                              placeholder="Confirm Password"
+                              className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
+                              onChange={(e) => handleChange(e)}
+                              name="confirmPassword"
+                              value={userCredentials.confirmPassword}
                             />
                           </div>
                         </div>

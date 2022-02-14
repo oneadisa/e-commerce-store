@@ -185,9 +185,6 @@ function SettingsBankIndividual() {
                     </h2>
                     <div className="my-5">
                       <div className="flex flex-col gap-2 md:w-3/4">
-                        <label className="text-lg font-normal">
-                          Select Bank
-                        </label>
                         <select
                           id="bankCode"
                           name="bankCode"
@@ -198,10 +195,12 @@ function SettingsBankIndividual() {
                         >
                           <option value="">
                             <label
-                              class="form-control-label border-2 py-2 pl-5 rounded outline-none"
+                              className="text-lg font-normal"
                               for="input-last-name"
                             >
-                              Select Bank
+                              <label className="text-lg font-normal">
+                                Select Bank
+                              </label>{" "}
                             </label>
                           </option>
                           <option value="801">Abbey Mortgage Bank</option>
