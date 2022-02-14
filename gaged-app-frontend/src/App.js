@@ -160,7 +160,7 @@ function App() {
           <Route path="/explore/stores" element={<ExploreStores />} />{" "}
           <Route path="/campaigns" element={<Campaigns />} />{" "}
           <Route path="/settings/general" element={<SettingsGeneral />} />{" "}
-          <Route path="/settings/bank" element={<SettingsBank />} />{" "}
+          <Route path="/settings/bankCode" element={<SettingsBank />} />{" "}
           <Route path="/settings/store" element={<SettingsStore />} />{" "}
           <Route
             path="/published"

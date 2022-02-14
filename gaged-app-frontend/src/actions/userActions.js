@@ -34,6 +34,9 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  SINGLE_USER_REQUEST,
+  SINGLE_USER_SUCCESS,
+  SINGLE_USER_FAIL,
   NEW_BUSINESS_ORDERED_FROM_REQUEST,
   NEW_BUSINESS_ORDERED_FROM_SUCCESS,
   NEW_BUSINESS_ORDERED_FROM_FAIL,
@@ -350,11 +353,26 @@ export const getAllUsers = () => async (dispatch) => {
   }
 };
 
+// get  Business Details
+export const getSingleBusiness = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: SINGLE_USER_REQUEST });
+    const { data } = await axios.get(`/app/individual/admin/user/${id}`);
+
+    dispatch({ type: SINGLE_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: SINGLE_USER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // get  User Details
-export const getUserDetails = (id) => async (dispatch) => {
+export const getUserDetails = () => async (dispatch) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
-    const { data } = await axios.get(`/app/individual/admin/user/${id}`);
+    const { data } = await axios.get(`/app/individual/me`);
 
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data.user });
   } catch (error) {

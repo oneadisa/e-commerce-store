@@ -31,7 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
     role,
     meansOfID,
     IDpic,
-    bank,
+    bankCode,
     bankAccountName,
     bankAccountNumber,
     twitter,
@@ -68,7 +68,7 @@ const registerUser = asyncHandler(async (req, res) => {
     role,
     meansOfID,
     IDpic,
-    bank,
+    bankCode,
     bankAccountName,
     bankAccountNumber,
     walletBalance,
@@ -100,7 +100,7 @@ const registerUser = asyncHandler(async (req, res) => {
       role: user.role,
       meansOfID: user.meansOfID,
       IDpic: user.IDpic,
-      bank: user.bank,
+      bankCode: user.bankCode,
       bankAccountName: user.bankAccountName,
       bankAccountNumber: user.bankAccountNumber,
       walletBalance: user.walletBalance,
@@ -152,7 +152,7 @@ const authUser = asyncHandler(async (req, res) => {
       role: user.role,
       meansOfID: user.meansOfID,
       IDpic: user.IDpic,
-      bank: user.bank,
+      bankCode: user.bankCode,
       bankAccountName: user.bankAccountName,
       bankAccountNumber: user.bankAccountNumber,
       walletBalance: user.walletBalance,
@@ -191,7 +191,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.role = req.body.role || user.role;
     user.meansOfID = req.body.meansOfID || user.meansOfID;
     user.IDpic = req.body.IDpic || user.IDpic;
-    user.bank = req.body.bank || user.bank;
+    user.bankCode = req.body.bankCode || user.bankCode;
     user.bankAccountName = req.body.bankAccountName || user.bankAccountName;
     user.bankAccountNumber =
       req.body.bankAccountNumber || user.bankAccountNumber;
@@ -238,7 +238,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       role: updatedUser.role,
       meansOfID: updatedUser.meansOfID,
       IDpic: updatedUser.IDpic,
-      bank: updatedUser.bank,
+      bankCode: updatedUser.bankCode,
       bankAccountName: updatedUser.bankAccountName,
       bankAccountNumber: updatedUser.bankAccountNumber,
       walletBalance: updatedUser.walletBalance,

@@ -81,7 +81,7 @@ function BusinessDashboard({ match }) {
   return (
     <Fragment>
       {loading ? (
-        <Loader />
+        <Loader /> 
       ) : (
         <Fragment>
           <MetaData title="PRODUCTS -- GAGED" />

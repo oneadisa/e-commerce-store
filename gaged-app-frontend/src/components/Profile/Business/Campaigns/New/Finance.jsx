@@ -111,13 +111,15 @@ text-medium-blue rounded "
                 </div>
               </div>
               <div className="mt-3">
-                <h2 className="text-lg font-semibold">Add your bank details</h2>
+                <h2 className="text-lg font-semibold">
+                  Add your bankCode details
+                </h2>
                 <div className="mt-3 border-t-2 border-gray-400 md:w-3/4 lg:w-4/6">
                   <div className="py-4 text-base">
                     <div className="md:w-11/12 lg:w-5/6 leading-5">
-                      You need Link valid bank account to set up your campaign.
-                      This should be registered with your duly registered
-                      business name.
+                      You need Link valid bankCode account to set up your
+                      campaign. This should be registered with your duly
+                      registered business name.
                     </div>
                     <div className="md:w-11/12 lg:w-5/6 leading-5 mt-6">
                       While for unregistered business, the account should be
@@ -126,7 +128,7 @@ text-medium-blue rounded "
                     <div className="leading-5 mt-1">
                       You may be required to verify your account before you are
                       enabled to initiate withdrawals. This verification will be
-                      done as soon as Link bank account account is added.
+                      done as soon as Link bankCode account account is added.
                     </div>
                   </div>
                 </div>

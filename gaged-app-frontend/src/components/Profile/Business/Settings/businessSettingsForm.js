@@ -7,7 +7,7 @@ import { useAlert } from "react-alert";
 import {
   clearErrors,
   updateProfile,
-  getBusinessDetails,
+  loadBusiness,
 } from "../../../../actions/businessActions";
 import { UPDATE_BUSINESS_PROFILE_RESET } from "../../../../constants/businessConstants";
 
@@ -22,8 +22,179 @@ const BusinessSettingsForm = () => {
   );
 
   const { signedUpBusinessInfo } = useSelector(
-    (state: RootStateOrAny) => state.businessDetails
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
   );
+
+
+  const [businessCredentials, setBusinessCredentials] = useState({
+  businessName: "",
+  accountHolderName: "",
+  email: "",
+  phoneNumber: "",
+  password: "",
+  pic: "",
+  twitter: "",
+  facebook: "",
+  whatsApp: "",
+  isAdmin: "",
+  role: "",
+  meansOfID: "",
+  IDpic: "",
+  regNum:"",
+  natureOfBusiness: "",
+  personalEmail: "",
+  businessAddress: "",
+  cacCertificate: "",
+  formCO7: "",
+  bankCode: "",
+  bankAccountName: "",
+  bankAccountNumber: "",
+  storeName: "",
+  storeTagline: signedUpBusinessInfo.storeTagline,
+  storeDescription: signedUpBusinessInfo.storeDescription,
+  storeLink: signedUpBusinessInfo.storeLink,
+  category: signedUpBusinessInfo.category,
+  storeLogo: signedUpBusinessInfo.storeLogo,
+  storeBackground: signedUpBusinessInfo.storeBackground,
+  totalNumberOfCampaignsStarted:
+    signedUpBusinessInfo.totalNumberOfCampaignsStarted,
+  totalNumberOfCampaignsInvested:
+    signedUpBusinessInfo.totalNumberOfCampaignsInvested,
+  listOfCampaignsStarted: signedUpBusinessInfo.listOfCampaignsStarted,
+  listOfCampaignsInvested: signedUpBusinessInfo.listOfCampaignsInvested,
+  totalAmountRaised: signedUpBusinessInfo.totalAmountRaised,
+  averageRaised: signedUpBusinessInfo.averageRaised,
+  numberOfBusinessInvestors: signedUpBusinessInfo.numberOfBusinessInvestors,
+  listOfBusinessInvestors: signedUpBusinessInfo.listOfBusinessInvestors,
+  numberOfIndividualInvestors:
+    signedUpBusinessInfo.numberOfIndividualInvestors,
+  listOfIndividualInvestors: signedUpBusinessInfo.listOfIndividualInvestors,
+  totalNumberOfInvestors: signedUpBusinessInfo.totalNumberOfInvestors,
+  walletBalance: signedUpBusinessInfo.walletBalance,
+  totalSales: signedUpBusinessInfo.totalSales,
+  storeProducts: signedUpBusinessInfo.storeProducts,
+  numberOfStoreProducts: signedUpBusinessInfo.numberOfStoreProducts,
+  deliveryCharge: signedUpBusinessInfo.deliveryCharge,
+  totalRevenue: signedUpBusinessInfo.totalRevenue,
+  totalProductNumber: signedUpBusinessInfo.totalProductNumber,
+  businessOrderedFrom: signedUpBusinessInfo.businessOrderedFrom,
+  numberOfOrderRequests: signedUpBusinessInfo.numberOfOrderRequests,
+  quantityOfOrders: signedUpBusinessInfo.quantityOfOrders,
+  individualReviews: signedUpBusinessInfo.individualReviews,
+  numberOfIndividualReviews: signedUpBusinessInfo.numberOfIndividualReviews,
+  businessReviews: signedUpBusinessInfo.businessReviews,
+  numberOfBusinessReviews: signedUpBusinessInfo.numberOfBusinessReviews,
+  totalNumberOfReviews: signedUpBusinessInfo.totalNumberOfReviews,
+  businessOrders: signedUpBusinessInfo.businessOrders,
+  numberOFBusinessOrders: signedUpBusinessInfo.numberOFBusinessOrders,
+  individualOrders: signedUpBusinessInfo.individualOrders,
+  numberOfIndividualOrders: signedUpBusinessInfo.numberOfIndividualOrders,
+  totalNumberOfOrders: signedUpBusinessInfo.totalNumberOfOrders,
+  individualCustomers: signedUpBusinessInfo.individualCustomers,
+  numberOfIndividualCustomers:
+    signedUpBusinessInfo.numberOfIndividualCustomers,
+  businessCustomers: signedUpBusinessInfo.businessCustomers,
+  numberOfBusinessCustomers: signedUpBusinessInfo.numberOfBusinessCustomers,
+  totalNumberOfCustomers: signedUpBusinessInfo.totalNumberOfCustomers,
+  campaignReviews: signedUpBusinessInfo.campaignReviews,
+  numberOfCampaignsReviwed: signedUpBusinessInfo.numberOfCampaignsReviwed,
+  productReviews: signedUpBusinessInfo.productReviews,
+  numberOfProductsReviewed: signedUpBusinessInfo.numberOfProductsReviewed,
+  totallNumberOfInteractions: signedUpBusinessInfo.totallNumberOfInteractions,
+  paymentMethod: signedUpBusinessInfo.paymentMethod,
+  shippingCost: signedUpBusinessInfo.shippingCost,
+});
+  useEffect(()=>{
+    if (signedUpBusinessInfo) {
+setBusinessCredentials.businessName(signedUpBusinessInfo.businessName);
+setBusinessCredentials.accountHolderName(signedUpBusinessInfo.accountHolderName);
+setBusinessCredentials.email(signedUpBusinessInfo.email);
+setBusinessCredentials.phoneNumber(signedUpBusinessInfo.phoneNumber);
+setBusinessCredentials.password(signedUpBusinessInfo.password);
+setBusinessCredentials.pic(signedUpBusinessInfo.pic);
+setBusinessCredentials.twitter(signedUpBusinessInfo.twitter);
+setBusinessCredentials.facebook(signedUpBusinessInfo.facebook);
+setBusinessCredentials.whatsApp(signedUpBusinessInfo.whatsApp);
+setBusinessCredentials.isAdmin(signedUpBusinessInfo.isAdmin);
+setBusinessCredentials.role: signedUpBusinessInfo.role,
+setBusinessCredentials.meansOfID: signedUpBusinessInfo.meansOfID,
+setBusinessCredentials.IDpic: signedUpBusinessInfo.IDpic,
+setBusinessCredentials.regNum: signedUpBusinessInfo.regNum,
+setBusinessCredentials.natureOfBusiness: signedUpBusinessInfo.natureOfBusiness,
+setBusinessCredentials.personalEmail: signedUpBusinessInfo.personalEmail,
+setBusinessCredentials.businessAddress: signedUpBusinessInfo.businessAddress,
+setBusinessCredentials.cacCertificate: signedUpBusinessInfo.cacCertificate,
+setBusinessCredentials.formCO7: signedUpBusinessInfo.formCO7,
+setBusinessCredentials.bankCode: signedUpBusinessInfo.bankCode,
+setBusinessCredentials.bankAccountName: signedUpBusinessInfo.bankAccountName,
+setBusinessCredentials.bankAccountNumber: signedUpBusinessInfo.bankAccountNumber,
+setBusinessCredentials.storeName: signedUpBusinessInfo.storeName,
+setBusinessCredentials.storeTagline: signedUpBusinessInfo.storeTagline,
+setBusinessCredentials.storeDescription: signedUpBusinessInfo.storeDescription,
+setBusinessCredentials.storeLink: signedUpBusinessInfo.storeLink,
+setBusinessCredentials.category: signedUpBusinessInfo.category,
+setBusinessCredentials.storeLogo: signedUpBusinessInfo.storeLogo,
+setBusinessCredentials.storeBackground: signedUpBusinessInfo.storeBackground,
+setBusinessCredentials.totalNumberOfCampaignsStarted:
+setBusinessCredentials.  signedUpBusinessInfo.totalNumberOfCampaignsStarted,
+setBusinessCredentials.totalNumberOfCampaignsInvested:
+setBusinessCredentials.  signedUpBusinessInfo.totalNumberOfCampaignsInvested,
+setBusinessCredentials.listOfCampaignsStarted: signedUpBusinessInfo.listOfCampaignsStarted,
+setBusinessCredentials.listOfCampaignsInvested: signedUpBusinessInfo.listOfCampaignsInvested,
+setBusinessCredentials.totalAmountRaised: signedUpBusinessInfo.totalAmountRaised,
+setBusinessCredentials.averageRaised: signedUpBusinessInfo.averageRaised,
+setBusinessCredentials.numberOfBusinessInvestors: signedUpBusinessInfo.numberOfBusinessInvestors,
+setBusinessCredentials.listOfBusinessInvestors: signedUpBusinessInfo.listOfBusinessInvestors,
+setBusinessCredentials.numberOfIndividualInvestors:
+setBusinessCredentials.  signedUpBusinessInfo.numberOfIndividualInvestors,
+setBusinessCredentials.listOfIndividualInvestors: signedUpBusinessInfo.listOfIndividualInvestors,
+setBusinessCredentials.totalNumberOfInvestors: signedUpBusinessInfo.totalNumberOfInvestors,
+setBusinessCredentials.walletBalance: signedUpBusinessInfo.walletBalance,
+setBusinessCredentials.totalSales: signedUpBusinessInfo.totalSales,
+setBusinessCredentials.storeProducts: signedUpBusinessInfo.storeProducts,
+setBusinessCredentials.numberOfStoreProducts: signedUpBusinessInfo.numberOfStoreProducts,
+setBusinessCredentials.deliveryCharge: signedUpBusinessInfo.deliveryCharge,
+setBusinessCredentials.totalRevenue: signedUpBusinessInfo.totalRevenue,
+setBusinessCredentials.totalProductNumber: signedUpBusinessInfo.totalProductNumber,
+setBusinessCredentials.businessOrderedFrom: signedUpBusinessInfo.businessOrderedFrom,
+setBusinessCredentials.numberOfOrderRequests: signedUpBusinessInfo.numberOfOrderRequests,
+setBusinessCredentials.quantityOfOrders: signedUpBusinessInfo.quantityOfOrders,
+setBusinessCredentials.individualReviews: signedUpBusinessInfo.individualReviews,
+setBusinessCredentials.numberOfIndividualReviews: signedUpBusinessInfo.numberOfIndividualReviews,
+setBusinessCredentials.businessReviews: signedUpBusinessInfo.businessReviews,
+setBusinessCredentials.numberOfBusinessReviews: signedUpBusinessInfo.numberOfBusinessReviews,
+setBusinessCredentials.totalNumberOfReviews: signedUpBusinessInfo.totalNumberOfReviews,
+setBusinessCredentials.businessOrders: signedUpBusinessInfo.businessOrders,
+setBusinessCredentials.numberOFBusinessOrders: signedUpBusinessInfo.numberOFBusinessOrders,
+setBusinessCredentials.individualOrders: signedUpBusinessInfo.individualOrders,
+setBusinessCredentials.numberOfIndividualOrders: signedUpBusinessInfo.numberOfIndividualOrders,
+setBusinessCredentials.totalNumberOfOrders: signedUpBusinessInfo.totalNumberOfOrders,
+setBusinessCredentials.individualCustomers: signedUpBusinessInfo.individualCustomers,
+setBusinessCredentials.numberOfIndividualCustomers(signedUpBusinessInfo.numberOfIndividualCustomers);
+setBusinessCredentials.businessCustomers(signedUpBusinessInfo.businessCustomers)
+setBusinessCredentials.numberOfBusinessCustomers: signedUpBusinessInfo.numberOfBusinessCustomers,
+setBusinessCredentials.totalNumberOfCustomers: signedUpBusinessInfo.totalNumberOfCustomers,
+setBusinessCredentials.campaignReviews: signedUpBusinessInfo.campaignReviews,
+setBusinessCredentials.numberOfCampaignsReviwed: signedUpBusinessInfo.numberOfCampaignsReviwed,
+setBusinessCredentials.productReviews: signedUpBusinessInfo.productReviews,
+setBusinessCredentials.numberOfProductsReviewed: signedUpBusinessInfo.numberOfProductsReviewed,
+setBusinessCredentials.totallNumberOfInteractions: signedUpBusinessInfo.totallNumberOfInteractions,
+setBusinessCredentials.paymentMethod: signedUpBusinessInfo.paymentMethod,
+setBusinessCredentials.shippingCost(signedUpBusinessInfo.shippingCost);
+    }
+    if (error) {
+  alert.error(error);
+  dispatch(clearErrors());
+}
+if (isUpdated) {
+  alert.success("Profile Updated Successfully");
+  dispatch(loadUser());
+  navigate("/settings/individual/general");
+  dispatch({
+    type: UPDATE_USER_PROFILE_RESET,
+  });
+}
+  })
 
   useEffect(() => {
     if (error) {
@@ -31,90 +202,13 @@ const BusinessSettingsForm = () => {
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Campaign Created Successfully");
+      alert.success("Account Updated Successfully");
       // navigate("/admin/dashboard");
       dispatch({ type: UPDATE_BUSINESS_PROFILE_RESET });
     }
   }, [dispatch, alert, error, success]);
   const [step, setStep] = useState(1);
 
-  const [businessCredentials, setBusinessCredentials] = useState({
-    businessName: signedUpBusinessInfo.businessName,
-    accountHolderName: signedUpBusinessInfo.accountHolderName,
-    email: signedUpBusinessInfo.email,
-    phoneNumber: signedUpBusinessInfo.phoneNumber,
-    password: signedUpBusinessInfo.password,
-    pic: signedUpBusinessInfo.pic,
-    twitter: signedUpBusinessInfo.twitter,
-    facebook: signedUpBusinessInfo.facebook,
-    whatsApp: signedUpBusinessInfo.whatsApp,
-    isAdmin: signedUpBusinessInfo.isAdmin,
-    role: signedUpBusinessInfo.role,
-    meansOfID: signedUpBusinessInfo.meansOfID,
-    IDpic: signedUpBusinessInfo.IDpic,
-    regNum: signedUpBusinessInfo.regNum,
-    natureOfBusiness: signedUpBusinessInfo.natureOfBusiness,
-    personalEmail: signedUpBusinessInfo.personalEmail,
-    businessAddress: signedUpBusinessInfo.businessAddress,
-    cacCertificate: signedUpBusinessInfo.cacCertificate,
-    formCO7: signedUpBusinessInfo.formCO7,
-    bank: signedUpBusinessInfo.bank,
-    bankAccountName: signedUpBusinessInfo.bankAccountName,
-    bankAccountNumber: signedUpBusinessInfo.bankAccountNumber,
-    storeName: signedUpBusinessInfo.storeName,
-    storeTagline: signedUpBusinessInfo.storeTagline,
-    storeDescription: signedUpBusinessInfo.storeDescription,
-    storeLink: signedUpBusinessInfo.storeLink,
-    category: signedUpBusinessInfo.category,
-    storeLogo: signedUpBusinessInfo.storeLogo,
-    storeBackground: signedUpBusinessInfo.storeBackground,
-    totalNumberOfCampaignsStarted:
-      signedUpBusinessInfo.totalNumberOfCampaignsStarted,
-    totalNumberOfCampaignsInvested:
-      signedUpBusinessInfo.totalNumberOfCampaignsInvested,
-    listOfCampaignsStarted: signedUpBusinessInfo.listOfCampaignsStarted,
-    listOfCampaignsInvested: signedUpBusinessInfo.listOfCampaignsInvested,
-    totalAmountRaised: signedUpBusinessInfo.totalAmountRaised,
-    averageRaised: signedUpBusinessInfo.averageRaised,
-    numberOfBusinessInvestors: signedUpBusinessInfo.numberOfBusinessInvestors,
-    listOfBusinessInvestors: signedUpBusinessInfo.listOfBusinessInvestors,
-    numberOfIndividualInvestors:
-      signedUpBusinessInfo.numberOfIndividualInvestors,
-    listOfIndividualInvestors: signedUpBusinessInfo.listOfIndividualInvestors,
-    totalNumberOfInvestors: signedUpBusinessInfo.totalNumberOfInvestors,
-    walletBalance: signedUpBusinessInfo.walletBalance,
-    totalSales: signedUpBusinessInfo.totalSales,
-    storeProducts: signedUpBusinessInfo.storeProducts,
-    numberOfStoreProducts: signedUpBusinessInfo.numberOfStoreProducts,
-    deliveryCharge: signedUpBusinessInfo.deliveryCharge,
-    totalRevenue: signedUpBusinessInfo.totalRevenue,
-    totalProductNumber: signedUpBusinessInfo.totalProductNumber,
-    businessOrderedFrom: signedUpBusinessInfo.businessOrderedFrom,
-    numberOfOrderRequests: signedUpBusinessInfo.numberOfOrderRequests,
-    quantityOfOrders: signedUpBusinessInfo.quantityOfOrders,
-    individualReviews: signedUpBusinessInfo.individualReviews,
-    numberOfIndividualReviews: signedUpBusinessInfo.numberOfIndividualReviews,
-    businessReviews: signedUpBusinessInfo.businessReviews,
-    numberOfBusinessReviews: signedUpBusinessInfo.numberOfBusinessReviews,
-    totalNumberOfReviews: signedUpBusinessInfo.totalNumberOfReviews,
-    businessOrders: signedUpBusinessInfo.businessOrders,
-    numberOFBusinessOrders: signedUpBusinessInfo.numberOFBusinessOrders,
-    individualOrders: signedUpBusinessInfo.individualOrders,
-    numberOfIndividualOrders: signedUpBusinessInfo.numberOfIndividualOrders,
-    totalNumberOfOrders: signedUpBusinessInfo.totalNumberOfOrders,
-    individualCustomers: signedUpBusinessInfo.individualCustomers,
-    numberOfIndividualCustomers:
-      signedUpBusinessInfo.numberOfIndividualCustomers,
-    businessCustomers: signedUpBusinessInfo.businessCustomers,
-    numberOfBusinessCustomers: signedUpBusinessInfo.numberOfBusinessCustomers,
-    totalNumberOfCustomers: signedUpBusinessInfo.totalNumberOfCustomers,
-    campaignReviews: signedUpBusinessInfo.campaignReviews,
-    numberOfCampaignsReviwed: signedUpBusinessInfo.numberOfCampaignsReviwed,
-    productReviews: signedUpBusinessInfo.productReviews,
-    numberOfProductsReviewed: signedUpBusinessInfo.numberOfProductsReviewed,
-    totallNumberOfInteractions: signedUpBusinessInfo.totallNumberOfInteractions,
-    paymentMethod: signedUpBusinessInfo.paymentMethod,
-  });
 
   const [picMessage, setPicMessage] = useState(null);
 
@@ -141,7 +235,7 @@ const BusinessSettingsForm = () => {
     myForm.set("businessAddress", businessCredentials.businessAddress);
     myForm.set("cacCertificate", businessCredentials.cacCertificate);
     myForm.set("formCO7", businessCredentials.formCO7);
-    myForm.set("bank", businessCredentials.bank);
+    myForm.set("bankCode", businessCredentials.bankCode);
     myForm.set("bankAccountName", businessCredentials.bankAccountName);
     myForm.set("bankAccountNumber", businessCredentials.bankAccountNumber);
     myForm.set("storeName", businessCredentials.storeName);
@@ -259,6 +353,8 @@ const BusinessSettingsForm = () => {
       businessCredentials.totallNumberOfInteractions
     );
     myForm.set("paymentMethod", businessCredentials.paymentMethod);
+    myForm.set("shippingCost", businessCredentials.shippingCost);
+    dispatch(updateProfile(myForm));
   };
 
   // const postDetails = (pics) => {

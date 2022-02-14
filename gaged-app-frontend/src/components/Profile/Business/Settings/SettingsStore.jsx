@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -129,6 +130,16 @@ function SettingsStore(props) {
                     className="border-2 py-2 pl-5 pr-3 rounded outline-none"
                   />
                 </div>
+                <div className="flex flex-col gap-2 md:w-2/5">
+                  <label className="text-base font-medium">Shipping Cost</label>
+                  <input
+                    name="storeName"
+                    value={props.businessCredentials.shippingCost}
+                    onChange={(e) => props.handleChange(e)}
+                    placeholder="Shipping Cost"
+                    className="border-2 py-2 pl-5 pr-3 rounded outline-none"
+                  />
+                </div>
                 <div className="flex flex-col gap-4 mt-3">
                   <div className="flex flex-col gap-2 md:w-3/5">
                     <label className="text-base font-medium">Tagline</label>
@@ -160,7 +171,7 @@ function SettingsStore(props) {
                     <div className="flex flex-col md:flex-row md:w-3/5">
                       <input
                         name="link"
-                        value={props.businessCredentials.link}
+                        value={"${props.businessCredentials.link}.gaged.io"}
                         onChange={(e) => props.handleChange(e)}
                         placeholder="example"
                         className="border-2 border-b md:border-b-2 md:border-r rounded rounded-b-none md:rounded-b md:rounded-r-none py-2 pl-5 pr-3 md:w-3/5"

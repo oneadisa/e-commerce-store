@@ -158,9 +158,8 @@ ETE_INDIVIDUAL_REVIEW_SUCCESS";
       })
       .catch((err) => {
         console.log(err);
-      });
-  } else {
-    // return setPicMessage("Please select at least one image.");
+   else {
+    return setPicMessage("Please select at least one image.");
   }
 }
 

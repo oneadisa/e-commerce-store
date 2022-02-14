@@ -22,6 +22,7 @@ import {
   clearErrors,
 } from "../../actions/businessOrderActions";
 import { createIndividualOrder } from "../../actions/individualOrderActions";
+import {} from "../../actions/businessActions"
 
 const Payment = ({ history }) => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -32,9 +33,9 @@ const Payment = ({ history }) => {
   const elements = useElements();
   const payBtn = useRef(null);
 
-  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
-  const { error } = useSelector((state) => state.newOrder);
+  const { shippingInfo, cartItems } = useSelector((state: RootStateOrAny) => state.cart);
+  const { user } = useSelector((state: RootStateOrAny) => state.user);
+  const { error } = useSelector((state:RootStateOrAny) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),

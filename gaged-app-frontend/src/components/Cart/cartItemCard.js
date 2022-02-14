@@ -7,6 +7,9 @@ const CartItemCard = ({ item, deleteCartItems }) => {
       <div className="flex flex-col">
         <div className="flex flex-col lg:flex-row justify-between gap-8 md:gap-12 py-5">
           <div className="flex flex-col">
+            <div className="pb-1 text-xl font-semibold border-b-2 border-gray-400 ">
+              <h2>Products from {item.store}</h2>
+            </div>
             <div className="flex gap-2 md:gap-5 py-3">
               <div>
                 <img src={item.image} alt="" />

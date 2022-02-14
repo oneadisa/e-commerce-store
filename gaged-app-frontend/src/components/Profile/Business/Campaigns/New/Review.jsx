@@ -157,7 +157,7 @@ function Review(props) {
                     </div>
                     <div className="py-4 pl-10 pr-6 border border-gray-400">
                       <h2 className="text-base font-medium">4. Finance</h2>
-                      <p className="text-sm">Add Link bank account</p>
+                      <p className="text-sm">Add Link bankCode account</p>
                       <div className="mt-5 pl-1 flex flex-col gap-6">
                         <button
                           className="ml-1 text-base font-medium border-2 border-gray-400 w-28 h-10 hover:bg-Dark-blue hover:border-Dark-blue hover:text-white"

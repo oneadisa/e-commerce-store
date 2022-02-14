@@ -42,7 +42,7 @@ const third = (e) => {
                             </div>
                         </div>
                         <div className='px-3 lg:px-7 pt-5 pb-8 lg:py-5 lg:pb-12 mt-4 lg:mt-5 lg:mb-14 bg-white'>
-                            <h2 className='text-2xl font-semibold'>Set up and verify your your bank account</h2>
+                            <h2 className='text-2xl font-semibold'>Set up and verify your your bankCode account</h2>
                             <div className='my-5'>
                                 <div className='flex flex-col gap-2 md:w-3/4'>
                             

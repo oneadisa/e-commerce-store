@@ -82,7 +82,7 @@ const signUpTemplate = new mongoose.Schema({
     default:
       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
   },
-  bank: {
+  bankCode: {
     type: String,
     required: false,
   },

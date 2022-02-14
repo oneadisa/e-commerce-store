@@ -34,6 +34,11 @@ function ProductsNew() {
     (state: RootStateOrAny) => state.businessStoreProductCreate
   );
 
+  const signedUpBusinessLogin = useSelector(
+    (state) => state.signedUpBusinessLogin
+  );
+  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+
   const [productCredentials, setProductCredentials] = useState({
     productTitle: "",
     shortDescription: "",
@@ -43,6 +48,7 @@ function ProductsNew() {
     costPrice: "",
     category: "",
     productUnitCount: "",
+    shippingCost: signedUpBusinessInfo.shippingCost,
   });
 
   const alert = useAlert();
@@ -121,6 +127,7 @@ function ProductsNew() {
       costPrice: "",
       productUnitCount: "",
       category: "",
+      shippingCost: signedUpBusinessInfo.shippingCost,
     });
   };
 

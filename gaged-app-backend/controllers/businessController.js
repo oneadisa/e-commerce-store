@@ -40,7 +40,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     businessAddress,
     cacCertificate,
     formCO7,
-    bank,
+    bankCode,
     bankAccountName,
     bankAccountNumber,
     storeName,
@@ -124,7 +124,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     businessAddress,
     cacCertificate,
     formCO7,
-    bank,
+    bankCode,
     bankAccountName,
     bankAccountNumber,
     storeName,
@@ -200,7 +200,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       businessAddress: user.businessAddress,
       cacCertificate: user.cacCertificate,
       formCO7: user.formCO7,
-      bank: user.bank,
+      bankCode: user.bankCode,
       bankAccountName: user.bankAccountName,
       bankAccountNumber: user.bankAccountNumber,
       storeName: user.storeName,
@@ -309,7 +309,7 @@ const authBusiness = asyncHandler(async (req, res) => {
       businessAddress: user.businessAddress,
       cacCertificate: user.cacCertificate,
       formCO7: user.formCO7,
-      bank: user.bank,
+      bankCode: user.bankCode,
       bankAccountName: user.bankAccountName,
       bankAccountNumber: user.bankAccountNumber,
       storeName: user.storeName,
@@ -389,7 +389,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.businessAddress = req.body.businessAddress || user.businessAddress;
     user.cacCertificate = req.body.cacCertificate || user.cacCertificate;
     user.formCO7 = req.body.formCO7 || user.formCO7;
-    user.bank = req.body.bank || user.bank;
+    user.bankCode = req.body.bankCode || user.bankCode;
     user.bankAccountName = req.body.bankAccountName || user.bankAccountName;
     user.bankAccountNumber =
       req.body.bankAccountNumber || user.bankAccountNumber;
@@ -502,7 +502,7 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       businessAddress: updatedBusiness.businessAddress,
       cacCertificate: updatedBusiness.cacCertificate,
       formCO7: updatedBusiness.formCO7,
-      bank: updatedBusiness.bank,
+      bankCode: updatedBusiness.bankCode,
       bankAccountName: updatedBusiness.bankAccountName,
       bankAccountNumber: updatedBusiness.bankAccountNumber,
       storeName: updatedBusiness.storeName,
@@ -2154,7 +2154,9 @@ const deleteIndividualInvestor = catchAsyncErrors(async (req, res, next) => {
 const createBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
   const { productId, quantity } = req.body;
 
-  const product = await StoreProduct.findById(productId);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
   const businessOrderedFrom = await signedUpBusiness.findById(product.user);
 
   const businessOrdered = {
@@ -2253,7 +2255,9 @@ const deleteBusinessOrderedFrom = catchAsyncErrors(async (req, res, next) => {
 const createIndividualReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
 
-  const product = await StoreProduct.findById(productId);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
 
   const review = {
     user: req.user._id,
@@ -2356,7 +2360,9 @@ const deleteIndividualReview = catchAsyncErrors(async (req, res, next) => {
 const createBusinessReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
 
-  const product = await StoreProduct.findById(productId);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
 
   const review = {
     user: req.user._id,
@@ -2457,7 +2463,6 @@ const deleteBusinessReview = catchAsyncErrors(async (req, res, next) => {
 // Create New Business Order BusinessProfile or Update an Business Order BusinessProfile
 const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
   const {
-    productId,
     shippingInfo,
     orderItems,
     paymentInfo,
@@ -2467,52 +2472,106 @@ const createBusinessOrder = catchAsyncErrors(async (req, res, next) => {
     totalPrice,
   } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  orderItems.forEach((e, req, res) => {
+    const business = orderItems.forEach((e) =>
+      signedUpBusiness.findById(e.user)
+    );
+    const product = orderItems.forEach((e) =>
+      business.find({
+        "storeProducts._id": e.product,
+      })
+    );
 
-  const order = {
-    shippingInfo,
-    orderItems,
-    paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-    paidAt: Date.now(),
-    user: req.user._id,
-    businessName: req.user.businessName,
-    pic: req.body.pic,
-    phoneNumber: req.body.phoneNumber,
-    email: req.body.email,
-    productOrdered: {
-      productId: product._id,
-      productName: product.productTitle,
-    },
-  };
-
-  const business = await signedUpBusiness.findById(product.user);
-
-  const isOrdered = business.businessOrders.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
-  );
-
-  if (!isOrdered) {
-    business.businessOrders.push(order);
-    business.numberOfBusinessOrders = business.businessOrders.length;
+    const myShippingCost = orderItems.forEach(
+      (e) => e.price / shippingPrice / shippingPrice
+    );
+    const order = {
+      shippingInfo,
+      orderItem: e,
+      paymentInfo,
+      itemsPrice: e.price,
+      myShippingCost,
+      totalPrice: e.price,
+      paidAt: Date.now(),
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      pic: req.body.pic,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      productOrdered: {
+        productId: product._id,
+        productName: product.productTitle,
+      },
+    };
+    business.individualOrders.push(order);
+    business.numberOfindividualOrders = business.individualOrders.length;
     business.totalNumberOfOrders =
-      business.individualOrders.length + business.businessOrders.length;
-  } else {
-    business.businessOrders.push(order);
-    business.numberOfBusinessOrders = business.businessOrders.length;
-    business.totalNumberOfOrders =
-      business.individualOrders.length + business.businessOrders.length;
-  }
-
-  await business.save({ validateBeforeSave: false });
-
-  res.status(200).json({
-    success: true,
-    businessOrders: business.businessOrders,
+      business.businessOrders.length + business.individualOrders.length;
+    business.save({ validateBeforeSave: false });
+    res.status(200).json({
+      success: true,
+      individualOrders: business.individualOrders,
+    });
   });
+
+  // signedUpBusiness.find({
+  // "storeProducts._id": e.product,
+  // });
+
+  // const business = orderItems.forEach((e) =>signedUpBusiness.findById(e.user))
+  //
+  //  const product = orderItems.forEach((e) =>
+  //  business.find({
+  //  "storeProducts._id": e.product,
+  //  }),
+  //
+  //  );
+
+  // const order = {
+  // shippingInfo,
+  // orderItems,
+  // paymentInfo,
+  // itemsPrice,
+  // taxPrice,
+  // shippingPrice,
+  // totalPrice,
+  // paidAt: Date.now(),
+  // user: req.user._id,
+  // businessName: req.user.businessName,
+  // pic: req.body.pic,
+  // phoneNumber: req.body.phoneNumber,
+  // email: req.body.email,
+  // productOrdered: {
+  // productId: product._id,
+  // productName: product.productTitle,
+  // },
+  // };
+
+  //
+
+  // const isOrdered = business.businessOrders.find(
+  // (rev) => rev.user.toString() === req.user._id.toString()
+  // );
+
+  // if (!isOrdered) {
+  // business.businessOrders.push(order);
+  // business.numberOfBusinessOrders = business.businessOrders.length;
+  // business.totalNumberOfOrders =
+  // business.individualOrders.length + business.businessOrders.length;
+  // } else {
+  // business.businessOrders.push(order);
+  // business.numberOfBusinessOrders = business.businessOrders.length;
+  // business.totalNumberOfOrders =
+  // business.individualOrders.length + business.businessOrders.length;
+  // }
+
+  // await business.save({ validateBeforeSave: false });
+
+  // res.status(200).json({
+  // success: true,
+  // businessOrders: business.businessOrders,
+  // });
 });
 
 // update Business Order Status
@@ -2545,13 +2604,15 @@ const updateBusinessOrder = catchAsyncErrors(async (req, res, next) => {
     success: true,
   });
 });
-async function updateStock(id, quantity) {
-  const product = await StoreProduct.findById(id);
-
-  product.productUnitCount -= quantity;
-
-  await product.save({ validateBeforeSave: false });
-}
+// async function updateStock(id, quantity) {
+// const product = await signedUpBusiness.find({
+// "storeProducts._id": id,
+// });
+//
+// product.productUnitCount -= quantity;
+//
+// await product.save({ validateBeforeSave: false });
+// }
 
 // Get Business Orders of a business BusinessProfile
 const getMyBusinessOrders = catchAsyncErrors(async (req, res, next) => {
@@ -2618,7 +2679,9 @@ const deleteBusinessOrder = catchAsyncErrors(async (req, res, next) => {
 const createBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
   const { businessId, productId } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
 
   const customer = {
     user: req.user._id,
@@ -2718,7 +2781,9 @@ const deleteBusinessCustomer = catchAsyncErrors(async (req, res, next) => {
 const createindividualCustomer = catchAsyncErrors(async (req, res, next) => {
   const { businessId, productId } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
 
   const customer = {
     user: req.user._id,
@@ -2819,7 +2884,6 @@ const deleteindividualCustomer = catchAsyncErrors(async (req, res, next) => {
 // Create New individual Order individualProfile or Update an individual Order individualProfile
 const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
   const {
-    productId,
     shippingInfo,
     orderItems,
     paymentInfo,
@@ -2829,49 +2893,94 @@ const createindividualOrder = catchAsyncErrors(async (req, res, next) => {
     totalPrice,
   } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  // const product = await signedUpBusiness.find({
+  // "storeProducts._id": productId,
+  // });
 
-  const order = {
-    shippingInfo,
-    orderItems,
-    paymentInfo,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-    paidAt: Date.now(),
-    user: req.user._id,
-    firstName: req.user.firstName,
-    lastName: req.user.lastName,
-    pic: req.body.pic,
-    phoneNumber: req.body.phoneNumber,
-    email: req.body.email,
-    productOrdered: {
-      productId: product._id,
-      productName: product.productTitle,
-    },
-  };
+  orderItems.forEach((e, req, res) => {
+    const business = orderItems.forEach((e) =>
+      signedUpBusiness.findById(e.user)
+    );
+    const product = orderItems.forEach((e) =>
+      business.find({
+        "storeProducts._id": e.product,
+      })
+    );
 
-  const business = await signedUpBusiness.findById(req.user._id);
+    const myShippingCost = orderItems.forEach(
+      (e) => e.price / shippingPrice / shippingPrice
+    );
 
-  const isOrdered = business.individualOrders.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
-  );
-
-  if (!isOrdered) {
-  } else {
+    const order = {
+      shippingInfo,
+      orderItem: e,
+      paymentInfo,
+      itemsPrice: e.price,
+      myShippingCost,
+      totalPrice: e.price,
+      paidAt: Date.now(),
+      user: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      pic: req.body.pic,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      productOrdered: {
+        productId: product._id,
+        productName: product.productTitle,
+      },
+    };
     business.individualOrders.push(order);
     business.numberOfindividualOrders = business.individualOrders.length;
     business.totalNumberOfOrders =
       business.businessOrders.length + business.individualOrders.length;
-  }
-
-  await business.save({ validateBeforeSave: false });
-
-  res.status(200).json({
-    success: true,
-    individualOrders: business.individualOrders,
+    business.save({ validateBeforeSave: false });
+    res.status(200).json({
+      success: true,
+      individualOrders: business.individualOrders,
+    });
   });
+
+  // const business = orderItems.forEach((e) => signedUpBusiness.findById(e.user));
+
+  // const product = orderItems.forEach((e) =>
+  // business.find({
+  // "storeProducts._id": e.product,
+  // })
+  // );
+
+  // const order = {
+  // shippingInfo,
+  // orderItems,
+  // paymentInfo,
+  // itemsPrice,
+  // taxPrice,
+  // shippingPrice,
+  // totalPrice,
+  // paidAt: Date.now(),
+  // user: req.user._id,
+  // firstName: req.user.firstName,
+  // lastName: req.user.lastName,
+  // pic: req.body.pic,
+  // phoneNumber: req.body.phoneNumber,
+  // email: req.body.email,
+  // productOrdered: {
+  // productId: product._id,
+  // productName: product.productTitle,
+  // },
+  // };
+
+  //  business.individualOrders.push(order);
+  //  business.numberOfindividualOrders = business.individualOrders.length;
+  //  business.totalNumberOfOrders =
+  //  business.businessOrders.length + business.individualOrders.length;
+
+  // await business.save({ validateBeforeSave: false });
+
+  // res.status(200).json({
+  // success: true,
+  // individualOrders: business.individualOrders,
+  // });
 });
 
 // update Indivdual Order Status
@@ -2970,7 +3079,9 @@ const deleteindividualOrder = catchAsyncErrors(async (req, res, next) => {
 const createPersonalProductReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
 
-  const product = await StoreProduct.find(productId);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": productId,
+  });
 
   const organiser = await signedUpBusiness.findById(product.user);
   const review = {
@@ -3193,7 +3304,9 @@ const deletePersonalCampaignReview = catchAsyncErrors(
 
 // Get Product Details
 const getProductDetails = catchAsyncErrors(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await signedUpBusiness.find({
+    "storeProducts._id": req.parama.id,
+  });
 
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
@@ -3225,8 +3338,9 @@ const createStoreProduct = catchAsyncErrors(async (req, res, next) => {
   }
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
-  const createdStoreProduct = await StoreProduct.save();
-  const product = await StoreProduct.create(req.body);
+  // const createdStoreProduct = await StoreProduct.save();
+
+  const product = req.body;
 
   const business = await signedUpBusiness.findById(req.user._id);
 
@@ -3342,11 +3456,18 @@ const UpdateBusinessStoreProduct = asyncHandler(async (req, res, next) => {
     }
     req.body.images = imagesLinks;
   }
-  product = await StoreProduct.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
-  });
+
+  product = await signedUpBusiness.findOneAndUpdate(
+    {
+      "storeProducts._id": req.params.id,
+    },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
   res.status(200).json({
     success: true,
     product,
@@ -3545,7 +3666,6 @@ const deleteBusinessReviewProduct = catchAsyncErrors(async (req, res, next) => {
 // Create New Business Order BusinessProfile or Update an Business Order BusinessProfile
 const createBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
   const {
-    productId,
     shippingInfo,
     orderItems,
     paymentInfo,
@@ -3555,9 +3675,18 @@ const createBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
     totalPrice,
   } = req.body;
 
-  const product = await signedUpBusiness.find({
-    "storeProducts._id": productId,
-  });
+  //  const product = orderItems.forEach((e) => signedUpBusiness.find({
+  // "storeProducts._id": e.product,
+  // }),
+  // )
+
+  const business = orderItems.forEach((e) => signedUpBusiness.findById(e.user));
+
+  const product = orderItems.forEach((e) =>
+    business.find({
+      "storeProducts._id": e.product,
+    })
+  );
 
   const order = {
     shippingInfo,
@@ -3888,7 +4017,6 @@ const deleteindividualCustomerProduct = catchAsyncErrors(
 const createindividualOrderProduct = catchAsyncErrors(
   async (req, res, next) => {
     const {
-      productId,
       shippingInfo,
       orderItems,
       paymentInfo,
@@ -3899,8 +4027,20 @@ const createindividualOrderProduct = catchAsyncErrors(
     } = req.body;
 
     const product = await signedUpBusiness.find({
-      "storeProducts._id": productId,
+      "storeProducts._id": req.user.id,
     });
+    orderItems.forEach((e) => {
+      const business = () =>
+        signedUpBusiness
+          .findById(e.user)
+          .find({ "storeProducts._id": e.product });
+    });
+
+    // const product = signedUpBusiness.find({"storeProducts._id": e.product,})
+
+    const lender = signedUpBusiness.findById(req.user.id);
+
+    lender.walletBalance -= totalPrice;
 
     const order = {
       shippingInfo,

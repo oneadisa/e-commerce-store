@@ -113,7 +113,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
     default:
       "https://images.unsplash.com/photo-1615799998603-7c6270a45196?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1604&q=80",
   },
-  bank: {
+  bankCode: {
     type: String,
     required: false,
   },
@@ -189,6 +189,10 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: [true, "Please Enter product Stock"],
         maxLength: [4, "Stock cannot exceed 4 characters"],
         default: 1,
+      },
+      shippingCost: {
+        type: Number,
+        default: 0,
       },
       images: [
         {

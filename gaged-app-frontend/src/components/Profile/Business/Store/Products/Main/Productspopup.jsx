@@ -80,7 +80,7 @@ export default function Productspopup() {
     setQuantity(qty);
   };
   const addToCartHandler = () => {
-    dispatch(addItemsToCart(params.id, quantity));
+    dispatch(addItemsToCart(params.id, quantity, product.costPrice));
     alert.success("Item Added To Cart");
   };
   // const submitReviewToggle = () => {

@@ -605,7 +605,7 @@ export const getAllBusinesss = () => async (dispatch) => {
 export const getSingleBusiness = (id) => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_BUSINESS_REQUEST });
-    const { data } = await axios.get(`/app/business/profile/business/id/:id`);
+    const { data } = await axios.get(`/app/business/profile/business/id/${id}`);
 
     dispatch({ type: SINGLE_BUSINESS_SUCCESS, payload: data.user });
   } catch (error) {
@@ -616,7 +616,7 @@ export const getSingleBusiness = (id) => async (dispatch) => {
   }
 };
 
-// get  Business Details
+// get  Business Details 
 export const getBusinessDetails = () => async (dispatch) => {
   try {
     dispatch({ type: BUSINESS_DETAILS_REQUEST });

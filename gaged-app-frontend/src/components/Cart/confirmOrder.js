@@ -24,7 +24,11 @@ const ConfirmOrder = () => {
     0
   );
 
-  const shippingCharges = subtotal > 1000 ? 0 : 200;
+  var shippingCharges = 0;
+
+  cartItems.forEach((e) => {
+    shippingCharges += e.shippingCost;
+  });
 
   const tax = subtotal * 0.18;
 
@@ -81,7 +85,7 @@ const ConfirmOrder = () => {
                 cartItems.map((item) => (
                   <div key={item.product}>
                     <img src={item.image} alt="Product" />
-                    <Link to={`/product/${item.product}`}>
+                    <Link to={`/products/business/id/${item.product}`}>
                       {item.name}
                     </Link>{" "}
                     <span>
