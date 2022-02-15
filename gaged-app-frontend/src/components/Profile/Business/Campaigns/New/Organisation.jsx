@@ -132,6 +132,11 @@ function Organisation(props, nextStep) {
                         <div className="flex flex-col md:flex-row gap-3 md:gap-7 p-6 card">
                           <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 ">
                             <label className="cursor-pointer label">
+                              <span className="label-text">
+                                <h4 className="text-xs font-normal">
+                                  Limited Liability Company
+                                </h4>
+                              </span>
                               <input
                                 type="radio"
                                 name="natureOfBusiness"
@@ -139,15 +144,15 @@ function Organisation(props, nextStep) {
                                 value="Limited Liability Company"
                                 onClick={(e) => props.handleChange(e)}
                               />
-                              <span className="label-text">
-                                <h4 className="text-xs font-normal">
-                                  Limited Liability Company
-                                </h4>
-                              </span>
                             </label>
                           </div>
                           <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 form-control">
                             <label className="cursor-pointer label">
+                              <span className="label-text">
+                                <h4 className="text-xs font-normal">
+                                  Sole Proprietorship
+                                </h4>
+                              </span>
                               <input
                                 type="radio"
                                 name="natureOfBusiness"
@@ -155,16 +160,16 @@ function Organisation(props, nextStep) {
                                 value="Sole Proprietorship"
                                 onClick={(e) => props.handleChange(e)}
                               />
-                              <span className="label-text">
-                                <h4 className="text-xs font-normal">
-                                  Sole Proprietorship
-                                </h4>
-                              </span>
                             </label>
                           </div>
                         </div>
                         <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 md:w-52 form-control">
                           <label className="cursor-pointer label">
+                            <span className="label-text">
+                              <h4 className="text-xs font-normal">
+                                Unregistered
+                              </h4>
+                            </span>
                             <input
                               type="radio"
                               name="natureOfBusiness"
@@ -172,11 +177,6 @@ function Organisation(props, nextStep) {
                               value="Unregistered"
                               onClick={(e) => props.handleChange(e)}
                             />
-                            <span className="label-text">
-                              <h4 className="text-xs font-normal">
-                                Unregistered
-                              </h4>
-                            </span>
                           </label>
                         </div>
                       </div>

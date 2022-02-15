@@ -118,11 +118,6 @@ function Demographics(props) {
                   <div className="my-4 grid grid-cols-2 gap-y-4 lg:w-4/6 p-6 card">
                     <div className="flex gap-2 items-center form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">
-                            Children (0-11)
-                          </div>
-                        </span>
                         <input
                           type="checkbox"
                           name="ideal_target_audience_age"
@@ -130,15 +125,15 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Children (0-11)"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">
+                            Children (0-11)
+                          </div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">
-                            Youths (12-25)
-                          </div>
-                        </span>
                         <input
                           type="checkbox"
                           name="ideal_target_audience_age"
@@ -146,20 +141,25 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Youths (12-25)"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">
+                            Youths (12-25)
+                          </div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center form-control">
+                      <input
+                        type="checkbox"
+                        name="ideal_target_audience_age"
+                        className="checkbox h-7 w-7"
+                        onClick={(e) => props.handleChange(e)}
+                        value="Older (60+)"
+                      />
                       <label className="cursor-pointer label">
                         <span className="label-text">
                           <div className="text-sm font-medium">Older (60+)</div>
                         </span>
-                        <input
-                          type="checkbox"
-                          name="ideal_target_audience_age"
-                          className="checkbox h-7 w-7"
-                          onClick={(e) => props.handleChange(e)}
-                          value="Older (60+)"
-                        />
                       </label>
                     </div>
                   </div>
@@ -171,11 +171,6 @@ function Demographics(props) {
                   <div className="my-4 grid grid-cols-2 gap-y-4 lg:w-4/6 p-6 card">
                     <div className="flex gap-2 items-center form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">
-                            Physical disabilities
-                          </div>
-                        </span>
                         <input
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
@@ -183,15 +178,15 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Physical disabilities"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">
+                            Physical disabilities
+                          </div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">
-                            Addiction issues
-                          </div>
-                        </span>
                         <input
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
@@ -199,15 +194,15 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Addiction Issues"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">
+                            Addiction issues
+                          </div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center w-full form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">
-                            Coognitive or learning disabilities
-                          </div>
-                        </span>
                         <input
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
@@ -215,6 +210,11 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Cognitive Or Learning Disabilities"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">
+                            Cognitive or learning disabilities
+                          </div>
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -224,9 +224,6 @@ function Demographics(props) {
                   <div className="my-4 grid grid-cols-2 gap-y-4 lg:w-4/6 p-6 card">
                     <div className="flex gap-2 items-center form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">Male</div>
-                        </span>
                         <input
                           type="checkbox"
                           name="gender"
@@ -234,13 +231,13 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Male"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">Male</div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">Female</div>
-                        </span>
                         <input
                           type="checkbox"
                           name="gender"
@@ -248,15 +245,13 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Female"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">Female</div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center w-full form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">
-                            Gender Neutral
-                          </div>
-                        </span>
                         <input
                           type="checkbox"
                           name="gender"
@@ -264,13 +259,15 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Gender Neutral"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">
+                            Gender Neutral
+                          </div>
+                        </span>
                       </label>
                     </div>
                     <div className="flex gap-2 items-center w-full form-control">
                       <label className="cursor-pointer label">
-                        <span className="label-text">
-                          <div className="text-sm font-medium">Non-binary</div>
-                        </span>
                         <input
                           type="checkbox"
                           name="gender"
@@ -278,6 +275,9 @@ function Demographics(props) {
                           onClick={(e) => props.handleChange(e)}
                           value="Non-Binary"
                         />
+                        <span className="label-text">
+                          <div className="text-sm font-medium">Non-binary</div>
+                        </span>
                       </label>
                     </div>
                   </div>

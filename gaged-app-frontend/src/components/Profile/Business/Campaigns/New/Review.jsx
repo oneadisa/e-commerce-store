@@ -190,10 +190,12 @@ function Review(props) {
                   </div>
                   <div className="flex flex-col gap-10 md:w-2/5">
                     <div className="border border-gray-400 p-2 pb-8 flex flex-col gap-3">
-                      <img
-                        alt=""
+                      <iframe
+                        width="500"
+                        height="294"
                         src={props.campaignCredentials.campaignVideo}
-                      />
+                        title="campaignVideo"
+                      ></iframe>
                       <div className="flex flex-col">
                         <h4 className="text-base font-medium">
                           {props.campaignCredentials.campaignName}
@@ -222,7 +224,7 @@ function Review(props) {
                         type="submit"
                         disabled={props.loading ? true : false}
                       >
-                        Go live with schedule
+                        Go live Now
                       </button>
                     </div>
                   </div>

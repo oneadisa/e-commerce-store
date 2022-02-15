@@ -10,16 +10,13 @@ import Header from "./Header";
 import DashBoard from "./DashBoard";
 import Loader from "../../../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../../../Layout/Errors/GeneralErrorMessage";
-import {
-  clearErrors,
-  createStoreProductAction,
-} from "../../../../../../actions/storeProductsActions";
+import { clearErrors } from "../../../../../../actions/storeProductsActions";
 import { newProduct } from "../../../../../../actions/businessActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import MetaData from "../../../../../Layout/MetaData";
 import { NEW_STORE_PRODUCTS_RESET } from "../../../../../../constants/businessConstants";
-import { STORE_PRODUCTS_CREATE_RESET } from "../../../../../../constants/storeProductsConstants";
+// import { STORE_PRODUCTS_CREATE_RESET } from "../../../../../../constants/storeProductsConstants";
 import {} from "../../../../../../constants/businessConstants";
 
 function ProductsNew() {
@@ -28,7 +25,7 @@ function ProductsNew() {
   const storeProductCreate = useSelector(
     (state: RootStateOrAny) => state.storeProductCreate
   );
-  const { loading, error, success } = storeProductCreate;
+  const { error, success } = storeProductCreate;
 
   const { businessLoading, businessError, businessSuccess } = useSelector(
     (state: RootStateOrAny) => state.businessStoreProductCreate
@@ -48,7 +45,7 @@ function ProductsNew() {
     costPrice: "",
     category: "",
     productUnitCount: "",
-    shippingCost: signedUpBusinessInfo.shippingCost,
+    shippingCost: "",
   });
 
   const alert = useAlert();
@@ -57,6 +54,9 @@ function ProductsNew() {
   const [imagesPreview, setImagesPreview] = useState([]);
 
   useEffect(() => {
+    if (signedUpBusinessInfo) {
+      setProductCredentials.shippingCost(signedUpBusinessInfo.shippingCost);
+    }
     if (error || businessError) {
       alert.error(error);
       alert.error(businessError);
@@ -66,7 +66,7 @@ function ProductsNew() {
       alert.success("Product Created Successfully");
       navigate("/business/dashboard");
       dispatch({ type: NEW_STORE_PRODUCTS_RESET });
-      dispatch({ type: STORE_PRODUCTS_CREATE_RESET });
+      // dispatch({ type: STORE_PRODUCTS_CREATE_RESET });
     }
   }, [
     dispatch,
@@ -76,6 +76,7 @@ function ProductsNew() {
     success,
     businessError,
     businessSuccess,
+    signedUpBusinessInfo,
   ]);
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -85,10 +86,11 @@ function ProductsNew() {
     myForm.set("shortDescription", productCredentials.shortDescription);
     // myForm.set("category", category);
     myForm.set("productUnitCount", productCredentials.productUnitCount);
+    myForm.set("shippingCost", productCredentials.shippingCost);
     images.forEach((image) => {
       myForm.append("images", image);
     });
-    dispatch(createStoreProductAction(myForm));
+    dispatch(newProduct(myForm));
     resetHandler();
     navigate("/store/products/all");
   };
@@ -178,9 +180,11 @@ function ProductsNew() {
                 </button>
               </div>
               {error && (
-                <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
+                <GeneralErrorMessage bg="danger">
+                  {businessError}
+                </GeneralErrorMessage>
               )}
-              {loading && <Loader />}
+              {businessLoading && <Loader />}
               <div className="px-3 lg:px-8 py-0 lg:py-5 mt-4 lg:mt-10 bg-white">
                 <h2 className="text-lg font-medium">New Product</h2>
                 <div className="mt-5">
@@ -225,159 +229,134 @@ function ProductsNew() {
                         <h4 className="text-lg font-medium px-3 py-1">
                           Publish product
                         </h4>
-                        <div className="border-t-2 px-3 pt-3">
-                          <p className="text-lg font-normal text-Dark-grey mb-3">
-                            Product status
-                          </p>
-                          {/* <div className="pb-5 flex gap-3"> */}
-                          {/* <Switch */}
-                          {/* // checked={enabled} */}
-                          {/* // onChange={setEnabled} */}
-                          {/* // className={`block bg-gray-400 rounded-full shadow border-2 border-transparent h-6 w-12 transition duration-200 ${ */}
-                          {/* // enabled ? "" : "justify-end bg-Dark-blue" */}
-                          {/* // }`} */}
-                          {/* // > */}
-                          {/* <span className="block h-full w-6 rounded-full bg-white" /> */}
-                          {/* </Switch> */}
-                          {/* <div> */}
-                          {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}
-                          {/* Draft */}
-                          {/* </p> */}
-                          {/* </div> */}
-                          {/* </div> */}
-                          <div className="pb-5 flex gap-3">
-                            <label
-                              htmlFor="toggleB"
-                              className="flex items-center
-                        bg-gray-400 rounded-full shadow border-2
-                        border-transparent h-6 w-12 transition duration-200
-                        cursor-pointer"
-                            >
-                              <div className="relative">
-                                <input
-                                  type="checkbox"
-                                  id="toggleB"
-                                  className="sr-only"
-                                />
-                                <div className="block bg-grey-700 w-14 h-8 rounded-full"></div>
-                                <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-                              </div>
-                              <div className="ml-3 text-gray-700 font-medium">
-                                <p className="text-lg font-normal text-Dark-grey mb-3">
-                                  Draft
-                                </p>
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                        <div className="flex justify-between mt-4">
-                          <button className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white ">
-                            Preview
-                          </button>
-                          <button
-                            onClick={createProductSubmitHandler}
-                            className="border py-2 px-2 bg-Dark-blue text-white hover:bg-white hover:text-Dark-blue"
-                            type="submit"
-                            disabled={loading ? true : false}
-                          >
-                            Save product
-                          </button>
-                        </div>
+                        {/* <div className="border-t-2 px-3 pt-3"> */}
+                        {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}
+                        {/* Product status */}
+                        {/* </p> */}
+                        {/* <div className="pb-5 flex gap-3"> */}
+                        {/* <Switch */}
+                        {/* // checked={enabled} */}
+                        {/* // onChange={setEnabled} */}
+                        {/* // className={`block bg-gray-400 rounded-full shadow border-2 border-transparent h-6 w-12 transition duration-200 ${ */}
+                        {/* // enabled ? "" : "justify-end bg-Dark-blue" */}
+                        {/* // }`} */}
+                        {/* // > */}
+                        {/* <span className="block h-full w-6 rounded-full bg-white" /> */}
+                        {/* </Switch> */}
+                        {/* <div> */}
+                        {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}
+                        {/* Draft */}
+                        {/* </p> */}
+                        {/* </div> */}
+                        {/* </div> */}
+                      </div>
+                      <div className="flex justify-between mt-4">
+                        {/* <button className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white "> */}
+                        {/* Preview */}
+                        {/* </button> */}
+                        <button
+                          onClick={createProductSubmitHandler}
+                          className="border py-2 px-2 bg-Dark-blue text-white hover:bg-white hover:text-Dark-blue"
+                          type="submit"
+                          disabled={businessLoading ? true : false}
+                        >
+                          Save product
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="border-2 mt-5 lg:w-2/3 px-3 lg:px-6 pt-6 pb-10">
-                  <h2 className="text-lg font-medium">Price and Quantity</h2>
-                  <div className="grid grid-rows-1 gap-5 lg:gap-0 lg:grid-cols-3 mt-4">
-                    <div className="flex">
-                      <div className="border-2 p-2 text-Dark-grey">$</div>
-                      <input
-                        onChange={handlechange}
-                        name="standardPrice"
-                        value={productCredentials.standardPrice}
-                        placeholder="Standard price"
-                        className="border-2 pl-4 lg:w-44 outline-none"
-                      />
-                    </div>
-                    <div className="flex">
-                      <div className="border-2 p-2 text-Dark-grey">$</div>
-                      <input
-                        onChange={handlechange}
-                        name="discountedPrice"
-                        value={productCredentials.discountedPrice}
-                        placeholder="Discounted price"
-                        className="border-2 pl-4 lg:w-44 outline-none"
-                      />
-                    </div>
-                    <div className="flex">
-                      <div className="border-2 p-2 text-Dark-grey">$</div>
-                      <input
-                        onChange={handlechange}
-                        name="costPrice"
-                        value={productCredentials.costPrice}
-                        placeholder="Cost price"
-                        className="border-2 pl-4 lg:w-44 outline-none"
-                      />
-                    </div>
+              </div>
+              <div className="border-2 mt-5 lg:w-2/3 px-3 lg:px-6 pt-6 pb-10">
+                <h2 className="text-lg font-medium">Price and Quantity</h2>
+                <div className="grid grid-rows-1 gap-5 lg:gap-0 lg:grid-cols-3 mt-4">
+                  <div className="flex">
+                    <div className="border-2 p-2 text-Dark-grey">$</div>
+                    <input
+                      onChange={handlechange}
+                      name="standardPrice"
+                      value={productCredentials.standardPrice}
+                      placeholder="Standard price"
+                      className="border-2 pl-4 lg:w-44 outline-none"
+                    />
                   </div>
-                  <div className="mt-5 grid grid-rows-1 gap-5 lg:gap-0 lg:grid-cols-3">
-                    <div className="flex flex-col">
-                      <h4 className="text-lg font-medium">Unit</h4>
-                      <input
-                        onChange={handlechange}
-                        name="productUnitCount"
-                        value={productCredentials.productUnitCount}
-                        placeholder="Product count"
-                        className="border-2 lg:w-52 h-10 outline-none text-center"
-                      />
-                    </div>
+                  <div className="flex">
+                    <div className="border-2 p-2 text-Dark-grey">$</div>
+                    <input
+                      onChange={handlechange}
+                      name="discountedPrice"
+                      value={productCredentials.discountedPrice}
+                      placeholder="Discounted price"
+                      className="border-2 pl-4 lg:w-44 outline-none"
+                    />
+                  </div>
+                  <div className="flex">
+                    <div className="border-2 p-2 text-Dark-grey">$</div>
+                    <input
+                      onChange={handlechange}
+                      name="costPrice"
+                      value={productCredentials.costPrice}
+                      placeholder="Cost price"
+                      className="border-2 pl-4 lg:w-44 outline-none"
+                    />
                   </div>
                 </div>
-                <div className="border-2 my-5 lg:w-2/3 px-6 pt-6">
-                  <h2 className="text-lg font-medium">Product images</h2>
-
-                  <div className="flex  bg-grey-lighter">
-                    <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
-                      <svg
-                        className="w-8 h-8"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                      </svg>
-                      <span className="mt-2 text-base leading-normal">
-                        Select a file
-                      </span>
-                      <input
-                        id="custom-file"
-                        type="file"
-                        className="hidden"
-                        name="avatar"
-                        accept="image/*"
-                        onChange={createProductImagesChange}
-                        multiple
-                      />
-                    </label>
+                <div className="mt-5 grid grid-rows-1 gap-5 lg:gap-0 lg:grid-cols-3">
+                  <div className="flex flex-col">
+                    <h4 className="text-lg font-medium">Unit</h4>
+                    <input
+                      onChange={handlechange}
+                      name="productUnitCount"
+                      value={productCredentials.productUnitCount}
+                      placeholder="Product count"
+                      className="border-2 lg:w-52 h-10 outline-none text-center"
+                    />
                   </div>
-
-                  <div id="createProductFormImage">
-                    {imagesPreview.map((image, index) => (
-                      <img key={index} src={image} alt="Product Preview" />
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={resetHandler}
-                    className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white "
-                  >
-                    RESET FIELDS
-                  </button>
-                  <footer className="text-muted">
-                    Creating on - {new Date().toLocaleDateString()}
-                  </footer>
                 </div>
+              </div>
+              <div className="border-2 my-5 lg:w-2/3 px-6 pt-6">
+                <h2 className="text-lg font-medium">Product images</h2>
+
+                <div className="flex  bg-grey-lighter">
+                  <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                    <svg
+                      className="w-8 h-8"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                    </svg>
+                    <span className="mt-2 text-base leading-normal">
+                      Select a file
+                    </span>
+                    <input
+                      id="custom-file"
+                      type="file"
+                      className="hidden"
+                      name="avatar"
+                      accept="image/*"
+                      onChange={createProductImagesChange}
+                      multiple
+                    />
+                  </label>
+                </div>
+
+                <div id="createProductFormImage">
+                  {imagesPreview.map((image, index) => (
+                    <img key={index} src={image} alt="Product Preview" />
+                  ))}
+                </div>
+
+                <button
+                  onClick={resetHandler}
+                  className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white "
+                >
+                  RESET FIELDS
+                </button>
+                <footer className="text-muted">
+                  Creating on - {new Date().toLocaleDateString()}
+                </footer>
               </div>
             </div>
           </div>

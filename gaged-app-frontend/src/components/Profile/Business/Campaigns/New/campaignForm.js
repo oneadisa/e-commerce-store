@@ -7,13 +7,10 @@ import SetSchedule from "./SetSchedule";
 import Review from "./Review";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
-import {
-  clearErrors,
-  createCampaignAction,
-} from "../../../../../actions/campaignActions";
+import { clearErrors } from "../../../../../actions/campaignActions";
 import { newCampaignStarted } from "../../../../../actions/businessActions";
 import { NEW_CAMPAIGN_STARTED_RESET } from "../../../../../constants/businessConstants";
-import { NEW_CAMPAIGN_RESET } from "../../../../../constants/campaignConstants";
+
 // import { useNavigate } from "react-router-dom";
 function CampaignForm() {
   const dispatch = useDispatch();
@@ -32,12 +29,11 @@ function CampaignForm() {
     if (success) {
       alert.success("Campaign Created Successfully");
       // navigate("/admin/dashboard");
-      dispatch({ type: NEW_CAMPAIGN_RESET });
       dispatch({ NEW_CAMPAIGN_STARTED_RESET });
     }
   }, [dispatch, alert, error, success]);
   const [step, setStep] = useState(1);
-  const [picMessage, setPicMessage] = useState(null);
+  // const [picMessage, setPicMessage] = useState(null);
 
   const [campaignCredentials, setCampaignCredentials] = useState({
     campaignName: "",
@@ -167,7 +163,7 @@ function CampaignForm() {
     );
     myForm.set("endDateString", campaignCredentials.endDateString);
     myForm.set("paymentStartDate", campaignCredentials.paymentStartDate);
-    dispatch(createCampaignAction(myForm));
+    // dispatch(createCampaignAction(myForm));
     dispatch(newCampaignStarted(myForm));
   };
 

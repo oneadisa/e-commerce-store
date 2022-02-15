@@ -66,7 +66,7 @@ var x = setInterval(function () {
         </div>
         <div className="py-2">
           <progress
-            class="progress progress-info"
+            className="progress progress-info"
             value={progressString}
             max="100"
           ></progress>
@@ -78,6 +78,6 @@ var x = setInterval(function () {
       </div>
     </div>
   );
-};
+}
 
 export default MyCampaignCard;

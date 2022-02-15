@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductR from "../src/components/Profile/Business/Store/Products/ProductRB";
 import LoanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
 import CampaignForm from "./components/Profile/Business/Campaigns/New/campaignForm";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const options = {
   timeout: 5000,

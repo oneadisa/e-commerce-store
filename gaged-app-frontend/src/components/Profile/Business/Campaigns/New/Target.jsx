@@ -9,7 +9,19 @@ import { Fragment, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 
+import { Dialog } from "@headlessui/react";
+import { ExclamationIcon } from "@heroicons/react/outline";
+import { GoChevronLeft } from "react-icons/go";
+import { GoChevronRight } from "react-icons/go";
+
 function Target(props) {
+  const [firstOpen, setFirstOpen] = useState(false);
+  const [secondOpen, setSecondOpen] = useState(false);
+  const [thirdOpen, setThirdOpen] = useState(false);
+  const [fourthOpen, setFourthOpen] = useState(false);
+
+  const cancelButtonRef = useRef(null);
+
   const forward = (e) => {
     e.preventDefault();
     props.nextStep();
@@ -117,7 +129,7 @@ function Target(props) {
                 </h2>
                 <div className="mt-3 border-t-2 border-b-2 border-gray-400 md:w-3/4 lg:w-4/6">
                   <div className="pt-5 pb-7 flex flex-col gap-5 md:flex-row justify-between">
-                    <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 ">
+                    <button className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 ">
                       <label class="cursor-pointer label">
                         <input
                           type="radio"
@@ -138,29 +150,27 @@ function Target(props) {
                           </div>
                         </span>
                       </label>
-                    </div>
+                    </button>
                     <div className="flex gap-2 border-2 border-gray-400 items-center py-2 pl-2 w-60 ">
-                      <label class="cursor-pointer label">
-                        <input
-                          type="radio"
-                          name="fundingType"
-                          checked="checked"
-                          class="radio"
-                          value="Equity"
-                          onChange={(e) => props.handleChange(e)}
-                          disabled="disabled"
-                        />
-                        <span class="label-text">
-                          <button className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-white border-2 border-gray-400 disabled">
-                            <div className="text-gray-500 font-medium text-lg ml-auto pl-6">
-                              Equity
-                            </div>
+                      <button className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-white border-2 border-gray-400 disabled">
+                        <div className="text-gray-500 font-medium text-lg ml-auto pl-6">
+                          <label class="cursor-pointer label">
+                            <input
+                              type="radio"
+                              name="fundingType"
+                              checked="checked"
+                              class="radio"
+                              value="Equity"
+                              onChange={(e) => props.handleChange(e)}
+                              disabled="disabled"
+                            />
+                            <span class="label-text">Equity</span>
                             <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
                               ?
                             </div>
-                          </button>
-                        </span>
-                      </label>
+                          </label>
+                        </div>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -187,22 +197,133 @@ function Target(props) {
                               <div className="text-base text-gray-600 font-medium">
                                 $0 – $999
                               </div>
-                              <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
+                              <button
+                                className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto"
+                                onClick={() => setFirstOpen(!firstOpen)}
+                              >
                                 ?
-                              </div>
+                              </button>
                             </span>
                           </label>
                         </div>
+
+                        <Transition.Root show={firstOpen} as={Fragment}>
+                          <Dialog
+                            as="div"
+                            className="fixed z-10 inset-0 overflow-y-auto"
+                            initialFocus={cancelButtonRef}
+                            onClose={setOpen}
+                          >
+                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                              </Transition.Child>
+
+                              {/* This element is to trick the browser into centering the modal contents. */}
+                              <span
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true"
+                              >
+                                &#8203;
+                              </span>
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                              >
+                                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div className="sm:flex sm:items-start">
+                                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                        <ExclamationIcon
+                                          className="h-6 w-6 text-red-600"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <Dialog.Title
+                                          as="h3"
+                                          className="text-lg leading-6 font-medium text-gray-900"
+                                        >
+                                          <div className="flex items-center py-4 border-b border-gray-400">
+                                            <GoChevronLeft />
+                                            <h1 className="text-xl font-semibold">
+                                              {">"} $1000
+                                            </h1>
+                                          </div>
+                                          <div className="text-lg font-medium">
+                                            <h3>
+                                              This category is avaliable to all
+                                              businesses including unregistered
+                                              or sole propietorships.
+                                            </h3>
+                                            <h3>
+                                              This category of funding can only
+                                              raised as a loan. The requirements
+                                              to raise these category are:
+                                            </h3>
+                                          </div>
+                                        </Dialog.Title>
+                                        <div className="mt-2">
+                                          <div className="flex flex-col gap-2 text-base">
+                                            <p>
+                                              I. A minimum of 20 customers on
+                                              Gaged.
+                                            </p>
+                                            <p>
+                                              II. You should select a repayment
+                                              plan for loans.
+                                            </p>
+                                            <p>
+                                              III. Upload an introductory video
+                                              of the organization and stating
+                                              the purpose of the funding.
+                                            </p>
+                                            <p>
+                                              IV. You are encouraged offer a
+                                              percentage of your profit to
+                                              lenders.
+                                            </p>
+                                            <p>
+                                              V. You must have 15 unique lenders
+                                              from your private network
+                                              participate in the campaign before
+                                              your campaign can be publicly
+                                              listed on Gaged.
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                      type="button"
+                                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                      onClick={() => setFirstOpen(false)}
+                                    >
+                                      Got it
+                                    </button>
+                                  </div>
+                                </div>
+                              </Transition.Child>
+                            </div>
+                          </Dialog>
+                        </Transition.Root>
                         <div className="flex items-center gap-2 border-2 border-gray-400 px-2 w-full md:w-56 h-12 form-control">
                           <label class="cursor-pointer label">
-                            <span class="label-text">
-                              <div className="text-base text-gray-600 font-medium">
-                                $1000 – $9,999
-                              </div>
-                              <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
-                                ?
-                              </div>
-                            </span>
                             <input
                               type="radio"
                               name="categoryFunding"
@@ -211,20 +332,138 @@ function Target(props) {
                               onChange={(e) => props.handleChange(e)}
                               value="$1000 – $9,999"
                             />
+                            <span class="label-text">
+                              <div className="text-base text-gray-600 font-medium">
+                                $1000 – $9,999
+                              </div>
+                              <button
+                                className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto"
+                                onClick={() => setSecondOpen(!secondOpen)}
+                              >
+                                ?
+                              </button>
+                            </span>
                           </label>
                         </div>
+                        <Transition.Root show={secondOpen} as={Fragment}>
+                          <Dialog
+                            as="div"
+                            className="fixed z-10 inset-0 overflow-y-auto"
+                            initialFocus={cancelButtonRef}
+                            onClose={setOpen}
+                          >
+                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                              </Transition.Child>
+
+                              {/* This element is to trick the browser into centering the modal contents. */}
+                              <span
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true"
+                              >
+                                &#8203;
+                              </span>
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                              >
+                                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div className="sm:flex sm:items-start">
+                                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                        <ExclamationIcon
+                                          className="h-6 w-6 text-red-600"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <Dialog.Title
+                                          as="h3"
+                                          className="text-lg leading-6 font-medium text-gray-900"
+                                        >
+                                          <div className="py-4 border-b border-gray-400">
+                                            <h1 className="text-xl font-semibold">
+                                              $1000 - $9999
+                                            </h1>
+                                          </div>
+                                          <div className="text-lg font-medium">
+                                            <h3>
+                                              This category is only available to
+                                              business registered as limited
+                                              liabilty and can be raised as a
+                                              loan or Equity The requirements to
+                                              raise this category are:
+                                            </h3>
+                                          </div>
+                                        </Dialog.Title>
+                                        <div className="mt-2">
+                                          <div className="flex flex-col gap-2 text-base">
+                                            <p>
+                                              I. A minimum of 20 customers on
+                                              Gaged.
+                                            </p>
+                                            <p>
+                                              II. Upload business registration
+                                              documents
+                                            </p>
+                                            <p>
+                                              III. You should select a repayment
+                                              plan for loans.
+                                            </p>
+                                            <p>
+                                              IV. Upload an introductory video
+                                              of the organization and stating
+                                              the purpose of the funding.
+                                            </p>
+                                            <p>
+                                              V. You are encouraged offer a
+                                              percentage of your profit to
+                                              lenders.
+                                            </p>
+                                            <p>
+                                              VI. You must have 30 unique
+                                              investors/lenders from your
+                                              private network participate in the
+                                              campaign before your campaign can
+                                              be publicly listed on Gaged.
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                      type="button"
+                                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                      onClick={() => setSecondOpen(false)}
+                                    >
+                                      Got it
+                                    </button>
+                                  </div>
+                                </div>
+                              </Transition.Child>
+                            </div>
+                          </Dialog>
+                        </Transition.Root>
                       </div>
                       <div className="flex flex-col gap-6 md:flex-row justify-between">
                         <div className="flex items-center gap-2 border-2 border-gray-400 px-2 w-full md:w-56 h-12 form-control">
                           <label class="cursor-pointer label">
-                            <span class="label-text">
-                              <div className="text-base text-gray-600 font-medium">
-                                $10,000 – $99,999
-                              </div>
-                              <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
-                                ?
-                              </div>
-                            </span>
                             <input
                               type="radio"
                               name="categoryFunding"
@@ -233,18 +472,136 @@ function Target(props) {
                               onChange={(e) => props.handleChange(e)}
                               value="$10,000 – $99,999"
                             />
-                          </label>
-                        </div>
-                        <div className="flex items-center gap-2 border-2 border-gray-400 px-2 w-full md:w-56 h-12 form-control">
-                          <label class="cursor-pointer label">
                             <span class="label-text">
                               <div className="text-base text-gray-600 font-medium">
-                                {">"} $100,000
+                                $10,000 – $99,999
                               </div>
-                              <div className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto">
+                              <button
+                                className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto"
+                                onClick={() => setThirdOpen(!thirdOpen)}
+                              >
                                 ?
-                              </div>
+                              </button>
                             </span>
+                          </label>
+                        </div>
+                        <Transition.Root show={thirdOpen} as={Fragment}>
+                          <Dialog
+                            as="div"
+                            className="fixed z-10 inset-0 overflow-y-auto"
+                            initialFocus={cancelButtonRef}
+                            onClose={setOpen}
+                          >
+                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                              </Transition.Child>
+
+                              {/* This element is to trick the browser into centering the modal contents. */}
+                              <span
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true"
+                              >
+                                &#8203;
+                              </span>
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                              >
+                                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div className="sm:flex sm:items-start">
+                                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                        <ExclamationIcon
+                                          className="h-6 w-6 text-red-600"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <Dialog.Title
+                                          as="h3"
+                                          className="text-lg leading-6 font-medium text-gray-900"
+                                        >
+                                          <div className="py-4 border-b border-gray-400">
+                                            <h1 className="text-xl font-semibold">
+                                              $10 000 - $99 999
+                                            </h1>
+                                          </div>
+                                          <div className="text-lg font-medium">
+                                            <h3>
+                                              This category is only available to
+                                              business registered as limited
+                                              liabilty and can be raised as a
+                                              loan or Equity. The requirements
+                                              to raise this category are:
+                                            </h3>
+                                          </div>
+                                        </Dialog.Title>
+                                        <div className="mt-2">
+                                          <div className="flex flex-col gap-2 text-base">
+                                            <p>
+                                              I. A minimum of 50 customers on
+                                              Gaged.
+                                            </p>
+                                            <p>
+                                              II. Upload business registration
+                                              documents
+                                            </p>
+                                            <p>
+                                              III. You should select a repayment
+                                              plan for loans.
+                                            </p>
+                                            <p>
+                                              IV. Upload an introductory video
+                                              of the organization and stating
+                                              the purpose of the funding.
+                                            </p>
+                                            <p>
+                                              V. You are encouraged offer a
+                                              percentage of your profit to
+                                              lenders.
+                                            </p>
+                                            <p>
+                                              VI. You must have 50 unique
+                                              investors/lenders from your
+                                              private network participate in the
+                                              campaign before your campaign can
+                                              be publicly listed on Gaged.
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                      type="button"
+                                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                      onClick={() => setThirdOpen(false)}
+                                    >
+                                      Got it
+                                    </button>
+                                  </div>
+                                </div>
+                              </Transition.Child>
+                            </div>
+                          </Dialog>
+                        </Transition.Root>
+                        <div className="flex items-center gap-2 border-2 border-gray-400 px-2 w-full md:w-56 h-12 form-control">
+                          <label class="cursor-pointer label">
                             <input
                               type="radio"
                               name="categoryFunding"
@@ -253,8 +610,134 @@ function Target(props) {
                               onChange={(e) => props.handleChange(e)}
                               value="> $100,000"
                             />
+                            <span class="label-text">
+                              <div className="text-base text-gray-600 font-medium">
+                                {">"} $100,000
+                              </div>
+                              <button
+                                className="bg-gray-500 h-4 w-4 text-center text-white text-xs font-medium rounded-full ml-auto"
+                                onClick={() => setFourthOpen(!fourthOpen)}
+                              >
+                                ?
+                              </button>
+                            </span>
                           </label>
                         </div>
+                        <Transition.Root show={fourthOpen} as={Fragment}>
+                          <Dialog
+                            as="div"
+                            className="fixed z-10 inset-0 overflow-y-auto"
+                            initialFocus={cancelButtonRef}
+                            onClose={setOpen}
+                          >
+                            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                              </Transition.Child>
+
+                              {/* This element is to trick the browser into centering the modal contents. */}
+                              <span
+                                className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                aria-hidden="true"
+                              >
+                                &#8203;
+                              </span>
+                              <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                enterTo="opacity-100 translate-y-0 sm:scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                                leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                              >
+                                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                  <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                    <div className="sm:flex sm:items-start">
+                                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                        <ExclamationIcon
+                                          className="h-6 w-6 text-red-600"
+                                          aria-hidden="true"
+                                        />
+                                      </div>
+                                      <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                        <Dialog.Title
+                                          as="h3"
+                                          className="text-lg leading-6 font-medium text-gray-900"
+                                        >
+                                          <div className="py-4 flex items-center border-b border-gray-400">
+                                            <GoChevronRight />
+                                            <h1 className="text-xl font-semibold">
+                                              $100,000
+                                            </h1>
+                                          </div>
+                                          <div className="text-lg font-medium">
+                                            <h3>
+                                              This category is only available to
+                                              business registered as limited
+                                              liabilty and can be raised as a
+                                              loan or Equity. The requirements
+                                              to raise this category are:
+                                            </h3>
+                                          </div>
+                                        </Dialog.Title>
+                                        <div className="flex flex-col gap-2 text-base">
+                                          <p>
+                                            I. A minimum of 200 customers on
+                                            Gaged.
+                                          </p>
+                                          <p>
+                                            II. Upload business registration
+                                            documents.
+                                          </p>
+                                          <p>
+                                            III. You should select a repayment
+                                            plan for loans.
+                                          </p>
+                                          <p>
+                                            IV. Upload an introductory video of
+                                            the organization and stating the
+                                            purpose of the funding.
+                                          </p>
+                                          <p>V. Upload a pitchdeck.</p>
+                                          <p>
+                                            VI. You are encouraged offer a
+                                            percentage of your profit to
+                                            lenders.
+                                          </p>
+                                          <p>
+                                            VII. You must have 150 unique
+                                            investors/lenders from your private
+                                            network participate in the campaign
+                                            before your campaign can be publicly
+                                            listed on Gaged.
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                    <button
+                                      type="button"
+                                      className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                      onClick={() => setFourthOpen(false)}
+                                    >
+                                      Got it
+                                    </button>
+                                  </div>
+                                </div>
+                              </Transition.Child>
+                            </div>
+                          </Dialog>
+                        </Transition.Root>
                       </div>
                     </div>
                   </div>
