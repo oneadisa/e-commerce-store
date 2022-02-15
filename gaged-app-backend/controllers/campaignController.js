@@ -264,159 +264,159 @@ const getCampaignById = asyncHandler(async (req, res) => {
   res.json(campaign);
 });
 
-const UpdateCampaign = asyncHandler(async (req, res) => {
-  const {
-    campaignName,
-    natureOfBusiness,
-    campaignCategory,
-    business_address_country,
-    business_address_city,
-    business_address_office,
-    phoneNumber,
-    investorBrief,
-    campaignVideo,
-    pitchDeck,
-    ideal_target_audience_age,
-    ideal_target_audience_health_issues_or_disabilities,
-    gender,
-    fundingType,
-    categoryFunding,
-    amountBeingRaised,
-    amountAlreadyRaised,
-    amountRepaid,
-    amountToBeRepaid,
-    amountToBeRepaidPerPayout,
-    pledged_profit_to_lenders,
-    duration_pledged_profit,
-    repayment_schedule_pledged_profit,
-    endDatePledgedProfit,
-    endDatePledgedProfitString,
-    timePerPayment,
-    equity_offering_percentage,
-    bankCode,
-    bank_account_name,
-    bank_account_number,
-    duration,
-    go_live_schedule,
-    campaignLiveStatus,
-    familiarWithCrowdFunding,
-    storeOnGaged,
-    endDate,
-    firstPaymentDate,
-    firstPaymentDateString,
-    endDateString,
-    paymentStartDate,
-  } = req.body;
-
-  const campaign = await Campaign.findById(req.params.id);
-
-  if (campaign.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("You can't perform this action");
-  }
-
-  if (campaign) {
-    campaign.campaignName = campaignName;
-    campaign.natureOfBusiness = natureOfBusiness;
-    campaign.campaignCategory = campaignCategory;
-    campaign.business_address_country = business_address_country;
-    campaign.business_address_city = business_address_city;
-    campaign.business_address_office = business_address_office;
-    campaign.phoneNumber = phoneNumber;
-    campaign.investorBrief = investorBrief;
-    campaign.campaignVideo = campaignVideo;
-    campaign.pitchDeck = pitchDeck;
-    campaign.ideal_target_audience_age = ideal_target_audience_age;
-    campaign.ideal_target_audience_health_issues_or_disabilities =
-      ideal_target_audience_health_issues_or_disabilities;
-    campaign.gender = gender;
-    campaign.fundingType = fundingType;
-    campaign.categoryFunding = categoryFunding;
-    campaign.amountBeingRaised = Number(amountBeingRaised);
-    campaign.amountAlreadyRaised = Number(amountAlreadyRaised);
-    campaign.amountRepaid = amountRepaid;
-    campaign.amountToBeRepaid = amountToBeRepaid;
-    campaign.amountToBeRepaidPerPayout = amountToBeRepaidPerPayout;
-    campaign.pledged_profit_to_lenders = Number(pledged_profit_to_lenders);
-    campaign.duration_pledged_profit = duration_pledged_profit;
-    campaign.repayment_schedule_pledged_profit = Number(
-      repayment_schedule_pledged_profit
-    );
-    campaign.endDatePledgedProfit = endDatePledgedProfit;
-    campaign.endDatePledgedProfitString = endDatePledgedProfitString;
-    campaign.timePerPayment = timePerPayment;
-    campaign.equity_offering_percentage = Number(equity_offering_percentage);
-    campaign.bankCode = bankCode;
-    campaign.bank_account_name = bank_account_name;
-    campaign.bank_account_number = bank_account_number;
-    campaign.duration = duration;
-    campaign.go_live_schedule = go_live_schedule;
-    campaign.campaignLiveStatus = campaignLiveStatus;
-    campaign.familiarWithCrowdFunding = familiarWithCrowdFunding;
-    campaign.storeOnGaged = storeOnGaged;
-    campaign.paymentStartDate = paymentStartDate;
-    campaign.endDate = endDate;
-    campaign.endDateString = endDateString;
-    campaign.firstPaymentDate = firstPaymentDate;
-    campaign.firstPaymentDateString = firstPaymentDateString;
-
-    let numWeeks = campaign.duration;
-    var now = new Date().getTime();
-    var goLive =
-      new Date(campaign.go_live_schedule).getTime() - new Date().getTime();
-    campaign.go_ = Math.abs(now);
-    campaign.endDate = goLive + now + numWeeks * 7 * 1000 * 60 * 60 * 24;
-    campaign.endDateString = new Date(campaign.endDate);
-    // new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
-    campaign.endDatePledgedProfit =
-      goLive +
-      now +
-      campaign.duration * (7 * 1000 * 60 * 60 * 24) +
-      campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
-    campaign.endDatePledgedProfitString = new Date(
-      campaign.endDatePledgedProfit
-    );
-    campaign.numberOfPaymentsToBeMade =
-      campaign.duration_pledged_profit /
-      campaign.repayment_schedule_pledged_profit;
-    const repaymentTime = Math.abs(
-      campaign.endDatePledgedProfit - campaign.endDate
-    );
-    campaign.timePerPayment =
-      repaymentTime /
-      (campaign.duration_pledged_profit /
-        campaign.repayment_schedule_pledged_profit);
-    campaign.firstPaymentDate = campaign.endDate + campaign.timePerPayment;
-    campaign.firstPaymentDateString = new Date(campaign.firstPaymentDate);
-    let n =
-      campaign.duration_pledged_profit /
-      campaign.repayment_schedule_pledged_profit;
-    for (let i = 0; i < n; i++) {}
-
-    const updatedCampaign = await campaign.save();
-    res.json(updatedCampaign);
-  } else {
-    res.status(404);
-    throw new Error("Campaign not found");
-  }
-});
-
-const DeleteCampaign = asyncHandler(async (req, res) => {
-  const campaign = await Campaign.findById(req.params.id);
-
-  if (campaign.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("You can't perform this action");
-  }
-
-  if (campaign) {
-    await campaign.remove();
-    res.json({ message: "Campaign Deleted" });
-  } else {
-    res.status(404);
-    throw new Error("Campaign not Found");
-  }
-});
+// const UpdateCampaign = asyncHandler(async (req, res) => {
+// const {
+// campaignName,
+// natureOfBusiness,
+// campaignCategory,
+// business_address_country,
+// business_address_city,
+// business_address_office,
+// phoneNumber,
+// investorBrief,
+// campaignVideo,
+// pitchDeck,
+// ideal_target_audience_age,
+// ideal_target_audience_health_issues_or_disabilities,
+// gender,
+// fundingType,
+// categoryFunding,
+// amountBeingRaised,
+// amountAlreadyRaised,
+// amountRepaid,
+// amountToBeRepaid,
+// amountToBeRepaidPerPayout,
+// pledged_profit_to_lenders,
+// duration_pledged_profit,
+// repayment_schedule_pledged_profit,
+// endDatePledgedProfit,
+// endDatePledgedProfitString,
+// timePerPayment,
+// equity_offering_percentage,
+// bankCode,
+// bank_account_name,
+// bank_account_number,
+// duration,
+// go_live_schedule,
+// campaignLiveStatus,
+// familiarWithCrowdFunding,
+// storeOnGaged,
+// endDate,
+// firstPaymentDate,
+// firstPaymentDateString,
+// endDateString,
+// paymentStartDate,
+// } = req.body;
+//
+// const campaign = await Campaign.findById(req.params.id);
+//
+// if (campaign.user.toString() !== req.user._id.toString()) {
+// res.status(401);
+// throw new Error("You can't perform this action");
+// }
+//
+// if (campaign) {
+// campaign.campaignName = campaignName;
+// campaign.natureOfBusiness = natureOfBusiness;
+// campaign.campaignCategory = campaignCategory;
+// campaign.business_address_country = business_address_country;
+// campaign.business_address_city = business_address_city;
+// campaign.business_address_office = business_address_office;
+// campaign.phoneNumber = phoneNumber;
+// campaign.investorBrief = investorBrief;
+// campaign.campaignVideo = campaignVideo;
+// campaign.pitchDeck = pitchDeck;
+// campaign.ideal_target_audience_age = ideal_target_audience_age;
+// campaign.ideal_target_audience_health_issues_or_disabilities =
+// ideal_target_audience_health_issues_or_disabilities;
+// campaign.gender = gender;
+// campaign.fundingType = fundingType;
+// campaign.categoryFunding = categoryFunding;
+// campaign.amountBeingRaised = Number(amountBeingRaised);
+// campaign.amountAlreadyRaised = Number(amountAlreadyRaised);
+// campaign.amountRepaid = amountRepaid;
+// campaign.amountToBeRepaid = amountToBeRepaid;
+// campaign.amountToBeRepaidPerPayout = amountToBeRepaidPerPayout;
+// campaign.pledged_profit_to_lenders = Number(pledged_profit_to_lenders);
+// campaign.duration_pledged_profit = duration_pledged_profit;
+// campaign.repayment_schedule_pledged_profit = Number(
+// repayment_schedule_pledged_profit
+// );
+// campaign.endDatePledgedProfit = endDatePledgedProfit;
+// campaign.endDatePledgedProfitString = endDatePledgedProfitString;
+// campaign.timePerPayment = timePerPayment;
+// campaign.equity_offering_percentage = Number(equity_offering_percentage);
+// campaign.bankCode = bankCode;
+// campaign.bank_account_name = bank_account_name;
+// campaign.bank_account_number = bank_account_number;
+// campaign.duration = duration;
+// campaign.go_live_schedule = go_live_schedule;
+// campaign.campaignLiveStatus = campaignLiveStatus;
+// campaign.familiarWithCrowdFunding = familiarWithCrowdFunding;
+// campaign.storeOnGaged = storeOnGaged;
+// campaign.paymentStartDate = paymentStartDate;
+// campaign.endDate = endDate;
+// campaign.endDateString = endDateString;
+// campaign.firstPaymentDate = firstPaymentDate;
+// campaign.firstPaymentDateString = firstPaymentDateString;
+//
+// let numWeeks = campaign.duration;
+// var now = new Date().getTime();
+// var goLive =
+// new Date(campaign.go_live_schedule).getTime() - new Date().getTime();
+// campaign.go_ = Math.abs(now);
+// campaign.endDate = goLive + now + numWeeks * 7 * 1000 * 60 * 60 * 24;
+// campaign.endDateString = new Date(campaign.endDate);
+// new Date(now + numWeeks * 7 * 1000 * 60 * 60 * 24);
+// campaign.endDatePledgedProfit =
+// goLive +
+// now +
+// campaign.duration * (7 * 1000 * 60 * 60 * 24) +
+// campaign.duration_pledged_profit * (30 * 1000 * 60 * 60 * 24);
+// campaign.endDatePledgedProfitString = new Date(
+// campaign.endDatePledgedProfit
+// );
+// campaign.numberOfPaymentsToBeMade =
+// campaign.duration_pledged_profit /
+// campaign.repayment_schedule_pledged_profit;
+// const repaymentTime = Math.abs(
+// campaign.endDatePledgedProfit - campaign.endDate
+// );
+// campaign.timePerPayment =
+// repaymentTime /
+// (campaign.duration_pledged_profit /
+// campaign.repayment_schedule_pledged_profit);
+// campaign.firstPaymentDate = campaign.endDate + campaign.timePerPayment;
+// campaign.firstPaymentDateString = new Date(campaign.firstPaymentDate);
+// let n =
+// campaign.duration_pledged_profit /
+// campaign.repayment_schedule_pledged_profit;
+// for (let i = 0; i < n; i++) {}
+//
+// const updatedCampaign = await campaign.save();
+// res.json(updatedCampaign);
+// } else {
+// res.status(404);
+// throw new Error("Campaign not found");
+// }
+// });
+//
+// const DeleteCampaign = asyncHandler(async (req, res) => {
+// const campaign = await Campaign.findById(req.params.id);
+//
+// if (campaign.user.toString() !== req.user._id.toString()) {
+// res.status(401);
+// throw new Error("You can't perform this action");
+// }
+//
+// if (campaign) {
+// await campaign.remove();
+// res.json({ message: "Campaign Deleted" });
+// } else {
+// res.status(404);
+// throw new Error("Campaign not Found");
+// }
+// });
 
 //Create New Individual Review or Update an Individual review
 // const createIndividualCampaignReview = catchAsyncErrors(
@@ -994,8 +994,8 @@ module.exports = {
   // getAllCampaigns,
   CreateCampaign,
   getCampaignById,
-  UpdateCampaign,
-  DeleteCampaign,
+  // UpdateCampaign,
+  // DeleteCampaign,
   getCampaignDetails,
   // createIndividualCampaignReview,
   // getIndividualCampaignReviews,

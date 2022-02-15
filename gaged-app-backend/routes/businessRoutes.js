@@ -17,10 +17,13 @@ const {
   deleteBusiness,
 
   getAllCampaigns,
+  getSingleCampaign,
   createCampaignStarted,
   getListOfCampaignsStarted,
   getMyListOfCampaignsStarted,
   deleteCampaignStarted,
+  UpdateCampaign,
+  DeleteCampaign,
 
   createIndividualCampaignReview,
   getIndividualCampaignReviews,
@@ -91,11 +94,13 @@ const {
   getMyListOfCampaignsPayouts,
   getListOfCampaignsPayouts,
   createCampaignPayout,
+
   createStoreProduct,
   getMyListOfStoreProducts,
   getListOfStoreProducts,
   deleteBusinessStoreProduct,
   UpdateBusinessStoreProduct,
+
   createIndividualReviewProduct,
   getIndividualReviewsProduct,
   deleteIndividualReviewProduct,
@@ -146,13 +151,9 @@ router.route("/me/update").put(protectBusiness, updateProfile);
 
 router.route("/new-product").put(protectBusiness, createStoreProduct);
 
-router
-  .route("/products")
-  .get(getListOfStoreProducts)
-  .delete(protectBusiness, deleteBusinessStoreProduct);
+router.route("/products").get(getListOfStoreProducts);
 
 router.route("/products/me").get(getMyListOfStoreProducts);
-router.route("products/me").put(UpdateBusinessStoreProduct);
 
 router
   .route("/business-order-from")
@@ -408,7 +409,16 @@ router
   .delete(protectBusiness, authorizeRoles("admin"), deleteBusiness);
 
 router.route("/profile/business/id/:id").get(getSingleBusiness);
-router.route("/products/business/id/:id").get(getSingleProduct);
+router
+  .route("/products/business/id/:id")
+  .get(getSingleProduct)
+  .put(UpdateBusinessStoreProduct)
+  .delete(protectBusiness, deleteBusinessStoreProduct);
+router
+  .route("/campaigns/business/id/:id")
+  .get(getSingleCampaign)
+  .put(protectBusiness, UpdateCampaign)
+  .delete(protectBusiness, DeleteCampaign);
 
 router
   .route("products/review/individual")

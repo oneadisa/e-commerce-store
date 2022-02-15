@@ -55,9 +55,10 @@ var x = setInterval(function () {
   } else {
     p = <p className="text-lg">EXPIRED</p>;
   }
-
+}
   return (
     <div>
+      <Link to={`/campaigns/business/id/${campaign._id}`}>
       <div className="flex flex-col gap-1 bg-white px-2 lg:px-4 pt-2 lg:pt-3 pb-3 lg:pb-5">
         <div>
           <img src={campaign.OwnerLogo} className="w-full" alt="" />
@@ -76,6 +77,7 @@ var x = setInterval(function () {
           <p className="text-base text-red-500">{p}</p>
         </div>
       </div>
+      </Link>
     </div>
   );
 }

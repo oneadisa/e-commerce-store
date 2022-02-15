@@ -14,16 +14,19 @@ import MetaData from "../../Layout/metaData";
 import {
   clearErrors,
   getCampaignDetails,
-  newBusinessReview,
-} from "../../../actions/campaignActions";
-import { NEW_CAMPAIGN_BUSINESS_REVIEW_RESET } from "../../../constants/campaignConstants";
+  newBusinessCampaignReview,
+} from "../../../actions/businessActions";
+import {
+  NEW_CAMPAIGN_BUSINESS_REVIEW_RESET,
+  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
+} from "../../../constants/businessConstants";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import IndividualCampaignReviewCard from "../individualCampaignReviewCard";
 import BusinessCampaignReviewCard from "../businessCampaignReviewCard.js.js";
 import LendHistoryCard from "../lendHistoryCard";
 import RepaymentHistoryCard from "../repaymentHistoryCard";
 
-function LoanThirdBusiness() {
+function CampaignDetails() {
   const dispatch = useDispatch();
   const alert = useAlert();
   let params = useParams();
@@ -59,7 +62,7 @@ function LoanThirdBusiness() {
     myForm.set("comment", comment);
     myForm.set("campaignId", params.id);
 
-    dispatch(newBusinessReview(myForm));
+    dispatch(newBusinessCampaignReview(myForm));
 
     setOpen(false);
   };
@@ -77,7 +80,10 @@ function LoanThirdBusiness() {
 
     if (success) {
       alert.success("Review Submitted Successfully");
-      dispatch({ type: NEW_CAMPAIGN_BUSINESS_REVIEW_RESET });
+      dispatch({
+        type: NEW_CAMPAIGN_BUSINESS_REVIEW_RESET,
+        NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
+      });
     }
     dispatch(getCampaignDetails(params.id));
   }, [dispatch, params.id, error, alert, reviewError, success]);
@@ -365,4 +371,4 @@ function LoanThirdBusiness() {
   );
 }
 
-export default LoanThirdBusiness;
+export default CampaignDetails;

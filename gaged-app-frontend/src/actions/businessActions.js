@@ -104,7 +104,22 @@ import {
   NEW_STORE_PRODUCT_FAIL,
   NEW_STORE_PRODUCT_REQUEST,
   NEW_STORE_PRODUCT_SUCCESS,
+  UPDATE_STORE_PRODUCT_FAIL,
+  UPDATE_STORE_PRODUCT_REQUEST,
+  UPDATE_STORE_PRODUCT_SUCCESS,
   DELETE_STORE_PRODUCT_REQUEST,
+  STORE_PRODUCTS_CREATE_RESET,
+  STORE_PRODUCTS_CREATE_SUCCESS,
+  STORE_PRODUCTS_CREATE_FAIL,
+  STORE_PRODUCTS_CREATE_REQUEST,
+  STORE_PRODUCTS_UPDATE_RESET,
+  STORE_PRODUCTS_UPDATE_SUCCESS,
+  STORE_PRODUCTS_UPDATE_FAIL,
+  STORE_PRODUCTS_UPDATE_REQUEST,
+  STORE_PRODUCTS_DELETE_RESET,
+  STORE_PRODUCTS_DELETE_SUCCESS,
+  STORE_PRODUCTS_DELETE_FAIL,
+  STORE_PRODUCTS_DELETE_REQUEST,
   DELETE_STORE_PRODUCT_FAIL,
   DELETE_STORE_PRODUCT_SUCCESS,
   NEW_INDIVIDUAL_ORDER_REQUEST,
@@ -616,7 +631,7 @@ export const getSingleBusiness = (id) => async (dispatch) => {
   }
 };
 
-// get  Business Details 
+// get  Business Details
 export const getBusinessDetails = () => async (dispatch) => {
   try {
     dispatch({ type: BUSINESS_DETAILS_REQUEST });
@@ -672,7 +687,7 @@ export const deleteBusiness = (id) => async (dispatch) => {
 // // NEW STORE PRODUCT
 export const newProduct = (productData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_STORE_PRODUCT_REQUEST });
+    dispatch({ type: STORE_PRODUCTS_CREATE_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -685,12 +700,12 @@ export const newProduct = (productData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_STORE_PRODUCT_SUCCESS,
+      type: STORE_PRODUCTS_CREATE_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_STORE_PRODUCT_FAIL,
+      type: STORE_PRODUCTS_CREATE_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -716,21 +731,42 @@ export const getAllProducts = (id) => async (dispatch) => {
 };
 
 // Delete Product
-export const deleteStoreProduct = (productId) => async (dispatch) => {
+export const deleteStoreProduct = (id) => async (dispatch) => {
   try {
-    dispatch({ type: DELETE_STORE_PRODUCT_REQUEST });
+    dispatch({ type: STORE_PRODUCTS_DELETE_REQUEST });
 
     const { data } = await axios.delete(
-      `app/business/products?id=${productId}`
+      `app/business/products/business/id/${id}`
     );
 
     dispatch({
-      type: DELETE_STORE_PRODUCT_SUCCESS,
+      type: STORE_PRODUCTS_DELETE_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: DELETE_STORE_PRODUCT_FAIL,
+      type: STORE_PRODUCTS_DELETE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Delete Product
+export const updateStoreProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: STORE_PRODUCTS_UPDATE_REQUEST });
+
+    const { data } = await axios.delete(
+      `app/business/products/business/id/${id}`
+    );
+
+    dispatch({
+      type: STORE_PRODUCTS_UPDATE_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: STORE_PRODUCTS_UPDATE_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -2015,7 +2051,7 @@ export const deleteCampaignAction = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.delete(
-      `/app/business/campaign-started/${id}`,
+      `/app/business/campaigns/business/id/${id}`,
       config
     );
 
@@ -2035,75 +2071,43 @@ export const deleteCampaignAction = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateCampaignAction =
-  (
-    id,
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    costPrice,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    campaignCategory
-  ) =>
-  async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: UPDATE_CAMPAIGN_REQUEST,
-      });
+export const updateCampaignAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UPDATE_CAMPAIGN_REQUEST,
+    });
 
-      const {
-        signedUpBusinessLogin: { signedUpBusinessInfo },
-      } = getState();
+    const {
+      signedUpBusinessLogin: { signedUpBusinessInfo },
+    } = getState();
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+      },
+    };
 
-      const { data } = await axios.put(
-        `/app/business/campaigns/${id}`,
-        {
-          productTitle,
-          shortDescription,
-          productDetails,
-          standardPrice,
-          discountedPrice,
-          costPrice,
-          productStockCount,
-          productUnitCount,
-          productSKU,
-          productImageOne,
-          productImageTwo,
-          productImageThree,
-          campaignCategory,
-        },
-        config
-      );
+    const { data } = await axios.put(
+      `/app/business/campaigns/business/id/${id}`,
+      config
+    );
 
-      dispatch({
-        type: UPDATE_CAMPAIGN_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({
-        type: UPDATE_CAMPAIGN_FAIL,
-        payload: message,
-      });
-    }
-  };
+    dispatch({
+      type: UPDATE_CAMPAIGN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: UPDATE_CAMPAIGN_FAIL,
+      payload: message,
+    });
+  }
+};
 
 // Get All Campaigns
 export const getCampaign =
@@ -2237,7 +2241,9 @@ export const getCampaignDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: CAMPAIGN_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`/app/business/campaigns/campaign/${id}`);
+    const { data } = await axios.get(
+      `/app/business/campaigns/business/id/${id}`
+    );
 
     dispatch({
       type: CAMPAIGN_DETAILS_SUCCESS,

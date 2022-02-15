@@ -4,33 +4,33 @@ import Logof from "../../../../images/logo-footer.jpg";
 // import drink2 from "../../../../images/drink2.png";
 // import drink3 from "../../../../images/drink3.png";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
-import {  useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../../../Layout/metaData";
 import ProductCard from "../../../Home/productCard";
-import { getSingleBusiness, clearErrors } from "../../../../actions/businessActions";
+import { loadBusiness, clearErrors } from "../../../../actions/businessActions";
 import Loader from "../../../Layout/Loader/Loader";
-import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage"
-
+import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 
 function PublishedStore() {
   const dispatch = useDispatch();
-
-  let params = useParams()
+  let navigate = useNavigate();
 
   const alert = useAlert();
 
-
-
-  const {business, error, loading} = useSelector((state: RootStateOrAny) => state.singleBusinesses)
-  
+  const { signedUpBusinessInfo, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.signedUpBusinessInfo
+  );
   useEffect(() => {
+    if (!signedUpBusinessInfo) {
+      navigate("/");
+    }
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getSingleBusiness(params.id));
-  }, [dispatch, alert, error, params.id]);
+    dispatch(loadBusiness());
+  }, [dispatch, alert, error, signedUpBusinessInfo, navigate]);
 
   return (
     <Fragment>
@@ -38,7 +38,7 @@ function PublishedStore() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${business.businessName} -- GAGED`} />
+          <MetaData title={`${signedUpBusinessInfo.businessName} -- GAGED`} />
           {error && (
             <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
           )}
@@ -73,8 +73,8 @@ function PublishedStore() {
                 </div>
               </div>
               <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-10 text-left py-6 px-4 lg:py-10 lg:px-20 bg-magenta-blue">
-                {business.storeProducts &&
-                  business.storeProducts.map((product) => (
+                {signedUpBusinessInfo.storeProducts &&
+                  signedUpBusinessInfo.storeProducts.map((product) => (
                     <ProductCard key={product._id} product={product} />
                   ))}
               </div>
