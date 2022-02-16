@@ -176,7 +176,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
       discountedPrice: {
         type: Number,
-        required: [true, "Please Enter Discounted Product Price"],
+        required: false,
         maxLength: [8, "Price cannot exceed 8 characters"],
       },
       costPrice: {
@@ -212,54 +212,19 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
       category: {
         type: String,
-        required: [true, "Please Enter Product Category"],
+        required: false,
       },
-      individualProductReviews: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpUserTable",
-            required: false,
-          },
-          firstName: {
-            type: String,
-            required: false,
-          },
-          lastName: {
-            type: String,
-            required: false,
-          },
-          rating: {
-            type: Number,
-            default: 0,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-          comment: {
-            type: String,
-            required: false,
-          },
-          commentedAt: {
-            type: Date,
-            default: Date.now,
-          },
-        },
-      ],
-      numberOfIndividualReviews: {
-        type: Number,
-        default: 0,
-      },
-      BusinessProductReviews: [
+      reviews: [
         {
           user: {
             type: mongoose.Schema.ObjectId,
             ref: "mySignedUpBusinessTable",
             required: false,
           },
+          // firstName: {
+          // type: String,
+          // required: false,
+          // },
           name: {
             type: String,
             required: false,
@@ -268,6 +233,10 @@ const signUpBusinessTemplate = new mongoose.Schema({
             type: Number,
             default: 0,
           },
+          phoneNumber: {
+            type: Number,
+            required: false,
+          },
           pic: {
             type: String,
             required: false,
@@ -284,166 +253,196 @@ const signUpBusinessTemplate = new mongoose.Schema({
           },
         },
       ],
-      numberOfBusinessReviews: {
-        type: Number,
-        default: 0,
-      },
+      // numberOfReviews: {
+      // type: Number,
+      // default: 0,
+      // },
+      // BusinessProductReviews: [
+      // {
+      // name: {
+      // type: String,
+      // required: false,
+      // },
+      // rating: {
+      // type: Number,
+      // default: 0,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // comment: {
+      // type: String,
+      // required: false,
+      // },
+      // commentedAt: {
+      // type: Date,
+      // default: Date.now,
+      // },
+      // },
+      // ],
+      // numberOfBusinessReviews: {
+      // type: Number,
+      // default: 0,
+      // },
       totalNumberOfReviews: {
         type: Number,
         default: 0,
       },
-      businessOrders: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpBusinessTable",
-            required: false,
-          },
-          productOrdered: {
-            type: String,
-            required: false,
-          },
-          businessName: {
-            type: String,
-            required: false,
-          },
-          phoneNumber: {
-            type: Number,
-            required: false,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-          email: {
-            type: String,
-            required: false,
-          },
-        },
-      ],
-      numberOfBusinessOrders: {
-        type: Number,
-        default: 0,
-      },
-      individualOrders: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpUserTable",
-            required: false,
-          },
-          productOrdered: {
-            type: String,
-            required: false,
-          },
-          firstName: {
-            type: String,
-            required: false,
-          },
-          lastName: {
-            type: String,
-            required: false,
-          },
-          phoneNumber: {
-            type: Number,
-            required: false,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-          email: {
-            type: String,
-            required: false,
-          },
-        },
-      ],
-      numberOfIndividualOrders: {
-        type: Number,
-        default: 0,
-      },
-      totalNumberOfOrders: {
-        type: Number,
-        default: 0,
-      },
-      individualCustomers: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpUserTable",
-            required: false,
-          },
-          firstName: {
-            type: String,
-            required: false,
-          },
-          lastName: {
-            type: String,
-            required: false,
-          },
-          phoneNumber: {
-            type: Number,
-            required: false,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-          email: {
-            type: String,
-            required: false,
-          },
-        },
-      ],
-      numberOfIndividualCustomers: {
-        type: Number,
-        default: 0,
-      },
-      businessCustomers: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpBusinessTable",
-            required: false,
-          },
-          businessName: {
-            type: String,
-            required: false,
-          },
-          phoneNumber: {
-            type: Number,
-            required: false,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-          email: {
-            type: String,
-            required: false,
-          },
-          productBought: {
-            type: String,
-            required: false,
-          },
-        },
-      ],
-      numberOfBusinessCustomers: {
-        type: Number,
-        default: 0,
-      },
-      totalNumberOfCustomers: {
-        type: Number,
-        default: 0,
-      },
+      // businessOrders: [
+      // {
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpBusinessTable",
+      // required: false,
+      // },
+      // productOrdered: {
+      // type: String,
+      // required: false,
+      // },
+      // businessName: {
+      // type: String,
+      // required: false,
+      // },
+      // phoneNumber: {
+      // type: Number,
+      // required: false,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // email: {
+      // type: String,
+      // required: false,
+      // },
+      // },
+      // ],
+      // numberOfBusinessOrders: {
+      // type: Number,
+      // default: 0,
+      // },
+      // individualOrders: [
+      // {
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpUserTable",
+      // required: false,
+      // },
+      // productOrdered: {
+      // type: String,
+      // required: false,
+      // },
+      // firstName: {
+      // type: String,
+      // required: false,
+      // },
+      // lastName: {
+      // type: String,
+      // required: false,
+      // },
+      // phoneNumber: {
+      // type: Number,
+      // required: false,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // email: {
+      // type: String,
+      // required: false,
+      // },
+      // },
+      // ],
+      // numberOfIndividualOrders: {
+      // type: Number,
+      // default: 0,
+      // },
+      // totalNumberOfOrders: {
+      // type: Number,
+      // default: 0,
+      // },
+      // individualCustomers: [
+      // {
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpUserTable",
+      // required: false,
+      // },
+      // firstName: {
+      // type: String,
+      // required: false,
+      // },
+      // lastName: {
+      // type: String,
+      // required: false,
+      // },
+      // phoneNumber: {
+      // type: Number,
+      // required: false,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // email: {
+      // type: String,
+      // required: false,
+      // },
+      // },
+      // ],
+      // numberOfIndividualCustomers: {
+      // type: Number,
+      // default: 0,
+      // },
+      // businessCustomers: [
+      // {
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpBusinessTable",
+      // required: false,
+      // },
+      // businessName: {
+      // type: String,
+      // required: false,
+      // },
+      // phoneNumber: {
+      // type: Number,
+      // required: false,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // email: {
+      // type: String,
+      // required: false,
+      // },
+      // productBought: {
+      // type: String,
+      // required: false,
+      // },
+      // },
+      // ],
+      // numberOfBusinessCustomers: {
+      // type: Number,
+      // default: 0,
+      // },
+      // totalNumberOfCustomers: {
+      // type: Number,
+      // default: 0,
+      // },
       user: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
@@ -674,18 +673,18 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: String,
         required: false,
       },
-      individualCampaignReviews: [
+      reviews: [
         {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpUserTable",
-            required: false,
-          },
-          firstName: {
-            type: String,
-            required: true,
-          },
-          lastName: {
+          // user: {
+          // type: mongoose.Schema.ObjectId,
+          // ref: "mySignedUpUserTable",
+          // required: false,
+          // },
+          // firstName: {
+          // type: String,
+          // required: true,
+          // },
+          name: {
             type: String,
             required: true,
           },
@@ -705,53 +704,53 @@ const signUpBusinessTemplate = new mongoose.Schema({
           },
         },
       ],
-      numberOfIndividualReviews: {
-        type: Number,
-        default: 0,
-      },
-      businessCampaignReviews: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpBusinessTable",
-            required: false,
-          },
-          businessName: {
-            type: String,
-            required: true,
-          },
-          commentedAt: {
-            type: Date,
-            default: Date.now,
-          },
-          comment: {
-            type: String,
-            required: true,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-        },
-      ],
-      numberOfBusinessReviews: {
-        type: Number,
-        default: 0,
-      },
+      // numberOfIndividualReviews: {
+      // type: Number,
+      // default: 0,
+      // },
+      // businessCampaignReviews: [
+      // {
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpBusinessTable",
+      // required: false,
+      // },
+      // businessName: {
+      // type: String,
+      // required: true,
+      // },
+      // commentedAt: {
+      // type: Date,
+      // default: Date.now,
+      // },
+      // comment: {
+      // type: String,
+      // required: true,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // },
+      // ],
+      // numberOfBusinessReviews: {
+      // type: Number,
+      // default: 0,
+      // },
       totalNumberOfCampaignReviews: {
         type: Number,
         default: 0,
       },
-      businessCampaignDonors: [
+      donors: [
         {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpBusinessTable",
-            required: false,
-          },
-          businessName: {
+          // user: {
+          //   type: mongoose.Schema.ObjectId,
+          //   ref: "mySignedUpBusinessTable",
+          //   required: false,
+          // },
+          name: {
             type: String,
             required: false,
           },
@@ -796,70 +795,70 @@ const signUpBusinessTemplate = new mongoose.Schema({
           },
         },
       ],
-      numberOfBusinessCampaignDonors: {
-        type: Number,
-        default: 0,
-      },
-      individualCampaignDonors: [
-        {
-          user: {
-            type: mongoose.Schema.ObjectId,
-            ref: "mySignedUpUserTable",
-            required: false,
-          },
-          firstName: {
-            type: String,
-            required: false,
-          },
-          lastName: {
-            type: String,
-            required: false,
-          },
-          amount: {
-            type: Number,
-            default: 0,
-          },
-          date: {
-            type: Date,
-            default: Date.now,
-            required: false,
-          },
-          pic: {
-            type: String,
-            required: false,
-            default:
-              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-          },
-          typeOfDonation: {
-            type: String,
-            required: false,
-          },
-          amountToBeRepaid: {
-            type: Number,
-            default: 0,
-          },
-          amountToBeRepaidPerTime: {
-            type: Number,
-            default: 0,
-          },
-          firstPaymentDateDonor: {
-            type: String,
-            required: false,
-          },
-          lastPaymentDate: {
-            type: String,
-            required: false,
-          },
-          amountAlreadyRepaid: {
-            type: Number,
-            default: 0,
-          },
-        },
-      ],
-      numberOfIndividualCampaignDonors: {
-        type: Number,
-        default: 0,
-      },
+      // numberOfBusinessCampaignDonors: {
+      // type: Number,
+      // default: 0,
+      // },
+      // individualCampaignDonors: [
+      // {
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpUserTable",
+      // required: false,
+      // },
+      // firstName: {
+      // type: String,
+      // required: false,
+      // },
+      // lastName: {
+      // type: String,
+      // required: false,
+      // },
+      // amount: {
+      // type: Number,
+      // default: 0,
+      // },
+      // date: {
+      // type: Date,
+      // default: Date.now,
+      // required: false,
+      // },
+      // pic: {
+      // type: String,
+      // required: false,
+      // default:
+      // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      // },
+      // typeOfDonation: {
+      // type: String,
+      // required: false,
+      // },
+      // amountToBeRepaid: {
+      // type: Number,
+      // default: 0,
+      // },
+      // amountToBeRepaidPerTime: {
+      // type: Number,
+      // default: 0,
+      // },
+      // firstPaymentDateDonor: {
+      // type: String,
+      // required: false,
+      // },
+      // lastPaymentDate: {
+      // type: String,
+      // required: false,
+      // },
+      // amountAlreadyRepaid: {
+      // type: Number,
+      // default: 0,
+      // },
+      // },
+      // ],
+      // numberOfIndividualCampaignDonors: {
+      // type: Number,
+      // default: 0,
+      // },
       totalNumberOfCampaignDonors: {
         type: Number,
         default: 0,
@@ -1193,65 +1192,28 @@ const signUpBusinessTemplate = new mongoose.Schema({
     required: true,
     default: 0,
   },
-  individualReviews: [
+  reviews: [
     {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpUserTable",
-        required: false,
-      },
-      firstName: {
-        type: String,
-        required: true,
-      },
-      lastName: {
-        type: String,
-        required: true,
-      },
-      productTitle: {
-        type: String,
-        required: true,
-      },
-      rating: {
-        type: Number,
-        default: 0,
-      },
-      phoneNumber: {
-        type: String,
-        required: false,
-      },
-      comment: {
-        type: String,
-        required: true,
-      },
-      commentedAt: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
-  numberOfIndividualReviews: {
-    type: Number,
-    default: 0,
-  },
-  businessReviews: [
-    {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpBusinessTable",
-        required: false,
-      },
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpUserTable",
+      // required: false,
+      // },
+      // firstName: {
+      // type: String,
+      // required: true,
+      // },
       name: {
         type: String,
         required: true,
       },
-      rating: {
-        type: Number,
-        default: 0,
-      },
       productTitle: {
         type: String,
         required: true,
+      },
+      rating: {
+        type: Number,
+        default: 0,
       },
       phoneNumber: {
         type: String,
@@ -1267,10 +1229,47 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
     },
   ],
-  numberOfBusinessReviews: {
-    type: Number,
-    default: 0,
-  },
+  // numberOfIndividualReviews: {
+  // type: Number,
+  // default: 0,
+  // },
+  // businessReviews: [
+  // {
+  // user: {
+  // type: mongoose.Schema.ObjectId,
+  // ref: "mySignedUpBusinessTable",
+  // required: false,
+  // },
+  // name: {
+  // type: String,
+  // required: true,
+  // },
+  // rating: {
+  // type: Number,
+  // default: 0,
+  // },
+  // productTitle: {
+  // type: String,
+  // required: true,
+  // },
+  // phoneNumber: {
+  // type: String,
+  // required: false,
+  // },
+  // comment: {
+  // type: String,
+  // required: true,
+  // },
+  // commentedAt: {
+  // type: Date,
+  // default: Date.now,
+  // },
+  // },
+  // ],
+  // numberOfBusinessReviews: {
+  // type: Number,
+  // default: 0,
+  // },
   totalNumberOfReviews: {
     type: Number,
     default: 0,
@@ -1328,11 +1327,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
           },
         },
       ],
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpBusinessTable",
-        required: false,
-      },
+      // user: {
+      // type: mongoose.Schema.ObjectId,
+      // ref: "mySignedUpBusinessTable",
+      // required: false,
+      // },
       paymentInfo: {
         id: {
           type: String,
@@ -1716,6 +1715,11 @@ const signUpBusinessTemplate = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "mySignedUpBusinessTable",
+    required: false,
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,

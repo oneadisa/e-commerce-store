@@ -25,15 +25,16 @@ const {
   UpdateCampaign,
   DeleteCampaign,
 
-  createIndividualCampaignReview,
-  getIndividualCampaignReviews,
-  deleteIndividualCampaignReview,
+  createCampaignReview,
+  getCampaignReviews,
+  deleteCampaignReview,
   createBusinessCampaignReview,
   getBusinessCampaignReviews,
   deleteBusinessCampaignReview,
-  createIndividualCampaignDonation,
-  getIndividualCampaignDonations,
-  deleteIndividualCampaignDonation,
+  createCampaignDonation,
+  getCampaignDonations,
+  deleteCampaignDonation,
+  getParticularCampaignDonation,
   createBusinessCampaignDonation,
   getBusinessCampaignDonations,
   deleteBusinessCampaignDonation,
@@ -101,9 +102,9 @@ const {
   deleteBusinessStoreProduct,
   UpdateBusinessStoreProduct,
 
-  createIndividualReviewProduct,
-  getIndividualReviewsProduct,
-  deleteIndividualReviewProduct,
+  createReviewProduct,
+  getReviewsProduct,
+  deleteReviewProduct,
   createindividualCustomerProduct,
   getIndividualCustomersProduct,
   deleteindividualCustomerProduct,
@@ -153,7 +154,7 @@ router.route("/new-product").put(protectBusiness, createStoreProduct);
 
 router.route("/products").get(getListOfStoreProducts);
 
-router.route("/products/me").get(getMyListOfStoreProducts);
+router.route("/products/me").get(protectBusiness, getMyListOfStoreProducts);
 
 router
   .route("/business-order-from")
@@ -185,13 +186,13 @@ router
   .delete(protectBusiness, deleteBusinessCampaignReview);
 
 router
-  .route("/create-review/individual")
-  .put(protectUser, createIndividualCampaignReview);
+  .route("/create-review")
+  .put(protectUser, createCampaignReview);
 
 router
-  .route("/reviews/individual")
-  .get(getIndividualCampaignReviews)
-  .delete(protectUser, deleteIndividualCampaignReview);
+  .route("/reviews/")
+  .get(getCampaignReviews)
+  .delete(protectUser, deleteCampaignReview);
 
 router
   .route("/create-donation/business")
@@ -204,12 +205,15 @@ router
 
 router
   .route("/create-donation/individual")
-  .put(protectUser, createIndividualCampaignDonation);
+  .put(protectUser, createCampaignDonation);
 
 router
-  .route("/donations/individual")
-  .get(getIndividualCampaignDonations)
-  .delete(protectUser, deleteIndividualCampaignDonation);
+  .route("/donations/")
+  .get(getCampaignDonations)
+  .delete(protectUser, deleteCampaignDonation);
+
+  router.route("donations/one").get((protectUser,getParticularCampaignDonation)
+
 
 router
   .route("/campaign-started/me")
@@ -420,14 +424,12 @@ router
   .put(protectBusiness, UpdateCampaign)
   .delete(protectBusiness, DeleteCampaign);
 
-router
-  .route("products/review/individual")
-  .put(protectBusiness, createIndividualReviewProduct);
+router.route("/products/review").put(protectBusiness, createReviewProduct);
 
 router
-  .route("products/reviews/individual")
-  .get(getIndividualReviewsProduct)
-  .delete(protectBusiness, deleteIndividualReviewProduct);
+  .route("products/reviews/")
+  .get(getReviewsProduct)
+  .delete(protectBusiness, deleteReviewProduct);
 
 router
   .route("products/customer/individual")

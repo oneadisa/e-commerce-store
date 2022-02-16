@@ -28,8 +28,8 @@ const productOrderUrls = require("./routes/productOrderRoutes");
 app.use("/app/individual", userRouterUrls);
 app.use("/app/business", businessRouterUrls);
 app.use("/app/store", storeUrls);
-app.use("/app/store/products", storeProductUrls);
-app.use("/app/campaigns", campaignUrls);
+// app.use("/app/store/products", storeProductUrls);
+// app.use("/app/campaigns", campaignUrls);
 app.use("/app/order", productOrderUrls);
 
 app.use(express.static(path.join(__dirname, "../gaged-app-frontend/build")));

@@ -13,10 +13,10 @@ import {
 import BusinessCustomerCard from "../businessCustomerCard";
 import IndividualCustomerCard from "../individualCustomerCard";
 import { useAlert } from "react-alert";
-import MetaData from "../layout/MetaData";
+import MetaData from "../../../../../Layout/metaData";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
-import Loader from "../../../../../Layout/Loader";
+import Loader from "../../../../../Layout/Loader/Loader";
 
 function ProductsCustomers() {
   const dispatch = useDispatch();
