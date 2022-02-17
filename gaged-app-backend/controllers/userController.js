@@ -504,10 +504,10 @@ const individualCreateBusinessOrderedFrom = catchAsyncErrors(
       businessName: businessOrderedFrom.businessName,
       productName: product.productTitle,
       productDescription: product.shortDescription,
-      price: product.costPrice,
+      price: product.price,
       category: product.category,
       quantity,
-      totalPrice: product.costPrice * quantity,
+      totalPrice: product.price * quantity,
     };
 
     const individual = await signedUpUser.findById(req.user._id);

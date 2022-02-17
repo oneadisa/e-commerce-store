@@ -365,7 +365,7 @@ const signUpTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
-      costPrice: {
+      price: {
         type: Number,
         required: false,
       },

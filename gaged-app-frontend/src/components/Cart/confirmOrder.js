@@ -111,7 +111,7 @@ const ConfirmOrder = () => {
                 <span>₦{shippingCharges}</span>
               </div>
               <div>
-                <p>GST:</p>
+                <p>Gaged Fee:</p>
                 <span>₦{tax}</span>
               </div>
             </div>

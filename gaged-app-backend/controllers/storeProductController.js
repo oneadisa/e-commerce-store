@@ -210,7 +210,7 @@ const createProductAdmin = catchAsyncErrors(async (req, res, next) => {
     productDetails,
     standardPrice,
     discountedPrice,
-    costPrice,
+    price,
     productStockCount,
     productUnitCount,
     productSKU,
@@ -225,7 +225,7 @@ const createProductAdmin = catchAsyncErrors(async (req, res, next) => {
     !shortDescription ||
     !category ||
     !productDetails ||
-    !costPrice ||
+    !price ||
     !standardPrice ||
     !discountedPrice ||
     !productStockCount ||
@@ -243,7 +243,7 @@ const createProductAdmin = catchAsyncErrors(async (req, res, next) => {
       productDetails,
       standardPrice,
       discountedPrice,
-      costPrice,
+      price,
       productStockCount,
       productUnitCount,
       productSKU,
@@ -299,7 +299,7 @@ const updateProductAdmin = catchAsyncErrors(async (req, res, next) => {
     productDetails,
     standardPrice,
     discountedPrice,
-    costPrice,
+    price,
     productStockCount,
     productUnitCount,
     productSKU,
@@ -322,7 +322,7 @@ const updateProductAdmin = catchAsyncErrors(async (req, res, next) => {
     storeProduct.productDetails = productDetails;
     storeProduct.standardPrice = standardPrice;
     storeProduct.discountedPrice = discountedPrice;
-    storeProduct.costPrice = costPrice;
+    storeProduct.price = price;
     storeProduct.productStockCount = productStockCount;
     storeProduct.productUnitCount = productUnitCount;
     storeProduct.productSKU = productSKU;

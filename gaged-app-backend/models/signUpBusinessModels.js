@@ -179,7 +179,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         required: false,
         maxLength: [8, "Price cannot exceed 8 characters"],
       },
-      costPrice: {
+      price: {
         type: Number,
         required: [true, "Please Enter product Price"],
         maxLength: [8, "Price cannot exceed 8 characters"],
@@ -1034,7 +1034,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  listOfBusinessInvestors: [
+  listOfInvestors: [
     {
       user: {
         type: mongoose.Schema.ObjectId,
@@ -1080,56 +1080,56 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
     },
   ],
-  numberOfIndividualInvestors: {
-    type: Number,
-    default: 0,
-  },
-  listOfIndividualInvestors: [
-    {
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpUserTable",
-        required: false,
-      },
-      name: {
-        type: String,
-        required: false,
-      },
-      phoneNumber: {
-        type: Number,
-        required: false,
-      },
-      email: {
-        type: Number,
-        required: false,
-      },
-      campaignInvested: {
-        type: String,
-        required: [false, "All investors must have at least one fundraiser."],
-      },
-      amountInvested: {
-        type: Number,
-        required: false,
-        default: 0,
-      },
-      amountToBeRepaid: {
-        type: String,
-        required: false,
-      },
-      endDateString: {
-        type: String,
-        required: false,
-      },
-      firstPaymentDateString: {
-        type: String,
-        required: false,
-      },
-      endDatePledgedProfitString: {
-        type: String,
-        required: false,
-      },
-    },
-  ],
+  // numberOfIndividualInvestors: {
+  // type: Number,
+  // default: 0,
+  // },
+  // listOfIndividualInvestors: [
+  // {
+  // user: {
+  // type: mongoose.Schema.ObjectId,
+  // ref: "mySignedUpUserTable",
+  // required: false,
+  // },
+  // name: {
+  // type: String,
+  // required: false,
+  // },
+  // phoneNumber: {
+  // type: Number,
+  // required: false,
+  // },
+  // email: {
+  // type: Number,
+  // required: false,
+  // },
+  // campaignInvested: {
+  // type: String,
+  // required: [false, "All investors must have at least one fundraiser."],
+  // },
+  // amountInvested: {
+  // type: Number,
+  // required: false,
+  // default: 0,
+  // },
+  // amountToBeRepaid: {
+  // type: String,
+  // required: false,
+  // },
+  // endDateString: {
+  // type: String,
+  // required: false,
+  // },
+  // firstPaymentDateString: {
+  // type: String,
+  // required: false,
+  // },
+  // endDatePledgedProfitString: {
+  // type: String,
+  // required: false,
+  // },
+  // },
+  // ],
   totalNumberOfInvestors: {
     type: Number,
     default: 0,
@@ -1274,7 +1274,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  businessOrders: [
+  orders: [
     {
       shippingInfo: {
         address: {
@@ -1302,31 +1302,50 @@ const signUpBusinessTemplate = new mongoose.Schema({
           required: true,
         },
       },
-      orderItems: [
-        {
-          productTitle: {
-            type: String,
-            required: true,
-          },
-          costPrice: {
-            type: Number,
-            required: true,
-          },
-          quantity: {
-            type: Number,
-            required: true,
-          },
-          image: {
-            type: String,
-            required: true,
-          },
-          product: {
-            type: mongoose.Schema.ObjectId,
-            ref: "StoreProduct",
-            required: true,
-          },
+      userInfo: {
+        name: {
+          type: String,
+          required: false,
         },
-      ],
+        phoneNumber: {
+          type: Number,
+          required: false,
+        },
+        pic: {
+          type: String,
+          required: false,
+          default:
+            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        },
+        email: {
+          type: String,
+          required: false,
+        },
+      },
+
+      orderItem: {
+        productTitle: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        image: {
+          type: String,
+          required: true,
+        },
+        // product: {
+        // type: mongoose.Schema.ObjectId,
+        // ref: "StoreProduct",
+        // required: true,
+        // },
+      },
       // user: {
       // type: mongoose.Schema.ObjectId,
       // ref: "mySignedUpBusinessTable",
@@ -1346,7 +1365,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Date,
         required: true,
       },
-      itemsPrice: {
+      itemPrice: {
         type: Number,
         required: true,
         default: 0,
@@ -1378,118 +1397,118 @@ const signUpBusinessTemplate = new mongoose.Schema({
       },
     },
   ],
-  numberOfBusinessOrders: {
-    type: Number,
-    default: 0,
-  },
-  individualOrders: [
-    {
-      shippingInfo: {
-        address: {
-          type: String,
-          required: true,
-        },
-        city: {
-          type: String,
-          required: true,
-        },
-        state: {
-          type: String,
-          required: true,
-        },
-        country: {
-          type: String,
-          required: true,
-        },
-        pinCode: {
-          type: Number,
-          required: true,
-        },
-        phoneNo: {
-          type: Number,
-          required: true,
-        },
-      },
-      orderItems: [
-        {
-          productTitle: {
-            type: String,
-            required: true,
-          },
-          costPrice: {
-            type: Number,
-            required: true,
-          },
-          quantity: {
-            type: Number,
-            required: true,
-          },
-          images: {
-            type: String,
-            required: true,
-          },
-          product: {
-            type: mongoose.Schema.ObjectId,
-            ref: "StoreProduct",
-            required: true,
-          },
-        },
-      ],
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "mySignedUpUserTable",
-        required: false,
-      },
-      paymentInfo: {
-        id: {
-          type: String,
-          required: true,
-        },
-        status: {
-          type: String,
-          required: true,
-        },
-      },
-      paidAt: {
-        type: Date,
-        required: true,
-      },
-      itemsPrice: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      taxPrice: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      shippingPrice: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      totalPrice: {
-        type: Number,
-        required: true,
-        default: 0,
-      },
-      orderStatus: {
-        type: String,
-        required: true,
-        default: "Processing",
-      },
-      deliveredAt: Date,
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
-  numberOfIndividualOrders: {
-    type: Number,
-    default: 0,
-  },
+  // numberOfBusinessOrders: {
+  // type: Number,
+  // default: 0,
+  // },
+  // individualOrders: [
+  // {
+  // shippingInfo: {
+  // address: {
+  // type: String,
+  // required: true,
+  // },
+  // city: {
+  // type: String,
+  // required: true,
+  // },
+  // state: {
+  // type: String,
+  // required: true,
+  // },
+  // country: {
+  // type: String,
+  // required: true,
+  // },
+  // pinCode: {
+  // type: Number,
+  // required: true,
+  // },
+  // phoneNo: {
+  // type: Number,
+  // required: true,
+  // },
+  // },
+  // orderItems: [
+  // {
+  // productTitle: {
+  // type: String,
+  // required: true,
+  // },
+  // price: {
+  // type: Number,
+  // required: true,
+  // },
+  // quantity: {
+  // type: Number,
+  // required: true,
+  // },
+  // images: {
+  // type: String,
+  // required: true,
+  // },
+  // product: {
+  // type: mongoose.Schema.ObjectId,
+  // ref: "StoreProduct",
+  // required: true,
+  // },
+  // },
+  // ],
+  // user: {
+  // type: mongoose.Schema.ObjectId,
+  // ref: "mySignedUpUserTable",
+  // required: false,
+  // },
+  // paymentInfo: {
+  // id: {
+  // type: String,
+  // required: true,
+  // },
+  // status: {
+  // type: String,
+  // required: true,
+  // },
+  // },
+  // paidAt: {
+  // type: Date,
+  // required: true,
+  // },
+  // itemsPrice: {
+  // type: Number,
+  // required: true,
+  // default: 0,
+  // },
+  // taxPrice: {
+  // type: Number,
+  // required: true,
+  // default: 0,
+  // },
+  // shippingPrice: {
+  // type: Number,
+  // required: true,
+  // default: 0,
+  // },
+  // totalPrice: {
+  // type: Number,
+  // required: true,
+  // default: 0,
+  // },
+  // orderStatus: {
+  // type: String,
+  // required: true,
+  // default: "Processing",
+  // },
+  // deliveredAt: Date,
+  // createdAt: {
+  // type: Date,
+  // default: Date.now,
+  // },
+  // },
+  // ],
+  // numberOfIndividualOrders: {
+  // type: Number,
+  // default: 0,
+  //},
   totalNumberOfOrders: {
     type: Number,
     default: 0,
@@ -1682,7 +1701,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
-      costPrice: {
+      price: {
         type: Number,
         required: false,
       },

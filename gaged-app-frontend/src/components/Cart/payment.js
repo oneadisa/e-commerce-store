@@ -11,38 +11,61 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import "./payment.css";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import {
-  createBusinessOrder,
-  clearErrors,
-} from "../../actions/businessOrderActions";
-import { createIndividualOrder } from "../../actions/individualOrderActions";
-import {} from "../../actions/businessActions"
+import {} from "../../actions/businessActions";
 
-const Payment = ({ history }) => {
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+
+const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
   const dispatch = useDispatch();
   const alert = useAlert();
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const payBtn = useRef(null);
 
-  const { shippingInfo, cartItems } = useSelector((state: RootStateOrAny) => state.cart);
-  const { user } = useSelector((state: RootStateOrAny) => state.user);
-  const { error } = useSelector((state:RootStateOrAny) => state.newOrder);
+  const { shippingInfo, cartItems } = useSelector(
+    (state: RootStateOrAny) => state.cart
+  );
+  const { signedUpBusinessInfo } = useSelector(
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  );
+  const { signedUpUserInfo } = useSelector(
+    (state: RootStateOrAny) => state.signedUpUserLogin
+  );
+  const { error } = useSelector((state: RootStateOrAny) => state.newOrder);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
   };
 
+  if (signedUpBusinessInfo) {
+    var userInfo = {
+      name: signedUpBusinessInfo.businessName,
+      phoneNumber: signedUpBusinessInfo.phoneNumber,
+      email: signedUpBusinessInfo.email,
+      pic: signedUpBusinessInfo.pic,
+    };
+  } else {
+    userInfo = {
+      name: signedUpUserInfo.firstName + " " + signedUpUserInfo.lastName,
+      phoneNumber: signedUpUserInfo.phoneNumber,
+      email: signedUpUserInfo.email,
+      pic: signedUpUserInfo.pic,
+    };
+  }
+
   const order = {
     shippingInfo,
+    userInfo,
     orderItems: cartItems,
     itemsPrice: orderInfo.subtotal,
     taxPrice: orderInfo.tax,
@@ -75,8 +98,8 @@ const Payment = ({ history }) => {
         payment_method: {
           card: elements.getElement(CardNumberElement),
           billing_details: {
-            name: user.name,
-            email: user.email,
+            name: userInfo.name,
+            email: userInfo.email,
             address: {
               line1: shippingInfo.address,
               city: shippingInfo.city,
@@ -101,7 +124,7 @@ const Payment = ({ history }) => {
 
           dispatch(createOrder(order));
 
-          history.push("/success");
+          navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
         }
@@ -112,6 +135,31 @@ const Payment = ({ history }) => {
     }
   };
 
+  const config = {
+    public_key: process.env.FLUTTERWAVE_PUBLIC_KEY,
+    tx_ref: Date.now(),
+    amount: orderInfo.totalPrice,
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: userInfo.email,
+      phonenumber: userInfo.phoneNumber,
+      name: userInfo.name,
+    },
+    address: {
+      line1: shippingInfo.address,
+      city: shippingInfo.city,
+      state: shippingInfo.state,
+      postal_code: shippingInfo.pinCode,
+      country: shippingInfo.country,
+    },
+    customizations: {
+      title: "",
+      description: "Gaged Checkout",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+  };
+  const handleFlutterPayment = useFlutterwave(config);
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -124,28 +172,24 @@ const Payment = ({ history }) => {
       <MetaData title="Payment" />
       <CheckoutSteps activeStep={2} />
       <div className="paymentContainer">
-        <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
-          <Typography>Card Info</Typography>
-          <div>
-            <CreditCardIcon />
-            <CardNumberElement className="paymentInput" />
-          </div>
-          <div>
-            <EventIcon />
-            <CardExpiryElement className="paymentInput" />
-          </div>
-          <div>
-            <VpnKeyIcon />
-            <CardCvcElement className="paymentInput" />
-          </div>
-
-          <input
-            type="submit"
-            value={`Pay - ₦${orderInfo && orderInfo.totalPrice}`}
+        <div className="App">
+          <h1>Welcome</h1>
+          <button
+            // onClick={() => {
+            // handleFlutterPayment({
+            // callback: (response) => {
+            // console.log(response);
+            // closePaymentModal(); // this will close the modal programmatically
+            // },
+            // onClose: () => {},
+            // });
+            // }}
+            onClick={(e) => submitHandler(e)}
             ref={payBtn}
-            className="paymentFormBtn"
-          />
-        </form>
+          >
+            Pay - ₦{orderInfo && orderInfo.totalPrice}
+          </button>
+        </div>
       </div>
     </Fragment>
   );

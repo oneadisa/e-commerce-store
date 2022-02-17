@@ -10,7 +10,7 @@ const ProductsCard = ({ product, props }) => {
       <p></p>
       <p>{product.productTitle}</p>
       <p>{product.productUnitCount}</p>
-      <p>{product.costPrice}</p>
+      <p>{product.price}</p>
       <Fragment>
         <Link to={`/products/${props.params.getValue(props.params.id, "id")}`}>
           <EditIcon />
