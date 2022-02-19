@@ -1,15 +1,16 @@
 import React from "react";
+import profilePng from "../../../../../images/Profile.png";
 
-const OrderCard = ({ review }) => {
+const OrderCard = ({ order }) => {
   return (
-    <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between mt-5 pb-2 px-2">
-      <p></p>
-      <p>Product 1</p>
-      <p>John Doe</p>
-      <p>PHONE</p>
-      <p>TOTAL</p>
-      <p>STATUS</p>
-      <p>ACTION</p>
+    <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between mt-5 pb-2 px-2 hover:bg-light-blue">
+      <img src={profilePng} alt="User" />
+      <p>{order.productOrdered.productName}</p>
+      <p>{order.name}</p>
+      <p>{order.phoneNumber}</p>
+      <p>{order.email}</p>
+      <p>{order.totalPrice}</p>
+      <p>{order.orderStatus}</p>
     </div>
   );
 };

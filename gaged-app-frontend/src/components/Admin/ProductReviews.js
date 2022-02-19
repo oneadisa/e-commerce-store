@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import "./productReviews.css";
+import "./newnewProductReview.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
@@ -16,7 +16,7 @@ import Star from "@material-ui/icons/Star";
 import SideBar from "./Sidebar";
 import { DELETE_REVIEW_RESET } from "../../constants/productConstants";
 
-const ProductReviews = ({ history }) => {
+const newnewProductReview = ({ history }) => {
   const dispatch = useDispatch();
 
   const alert = useAlert();
@@ -26,7 +26,7 @@ const ProductReviews = ({ history }) => {
   );
 
   const { error, reviews, loading } = useSelector(
-    (state) => state.productReviews
+    (state) => state.newnewProductReview
   );
 
   const [productId, setProductId] = useState("");
@@ -35,7 +35,7 @@ const ProductReviews = ({ history }) => {
     dispatch(deleteReviews(reviewId, productId));
   };
 
-  const productReviewsSubmitHandler = (e) => {
+  const newProductReviewsSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(getAllReviews(productId));
   };
@@ -133,12 +133,12 @@ const ProductReviews = ({ history }) => {
 
       <div className="dashboard">
         <SideBar />
-        <div className="productReviewsContainer">
+        <div className="newProductReviewsContainer">
           <form
-            className="productReviewsForm"
-            onSubmit={productReviewsSubmitHandler}
+            className="newProductReviewsForm"
+            onSubmit={newProductReviewsSubmitHandler}
           >
-            <h1 className="productReviewsFormHeading">ALL REVIEWS</h1>
+            <h1 className="newProductReviewsFormHeading">ALL REVIEWS</h1>
 
             <div>
               <Star />
@@ -172,7 +172,7 @@ const ProductReviews = ({ history }) => {
               autoHeight
             />
           ) : (
-            <h1 className="productReviewsFormHeading">No Reviews Found</h1>
+            <h1 className="newProductReviewsFormHeading">No Reviews Found</h1>
           )}
         </div>
       </div>
@@ -180,4 +180,4 @@ const ProductReviews = ({ history }) => {
   );
 };
 
-export default ProductReviews;
+export default newnewProductReview;

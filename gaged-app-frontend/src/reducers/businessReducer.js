@@ -43,17 +43,17 @@ import {
   BUSINESS_DETAILS_REQUEST,
   BUSINESS_DETAILS_SUCCESS,
   BUSINESS_DETAILS_FAIL,
-  NEW_BUSINESS_ORDERED_FROM_REQUEST,
-  NEW_BUSINESS_ORDERED_FROM_RESET,
-  NEW_BUSINESS_ORDERED_FROM_SUCCESS,
-  NEW_BUSINESS_ORDERED_FROM_FAIL,
-  ALL_BUSINESS_ORDERED_FROM_SUCCESS,
-  ALL_BUSINESS_ORDERED_FROM_REQUEST,
-  ALL_BUSINESS_ORDERED_FROM_FAIL,
-  DELETE_BUSINESS_ORDERED_FROM_REQUEST,
-  DELETE_BUSINESS_ORDERED_FROM_FAIL,
-  DELETE_BUSINESS_ORDERED_FROM_SUCCESS,
-  DELETE_BUSINESS_ORDERED_FROM_RESET,
+  NEW_ORDERED_FROM_REQUEST,
+  NEW_ORDERED_FROM_RESET,
+  NEW_ORDERED_FROM_SUCCESS,
+  NEW_ORDERED_FROM_FAIL,
+  ALL_ORDERED_FROM_SUCCESS,
+  ALL_ORDERED_FROM_REQUEST,
+  ALL_ORDERED_FROM_FAIL,
+  DELETE_ORDERED_FROM_REQUEST,
+  DELETE_ORDERED_FROM_FAIL,
+  DELETE_ORDERED_FROM_SUCCESS,
+  DELETE_ORDERED_FROM_RESET,
   NEW_CAMPAIGN_INVESTED_REQUEST,
   NEW_CAMPAIGN_INVESTED_SUCCESS,
   NEW_CAMPAIGN_INVESTED_RESET,
@@ -128,72 +128,72 @@ import {
   DELETE_STORE_PRODUCT_RESET,
   NEW_INDIVIDUAL_ORDER_RESET,
   NEW_INDIVIDUAL_ORDER_FAIL,
-  NEW_BUSINESS_ORDER_REQUEST,
-  NEW_BUSINESS_ORDER_SUCCESS,
-  NEW_BUSINESS_ORDER_RESET,
-  NEW_BUSINESS_ORDER_FAIL,
+  NEW_ORDER_REQUEST,
+  NEW_ORDER_SUCCESS,
+  NEW_ORDER_RESET,
+  NEW_ORDER_FAIL,
   ALL_INDIVIDUAL_ORDER_REQUEST,
   ALL_INDIVIDUAL_ORDER_SUCCESS,
   ALL_INDIVIDUAL_ORDER_FAIL,
-  ALL_BUSINESS_ORDER_REQUEST,
-  ALL_BUSINESS_ORDER_SUCCESS,
-  ALL_BUSINESS_ORDER_FAIL,
+  ALL_ORDER_REQUEST,
+  ALL_ORDER_SUCCESS,
+  ALL_ORDER_FAIL,
   UPDATE_INDIVIDUAL_ORDER_REQUEST,
   UPDATE_INDIVIDUAL_ORDER_SUCCESS,
   UPDATE_INDIVIDUAL_ORDER_RESET,
   UPDATE_INDIVIDUAL_ORDER_FAIL,
-  UPDATE_BUSINESS_ORDER_REQUEST,
-  UPDATE_BUSINESS_ORDER_SUCCESS,
-  UPDATE_BUSINESS_ORDER_RESET,
-  UPDATE_BUSINESS_ORDER_FAIL,
+  UPDATE_ORDER_REQUEST,
+  UPDATE_ORDER_SUCCESS,
+  UPDATE_ORDER_RESET,
+  UPDATE_ORDER_FAIL,
   DELETE_INDIVIDUAL_ORDER_REQUEST,
   DELETE_INDIVIDUAL_ORDER_SUCCESS,
   DELETE_INDIVIDUAL_ORDER_RESET,
   DELETE_INDIVIDUAL_ORDER_FAIL,
-  DELETE_BUSINESS_ORDER_REQUEST,
-  DELETE_BUSINESS_ORDER_SUCCESS,
-  DELETE_BUSINESS_ORDER_RESET,
-  DELETE_BUSINESS_ORDER_FAIL,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_RESET,
+  DELETE_ORDER_FAIL,
   DELETE_INDIVIDUAL_CUSTOMER_REQUEST,
   DELETE_INDIVIDUAL_CUSTOMER_SUCCESS,
   DELETE_INDIVIDUAL_CUSTOMER_RESET,
   DELETE_INDIVIDUAL_CUSTOMER_FAIL,
-  DELETE_BUSINESS_CUSTOMER_REQUEST,
-  DELETE_BUSINESS_CUSTOMER_SUCCESS,
-  DELETE_BUSINESS_CUSTOMER_RESET,
-  DELETE_BUSINESS_CUSTOMER_FAIL,
+  DELETE_CUSTOMER_REQUEST,
+  DELETE_CUSTOMER_SUCCESS,
+  DELETE_CUSTOMER_RESET,
+  DELETE_CUSTOMER_FAIL,
   NEW_INDIVIDUAL_CUSTOMER_REQUEST,
   NEW_INDIVIDUAL_CUSTOMER_SUCCESS,
   NEW_INDIVIDUAL_CUSTOMER_RESET,
   NEW_INDIVIDUAL_CUSTOMER_FAIL,
-  NEW_BUSINESS_CUSTOMER_REQUEST,
-  NEW_BUSINESS_CUSTOMER_SUCCESS,
-  NEW_BUSINESS_CUSTOMER_RESET,
-  NEW_BUSINESS_CUSTOMER_FAIL,
+  NEW_CUSTOMER_REQUEST,
+  NEW_CUSTOMER_SUCCESS,
+  NEW_CUSTOMER_RESET,
+  NEW_CUSTOMER_FAIL,
   ALL_INDIVIDUAL_CUSTOMER_REQUEST,
   ALL_INDIVIDUAL_CUSTOMER_SUCCESS,
   ALL_INDIVIDUAL_CUSTOMER_FAIL,
-  ALL_BUSINESS_CUSTOMER_REQUEST,
-  ALL_BUSINESS_CUSTOMER_SUCCESS,
-  ALL_BUSINESS_CUSTOMER_FAIL,
-  ALL_INDIVIDUAL_REVIEWS_REQUEST,
-  ALL_INDIVIDUAL_REVIEWS_SUCCESS,
-  ALL_INDIVIDUAL_REVIEWS_FAIL,
+  ALL_CUSTOMER_REQUEST,
+  ALL_CUSTOMER_SUCCESS,
+  ALL_CUSTOMER_FAIL,
+  ALL_REVIEWS_REQUEST,
+  ALL_REVIEWS_SUCCESS,
+  ALL_REVIEWS_FAIL,
   ALL_BUSINESS_REVIEWS_REQUEST,
   ALL_BUSINESS_REVIEWS_SUCCESS,
   ALL_BUSINESS_REVIEWS_FAIL,
-  NEW_INDIVIDUAL_REVIEW_REQUEST,
-  NEW_INDIVIDUAL_REVIEW_SUCCESS,
-  NEW_INDIVIDUAL_REVIEW_RESET,
-  NEW_INDIVIDUAL_REVIEW_FAIL,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_RESET,
+  NEW_REVIEW_FAIL,
   NEW_BUSINESS_REVIEW_REQUEST,
   NEW_BUSINESS_REVIEW_SUCCESS,
   NEW_BUSINESS_REVIEW_RESET,
   NEW_BUSINESS_REVIEW_FAIL,
-  DELETE_INDIVIDUAL_REVIEW_REQUEST,
-  DELETE_INDIVIDUAL_REVIEW_SUCCESS,
-  DELETE_INDIVIDUAL_REVIEW_RESET,
-  DELETE_INDIVIDUAL_REVIEW_FAIL,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_RESET,
+  DELETE_REVIEW_FAIL,
   DELETE_BUSINESS_REVIEW_REQUEST,
   DELETE_BUSINESS_REVIEW_SUCCESS,
   DELETE_BUSINESS_REVIEW_RESET,
@@ -220,26 +220,26 @@ import {
   ALL_INDIVIDUAL_PRODUCT_REVIEWS_SUCCESS,
   ALL_INDIVIDUAL_PRODUCT_REVIEWS_RESET,
   ALL_INDIVIDUAL_PRODUCT_REVIEWS_FAIL,
-  ALL_BUSINESS_PRODUCT_REVIEWS_REQUEST,
-  ALL_BUSINESS_PRODUCT_REVIEWS_SUCCESS,
-  ALL_BUSINESS_PRODUCT_REVIEWS_FAIL,
-  ALL_BUSINESS_PRODUCT_REVIEWS_RESET,
+  ALL_PRODUCT_REVIEWS_REQUEST,
+  ALL_PRODUCT_REVIEWS_SUCCESS,
+  ALL_PRODUCT_REVIEWS_FAIL,
+  ALL_PRODUCT_REVIEWS_RESET,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_RESET,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
-  NEW_BUSINESS_PRODUCT_REVIEW_REQUEST,
-  NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS,
-  NEW_BUSINESS_PRODUCT_REVIEW_RESET,
-  NEW_BUSINESS_PRODUCT_REVIEW_FAIL,
+  NEW_PRODUCT_REVIEW_REQUEST,
+  NEW_PRODUCT_REVIEW_SUCCESS,
+  NEW_PRODUCT_REVIEW_RESET,
+  NEW_PRODUCT_REVIEW_FAIL,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_REQUEST,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_RESET,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
-  DELETE_BUSINESS_PRODUCT_REVIEW_REQUEST,
-  DELETE_BUSINESS_PRODUCT_REVIEW_SUCCESS,
-  DELETE_BUSINESS_PRODUCT_REVIEW_RESET,
-  DELETE_BUSINESS_PRODUCT_REVIEW_FAIL,
+  DELETE_PRODUCT_REVIEW_REQUEST,
+  DELETE_PRODUCT_REVIEW_SUCCESS,
+  DELETE_PRODUCT_REVIEW_RESET,
+  DELETE_PRODUCT_REVIEW_FAIL,
   NEW_INDIVIDUAL_DONOR_SUCCESS,
   NEW_INDIVIDUAL_DONOR_FAIL,
   NEW_INDIVIDUAL_DONOR_RESET,
@@ -251,39 +251,28 @@ import {
   DELETE_INDIVIDUAL_DONOR_SUCCESS,
   DELETE_INDIVIDUAL_DONOR_FAIL,
   DELETE_INDIVIDUAL_DONOR_RESET,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
-  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST,
-  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS,
-  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
-  NEW_BUSINESS_DONOR_SUCCESS,
-  NEW_BUSINESS_DONOR_FAIL,
-  NEW_BUSINESS_DONOR_RESET,
-  NEW_BUSINESS_DONOR_REQUEST,
-  ALL_BUSINESS_DONORS_REQUEST,
-  ALL_BUSINESS_DONORS_SUCCESS,
-  ALL_BUSINESS_DONORS_FAIL,
-  DELETE_BUSINESS_DONOR_REQUEST,
-  DELETE_BUSINESS_DONOR_SUCCESS,
-  DELETE_BUSINESS_DONOR_FAIL,
-  DELETE_BUSINESS_DONOR_RESET,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_RESET,
-  ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST,
-  ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS,
-  ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_RESET,
+  NEW_DONOR_SUCCESS,
+  NEW_DONOR_FAIL,
+  NEW_DONOR_RESET,
+  NEW_DONOR_REQUEST,
+  ALL_DONORS_REQUEST,
+  ALL_DONORS_SUCCESS,
+  ALL_DONORS_FAIL,
+  DELETE_DONOR_REQUEST,
+  DELETE_DONOR_SUCCESS,
+  DELETE_DONOR_FAIL,
+  DELETE_DONOR_RESET,
+  NEW_CAMPAIGN_REVIEW_REQUEST,
+  NEW_CAMPAIGN_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_REVIEW_FAIL,
+  NEW_CAMPAIGN_REVIEW_RESET,
+  ALL_CAMPAIGN_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_REVIEW_FAIL,
+  DELETE_CAMPAIGN_REVIEW_RESET,
   ALL_CAMPAIGN_FAIL,
   ALL_CAMPAIGN_REQUEST,
   ALL_CAMPAIGN_SUCCESS,
@@ -614,17 +603,17 @@ export const businessAllBusinessOrderedFromReducer = (
   action
 ) => {
   switch (action.type) {
-    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+    case ALL_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+    case ALL_ORDERED_FROM_SUCCESS:
       return {
         loading: false,
         businessOrderedFrom: action.payload,
       };
-    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+    case ALL_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
@@ -646,17 +635,17 @@ export const businessMyBusinessOrderedFromReducer = (
   action
 ) => {
   switch (action.type) {
-    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+    case ALL_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+    case ALL_ORDERED_FROM_SUCCESS:
       return {
         loading: false,
         businessOrderedFrom: action.payload,
       };
-    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+    case ALL_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
@@ -678,24 +667,24 @@ export const businessNewBusinessOrderedFromReducer = (
   action
 ) => {
   switch (action.type) {
-    case NEW_BUSINESS_ORDERED_FROM_REQUEST:
+    case NEW_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_BUSINESS_ORDERED_FROM_SUCCESS:
+    case NEW_ORDERED_FROM_SUCCESS:
       return {
         loading: false,
         success: action.payload.success,
         businessOrderedFrom: action.payload.businessOrderedFrom,
       };
-    case NEW_BUSINESS_ORDERED_FROM_FAIL:
+    case NEW_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_BUSINESS_ORDERED_FROM_RESET:
+    case NEW_ORDERED_FROM_RESET:
       return {
         ...state,
         success: false,
@@ -712,25 +701,25 @@ export const businessNewBusinessOrderedFromReducer = (
 
 export const businessBusinessOrderedFromReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_BUSINESS_ORDERED_FROM_REQUEST:
+    case DELETE_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_BUSINESS_ORDERED_FROM_SUCCESS:
+    case DELETE_ORDERED_FROM_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
 
-    case DELETE_BUSINESS_ORDERED_FROM_FAIL:
+    case DELETE_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_BUSINESS_ORDERED_FROM_RESET:
+    case DELETE_ORDERED_FROM_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -1249,7 +1238,7 @@ export const businessAllProductsReviewsReducer = (
   }
 };
 
-export const businessMyProductsReviewsReducer = (
+export const ProductReviewsReducer = (
   state = { productsReviews: [] },
   action
 ) => {
@@ -1281,7 +1270,7 @@ export const businessMyProductsReviewsReducer = (
   }
 };
 
-export const businessNewProductReviewsReducer = (
+export const newProductReviewReducer = (
   state = { productsReviews: {} },
   action
 ) => {
@@ -1318,7 +1307,7 @@ export const businessNewProductReviewsReducer = (
   }
 };
 
-export const businessProductsReviewsReducer = (state = {}, action) => {
+export const ProductReviewReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_PRODUCT_REVIEWS_REQUEST:
       return {
@@ -2060,28 +2049,25 @@ export const businessIndividualProductCustomerReducer = (
   }
 };
 
-export const businessNewIndividualProductReviewReducer = (
-  state = {},
-  action
-) => {
+export const newReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_INDIVIDUAL_REVIEW_REQUEST:
+    case NEW_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_INDIVIDUAL_REVIEW_SUCCESS:
+    case NEW_REVIEW_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_INDIVIDUAL_REVIEW_FAIL:
+    case NEW_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_INDIVIDUAL_REVIEW_RESET:
+    case NEW_REVIEW_RESET:
       return {
         ...state,
         success: false,
@@ -2096,22 +2082,19 @@ export const businessNewIndividualProductReviewReducer = (
   }
 };
 
-export const businessIndividualProductReviewsReducer = (
-  state = { individualReviews: [] },
-  action
-) => {
+export const reviewsReducer = (state = { reviews: [] }, action) => {
   switch (action.type) {
-    case ALL_INDIVIDUAL_REVIEWS_REQUEST:
+    case ALL_REVIEWS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_INDIVIDUAL_REVIEWS_SUCCESS:
+    case ALL_REVIEWS_SUCCESS:
       return {
         loading: false,
-        individualReviews: action.payload,
+        reviews: action.payload,
       };
-    case ALL_INDIVIDUAL_REVIEWS_FAIL:
+    case ALL_REVIEWS_FAIL:
       return {
         ...state,
         loading: false,
@@ -2128,26 +2111,26 @@ export const businessIndividualProductReviewsReducer = (
   }
 };
 
-export const businessIndividualProductReviewReducer = (state = {}, action) => {
+export const reviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_INDIVIDUAL_REVIEW_REQUEST:
+    case DELETE_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_INDIVIDUAL_REVIEW_SUCCESS:
+    case DELETE_REVIEW_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_INDIVIDUAL_REVIEW_FAIL:
+    case DELETE_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_INDIVIDUAL_REVIEW_RESET:
+    case DELETE_REVIEW_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -2162,25 +2145,25 @@ export const businessIndividualProductReviewReducer = (state = {}, action) => {
   }
 };
 
-export const businessNewBusinessProductOrderReducer = (state = {}, action) => {
+export const newOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_BUSINESS_ORDER_REQUEST:
+    case NEW_ORDER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_BUSINESS_ORDER_SUCCESS:
+    case NEW_ORDER_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_BUSINESS_ORDER_FAIL:
+    case NEW_ORDER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_BUSINESS_ORDER_RESET:
+    case NEW_ORDER_RESET:
       return {
         ...state,
         success: false,
@@ -2195,58 +2178,55 @@ export const businessNewBusinessProductOrderReducer = (state = {}, action) => {
   }
 };
 
-export const businessBusinessProductOrdersReducer = (
-  state = { businessOrders: [] },
-  action
-) => {
+export const OrdersReducer = (state = { businessOrders: [] }, action) => {
   switch (action.type) {
-    case ALL_BUSINESS_ORDER_REQUEST:
+    case ALL_ORDER_REQUEST:
       return {
         ...state,
-        loadingBusiness: true,
+        loading: true,
       };
-    case ALL_BUSINESS_ORDER_SUCCESS:
+    case ALL_ORDER_SUCCESS:
       return {
-        loadingBusiness: false,
+        loading: false,
         businessOrders: action.payload,
       };
-    case ALL_BUSINESS_ORDER_FAIL:
+    case ALL_ORDER_FAIL:
       return {
         ...state,
-        loadingBusiness: false,
-        errorBusiness: action.payload,
+        loading: false,
+        error: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        errorBusiness: null,
+        error: null,
       };
     default:
       return state;
   }
 };
 
-export const businessBusinessProductOrderReducer = (state = {}, action) => {
+export const OrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_BUSINESS_ORDER_REQUEST:
+    case DELETE_ORDER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_BUSINESS_ORDER_SUCCESS:
+    case DELETE_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_BUSINESS_ORDER_FAIL:
+    case DELETE_ORDER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_BUSINESS_ORDER_RESET:
+    case DELETE_ORDER_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -2263,24 +2243,24 @@ export const businessBusinessProductOrderReducer = (state = {}, action) => {
 
 export const updateProductOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case UPDATE_BUSINESS_ORDER_REQUEST:
+    case UPDATE_ORDER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case UPDATE_BUSINESS_ORDER_SUCCESS:
+    case UPDATE_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case UPDATE_BUSINESS_ORDER_FAIL:
+    case UPDATE_ORDER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case UPDATE_BUSINESS_ORDER_RESET:
+    case UPDATE_ORDER_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -2295,28 +2275,25 @@ export const updateProductOrderReducer = (state = {}, action) => {
   }
 };
 
-export const businessNewBusinessProductCustomerReducer = (
-  state = {},
-  action
-) => {
+export const customerReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_BUSINESS_CUSTOMER_REQUEST:
+    case NEW_CUSTOMER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_BUSINESS_CUSTOMER_SUCCESS:
+    case NEW_CUSTOMER_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_BUSINESS_CUSTOMER_FAIL:
+    case NEW_CUSTOMER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_BUSINESS_CUSTOMER_RESET:
+    case NEW_CUSTOMER_RESET:
       return {
         ...state,
         success: false,
@@ -2331,58 +2308,55 @@ export const businessNewBusinessProductCustomerReducer = (
   }
 };
 
-export const businessBusinessProductCustomersReducer = (
-  state = { businessCustomers: [] },
-  action
-) => {
+export const customersReducer = (state = { businessCustomers: [] }, action) => {
   switch (action.type) {
-    case ALL_BUSINESS_CUSTOMER_REQUEST:
+    case ALL_CUSTOMER_REQUEST:
       return {
         ...state,
-        loadingBusiness: true,
+        loading: true,
       };
-    case ALL_BUSINESS_CUSTOMER_SUCCESS:
+    case ALL_CUSTOMER_SUCCESS:
       return {
-        loadingBusiness: false,
+        loading: false,
         businessCustomers: action.payload,
       };
-    case ALL_BUSINESS_CUSTOMER_FAIL:
+    case ALL_CUSTOMER_FAIL:
       return {
         ...state,
-        loadingBusiness: false,
-        errorBusiness: action.payload,
+        loading: false,
+        error: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        errorBusiness: null,
+        error: null,
       };
     default:
       return state;
   }
 };
 
-export const businessBusinessProductCustomerReducer = (state = {}, action) => {
+export const deleteCustomerReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_BUSINESS_CUSTOMER_REQUEST:
+    case DELETE_CUSTOMER_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_BUSINESS_CUSTOMER_SUCCESS:
+    case DELETE_CUSTOMER_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_BUSINESS_CUSTOMER_FAIL:
+    case DELETE_CUSTOMER_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_BUSINESS_CUSTOMER_RESET:
+    case DELETE_CUSTOMER_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -2397,23 +2371,26 @@ export const businessBusinessProductCustomerReducer = (state = {}, action) => {
   }
 };
 
-export const businessNewBusinessProductReviewReducer = (state = {}, action) => {
+export const businessNewBusinessnewProductReviewReducer = (
+  state = {},
+  action
+) => {
   switch (action.type) {
     case NEW_BUSINESS_REVIEW_REQUEST:
       return {
         ...state,
-        loadingBusiness: true,
+        loading: true,
       };
     case NEW_BUSINESS_REVIEW_SUCCESS:
       return {
-        loadingBusiness: false,
+        loading: false,
         successBusiness: action.payload,
       };
     case NEW_BUSINESS_REVIEW_FAIL:
       return {
         ...state,
-        loadingBusiness: false,
-        errorBusiness: action.payload,
+        loading: false,
+        error: action.payload,
       };
     case NEW_BUSINESS_REVIEW_RESET:
       return {
@@ -2423,14 +2400,14 @@ export const businessNewBusinessProductReviewReducer = (state = {}, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
-        errorBusiness: null,
+        error: null,
       };
     default:
       return state;
   }
 };
 
-export const businessBusinessProductReviewsReducer = (
+export const businessBusinessnewProductReviewsReducer = (
   state = { businessReviews: [] },
   action
 ) => {
@@ -2438,7 +2415,7 @@ export const businessBusinessProductReviewsReducer = (
     case ALL_BUSINESS_REVIEWS_REQUEST:
       return {
         ...state,
-        loadingBusiness: true,
+        loading: true,
       };
     case ALL_BUSINESS_REVIEWS_SUCCESS:
       return {
@@ -2448,21 +2425,21 @@ export const businessBusinessProductReviewsReducer = (
     case ALL_BUSINESS_REVIEWS_FAIL:
       return {
         ...state,
-        loadingBusiness: false,
-        errorBusiness: action.payload,
+        loading: false,
+        error: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        errorBusiness: null,
+        error: null,
       };
     default:
       return state;
   }
 };
 
-export const businessBusinessProductReviewReducer = (state = {}, action) => {
+export const businessBusinessnewProductReviewReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_BUSINESS_REVIEW_REQUEST:
       return {
@@ -2496,25 +2473,25 @@ export const businessBusinessProductReviewReducer = (state = {}, action) => {
   }
 };
 
-export const newBusinessSingleProductReviewReducer = (state = {}, action) => {
+export const newnewProductReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_BUSINESS_PRODUCT_REVIEW_REQUEST:
+    case NEW_PRODUCT_REVIEW_REQUEST:
       return {
         ...state,
         loadingProductBusiness: true,
       };
-    case NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS:
+    case NEW_PRODUCT_REVIEW_SUCCESS:
       return {
         loadingProductBusiness: false,
         successProductBusiness: action.payload,
       };
-    case NEW_BUSINESS_PRODUCT_REVIEW_FAIL:
+    case NEW_PRODUCT_REVIEW_FAIL:
       return {
         ...state,
         loadingProductBusiness: false,
         errorProductBusiness: action.payload,
       };
-    case NEW_BUSINESS_PRODUCT_REVIEW_RESET:
+    case NEW_PRODUCT_REVIEW_RESET:
       return {
         ...state,
         successProductBusiness: false,
@@ -2529,58 +2506,58 @@ export const newBusinessSingleProductReviewReducer = (state = {}, action) => {
   }
 };
 
-export const allBusinessSingleProductReviewsReducer = (
+export const newProductReviewsReducer = (
   state = { businessReviews: [] },
   action
 ) => {
   switch (action.type) {
-    case ALL_BUSINESS_PRODUCT_REVIEWS_REQUEST:
+    case ALL_PRODUCT_REVIEWS_REQUEST:
       return {
         ...state,
-        loadingBusiness: true,
+        loading: true,
       };
-    case ALL_BUSINESS_PRODUCT_REVIEWS_SUCCESS:
+    case ALL_PRODUCT_REVIEWS_SUCCESS:
       return {
         loadingBuiness: false,
         businessReviews: action.payload,
       };
-    case ALL_BUSINESS_PRODUCT_REVIEWS_FAIL:
+    case ALL_PRODUCT_REVIEWS_FAIL:
       return {
         ...state,
-        loadingBusiness: false,
-        errorBusiness: action.payload,
+        loading: false,
+        error: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        errorBusiness: null,
+        error: null,
       };
     default:
       return state;
   }
 };
 
-export const businessSingleProductReviewReducer = (state = {}, action) => {
+export const productReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_BUSINESS_PRODUCT_REVIEW_REQUEST:
+    case DELETE_PRODUCT_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_BUSINESS_PRODUCT_REVIEW_SUCCESS:
+    case DELETE_PRODUCT_REVIEW_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_BUSINESS_PRODUCT_REVIEW_FAIL:
+    case DELETE_PRODUCT_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_BUSINESS_PRODUCT_REVIEW_RESET:
+    case DELETE_PRODUCT_REVIEW_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -2595,7 +2572,10 @@ export const businessSingleProductReviewReducer = (state = {}, action) => {
   }
 };
 
-export const newIndividualSingleProductReviewReducer = (state = {}, action) => {
+export const newIndividualSinglenewProductReviewReducer = (
+  state = {},
+  action
+) => {
   switch (action.type) {
     case NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST:
       return {
@@ -2628,7 +2608,7 @@ export const newIndividualSingleProductReviewReducer = (state = {}, action) => {
   }
 };
 
-export const allIndividualSingleProductReviewsReducer = (
+export const allIndividualSinglenewProductReviewsReducer = (
   state = { businessReviews: [] },
   action
 ) => {
@@ -2636,7 +2616,7 @@ export const allIndividualSingleProductReviewsReducer = (
     case ALL_INDIVIDUAL_PRODUCT_REVIEWS_REQUEST:
       return {
         ...state,
-        loadingBusiness: true,
+        loading: true,
       };
     case ALL_INDIVIDUAL_PRODUCT_REVIEWS_SUCCESS:
       return {
@@ -2646,21 +2626,21 @@ export const allIndividualSingleProductReviewsReducer = (
     case ALL_INDIVIDUAL_PRODUCT_REVIEWS_FAIL:
       return {
         ...state,
-        loadingBusiness: false,
-        errorBusiness: action.payload,
+        loading: false,
+        error: action.payload,
       };
 
     case CLEAR_ERRORS:
       return {
         ...state,
-        errorBusiness: null,
+        error: null,
       };
     default:
       return state;
   }
 };
 
-export const individualSingleProductReviewReducer = (state = {}, action) => {
+export const individualSinglenewProductReviewReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_INDIVIDUAL_PRODUCT_REVIEW_REQUEST:
       return {
@@ -2821,55 +2801,52 @@ export const individualCampaignDonorReducer = (state = {}, action) => {
   }
 };
 
-export const newIndividualCampaignReviewReducer = (state = {}, action) => {
-  switch (action.type) {
-    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS:
-      return {
-        loading: false,
-        success: action.payload,
-      };
-    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    case NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET:
-      return {
-        ...state,
-        success: false,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
+// export const newCampaignReviewReducer = (state = {}, action) => {
+// switch (action.type) {
+// case NEW_CAMPAIGN_REVIEW_REQUEST:
+// return {
+// ...state,
+// loading: true,
+// };
+// case NEW_CAMPAIGN_REVIEW_SUCCESS:
+// return {
+// loading: false,
+// success: action.payload,
+// };
+// case NEW_CAMPAIGN_REVIEW_FAIL:
+// return {
+// ...state,
+// loading: false,
+// error: action.payload,
+// };
+// case NEW_CAMPAIGN_REVIEW_RESET:
+// return {
+// ...state,
+// success: false,
+// };
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
 
-export const individualCampaignReviewsReducer = (
-  state = { reviews: [] },
-  action
-) => {
+export const campaignReviewsReducer = (state = { reviews: [] }, action) => {
   switch (action.type) {
-    case ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST:
+    case ALL_CAMPAIGN_REVIEWS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS:
+    case ALL_CAMPAIGN_REVIEWS_SUCCESS:
       return {
         loading: false,
         reviews: action.payload,
       };
-    case ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL:
+    case ALL_CAMPAIGN_REVIEWS_FAIL:
       return {
         ...state,
         loading: false,
@@ -2886,26 +2863,26 @@ export const individualCampaignReviewsReducer = (
   }
 };
 
-export const individualCampaignReviewReducer = (state = {}, action) => {
+export const campaignReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST:
+    case DELETE_CAMPAIGN_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS:
+    case DELETE_CAMPAIGN_REVIEW_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL:
+    case DELETE_CAMPAIGN_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_RESET:
+    case DELETE_CAMPAIGN_REVIEW_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -2920,25 +2897,25 @@ export const individualCampaignReviewReducer = (state = {}, action) => {
   }
 };
 
-export const newBusinessCampaignDonorReducer = (state = {}, action) => {
+export const newDonorReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_BUSINESS_DONOR_REQUEST:
+    case NEW_DONOR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_BUSINESS_DONOR_SUCCESS:
+    case NEW_DONOR_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_BUSINESS_DONOR_FAIL:
+    case NEW_DONOR_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_BUSINESS_DONOR_RESET:
+    case NEW_DONOR_RESET:
       return {
         ...state,
         success: false,
@@ -2953,22 +2930,19 @@ export const newBusinessCampaignDonorReducer = (state = {}, action) => {
   }
 };
 
-export const businessCampaignDonorsReducer = (
-  state = { donors: [] },
-  action
-) => {
+export const donorsReducer = (state = { donors: [] }, action) => {
   switch (action.type) {
-    case ALL_BUSINESS_DONORS_REQUEST:
+    case ALL_DONORS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_BUSINESS_DONORS_SUCCESS:
+    case ALL_DONORS_SUCCESS:
       return {
         loading: false,
         donors: action.payload,
       };
-    case ALL_BUSINESS_DONORS_FAIL:
+    case ALL_DONORS_FAIL:
       return {
         ...state,
         loading: false,
@@ -2985,26 +2959,26 @@ export const businessCampaignDonorsReducer = (
   }
 };
 
-export const businessCampaignDonorReducer = (state = {}, action) => {
+export const donorReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_BUSINESS_DONOR_REQUEST:
+    case DELETE_DONOR_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_BUSINESS_DONOR_SUCCESS:
+    case DELETE_DONOR_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_BUSINESS_DONOR_FAIL:
+    case DELETE_DONOR_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_BUSINESS_DONOR_RESET:
+    case DELETE_DONOR_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -3019,25 +2993,25 @@ export const businessCampaignDonorReducer = (state = {}, action) => {
   }
 };
 
-export const newBusinessCampaignReviewReducer = (state = {}, action) => {
+export const newCampaignReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST:
+    case NEW_CAMPAIGN_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS:
+    case NEW_CAMPAIGN_REVIEW_SUCCESS:
       return {
         loading: false,
         success: action.payload,
       };
-    case NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL:
+    case NEW_CAMPAIGN_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_CAMPAIGN_BUSINESS_REVIEW_RESET:
+    case NEW_CAMPAIGN_REVIEW_RESET:
       return {
         ...state,
         success: false,
@@ -3057,17 +3031,17 @@ export const businessCampaignReviewsReducer = (
   action
 ) => {
   switch (action.type) {
-    case ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST:
+    case ALL_CAMPAIGN_REVIEWS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS:
+    case ALL_CAMPAIGN_REVIEWS_SUCCESS:
       return {
         loading: false,
         reviews: action.payload,
       };
-    case ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL:
+    case ALL_CAMPAIGN_REVIEWS_FAIL:
       return {
         ...state,
         loading: false,
@@ -3086,24 +3060,24 @@ export const businessCampaignReviewsReducer = (
 
 export const businessCampaignReviewReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST:
+    case DELETE_CAMPAIGN_REVIEW_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS:
+    case DELETE_CAMPAIGN_REVIEW_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-    case DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL:
+    case DELETE_CAMPAIGN_REVIEW_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_CAMPAIGN_BUSINESS_REVIEW_RESET:
+    case DELETE_CAMPAIGN_REVIEW_RESET:
       return {
         ...state,
         isDeleted: false,

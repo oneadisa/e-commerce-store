@@ -38,15 +38,15 @@ import {
   BUSINESS_DETAILS_REQUEST,
   BUSINESS_DETAILS_SUCCESS,
   BUSINESS_DETAILS_FAIL,
-  NEW_BUSINESS_ORDERED_FROM_REQUEST,
-  NEW_BUSINESS_ORDERED_FROM_SUCCESS,
-  NEW_BUSINESS_ORDERED_FROM_FAIL,
-  ALL_BUSINESS_ORDERED_FROM_SUCCESS,
-  ALL_BUSINESS_ORDERED_FROM_REQUEST,
-  ALL_BUSINESS_ORDERED_FROM_FAIL,
-  DELETE_BUSINESS_ORDERED_FROM_REQUEST,
-  DELETE_BUSINESS_ORDERED_FROM_FAIL,
-  DELETE_BUSINESS_ORDERED_FROM_SUCCESS,
+  NEW_ORDERED_FROM_REQUEST,
+  NEW_ORDERED_FROM_SUCCESS,
+  NEW_ORDERED_FROM_FAIL,
+  ALL_ORDERED_FROM_SUCCESS,
+  ALL_ORDERED_FROM_REQUEST,
+  ALL_ORDERED_FROM_FAIL,
+  DELETE_ORDERED_FROM_REQUEST,
+  DELETE_ORDERED_FROM_FAIL,
+  DELETE_ORDERED_FROM_SUCCESS,
   NEW_CAMPAIGN_INVESTED_REQUEST,
   NEW_CAMPAIGN_INVESTED_SUCCESS,
   NEW_CAMPAIGN_INVESTED_FAIL,
@@ -126,86 +126,86 @@ import {
   NEW_INDIVIDUAL_ORDER_SUCCESS,
   NEW_INDIVIDUAL_ORDER_RESET,
   NEW_INDIVIDUAL_ORDER_FAIL,
-  NEW_BUSINESS_ORDER_REQUEST,
-  NEW_BUSINESS_ORDER_SUCCESS,
-  NEW_BUSINESS_ORDER_RESET,
-  NEW_BUSINESS_ORDER_FAIL,
+  NEW_ORDER_REQUEST,
+  NEW_ORDER_SUCCESS,
+  NEW_ORDER_RESET,
+  NEW_ORDER_FAIL,
   ALL_INDIVIDUAL_ORDER_REQUEST,
   ALL_INDIVIDUAL_ORDER_SUCCESS,
   ALL_INDIVIDUAL_ORDER_RESET,
   ALL_INDIVIDUAL_ORDER_FAIL,
-  ALL_BUSINESS_ORDER_REQUEST,
-  ALL_BUSINESS_ORDER_SUCCESS,
-  ALL_BUSINESS_ORDER_RESET,
-  ALL_BUSINESS_ORDER_FAIL,
+  ALL_ORDER_REQUEST,
+  ALL_ORDER_SUCCESS,
+  ALL_ORDER_RESET,
+  ALL_ORDER_FAIL,
   UPDATE_INDIVIDUAL_ORDER_REQUEST,
   UPDATE_INDIVIDUAL_ORDER_SUCCESS,
   UPDATE_INDIVIDUAL_ORDER_RESET,
   UPDATE_INDIVIDUAL_ORDER_FAIL,
-  UPDATE_BUSINESS_ORDER_REQUEST,
-  UPDATE_BUSINESS_ORDER_SUCCESS,
-  UPDATE_BUSINESS_ORDER_RESET,
-  UPDATE_BUSINESS_ORDER_FAIL,
+  UPDATE_ORDER_REQUEST,
+  UPDATE_ORDER_SUCCESS,
+  UPDATE_ORDER_RESET,
+  UPDATE_ORDER_FAIL,
   DELETE_INDIVIDUAL_ORDER_REQUEST,
   DELETE_INDIVIDUAL_ORDER_SUCCESS,
   DELETE_INDIVIDUAL_ORDER_RESET,
   DELETE_INDIVIDUAL_ORDER_FAIL,
-  DELETE_BUSINESS_ORDER_REQUEST,
-  DELETE_BUSINESS_ORDER_SUCCESS,
-  DELETE_BUSINESS_ORDER_RESET,
-  DELETE_BUSINESS_ORDER_FAIL,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_RESET,
+  DELETE_ORDER_FAIL,
   DELETE_INDIVIDUAL_CUSTOMER_REQUEST,
   DELETE_INDIVIDUAL_CUSTOMER_SUCCESS,
   DELETE_INDIVIDUAL_CUSTOMER_RESET,
   DELETE_INDIVIDUAL_CUSTOMER_FAIL,
-  DELETE_BUSINESS_CUSTOMER_REQUEST,
-  DELETE_BUSINESS_CUSTOMER_SUCCESS,
-  DELETE_BUSINESS_CUSTOMER_RESET,
-  DELETE_BUSINESS_CUSTOMER_FAIL,
+  DELETE_CUSTOMER_REQUEST,
+  DELETE_CUSTOMER_SUCCESS,
+  DELETE_CUSTOMER_RESET,
+  DELETE_CUSTOMER_FAIL,
   NEW_INDIVIDUAL_CUSTOMER_REQUEST,
   NEW_INDIVIDUAL_CUSTOMER_SUCCESS,
   NEW_INDIVIDUAL_CUSTOMER_RESET,
   NEW_INDIVIDUAL_CUSTOMER_FAIL,
-  NEW_BUSINESS_CUSTOMER_REQUEST,
-  NEW_BUSINESS_CUSTOMER_SUCCESS,
-  NEW_BUSINESS_CUSTOMER_RESET,
-  NEW_BUSINESS_CUSTOMER_FAIL,
+  NEW_CUSTOMER_REQUEST,
+  NEW_CUSTOMER_SUCCESS,
+  NEW_CUSTOMER_RESET,
+  NEW_CUSTOMER_FAIL,
   ALL_INDIVIDUAL_CUSTOMER_REQUEST,
   ALL_INDIVIDUAL_CUSTOMER_SUCCESS,
   ALL_INDIVIDUAL_CUSTOMER_RESET,
   ALL_INDIVIDUAL_CUSTOMER_FAIL,
-  ALL_BUSINESS_CUSTOMER_REQUEST,
-  ALL_BUSINESS_CUSTOMER_SUCCESS,
-  ALL_BUSINESS_CUSTOMER_RESET,
-  ALL_BUSINESS_CUSTOMER_FAIL,
-  ALL_INDIVIDUAL_REVIEWS_REQUEST,
-  ALL_INDIVIDUAL_REVIEWS_SUCCESS,
-  ALL_INDIVIDUAL_REVIEWS_RESET,
-  ALL_INDIVIDUAL_REVIEWS_FAIL,
+  ALL_CUSTOMER_REQUEST,
+  ALL_CUSTOMER_SUCCESS,
+  ALL_CUSTOMER_RESET,
+  ALL_CUSTOMER_FAIL,
+  ALL_REVIEWS_REQUEST,
+  ALL_REVIEWS_SUCCESS,
+  ALL_REVIEWS_RESET,
+  ALL_REVIEWS_FAIL,
   ALL_BUSINESS_REVIEWS_REQUEST,
   ALL_BUSINESS_REVIEWS_SUCCESS,
   ALL_BUSINESS_REVIEWS_FAIL,
   ALL_BUSINESS_REVIEWS_RESET,
-  NEW_INDIVIDUAL_REVIEW_REQUEST,
-  NEW_INDIVIDUAL_REVIEW_SUCCESS,
-  NEW_INDIVIDUAL_REVIEW_RESET,
-  NEW_INDIVIDUAL_REVIEW_FAIL,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_RESET,
+  NEW_REVIEW_FAIL,
   NEW_BUSINESS_REVIEW_REQUEST,
   NEW_BUSINESS_REVIEW_SUCCESS,
   NEW_BUSINESS_REVIEW_RESET,
   NEW_BUSINESS_REVIEW_FAIL,
-  UPDATE_INDIVIDUAL_REVIEW_REQUEST,
-  UPDATE_INDIVIDUAL_REVIEW_SUCCESS,
-  UPDATE_INDIVIDUAL_REVIEW_RESET,
-  UPDATE_INDIVIDUAL_REVIEW_FAIL,
+  UPDATE_REVIEW_REQUEST,
+  UPDATE_REVIEW_SUCCESS,
+  UPDATE_REVIEW_RESET,
+  UPDATE_REVIEW_FAIL,
   UPDATE_BUSINESS_REVIEW_REQUEST,
   UPDATE_BUSINESS_REVIEW_SUCCESS,
   UPDATE_BUSINESS_REVIEW_RESET,
   UPDATE_BUSINESS_REVIEW_FAIL,
-  DELETE_INDIVIDUAL_REVIEW_REQUEST,
-  DELETE_INDIVIDUAL_REVIEW_SUCCESS,
-  DELETE_INDIVIDUAL_REVIEW_RESET,
-  DELETE_INDIVIDUAL_REVIEW_FAIL,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_RESET,
+  DELETE_REVIEW_FAIL,
   DELETE_BUSINESS_REVIEW_REQUEST,
   DELETE_BUSINESS_REVIEW_SUCCESS,
   DELETE_BUSINESS_REVIEW_RESET,
@@ -217,26 +217,26 @@ import {
   ALL_INDIVIDUAL_PRODUCT_REVIEWS_SUCCESS,
   ALL_INDIVIDUAL_PRODUCT_REVIEWS_RESET,
   ALL_INDIVIDUAL_PRODUCT_REVIEWS_FAIL,
-  ALL_BUSINESS_PRODUCT_REVIEWS_REQUEST,
-  ALL_BUSINESS_PRODUCT_REVIEWS_SUCCESS,
-  ALL_BUSINESS_PRODUCT_REVIEWS_FAIL,
-  ALL_BUSINESS_PRODUCT_REVIEWS_RESET,
+  ALL_PRODUCT_REVIEWS_REQUEST,
+  ALL_PRODUCT_REVIEWS_SUCCESS,
+  ALL_PRODUCT_REVIEWS_FAIL,
+  ALL_PRODUCT_REVIEWS_RESET,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_RESET,
   NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
-  NEW_BUSINESS_PRODUCT_REVIEW_REQUEST,
-  NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS,
-  NEW_BUSINESS_PRODUCT_REVIEW_RESET,
-  NEW_BUSINESS_PRODUCT_REVIEW_FAIL,
+  NEW_PRODUCT_REVIEW_REQUEST,
+  NEW_PRODUCT_REVIEW_SUCCESS,
+  NEW_PRODUCT_REVIEW_RESET,
+  NEW_PRODUCT_REVIEW_FAIL,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_REQUEST,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_RESET,
   DELETE_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
-  DELETE_BUSINESS_PRODUCT_REVIEW_REQUEST,
-  DELETE_BUSINESS_PRODUCT_REVIEW_SUCCESS,
-  DELETE_BUSINESS_PRODUCT_REVIEW_RESET,
-  DELETE_BUSINESS_PRODUCT_REVIEW_FAIL,
+  DELETE_PRODUCT_REVIEW_REQUEST,
+  DELETE_PRODUCT_REVIEW_SUCCESS,
+  DELETE_PRODUCT_REVIEW_RESET,
+  DELETE_PRODUCT_REVIEW_FAIL,
   NEW_INDIVIDUAL_DONOR_SUCCESS,
   NEW_INDIVIDUAL_DONOR_FAIL,
   NEW_INDIVIDUAL_DONOR_RESET,
@@ -248,39 +248,28 @@ import {
   DELETE_INDIVIDUAL_DONOR_SUCCESS,
   DELETE_INDIVIDUAL_DONOR_FAIL,
   DELETE_INDIVIDUAL_DONOR_RESET,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
-  NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
-  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST,
-  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS,
-  ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
-  DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_RESET,
-  NEW_BUSINESS_DONOR_SUCCESS,
-  NEW_BUSINESS_DONOR_FAIL,
-  NEW_BUSINESS_DONOR_RESET,
-  NEW_BUSINESS_DONOR_REQUEST,
-  ALL_BUSINESS_DONORS_REQUEST,
-  ALL_BUSINESS_DONORS_SUCCESS,
-  ALL_BUSINESS_DONORS_FAIL,
-  DELETE_BUSINESS_DONOR_REQUEST,
-  DELETE_BUSINESS_DONOR_SUCCESS,
-  DELETE_BUSINESS_DONOR_FAIL,
-  DELETE_BUSINESS_DONOR_RESET,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL,
-  NEW_CAMPAIGN_BUSINESS_REVIEW_RESET,
-  ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST,
-  ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS,
-  ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL,
-  DELETE_CAMPAIGN_BUSINESS_REVIEW_RESET,
+  NEW_CAMPAIGN_REVIEW_REQUEST,
+  NEW_CAMPAIGN_REVIEW_SUCCESS,
+  NEW_CAMPAIGN_REVIEW_FAIL,
+  NEW_CAMPAIGN_REVIEW_RESET,
+  ALL_CAMPAIGN_REVIEWS_REQUEST,
+  ALL_CAMPAIGN_REVIEWS_SUCCESS,
+  ALL_CAMPAIGN_REVIEWS_FAIL,
+  DELETE_CAMPAIGN_REVIEW_REQUEST,
+  DELETE_CAMPAIGN_REVIEW_SUCCESS,
+  DELETE_CAMPAIGN_REVIEW_FAIL,
+  DELETE_CAMPAIGN_REVIEW_RESET,
+  NEW_DONOR_SUCCESS,
+  NEW_DONOR_FAIL,
+  NEW_DONOR_RESET,
+  NEW_DONOR_REQUEST,
+  ALL_DONORS_REQUEST,
+  ALL_DONORS_SUCCESS,
+  ALL_DONORS_FAIL,
+  DELETE_DONOR_REQUEST,
+  DELETE_DONOR_SUCCESS,
+  DELETE_DONOR_FAIL,
+  DELETE_DONOR_RESET,
   ALL_CAMPAIGN_FAIL,
   ALL_CAMPAIGN_REQUEST,
   ALL_CAMPAIGN_SUCCESS,
@@ -514,11 +503,19 @@ export const logout = () => async (dispatch) => {
 };
 
 // Update Profile
-export const updateProfile = (userData) => async (dispatch) => {
+export const updateProfile = (userData, getState) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_BUSINESS_PROFILE_REQUEST });
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const {
+      signedUpBusinessLogin: { signedUpBusinessInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+      },
+    };
 
     const { data } = await axios.put(
       `/app/business/me/update`,
@@ -775,7 +772,7 @@ export const updateStoreProduct = (id) => async (dispatch) => {
 // NEW BUSINESS ORDERED FROM
 export const newBusinessOrderedFrom = (orderData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_BUSINESS_ORDERED_FROM_REQUEST });
+    dispatch({ type: NEW_ORDERED_FROM_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -788,12 +785,12 @@ export const newBusinessOrderedFrom = (orderData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_BUSINESS_ORDERED_FROM_SUCCESS,
+      type: NEW_ORDERED_FROM_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_BUSINESS_ORDERED_FROM_FAIL,
+      type: NEW_ORDERED_FROM_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -802,17 +799,17 @@ export const newBusinessOrderedFrom = (orderData) => async (dispatch) => {
 // Get All BusinessOrderedFrom of a Product
 export const getAllBusinessOrderedFrom = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_ORDERED_FROM_REQUEST });
+    dispatch({ type: ALL_ORDERED_FROM_REQUEST });
 
     const { data } = await axios.get(`app/business/business-ordered-from`);
 
     dispatch({
-      type: ALL_BUSINESS_ORDERED_FROM_SUCCESS,
+      type: ALL_ORDERED_FROM_SUCCESS,
       payload: data.orders,
     });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_ORDERED_FROM_FAIL,
+      type: ALL_ORDERED_FROM_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -821,17 +818,17 @@ export const getAllBusinessOrderedFrom = (id) => async (dispatch) => {
 // Get My BusinessOrderedFrom of a Product
 export const getMyBusinessOrderedFrom = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_ORDERED_FROM_REQUEST });
+    dispatch({ type: ALL_ORDERED_FROM_REQUEST });
 
     const { data } = await axios.get(`app/business/business-ordered-from/me`);
 
     dispatch({
-      type: ALL_BUSINESS_ORDERED_FROM_SUCCESS,
+      type: ALL_ORDERED_FROM_SUCCESS,
       payload: data.orders,
     });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_ORDERED_FROM_FAIL,
+      type: ALL_ORDERED_FROM_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -841,19 +838,19 @@ export const getMyBusinessOrderedFrom = (id) => async (dispatch) => {
 export const deleteBusinessOrderedFrom =
   (orderId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_BUSINESS_ORDERED_FROM_REQUEST });
+      dispatch({ type: DELETE_ORDERED_FROM_REQUEST });
 
       const { data } = await axios.delete(
         `app/business/business-ordered-from?id=${orderId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_BUSINESS_ORDERED_FROM_SUCCESS,
+        type: DELETE_ORDERED_FROM_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_BUSINESS_ORDERED_FROM_FAIL,
+        type: DELETE_ORDERED_FROM_FAIL,
         payload: error.response.data.message,
       });
     }
@@ -1173,31 +1170,31 @@ export const deleteCampaignStarted =
   };
 
 // NEW CAMPAIGN REVIEW
-export const newCampaignReview = (campaignReviewData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_CAMPAIGN_REVIEWS_REQUEST });
-
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
-
-    const { data } = await axios.put(
-      `app/business/profile-campaign-review/`,
-      campaignReviewData,
-      config
-    );
-
-    dispatch({
-      type: NEW_CAMPAIGN_REVIEWS_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_CAMPAIGN_REVIEWS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+// export const newCampaignReview = (campaignReviewData) => async (dispatch) => {
+// try {
+// dispatch({ type: NEW_CAMPAIGN_REVIEWS_REQUEST });
+//
+// const config = {
+// headers: { "Content-Type": "application/json" },
+// };
+//
+// const { data } = await axios.put(
+// `app/business/profile-campaign-review/`,
+// campaignReviewData,
+// config
+// );
+//
+// dispatch({
+// type: NEW_CAMPAIGN_REVIEWS_SUCCESS,
+// payload: data.success,
+// });
+// } catch (error) {
+// dispatch({
+// type: NEW_CAMPAIGN_REVIEWS_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
 
 // Get All CampaignReview of a Business
 export const getAllCampaignReview = (id) => async (dispatch) => {
@@ -1260,34 +1257,35 @@ export const deleteCampaignReview =
   };
 
 // NEW PRODUCT REVIEW
-export const newProductReview = (productReviewData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_PRODUCT_REVIEWS_REQUEST });
+export const newnewProductReview =
+  (newProductReviewData) => async (dispatch) => {
+    try {
+      dispatch({ type: NEW_PRODUCT_REVIEWS_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
 
-    const { data } = await axios.put(
-      `app/business/profile-product-review/`,
-      productReviewData,
-      config
-    );
+      const { data } = await axios.put(
+        `app/business/profile-product-review/`,
+        newProductReviewData,
+        config
+      );
 
-    dispatch({
-      type: NEW_PRODUCT_REVIEWS_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_PRODUCT_REVIEWS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: NEW_PRODUCT_REVIEWS_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: NEW_PRODUCT_REVIEWS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
-// Get All ProductReview of a Business
-export const getAllProductReview = (id) => async (dispatch) => {
+// Get All newnewProductReview of a Business
+export const getAllnewProductReview = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCTS_REVIEWS_REQUEST });
 
@@ -1295,7 +1293,7 @@ export const getAllProductReview = (id) => async (dispatch) => {
 
     dispatch({
       type: ALL_PRODUCTS_REVIEWS_SUCCESS,
-      payload: data.productReviews,
+      payload: data.newnewProductReview,
     });
   } catch (error) {
     dispatch({
@@ -1305,8 +1303,8 @@ export const getAllProductReview = (id) => async (dispatch) => {
   }
 };
 
-// Get My ProductReview of a Business
-export const getMyProductReview = (id) => async (dispatch) => {
+// Get My newnewProductReview of a Business
+export const getMynewProductReview = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCTS_REVIEWS_REQUEST });
 
@@ -1314,7 +1312,7 @@ export const getMyProductReview = (id) => async (dispatch) => {
 
     dispatch({
       type: ALL_PRODUCTS_REVIEWS_SUCCESS,
-      payload: data.productReviews,
+      payload: data.newnewProductReview,
     });
   } catch (error) {
     dispatch({
@@ -1324,14 +1322,14 @@ export const getMyProductReview = (id) => async (dispatch) => {
   }
 };
 
-// Delete ProductReview of a Business
-export const deleteProductReview =
-  (productReviewId, productId) => async (dispatch) => {
+// Delete newnewProductReview of a Business
+export const deletenewProductReview =
+  (newProductReviewId, productId) => async (dispatch) => {
     try {
       dispatch({ type: DELETE_PRODUCT_REVIEWS_REQUEST });
 
       const { data } = await axios.delete(
-        `app/business/profile-product-review/?id=${productReviewId}&productId=${productId}`
+        `app/business/profile-product-review/?id=${newProductReviewId}&productId=${productId}`
       );
 
       dispatch({
@@ -1349,7 +1347,7 @@ export const deleteProductReview =
 // NEW INDIVIDUAL REVIEW
 export const newIndividualReview = (reviewData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_INDIVIDUAL_REVIEW_REQUEST });
+    dispatch({ type: NEW_REVIEW_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -1362,12 +1360,12 @@ export const newIndividualReview = (reviewData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_INDIVIDUAL_REVIEW_SUCCESS,
+      type: NEW_REVIEW_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_INDIVIDUAL_REVIEW_FAIL,
+      type: NEW_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -1376,17 +1374,17 @@ export const newIndividualReview = (reviewData) => async (dispatch) => {
 // Get All Individual Reviews of a Product
 export const getAllIndividualReviews = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_INDIVIDUAL_REVIEWS_REQUEST });
+    dispatch({ type: ALL_REVIEWS_REQUEST });
 
     const { data } = await axios.get(`/app/business/reviews?id=${id}`);
 
     dispatch({
-      type: ALL_INDIVIDUAL_REVIEWS_SUCCESS,
+      type: ALL_REVIEWS_SUCCESS,
       payload: data.reviews,
     });
   } catch (error) {
     dispatch({
-      type: ALL_INDIVIDUAL_REVIEWS_FAIL,
+      type: ALL_REVIEWS_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -1396,53 +1394,54 @@ export const getAllIndividualReviews = (id) => async (dispatch) => {
 export const deleteIndividualReviews =
   (reviewId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_INDIVIDUAL_REVIEW_REQUEST });
+      dispatch({ type: DELETE_REVIEW_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/reviews?id=${reviewId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_INDIVIDUAL_REVIEW_SUCCESS,
+        type: DELETE_REVIEW_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_INDIVIDUAL_REVIEW_FAIL,
+        type: DELETE_REVIEW_FAIL,
         payload: error.response.data.message,
       });
     }
   };
 
 // NEW INDIVIDUAL REVIEW
-export const newIndividualProductReview = (reviewData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST });
+export const newIndividualnewProductReview =
+  (reviewData) => async (dispatch) => {
+    try {
+      dispatch({ type: NEW_INDIVIDUAL_PRODUCT_REVIEW_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
 
-    const { data } = await axios.put(
-      `/app/business/products/review/individual`,
-      reviewData,
-      config
-    );
+      const { data } = await axios.put(
+        `/app/business/products/review/individual`,
+        reviewData,
+        config
+      );
 
-    dispatch({
-      type: NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: NEW_INDIVIDUAL_PRODUCT_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: NEW_INDIVIDUAL_PRODUCT_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 // Get All Individual Reviews of a Product
-export const getAllIndividualProductReviews = (id) => async (dispatch) => {
+export const getAllIndividualnewProductReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_INDIVIDUAL_PRODUCT_REVIEWS_REQUEST });
 
@@ -1463,7 +1462,7 @@ export const getAllIndividualProductReviews = (id) => async (dispatch) => {
 };
 
 // Delete Individual Review of a Product
-export const deleteIndividualProductReviews =
+export const deleteIndividualnewProductReviews =
   (reviewId, productId) => async (dispatch) => {
     try {
       dispatch({ type: DELETE_INDIVIDUAL_PRODUCT_REVIEW_REQUEST });
@@ -1707,9 +1706,9 @@ export const deleteBusinessReviews =
   };
 
 // NEW BUSINESS REVIEW
-export const newBusinessProductReview = (reviewData) => async (dispatch) => {
+export const newBusinessnewProductReview = (reviewData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_BUSINESS_PRODUCT_REVIEW_REQUEST });
+    dispatch({ type: NEW_PRODUCT_REVIEW_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -1722,55 +1721,55 @@ export const newBusinessProductReview = (reviewData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_BUSINESS_PRODUCT_REVIEW_SUCCESS,
+      type: NEW_PRODUCT_REVIEW_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_BUSINESS_PRODUCT_REVIEW_FAIL,
+      type: NEW_PRODUCT_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }
 };
 
 // Get All Business Reviews of a Product
-export const getAllBusinessProductReviews = (id) => async (dispatch) => {
+export const getAllBusinessnewProductReviews = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_PRODUCT_REVIEWS_REQUEST });
+    dispatch({ type: ALL_PRODUCT_REVIEWS_REQUEST });
 
     const { data } = await axios.get(
       `/app/business/products/reviews/business?id=${id}`
     );
 
     dispatch({
-      type: ALL_BUSINESS_PRODUCT_REVIEWS_SUCCESS,
+      type: ALL_PRODUCT_REVIEWS_SUCCESS,
       payload: data.reviews,
     });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_PRODUCT_REVIEWS_FAIL,
+      type: ALL_PRODUCT_REVIEWS_FAIL,
       payload: error.response.data.message,
     });
   }
 };
 
 // Delete Business Review of a Product
-export const deleteBusinessProductReviews =
+export const deleteBusinessnewProductReviews =
   (reviewId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_BUSINESS_PRODUCT_REVIEW_REQUEST });
+      dispatch({ type: DELETE_PRODUCT_REVIEW_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/products/reviews/business?id=${reviewId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_BUSINESS_PRODUCT_REVIEW_SUCCESS,
+        type: DELETE_PRODUCT_REVIEW_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_BUSINESS_PRODUCT_REVIEW_FAIL,
+        type: DELETE_PRODUCT_REVIEW_FAIL,
         payload: error.response.data.message,
       });
     }
@@ -1779,7 +1778,7 @@ export const deleteBusinessProductReviews =
 // NEW BUSINESS CUSTOMER
 export const newBusinessCustomer = (customerData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_BUSINESS_CUSTOMER_REQUEST });
+    dispatch({ type: NEW_CUSTOMER_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -1792,12 +1791,12 @@ export const newBusinessCustomer = (customerData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_BUSINESS_CUSTOMER_SUCCESS,
+      type: NEW_CUSTOMER_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_BUSINESS_CUSTOMER_FAIL,
+      type: NEW_CUSTOMER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -1806,17 +1805,17 @@ export const newBusinessCustomer = (customerData) => async (dispatch) => {
 // Get All Business Customers of a Product
 export const getAllBusinessCustomers = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_CUSTOMER_REQUEST });
+    dispatch({ type: ALL_CUSTOMER_REQUEST });
 
     const { data } = await axios.get(`/app/business/customers?id=${id}`);
 
     dispatch({
-      type: ALL_BUSINESS_CUSTOMER_SUCCESS,
+      type: ALL_CUSTOMER_SUCCESS,
       payload: data.customers,
     });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_CUSTOMER_FAIL,
+      type: ALL_CUSTOMER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -1826,19 +1825,19 @@ export const getAllBusinessCustomers = (id) => async (dispatch) => {
 export const deleteBusinessCustomers =
   (customerId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_BUSINESS_CUSTOMER_REQUEST });
+      dispatch({ type: DELETE_CUSTOMER_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/customers?id=${customerId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_BUSINESS_CUSTOMER_SUCCESS,
+        type: DELETE_CUSTOMER_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_BUSINESS_CUSTOMER_FAIL,
+        type: DELETE_CUSTOMER_FAIL,
         payload: error.response.data.message,
       });
     }
@@ -1847,7 +1846,7 @@ export const deleteBusinessCustomers =
 // NEW BUSINESS ORDER
 export const newBusinessOrder = (orderData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_BUSINESS_ORDER_REQUEST });
+    dispatch({ type: NEW_ORDER_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -1856,12 +1855,12 @@ export const newBusinessOrder = (orderData) => async (dispatch) => {
     const { data } = await axios.put(`/app/business/order`, orderData, config);
 
     dispatch({
-      type: NEW_BUSINESS_ORDER_SUCCESS,
+      type: NEW_ORDER_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_BUSINESS_ORDER_FAIL,
+      type: NEW_ORDER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -1870,17 +1869,17 @@ export const newBusinessOrder = (orderData) => async (dispatch) => {
 // Get All Business Orders of a Product
 export const getAllBusinessOrders = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_ORDER_REQUEST });
+    dispatch({ type: ALL_ORDER_REQUEST });
 
     const { data } = await axios.get(`/app/business/orders?id=${id}`);
 
     dispatch({
-      type: ALL_BUSINESS_ORDER_SUCCESS,
+      type: ALL_ORDER_SUCCESS,
       payload: data.orders,
     });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_ORDER_FAIL,
+      type: ALL_ORDER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -1890,19 +1889,19 @@ export const getAllBusinessOrders = (id) => async (dispatch) => {
 export const deleteBusinessOrders =
   (orderId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_BUSINESS_ORDER_REQUEST });
+      dispatch({ type: DELETE_ORDER_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/orders?id=${orderId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_BUSINESS_ORDER_SUCCESS,
+        type: DELETE_ORDER_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_BUSINESS_ORDER_FAIL,
+        type: DELETE_ORDER_FAIL,
         payload: error.response.data.message,
       });
     }
@@ -1911,19 +1910,19 @@ export const deleteBusinessOrders =
 // Delete Business Order of a Product
 export const BusinessOrders = (orderId, productId) => async (dispatch) => {
   try {
-    dispatch({ type: UPDATE_BUSINESS_ORDER_REQUEST });
+    dispatch({ type: UPDATE_ORDER_REQUEST });
 
     const { data } = await axios.delete(
       `/app/business/orders?id=${orderId}&productId=${productId}`
     );
 
     dispatch({
-      type: UPDATE_BUSINESS_ORDER_SUCCESS,
+      type: UPDATE_ORDER_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: UPDATE_BUSINESS_ORDER_FAIL,
+      type: UPDATE_ORDER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -2257,10 +2256,10 @@ export const getCampaignDetails = (id) => async (dispatch) => {
   }
 };
 
-// NEW CAMPAIGN_BUSINESS REVIEW
-export const newBusinessCampaignReview = (reviewData) => async (dispatch) => {
+// NEW CAMPAIGN REVIEW
+export const newCampaignReview = (reviewData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_CAMPAIGN_BUSINESS_REVIEW_REQUEST });
+    dispatch({ type: NEW_CAMPAIGN_REVIEW_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -2273,12 +2272,12 @@ export const newBusinessCampaignReview = (reviewData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+      type: NEW_CAMPAIGN_REVIEW_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+      type: NEW_CAMPAIGN_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -2287,19 +2286,19 @@ export const newBusinessCampaignReview = (reviewData) => async (dispatch) => {
 // Get All Business Reviews of a Campaign
 export const getAllBusinessCampaignReviews = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_CAMPAIGN_BUSINESS_REVIEWS_REQUEST });
+    dispatch({ type: ALL_CAMPAIGN_REVIEWS_REQUEST });
 
     const { data } = await axios.get(
       `/app/business/campaigns/reviews?id=${id}`
     );
 
     dispatch({
-      type: ALL_CAMPAIGN_BUSINESS_REVIEWS_SUCCESS,
+      type: ALL_CAMPAIGN_REVIEWS_SUCCESS,
       payload: data.reviews,
     });
   } catch (error) {
     dispatch({
-      type: ALL_CAMPAIGN_BUSINESS_REVIEWS_FAIL,
+      type: ALL_CAMPAIGN_REVIEWS_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -2309,28 +2308,28 @@ export const getAllBusinessCampaignReviews = (id) => async (dispatch) => {
 export const deleteBusinessCampaignReviews =
   (reviewId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_CAMPAIGN_BUSINESS_REVIEW_REQUEST });
+      dispatch({ type: DELETE_CAMPAIGN_REVIEW_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/campaigns/reviews?id=${reviewId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_CAMPAIGN_BUSINESS_REVIEW_SUCCESS,
+        type: DELETE_CAMPAIGN_REVIEW_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_CAMPAIGN_BUSINESS_REVIEW_FAIL,
+        type: DELETE_CAMPAIGN_REVIEW_FAIL,
         payload: error.response.data.message,
       });
     }
   };
 
 // NEW BUSINESS DONOR
-export const newBusinessDonor = (donorData) => async (dispatch) => {
+export const newBusinessDonor = (donorata) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_BUSINESS_DONOR_REQUEST });
+    dispatch({ type: NEW_DONOR_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -2338,17 +2337,17 @@ export const newBusinessDonor = (donorData) => async (dispatch) => {
 
     const { data } = await axios.put(
       `/app/business/campaigns/donor`,
-      donorData,
+      donorata,
       config
     );
 
     dispatch({
-      type: NEW_BUSINESS_DONOR_SUCCESS,
+      type: NEW_DONOR_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_BUSINESS_DONOR_FAIL,
+      type: NEW_DONOR_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -2357,17 +2356,17 @@ export const newBusinessDonor = (donorData) => async (dispatch) => {
 // Get All Business Customers of a Campaign
 export const getAllBusinessDonor = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_DONORS_REQUEST });
+    dispatch({ type: ALL_DONORS_REQUEST });
 
     const { data } = await axios.get(`/app/business/campaigns/donors?id=${id}`);
 
     dispatch({
-      type: ALL_BUSINESS_DONORS_SUCCESS,
+      type: ALL_DONORS_SUCCESS,
       payload: data.donors,
     });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_DONORS_FAIL,
+      type: ALL_DONORS_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -2377,28 +2376,28 @@ export const getAllBusinessDonor = (id) => async (dispatch) => {
 export const deleteBusinessDonors =
   (donorId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_BUSINESS_DONOR_REQUEST });
+      dispatch({ type: DELETE_DONOR_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/campaigns/donors?id=${donorId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_BUSINESS_DONOR_SUCCESS,
+        type: DELETE_DONOR_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_BUSINESS_DONOR_FAIL,
+        type: DELETE_DONOR_FAIL,
         payload: error.response.data.message,
       });
     }
   };
 
 // NEW CAMPAIGN_INDIVIDUAL REVIEW
-export const newIndividualCampaignReview = (reviewData) => async (dispatch) => {
+export const newCampaignReview = (reviewData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST });
+    dispatch({ type: NEW_CAMPAIGN_REVIEW_REQUEST });
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -2411,62 +2410,62 @@ export const newIndividualCampaignReview = (reviewData) => async (dispatch) => {
     );
 
     dispatch({
-      type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+      type: NEW_CAMPAIGN_REVIEW_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
     dispatch({
-      type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+      type: NEW_CAMPAIGN_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }
 };
 
 // Get All Individual Reviews of a Campaign
-export const getAllIndividualCampaignReviews = (id) => async (dispatch) => {
+export const getAllcampaignReviews = (id) => async (dispatch) => {
   try {
-    dispatch({ type: ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_REQUEST });
+    dispatch({ type: ALL_CAMPAIGN_REVIEWS_REQUEST });
 
     const { data } = await axios.get(
       `/app/business/campaigns/reviews?id=${id}`
     );
 
     dispatch({
-      type: ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_SUCCESS,
+      type: ALL_CAMPAIGN_REVIEWS_SUCCESS,
       payload: data.reviews,
     });
   } catch (error) {
     dispatch({
-      type: ALL_CAMPAIGN_INDIVIDUAL_REVIEWS_FAIL,
+      type: ALL_CAMPAIGN_REVIEWS_FAIL,
       payload: error.response.data.message,
     });
   }
 };
 
 // Delete Individual Review of a Campaign
-export const deleteIndividualCampaignReviews =
+export const deletecampaignReviews =
   (reviewId, productId) => async (dispatch) => {
     try {
-      dispatch({ type: DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_REQUEST });
+      dispatch({ type: DELETE_CAMPAIGN_REVIEW_REQUEST });
 
       const { data } = await axios.delete(
         `/app/business/campaigns/reviews?id=${reviewId}&productId=${productId}`
       );
 
       dispatch({
-        type: DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_SUCCESS,
+        type: DELETE_CAMPAIGN_REVIEW_SUCCESS,
         payload: data.success,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_CAMPAIGN_INDIVIDUAL_REVIEW_FAIL,
+        type: DELETE_CAMPAIGN_REVIEW_FAIL,
         payload: error.response.data.message,
       });
     }
   };
 
 // NEW INDIVIDUAL DONOR
-export const newIndividualDonor = (donorData) => async (dispatch) => {
+export const newIndividualDonor = (donorata) => async (dispatch) => {
   try {
     dispatch({ type: NEW_INDIVIDUAL_DONOR_REQUEST });
 
@@ -2476,7 +2475,7 @@ export const newIndividualDonor = (donorData) => async (dispatch) => {
 
     const { data } = await axios.put(
       `/app/business/campaigns/donor`,
-      donorData,
+      donorata,
       config
     );
 

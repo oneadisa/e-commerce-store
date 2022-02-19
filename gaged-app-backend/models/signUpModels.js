@@ -63,10 +63,10 @@ const signUpTemplate = new mongoose.Schema({
     required: false,
     default: "https://www.twitter.com",
   },
-  facebook: {
+  faceBook: {
     type: String,
     required: false,
-    default: "https://www.facebook.com",
+    default: "https://www.faceBook.com",
   },
   whatsApp: {
     type: String,
@@ -333,7 +333,7 @@ const signUpTemplate = new mongoose.Schema({
   ],
 
   numberOfCampaignsReviewed: { type: Number, required: false, default: 0 },
-  productReviews: [
+  newnewProductReview: [
     {
       user: {
         type: mongoose.Schema.ObjectId,

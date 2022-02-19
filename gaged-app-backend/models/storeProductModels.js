@@ -52,7 +52,7 @@ const storeProductSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Enter Product Category"],
     },
-    individualProductReviews: [
+    individualnewProductReviews: [
       {
         user: {
           type: mongoose.Schema.ObjectId,
@@ -92,7 +92,7 @@ const storeProductSchema = new mongoose.Schema(
       default: 0,
     },
 
-    BusinessProductReviews: [
+    BusinessnewProductReviews: [
       {
         user: {
           type: mongoose.Schema.ObjectId,

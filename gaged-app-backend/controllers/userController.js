@@ -35,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
     bankAccountName,
     bankAccountNumber,
     twitter,
-    facebook,
+    faceBook,
     whatsApp,
     walletBalance,
     businessOrderedFrom,
@@ -45,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
     listOfCampaignsInvested,
     campaignReviews,
     numberOfCampaignsReviwed,
-    productReviews,
+    newnewProductReview,
     numberOfProductsReviewed,
     totallNumberOfInteractions,
     paymentMethod,
@@ -79,12 +79,12 @@ const registerUser = asyncHandler(async (req, res) => {
     listOfCampaignsInvested,
     campaignReviews,
     numberOfCampaignsReviwed,
-    productReviews,
+    newnewProductReview,
     numberOfProductsReviewed,
     totallNumberOfInteractions,
     paymentMethod,
     twitter,
-    facebook,
+    faceBook,
     whatsApp,
   });
   if (user) {
@@ -111,12 +111,12 @@ const registerUser = asyncHandler(async (req, res) => {
       listOfCampaignsInvested: user.listOfCampaignsInvested,
       campaignReviews: user.campaignReviews,
       numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
-      productReviews: user.productReviews,
-      numberOfProductsReviewed: user.numberOfProductReviews,
+      newnewProductReview: user.newnewProductReview,
+      numberOfProductsReviewed: user.numberOfnewProductReviews,
       totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
       twitter: user.twitter,
-      facebook: user.facebook,
+      faceBook: user.faceBook,
       whatsApp: user.whatsApp,
       token: generateToken(user._id),
     });
@@ -163,12 +163,12 @@ const authUser = asyncHandler(async (req, res) => {
       listOfCampaignsInvested: user.listOfCampaignsInvested,
       campaignReviews: user.campaignReviews,
       numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
-      productReviews: user.productReviews,
-      numberOfProductsReviewed: user.numberOfProductReviews,
+      newnewProductReview: user.newnewProductReview,
+      numberOfProductsReviewed: user.numberOfnewProductReviews,
       totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
       twitter: user.twitter,
-      facebook: user.facebook,
+      faceBook: user.faceBook,
       whatsApp: user.whatsApp,
       token: generateToken(user._id),
     });
@@ -210,14 +210,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.campaignReviews = req.body.campaignReviews || user.campaignReviews;
     user.numberOfCampaignsReviwed =
       req.body.numberOfCampaignsReviwed || user.numberOfCampaignsReviwed;
-    user.productReviews =
-      req.body.productReviews || user.productReviewproductReviews;
+    user.newnewProductReview =
+      req.body.newnewProductReview || user.newProductReviewnewProductReviews;
     user.numberOfProductsReviewed =
-      req.body.numberOfProductsReviewed || user.numberOfProductReviews;
+      req.body.numberOfProductsReviewed || user.numberOfnewProductReviews;
     user.totallNumberOfInteractions =
       req.body.totallNumberOfInteractions || user.totalNumberOfInteractions;
     user.twitter = req.body.twitter || user.twitter;
-    user.facebook = req.body.facebook || user.facebook;
+    user.faceBook = req.body.faceBook || user.faceBook;
     user.whatsApp = req.body.whatsApp || user.whatsApp;
 
     if (req.body.password) {
@@ -251,11 +251,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       paymentMethod: updatedUser.paymentMethod,
       campaignReviews: updatedUser.campaignReviews,
       numberOfCampaignsReviwed: updatedUser.numberOfCampaignsReviwed,
-      productReviews: updatedUser.productReviews,
-      numberOfProductsReviewed: updatedUser.numberOfProductReviews,
+      newnewProductReview: updatedUser.newnewProductReview,
+      numberOfProductsReviewed: updatedUser.numberOfnewProductReviews,
       totallNumberOfInteractions: updatedUser.totalNumberOfInteractions,
       twitter: updatedUser.twitter,
-      facebook: updatedUser.facebook,
+      faceBook: updatedUser.faceBook,
       whatsApp: updatedUser.whatsApp,
       token: generateToken(updatedUser._id),
     });
@@ -902,7 +902,7 @@ const deleteIndividualCampaignPayout = catchAsyncErrors(
 );
 
 // Create New Personal Review BusinessProfile or Update a Personal review BusinessProfile
-const createIndividualPersonalProductReview = catchAsyncErrors(
+const createIndividualPersonalnewProductReview = catchAsyncErrors(
   async (req, res, next) => {
     const { rating, comment, productId } = req.body;
 
@@ -927,29 +927,31 @@ const createIndividualPersonalProductReview = catchAsyncErrors(
 
     const individual = await signedUpUser.findById(req.user._id);
 
-    const isReviewed = individual.productReviews.find(
+    const isReviewed = individual.newnewProductReview.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
     if (isReviewed) {
     } else {
-      individual.productReviews.push(review);
-      individual.numberOfProductsReviewed = individual.productReviews.length;
+      individual.newnewProductReview.push(review);
+      individual.numberOfProductsReviewed =
+        individual.newnewProductReview.length;
       individual.totalNumberOfInteractions =
-        individual.productReviews.length + individual.campaignReviews.length;
+        individual.newnewProductReview.length +
+        individual.campaignReviews.length;
     }
 
     await individual.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
-      productReviews: individual.productReviews,
+      newnewProductReview: individual.newnewProductReview,
     });
   }
 );
 
 // Get Personal Reviews of a individual BusinessProfile
-const getMyIndividualPersonalProductReviews = catchAsyncErrors(
+const getMyIndividualPersonalnewProductReviews = catchAsyncErrors(
   async (req, res, next) => {
     const individual = await signedUpUser.findById(req.user._id);
 
@@ -959,13 +961,13 @@ const getMyIndividualPersonalProductReviews = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      productReviews: individual.productReviews,
+      newnewProductReview: individual.newnewProductReview,
     });
   }
 );
 
 // Get Personal Reviews of a individual BusinessProfile
-const getIndividualPersonalProductReviews = catchAsyncErrors(
+const getIndividualPersonalnewProductReviews = catchAsyncErrors(
   async (req, res, next) => {
     const individual = await signedUpUser.findById(req.query.id);
 
@@ -975,13 +977,13 @@ const getIndividualPersonalProductReviews = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      productReviews: individual.productReviews,
+      newnewProductReview: individual.newnewProductReview,
     });
   }
 );
 
 // Delete Personal Review
-const deleteIndividualPersonalProductReview = catchAsyncErrors(
+const deleteIndividualPersonalnewProductReview = catchAsyncErrors(
   async (req, res, next) => {
     const individual = await signedUpUser.findById(req.query.businessId);
 
@@ -989,16 +991,16 @@ const deleteIndividualPersonalProductReview = catchAsyncErrors(
       return next(new ErrorHandler("User not found", 404));
     }
 
-    const productReviews = individual.productReviews.filter(
+    const newnewProductReview = individual.newnewProductReview.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    const numberOfProductsReviewed = productReviews.length;
+    const numberOfProductsReviewed = newnewProductReview.length;
 
     await signedUpUser.findByIdAndUpdate(
       req.query.businessId,
       {
-        productReviews,
+        newnewProductReview,
         numberOfProductsReviewed,
       },
       {
@@ -1010,7 +1012,7 @@ const deleteIndividualPersonalProductReview = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      productReviews: individual.productReviews,
+      newnewProductReview: individual.newnewProductReview,
     });
   }
 );
@@ -1053,7 +1055,8 @@ const createIndividualPersonalCampaignReview = catchAsyncErrors(
       individual.campaignReviews.push(review);
       individual.numberOfCampaignsReviewed = individual.campaignReviews.length;
       individual.totalNumberOfInteractions =
-        individual.campaignReviews.length + individual.productReviews.length;
+        individual.campaignReviews.length +
+        individual.newnewProductReview.length;
     }
 
     await individual.save({ validateBeforeSave: false });
@@ -1154,10 +1157,10 @@ module.exports = {
   getMyListOfIndividualCampaignsInvested,
   getListOfIndividualCampaignsInvested,
   deleteIndividualCampaignInvested,
-  createIndividualPersonalProductReview,
-  getMyIndividualPersonalProductReviews,
-  getIndividualPersonalProductReviews,
-  deleteIndividualPersonalProductReview,
+  createIndividualPersonalnewProductReview,
+  getMyIndividualPersonalnewProductReviews,
+  getIndividualPersonalnewProductReviews,
+  deleteIndividualPersonalnewProductReview,
   createIndividualPersonalCampaignReview,
   getMyIndividualPersonalCampaignReviews,
   getIndividualPersonalCampaignReviews,

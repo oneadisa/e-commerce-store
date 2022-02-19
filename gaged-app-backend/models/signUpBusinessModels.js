@@ -48,10 +48,10 @@ const signUpBusinessTemplate = new mongoose.Schema({
     required: false,
     default: "https://www.twitter.com",
   },
-  facebook: {
+  faceBook: {
     type: String,
     required: false,
-    default: "https://www.facebook.com",
+    default: "https://www.faceBook.com",
   },
 
   whatsApp: {
@@ -257,7 +257,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
       // type: Number,
       // default: 0,
       // },
-      // BusinessProductReviews: [
+      // BusinessnewProductReviews: [
       // {
       // name: {
       // type: String,
@@ -547,6 +547,20 @@ const signUpBusinessTemplate = new mongoose.Schema({
           "Please Indicate whether this campaign is directed towards people with special needs.",
         ],
       },
+      twitter: {
+        type: String,
+        required: false,
+        default: "https://www.twitter.com",
+      },
+      faceBook: {
+        type: String,
+        required: false,
+        default: "https://www.faceBook.com",
+      },
+      whatsApp: {
+        type: String,
+        required: Number,
+      },
       gender: {
         type: String,
         required: [true, "Please Select a Gender."],
@@ -795,7 +809,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
           },
         },
       ],
-      // numberOfBusinessCampaignDonors: {
+      // numberOfdonor: {
       // type: Number,
       // default: 0,
       // },
@@ -1665,7 +1679,7 @@ const signUpBusinessTemplate = new mongoose.Schema({
   ],
 
   numberOfCampaignsReviewed: { type: Number, required: false, default: 0 },
-  productReviews: [
+  newnewProductReview: [
     {
       user: {
         type: mongoose.Schema.ObjectId,

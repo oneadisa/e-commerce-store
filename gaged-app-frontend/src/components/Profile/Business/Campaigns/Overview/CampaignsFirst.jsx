@@ -1,6 +1,6 @@
 import React from "react";
 import fundraiser from "../../../../../images/fundraiser.png";
-import facebook from "../../../../../images/facebook.svg";
+import faceBook from "../../../../../images/faceBook.svg";
 import tags from "../../../../../images/tags.svg";
 import twitter from "../../../../../images/twitter.svg";
 import whatsapp from "../../../../../images/whatsapp.svg";
@@ -36,7 +36,7 @@ function CampaignsFirst() {
                 <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                   <div className="flex gap-1">
                     <img src={twitter} className="h-8 w-8" alt="" />
-                    <img src={facebook} className="h-8 w-8" alt="" />
+                    <img src={faceBook} className="h-8 w-8" alt="" />
                     <img src={whatsapp} className="h-8 w-8" alt="" />
                   </div>
                   <div className="flex gap-1">

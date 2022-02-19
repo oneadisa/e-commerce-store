@@ -4,13 +4,13 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from "@material-ui/core";
 
-const ProductsCard = ({ product, props }) => {
+const ProductsCard = ({ products, props }) => {
   return (
     <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between mt-5 pb-2 px-2">
       <p></p>
-      <p>{product.productTitle}</p>
-      <p>{product.productUnitCount}</p>
-      <p>{product.price}</p>
+      <p>{products.productTitle}</p>
+      <p>{products.productUnitCount}</p>
+      <p>{products.price}</p>
       <Fragment>
         <Link to={`/products/${props.params.getValue(props.params.id, "id")}`}>
           <EditIcon />

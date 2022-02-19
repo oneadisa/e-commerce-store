@@ -24,25 +24,25 @@ function ProductsCustomers() {
   const { customers, loading, error } = useSelector(
     (state: RootStateOrAny) => state.businessIndividualProductCustomers
   );
-  const { businessCustomers, loadingBusiness, errorBusiness } = useSelector(
-    (state: RootStateOrAny) => state.businessBusinessProductCustomers
+  const { businessCustomers, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.customers
   );
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
-    } else if (errorBusiness) {
-      alert.error(errorBusiness);
+    } else if (error) {
+      alert.error(error);
       dispatch(clearErrors());
     }
     dispatch(getAllIndividualCustomers());
     dispatch(getAllBusinessCustomers());
-  }, [dispatch, alert, error, errorBusiness]);
+  }, [dispatch, alert, error, error]);
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
-      {loadingBusiness || loading ? (
+      {loading || loading ? (
         <Loader />
       ) : (
         <Fragment>

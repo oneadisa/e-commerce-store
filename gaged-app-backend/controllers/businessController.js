@@ -27,7 +27,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     password,
     pic,
     twitter,
-    facebook,
+    faceBook,
     whatsApp,
     isAdmin,
     role,
@@ -87,7 +87,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     totalNumberOfCustomers,
     campaignReviews,
     numberOfCampaignsReviwed,
-    productReviews,
+    newnewProductReview,
     numberOfProductsReviewed,
     totallNumberOfInteractions,
     paymentMethod,
@@ -113,7 +113,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     role,
     pic,
     twitter,
-    facebook,
+    faceBook,
     whatsApp,
     meansOfID,
     IDpic,
@@ -171,7 +171,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     totalNumberOfCustomers,
     campaignReviews,
     numberOfCampaignsReviwed,
-    productReviews,
+    newnewProductReview,
     numberOfProductsReviewed,
     totallNumberOfInteractions,
     paymentMethod,
@@ -192,7 +192,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       IDpic: user.IDpic,
       regNum: user.regNum,
       twitter: user.twitter,
-      facebook: user.facebook,
+      faceBook: user.faceBook,
       whatsApp: user.whatsApp,
       natureOfBusiness: user.natureOfBusiness,
       personalEmail: user.personalEmail,
@@ -234,7 +234,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
       totalNumberOfReviews: user.totalNumberOfReviews,
       businessReviews: user.businessReviews,
       numberOfBusinessReviews: user.numberOfBusinessReviews,
-      totalNumberOfReviews: user.totalNumberOfReviews,
+
       businessOrders: user.businessOrders,
       numberOFBusinessOrders: user.numberOFBusinessOrders,
       orders: user.orders,
@@ -247,8 +247,8 @@ const registerBusiness = asyncHandler(async (req, res) => {
       totalNumberOfCustomers: user.totalNumberOfCustomers,
       campaignReviews: user.campaignReviews,
       numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
-      productReviews: user.productReviews,
-      numberOfProductsReviewed: user.numberOfProductReviews,
+      newnewProductReview: user.newnewProductReview,
+      numberOfProductsReviewed: user.numberOfnewProductReviews,
       totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
     });
@@ -297,7 +297,7 @@ const authBusiness = asyncHandler(async (req, res) => {
       role: user.role,
       pic: user.pic,
       twitter: user.twitter,
-      facebook: user.facebook,
+      faceBook: user.faceBook,
       whatsApp: user.whatsApp,
       token: generateToken(user._id),
       meansOfID: user.meansOfID,
@@ -343,7 +343,6 @@ const authBusiness = asyncHandler(async (req, res) => {
       totalNumberOfReviews: user.totalNumberOfReviews,
       businessReviews: user.businessReviews,
       numberOfBusinessReviews: user.numberOfBusinessReviews,
-      totalNumberOfReviews: user.totalNumberOfReviews,
       businessOrders: user.businessOrders,
       numberOFBusinessOrders: user.numberOFBusinessOrders,
       orders: user.orders,
@@ -356,8 +355,8 @@ const authBusiness = asyncHandler(async (req, res) => {
       totalNumberOfCustomers: user.totalNumberOfCustomers,
       campaignReviews: user.campaignReviews,
       numberOfCampaignsReviwed: user.numberOfCampaignsReviwed,
-      productReviews: user.productReviews,
-      numberOfProductsReviewed: user.numberOfProductReviews,
+      newnewProductReview: user.newnewProductReview,
+      numberOfProductsReviewed: user.numberOfnewProductReviews,
       totallNumberOfInteractions: user.totalNumberOfInteractions,
       paymentMethod: user.paymentMethod,
     });
@@ -465,15 +464,15 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
     user.campaignReviews = req.body.campaignReviews || user.campaignReviews;
     user.numberOfCampaignsReviwed =
       req.body.numberOfCampaignsReviwed || user.numberOfCampaignsReviwed;
-    user.productReviews =
-      req.body.productReviews || user.productReviewproductReviews;
+    user.newnewProductReview =
+      req.body.newnewProductReview || user.newProductReviewnewProductReviews;
     user.numberOfProductsReviewed =
-      req.body.numberOfProductsReviewed || user.numberOfProductReviews;
+      req.body.numberOfProductsReviewed || user.numberOfnewProductReviews;
     user.totallNumberOfInteractions =
       req.body.totallNumberOfInteractions || user.totalNumberOfInteractions;
     user.paymentMethod = req.body.paymentMethod || user.paymentMethod;
     user.twitter = req.body.twitter || user.twitter;
-    user.facebook = req.body.facebook || user.facebook;
+    user.faceBook = req.body.faceBook || user.faceBook;
     user.whatsApp = req.body.whatsApp || user.whatsApp;
 
     if (req.body.password) {
@@ -550,8 +549,8 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       totalNumberOfCustomers: updatedBusiness.totalNumberOfCustomers,
       campaignReviews: updatedBusiness.campaignReviews,
       numberOfCampaignsReviwed: updatedBusiness.numberOfCampaignsReviwed,
-      productReviews: updatedBusiness.productReviews,
-      numberOfProductsReviewed: updatedBusiness.numberOfProductReviews,
+      newnewProductReview: updatedBusiness.newnewProductReview,
+      numberOfProductsReviewed: updatedBusiness.numberOfnewProductReviews,
       totallNumberOfInteractions: updatedBusiness.totalNumberOfInteractions,
       paymentMethod: updatedBusiness.paymentMethod,
     });
@@ -914,6 +913,9 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     firstPaymentDateString,
     endDateString,
     numberOfPaymentsToBeMade,
+    twitter,
+    faceBook,
+    whatsApp,
   } = req.body;
 
   const campaign = {
@@ -963,6 +965,9 @@ const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
     firstPaymentDateString,
     endDateString,
     numberOfPaymentsToBeMade,
+    twitter,
+    faceBook,
+    whatsApp,
   };
 
   (campaign.ownerLogo = req.user.storeLogo),
@@ -1074,6 +1079,9 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     firstPaymentDateString,
     endDateString,
     paymentStartDate,
+    twitter,
+    faceBook,
+    whatsApp,
   } = req.body;
 
   const campaign = await signedUpBusiness.find({
@@ -1120,6 +1128,9 @@ const UpdateCampaign = asyncHandler(async (req, res) => {
     campaign.bank_account_name = bank_account_name;
     campaign.bank_account_number = bank_account_number;
     campaign.duration = duration;
+    campaign.faceBook = faceBook;
+    campaign.whatsApp = whatsApp;
+    campaign.twitter = twitter;
     campaign.go_live_schedule = go_live_schedule;
     campaign.campaignLiveStatus = campaignLiveStatus;
     campaign.familiarWithCrowdFunding = familiarWithCrowdFunding;
@@ -1302,8 +1313,8 @@ const createCampaignReview = catchAsyncErrors(async (req, res, next) => {
   if (isReviewed) {
   } else {
     campaign.reviews.push(review);
-    // campaign.numberOfIndividualCampaignReviews =
-    // campaign.individualCampaignReviews.length;
+    // campaign.numberOfcampaignReviews =
+    // campaign.campaignReviews.length;
     campaign.totalNumberOfCampaignReviews = campaign.reviews.length;
     // +campaign.businessCampaignReviiews.length;
   }
@@ -1375,7 +1386,7 @@ const deleteCampaignReview = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    individualCampaignReviews: campaign.individualCampaignReviews,
+    campaignReviews: campaign.campaignReviews,
   });
 });
 
@@ -1404,14 +1415,14 @@ const createBusinessCampaignReview = catchAsyncErrors(
       campaign.numberOfBusinessReviews =
         campaign.businessCampaignReviews.length;
       campaign.totalNumberOfCampaignReviews =
-        campaign.individualCampaignReviews.length +
+        campaign.campaignReviews.length +
         campaign.businessCampaignReviews.length;
     } else {
       campaign.businessCampaignReviews.push(review);
       campaign.numberOfBusinessReviews =
         campaign.businessCampaignReviews.length;
       campaign.totalNumberOfCampaignReviews =
-        campaign.individualCampaignReviews.length +
+        campaign.campaignReviews.length +
         campaign.businessCampaignReviews.length;
     }
 
@@ -1537,14 +1548,14 @@ const createCampaignDonation = catchAsyncErrors(async (req, res, next) => {
     // campaign.individualCampaignDonors.length;
     campaign.totalNumberOfCampaignDonors = campaign.donors.length;
     // +
-    // campaign.businessCampaignDonors.length;
+    // campaign.donor.length;
   } else {
     campaign.donors.push(review);
     // campaign.numberOfIndividualCampaignDonors =
     // campaign.individualCampaignDonors.length;
     campaign.totalNumberOfCampaignDonors = campaign.donors.length;
     // +
-    // campaign.businessCampaignDonors.length;
+    // campaign.donor.length;
   }
 
   let amountRaised = 0;
@@ -1712,26 +1723,24 @@ const createBusinessCampaignDonation = catchAsyncErrors(
       amountAlreadyRepaid: amountAlreadyRaise,
     };
 
-    const isDonated = campaign.businessCampaignDonors.find(
+    const isDonated = campaign.donor.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
     if (isDonated) {
-      campaign.businessCampaignDonors.push(review);
-      campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
+      campaign.donor.push(review);
+      campaign.numberOfBusinessReviews = campaign.donor.length;
       campaign.totalNumberOfCampaignDonors =
-        campaign.individualCampaignDonors.length +
-        campaign.businessCampaignDonors.length;
+        campaign.individualCampaignDonors.length + campaign.donor.length;
     } else {
-      campaign.businessCampaignDonors.push(review);
-      campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
+      campaign.donor.push(review);
+      campaign.numberOfBusinessReviews = campaign.donor.length;
       campaign.totalNumberOfCampaignDonors =
-        campaign.individualCampaignDonors.length +
-        campaign.businessCampaignDonors.length;
+        campaign.individualCampaignDonors.length + campaign.donor.length;
     }
 
     let amountRaised = 0;
-    campaign.businessCampaignDonors.forEach((rev) => {
+    campaign.donor.forEach((rev) => {
       amountRaised += rev.amount;
     });
     campaign.amountAlreadyRaised = amountRaised;
@@ -1739,7 +1748,7 @@ const createBusinessCampaignDonation = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      businessCampaignDonors: campaign.businessCampaignDonors,
+      donor: campaign.donor,
     });
   }
 );
@@ -1757,7 +1766,7 @@ const getBusinessCampaignDonations = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      businessCampaignDonors: campaign.businessCampaignDonors,
+      donor: campaign.donor,
     });
   }
 );
@@ -1772,7 +1781,7 @@ const getParticularBusinessCampaignDonation = catchAsyncErrors(
       if (!campaign) {
         return next(new ErrorHandler("Campaign not found", 404));
       }
-      const myCampaignDonations = await campaign.businessCampaignDonors.find({
+      const myCampaignDonations = await campaign.donor.find({
         user: req.user,
       });
 
@@ -1795,16 +1804,16 @@ const deleteBusinessCampaignDonation = catchAsyncErrors(
       return next(new ErrorHandler("Campaign not found", 404));
     }
 
-    const businessCampaignDonors = campaign.businessCampaignDonors.filter(
+    const donor = campaign.donor.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
-    const numberOfBusinessReviews = businessCampaignDonors.length;
+    const numberOfBusinessReviews = donor.length;
 
     await signedUpBusiness.findOneAndUpdate(
       { "listOfCampaignsStarted._id": req.query.campaignId },
       {
-        businessCampaignDonors,
+        donor,
 
         numberOfBusinessReviews,
       },
@@ -1817,7 +1826,7 @@ const deleteBusinessCampaignDonation = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      businessCampaignDonors: campaign.businessCampaignDonors,
+      donor: campaign.donor,
     });
   }
 );
@@ -2719,12 +2728,15 @@ const createOrder = catchAsyncErrors(async (req, res, next) => {
     // );
 
     const a = await signedUpBusiness.find({
-      "storeProducts._productTitle": e.productTitle,
+      "storeProducts._id": e._id,
     });
-    const business = a[0].storeProducts.filter(
-      (rev) => rev.prouctTitle.toString() === e.productTitle.toString()
+
+    const business = a[0];
+
+    const productArray = business.storeProducts.filter(
+      (rev) => rev._id.toString() === e.productTitle.toString()
     );
-    const product = business[0];
+    const product = productArray[0];
 
     const myShippingCost = a[0].shippingCost;
     const order = {
@@ -2737,6 +2749,8 @@ const createOrder = catchAsyncErrors(async (req, res, next) => {
       totalPrice: e.price + myShippingCost,
       paidAt: Date.now(),
     };
+
+    business.walletBalance += order.totalPrice;
     business.orders.push(order);
     // business.numberOfindividualOrders = business.orders.length;
     business.totalNumberOfOrders = business.orders.length;
@@ -3313,111 +3327,119 @@ const deleteindividualOrder = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Create New Personal Review BusinessProfile or Update a Personal review BusinessProfile
-const createPersonalProductReview = catchAsyncErrors(async (req, res, next) => {
-  const { rating, comment, productId } = req.body;
+const createPersonalnewProductReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const { rating, comment, productId } = req.body;
 
-  const product = await signedUpBusiness.find({
-    "storeProducts._id": productId,
-  });
+    const product = await signedUpBusiness.find({
+      "storeProducts._id": productId,
+    });
 
-  const organiser = await signedUpBusiness.findById(product.user);
-  const review = {
-    user: req.user._id,
-    name: req.user.businessName,
-    pic: req.body.pic,
-    rating: Number(rating),
-    productId: product._id,
-    productTitle: product.productTitle,
-    business: organiser.businessName,
-    ratings: product.ratings,
-    shortDescription: product.shortDescription,
-    category: product.category,
-    productImageOne: product.productImageOne,
-    comment,
-  };
+    const organiser = await signedUpBusiness.findById(product.user);
+    const review = {
+      user: req.user._id,
+      name: req.user.businessName,
+      pic: req.body.pic,
+      rating: Number(rating),
+      productId: product._id,
+      productTitle: product.productTitle,
+      business: organiser.businessName,
+      ratings: product.ratings,
+      shortDescription: product.shortDescription,
+      category: product.category,
+      productImageOne: product.productImageOne,
+      comment,
+    };
 
-  const business = await signedUpBusiness.findById(req.user._id);
+    const business = await signedUpBusiness.findById(req.user._id);
 
-  const isReviewed = business.productReviews.find(
-    (rev) => rev.user.toString() === req.user._id.toString()
-  );
+    const isReviewed = business.newnewProductReview.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
 
-  if (!isReviewed) {
-  } else {
-    business.productReviews.push(review);
-    business.numberOfProductsReviewed = business.productReviews.length;
-    business.totalNumberOfInteractions =
-      business.productReviews.length + business.campaignReviews.length;
+    if (!isReviewed) {
+    } else {
+      business.newnewProductReview.push(review);
+      business.numberOfProductsReviewed = business.newnewProductReview.length;
+      business.totalNumberOfInteractions =
+        business.newnewProductReview.length + business.campaignReviews.length;
+    }
+
+    await business.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      newnewProductReview: business.newnewProductReview,
+    });
   }
-
-  await business.save({ validateBeforeSave: false });
-
-  res.status(200).json({
-    success: true,
-    productReviews: business.productReviews,
-  });
-});
+);
 
 // Get Personal Reviews of a business BusinessProfile
-const getMyPersonalProductReviews = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.user._id);
+const getMyPersonalnewProductReviews = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.user._id);
 
-  if (!business) {
-    return next(new ErrorHandler("Business not found", 404));
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      newnewProductReview: business.newnewProductReview,
+    });
   }
-
-  res.status(200).json({
-    success: true,
-    productReviews: business.productReviews,
-  });
-});
+);
 
 // Get Personal Reviews of a business BusinessProfile
-const getPersonalProductReviews = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.query.id);
+const getPersonalnewProductReviews = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.query.id);
 
-  if (!business) {
-    return next(new ErrorHandler("Business not found", 404));
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      newnewProductReview: business.newnewProductReview,
+    });
   }
-
-  res.status(200).json({
-    success: true,
-    productReviews: business.productReviews,
-  });
-});
+);
 
 // Delete Personal Review
-const deletePersonalProductReview = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.query.businessId);
+const deletePersonalnewProductReview = catchAsyncErrors(
+  async (req, res, next) => {
+    const business = await signedUpBusiness.findById(req.query.businessId);
 
-  if (!business) {
-    return next(new ErrorHandler("Business not found", 404));
-  }
-
-  const productReviews = business.productReviews.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
-  );
-
-  const numberOfProductsReviewed = productReviews.length;
-
-  await signedUpBusiness.findByIdAndUpdate(
-    req.query.businessId,
-    {
-      productReviews,
-      numberOfProductsReviewed,
-    },
-    {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
+    if (!business) {
+      return next(new ErrorHandler("Business not found", 404));
     }
-  );
 
-  res.status(200).json({
-    success: true,
-    productReviews: business.productReviews,
-  });
-});
+    const newnewProductReview = business.newnewProductReview.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+
+    const numberOfProductsReviewed = newnewProductReview.length;
+
+    await signedUpBusiness.findByIdAndUpdate(
+      req.query.businessId,
+      {
+        newnewProductReview,
+        numberOfProductsReviewed,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      newnewProductReview: business.newnewProductReview,
+    });
+  }
+);
 
 // Create New Personal Review BusinessProfile or Update a Personal review BusinessProfile
 const createPersonalCampaignReview = catchAsyncErrors(
@@ -3457,12 +3479,12 @@ const createPersonalCampaignReview = catchAsyncErrors(
       business.campaignReviews.push(review);
       business.numberOfCampaignsReviewed = business.campaignReviews.length;
       business.totalNumberOfInteractions =
-        business.campaignReviews.length + business.productReviews.length;
+        business.campaignReviews.length + business.newnewProductReview.length;
     } else {
       business.campaignReviews.push(review);
       business.numberOfCampaignsReviewed = business.campaignReviews.length;
       business.totalNumberOfInteractions =
-        business.campaignReviews.length + business.productReviews.length;
+        business.campaignReviews.length + business.newnewProductReview.length;
     }
 
     await business.save({ validateBeforeSave: false });
@@ -4539,10 +4561,10 @@ module.exports = {
   getIndividualOrders,
   updateIndividualOrder,
   deleteindividualOrder,
-  createPersonalProductReview,
-  getMyPersonalProductReviews,
-  getPersonalProductReviews,
-  deletePersonalProductReview,
+  createPersonalnewProductReview,
+  getMyPersonalnewProductReviews,
+  getPersonalnewProductReviews,
+  deletePersonalnewProductReview,
   createPersonalCampaignReview,
   getMyPersonalCampaignReviews,
   getPersonalCampaignReviews,

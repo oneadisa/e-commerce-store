@@ -419,7 +419,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // });
 
 //Create New Individual Review or Update an Individual review
-// const createIndividualCampaignReview = catchAsyncErrors(
+// const createcampaignReview = catchAsyncErrors(
 // async (req, res, next) => {
 // const { comment, campaignId } = req.body;
 //
@@ -433,17 +433,17 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // const campaign = await Campaign.findById(campaignId);
 //
-// const isReviewed = campaign.individualCampaignReviews.find(
+// const isReviewed = campaign.campaignReviews.find(
 // (rev) => rev.user.toString() === req.user._id.toString()
 // );
 //
 // if (isReviewed) {
 // } else {
-// campaign.individualCampaignReviews.push(review);
-// campaign.numberOfIndividualCampaignReviews =
-// campaign.individualCampaignReviews.length;
+// campaign.campaignReviews.push(review);
+// campaign.numberOfcampaignReviews =
+// campaign.campaignReviews.length;
 // campaign.totalNumberOfCampaignReviews =
-// campaign.individualCampaignReviews.length +
+// campaign.campaignReviews.length +
 // campaign.businessCampaignReviiews.length;
 // }
 //
@@ -451,13 +451,13 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // res.status(200).json({
 // success: true,
-// individualCampaignReviews: campaign.individualCampaignReviews,
+// campaignReviews: campaign.campaignReviews,
 // });
 // }
 // );
 //
 // Get Individual Reviews of a campaign
-// const getIndividualCampaignReviews = catchAsyncErrors(
+// const getcampaignReviews = catchAsyncErrors(
 // async (req, res, next) => {
 // const campaign = await Campaign.findById(req.query.id);
 //
@@ -467,13 +467,13 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // res.status(200).json({
 // success: true,
-// individualCampaignReviews: campaign.individualCampaignReviews,
+// campaignReviews: campaign.campaignReviews,
 // });
 // }
 // );
 //
 //Delete Individual Review
-// const deleteIndividualCampaignReview = catchAsyncErrors(
+// const deletecampaignReview = catchAsyncErrors(
 // async (req, res, next) => {
 // const campaign = await Campaign.findById(req.query.campaignId);
 //
@@ -481,17 +481,17 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // return next(new ErrorHandler("Campaign not found", 404));
 // }
 //
-// const individualCampaignReviews = campaign.individualCampaignReviews.filter(
+// const campaignReviews = campaign.campaignReviews.filter(
 // (rev) => rev._id.toString() !== req.query.id.toString()
 // );
 //
-// const numberOfIndividualCampaignReviews = individualCampaignReviews.length;
+// const numberOfcampaignReviews = campaignReviews.length;
 //
 // await Campaign.findByIdAndUpdate(
 // req.query.campaignId,
 // {
-// individualCampaignReviews,
-// numberOfIndividualCampaignReviews,
+// campaignReviews,
+// numberOfcampaignReviews,
 // },
 // {
 // new: true,
@@ -502,7 +502,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // res.status(200).json({
 // success: true,
-// individualCampaignReviews: campaign.individualCampaignReviews,
+// campaignReviews: campaign.campaignReviews,
 // });
 // }
 // );
@@ -530,14 +530,14 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // campaign.numberOfBusinessReviews =
 // campaign.businessCampaignReviews.length;
 // campaign.totalNumberOfCampaignReviews =
-// campaign.individualCampaignReviews.length +
+// campaign.campaignReviews.length +
 // campaign.businessCampaignReviews.length;
 // } else {
 // campaign.businessCampaignReviews.push(review);
 // campaign.numberOfBusinessReviews =
 // campaign.businessCampaignReviews.length;
 // campaign.totalNumberOfCampaignReviews =
-// campaign.individualCampaignReviews.length +
+// campaign.campaignReviews.length +
 // campaign.businessCampaignReviews.length;
 // }
 //
@@ -656,14 +656,14 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // campaign.individualCampaignDonors.length;
 // campaign.totalNumberOfCampaignDonors =
 // campaign.individualCampaignDonors.length +
-// campaign.businessCampaignDonors.length;
+// campaign.donor.length;
 // } else {
 // campaign.individualCampaignDonors.push(review);
 // campaign.numberOfIndividualCampaignDonors =
 // campaign.individualCampaignDonors.length;
 // campaign.totalNumberOfCampaignDonors =
 // campaign.individualCampaignDonors.length +
-// campaign.businessCampaignDonors.length;
+// campaign.donor.length;
 // }
 //
 // let amountRaised = 0;
@@ -814,26 +814,26 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // amountAlreadyRepaid: amountAlreadyRaise,
 // };
 //
-// const isDonated = campaign.businessCampaignDonors.find(
+// const isDonated = campaign.donor.find(
 // (rev) => rev.user.toString() === req.user._id.toString()
 // );
 //
 // if (isDonated) {
-// campaign.businessCampaignDonors.push(review);
-// campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
+// campaign.donor.push(review);
+// campaign.numberOfBusinessReviews = campaign.donor.length;
 // campaign.totalNumberOfCampaignDonors =
 // campaign.individualCampaignDonors.length +
-// campaign.businessCampaignDonors.length;
+// campaign.donor.length;
 // } else {
-// campaign.businessCampaignDonors.push(review);
-// campaign.numberOfBusinessReviews = campaign.businessCampaignDonors.length;
+// campaign.donor.push(review);
+// campaign.numberOfBusinessReviews = campaign.donor.length;
 // campaign.totalNumberOfCampaignDonors =
 // campaign.individualCampaignDonors.length +
-// campaign.businessCampaignDonors.length;
+// campaign.donor.length;
 // }
 //
 // let amountRaised = 0;
-// campaign.businessCampaignDonors.forEach((rev) => {
+// campaign.donor.forEach((rev) => {
 // amountRaised += rev.amount;
 // });
 // campaign.amountAlreadyRaised = amountRaised;
@@ -841,7 +841,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // res.status(200).json({
 // success: true,
-// businessCampaignDonors: campaign.businessCampaignDonors,
+// donor: campaign.donor,
 // });
 // }
 // );
@@ -857,7 +857,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // res.status(200).json({
 // success: true,
-// businessCampaignDonors: campaign.businessCampaignDonors,
+// donor: campaign.donor,
 // });
 // }
 // );
@@ -870,7 +870,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // if (!campaign) {
 // return next(new ErrorHandler("Campaign not found", 404));
 // }
-// const myCampaignDonations = await campaign.businessCampaignDonors.find({
+// const myCampaignDonations = await campaign.donor.find({
 // user: req.user,
 // });
 //
@@ -891,16 +891,16 @@ const getCampaignById = asyncHandler(async (req, res) => {
 // return next(new ErrorHandler("Campaign not found", 404));
 // }
 //
-// const businessCampaignDonors = campaign.businessCampaignDonors.filter(
+// const donor = campaign.donor.filter(
 // (rev) => rev._id.toString() !== req.query.id.toString()
 // );
 //
-// const numberOfBusinessReviews = businessCampaignDonors.length;
+// const numberOfBusinessReviews = donor.length;
 //
 // await Campaign.findByIdAndUpdate(
 // req.query.campaignId,
 // {
-// businessCampaignDonors,
+// donor,
 //
 // numberOfBusinessReviews,
 // },
@@ -913,7 +913,7 @@ const getCampaignById = asyncHandler(async (req, res) => {
 //
 // res.status(200).json({
 // success: true,
-// businessCampaignDonors: campaign.businessCampaignDonors,
+// donor: campaign.donor,
 // });
 // }
 // );
@@ -997,9 +997,9 @@ module.exports = {
   // UpdateCampaign,
   // DeleteCampaign,
   getCampaignDetails,
-  // createIndividualCampaignReview,
-  // getIndividualCampaignReviews,
-  // deleteIndividualCampaignReview,
+  // createcampaignReview,
+  // getcampaignReviews,
+  // deletecampaignReview,
   // createBusinessCampaignReview,
   // getBusinessCampaignReviews,
   // deleteBusinessCampaignReview,

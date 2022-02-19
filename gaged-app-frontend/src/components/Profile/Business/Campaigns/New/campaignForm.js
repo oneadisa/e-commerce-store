@@ -10,17 +10,21 @@ import { useAlert } from "react-alert";
 import { clearErrors } from "../../../../../actions/campaignActions";
 import { newCampaignStarted } from "../../../../../actions/businessActions";
 import { NEW_CAMPAIGN_STARTED_RESET } from "../../../../../constants/businessConstants";
+import useNavigate from "react-router-dom";
 
 // import { useNavigate } from "react-router-dom";
 function CampaignForm() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  // let navigate = useNavigate();
+  let navigate = useNavigate();
   const { loading, error, success } = useSelector(
     (state: RootStateOrAny) => state.newCampaign,
     (state: RootStateOrAny) => state.businessNewCampaignStarted
   );
 
+  const { signedUpBusinessInfo } = useSelector(
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  );
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -76,6 +80,9 @@ function CampaignForm() {
     firstPaymentDateString: "",
     endDateString: "",
     paymentStartDate: "",
+    twitter: "",
+    faceBook: "",
+    whatsApp: "",
   });
 
   const createCampaignSubmitHandler = (e) => {
@@ -119,6 +126,9 @@ function CampaignForm() {
       "amountToBeRepaidPerPayout",
       campaignCredentials.amountToBeRepaidPerPayout
     );
+    myForm.set("twitter", campaignCredentials.twitter);
+    myForm.set("faceBook", campaignCredentials.faceBook);
+    myForm.set("whatsApp", campaignCredentials.whatsApp);
     myForm.set(
       "pledged_profit_to_lenders",
       campaignCredentials.pledged_profit_to_lenders
@@ -163,10 +173,20 @@ function CampaignForm() {
     );
     myForm.set("endDateString", campaignCredentials.endDateString);
     myForm.set("paymentStartDate", campaignCredentials.paymentStartDate);
+
     // dispatch(createCampaignAction(myForm));
     dispatch(newCampaignStarted(myForm));
   };
 
+  useEffect(() => {
+    if (signedUpBusinessInfo) {
+      setCampaignCredentials.twitter(signedUpBusinessInfo.twitter);
+      setCampaignCredentials.faceBook(signedUpBusinessInfo.faceBook);
+      setCampaignCredentials.whatsApp(signedUpBusinessInfo.whatsApp);
+    } else {
+      navigate("/");
+    }
+  }, [signedUpBusinessInfo, navigate]);
   // Proceed to next step
   const nextStep = () => {
     setStep(step + 1);

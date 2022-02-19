@@ -395,7 +395,7 @@ const updateProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Create New Individual Review or Update an Individual review
-const createIndividualProductReview = catchAsyncErrors(
+const createIndividualnewProductReview = catchAsyncErrors(
   async (req, res, next) => {
     const { rating, comment, productId } = req.body;
 
@@ -409,46 +409,46 @@ const createIndividualProductReview = catchAsyncErrors(
 
     const product = await StoreProduct.findById(productId);
 
-    const isReviewed = product.individualProductReviews.find(
+    const isReviewed = product.individualnewProductReviews.find(
       (rev) => rev.user.toString() === req.user._id.toString()
     );
 
     if (isReviewed) {
-      product.individualProductReviews.forEach((rev) => {
+      product.individualnewProductReviews.forEach((rev) => {
         if (rev.user.toString() === req.user._id.toString())
           (rev.rating = rating), (rev.comment = comment);
       });
     } else {
-      product.individualProductReviews.push(review);
+      product.individualnewProductReviews.push(review);
       product.numberOfIndividualReviews =
-        product.individualProductReviews.length;
+        product.individualnewProductReviews.length;
       product.totalNumberOfReviews =
-        product.individualProductReviews.length +
-        product.BusinessProductReviews.length;
+        product.individualnewProductReviews.length +
+        product.BusinessnewProductReviews.length;
     }
 
     let avg = 0;
 
-    product.individualProductReviews.forEach((rev) => {
+    product.individualnewProductReviews.forEach((rev) => {
       avg += rev.rating;
     });
 
     product.ratings =
       avg /
-      (product.individualProductReviews.length +
-        product.BusinessProductReviews.length);
+      (product.individualnewProductReviews.length +
+        product.BusinessnewProductReviews.length);
 
     await product.save({ validateBeforeSave: false });
 
     res.status(200).json({
       success: true,
-      individualProductReviews: product.individualProductReviews,
+      individualnewProductReviews: product.individualnewProductReviews,
     });
   }
 );
 
 // Get Individual Reviews of a product
-const getIndividualProductReviews = catchAsyncErrors(async (req, res, next) => {
+const getIndividualnewProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
@@ -457,12 +457,12 @@ const getIndividualProductReviews = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    individualProductReviews: product.individualProductReviews,
+    individualnewProductReviews: product.individualnewProductReviews,
   });
 });
 
 // Delete Individual Review
-const deleteIndividualProductReview = catchAsyncErrors(
+const deleteIndividualnewProductReview = catchAsyncErrors(
   async (req, res, next) => {
     const product = await StoreProduct.findById(req.query.productId);
 
@@ -470,30 +470,30 @@ const deleteIndividualProductReview = catchAsyncErrors(
       return next(new ErrorHandler("Product not found", 404));
     }
 
-    const individualProductReviews = product.individualProductReviews.filter(
+    const individualnewProductReviews = product.individualnewProductReviews.filter(
       (rev) => rev._id.toString() !== req.query.id.toString()
     );
 
     let avg = 0;
 
-    individualProductReviews.forEach((rev) => {
+    individualnewProductReviews.forEach((rev) => {
       avg += rev.rating;
     });
 
     let ratings = 0;
 
-    if (individualProductReviews.length === 0) {
+    if (individualnewProductReviews.length === 0) {
       ratings = 0;
     } else {
-      ratings = avg / individualProductReviews.length;
+      ratings = avg / individualnewProductReviews.length;
     }
 
-    const numberOfIndividualReviews = individualProductReviews.length;
+    const numberOfIndividualReviews = individualnewProductReviews.length;
 
     await StoreProduct.findByIdAndUpdate(
       req.query.productId,
       {
-        individualProductReviews,
+        individualnewProductReviews,
         ratings,
         numberOfIndividualReviews,
       },
@@ -506,13 +506,13 @@ const deleteIndividualProductReview = catchAsyncErrors(
 
     res.status(200).json({
       success: true,
-      individualProductReviews: product.individualProductReviews,
+      individualnewProductReviews: product.individualnewProductReviews,
     });
   }
 );
 
 // Create New Business Review or Update the Business review
-const createBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
+const createBusinessnewProductReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
 
   const review = {
@@ -525,33 +525,33 @@ const createBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
 
   const product = await StoreProduct.findById(productId);
 
-  const isReviewed = product.BusinessProductReviews.find(
+  const isReviewed = product.BusinessnewProductReviews.find(
     (rev) => rev.toString() === req.user._id.toString()
   );
 
   if (isReviewed) {
-    product.BusinessProductReviews.forEach((rev) => {
+    product.BusinessnewProductReviews.forEach((rev) => {
       if (rev.user.toString() === req.user._id.toString())
         (rev.rating = rating), (rev.comment = comment);
     });
   } else {
-    product.BusinessProductReviews.push(review);
-    product.numberOfBusinessReviews = product.BusinessProductReviews.length;
+    product.BusinessnewProductReviews.push(review);
+    product.numberOfBusinessReviews = product.BusinessnewProductReviews.length;
     product.totalNumberOfReviews =
-      product.individualProductReviews.length +
-      product.BusinessProductReviews.length;
+      product.individualnewProductReviews.length +
+      product.BusinessnewProductReviews.length;
   }
 
   let avg = 0;
 
-  product.BusinessProductReviews.forEach((rev) => {
+  product.BusinessnewProductReviews.forEach((rev) => {
     avg += rev.rating;
   });
 
   product.ratings =
     avg /
-    (product.individualProductReviews.length +
-      product.BusinessProductReviews.length);
+    (product.individualnewProductReviews.length +
+      product.BusinessnewProductReviews.length);
 
   await product.save({ validateBeforeSave: false });
 
@@ -561,7 +561,7 @@ const createBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get All Business Reviews of a product
-const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
+const getBusinessnewProductReviews = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.id);
 
   if (!product) {
@@ -570,42 +570,42 @@ const getBusinessProductReviews = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    BusinessProductReviews: product.BusinessProductReviews,
+    BusinessnewProductReviews: product.BusinessnewProductReviews,
   });
 });
 
 // Delete Business Review
-const deleteBusinessProductReview = catchAsyncErrors(async (req, res, next) => {
+const deleteBusinessnewProductReview = catchAsyncErrors(async (req, res, next) => {
   const product = await StoreProduct.findById(req.query.productId);
 
   if (!product) {
     return next(new ErrorHandler("Review not found", 404));
   }
 
-  const BusinessProductReviews = product.BusinessProductReviews.filter(
+  const BusinessnewProductReviews = product.BusinessnewProductReviews.filter(
     (rev) => rev._id.toString() !== req.query.id.toString()
   );
 
   let avg = 0;
 
-  BusinessProductReviews.forEach((rev) => {
+  BusinessnewProductReviews.forEach((rev) => {
     avg += rev.rating;
   });
 
   let ratings = 0;
 
-  if (BusinessProductReviews.length === 0) {
+  if (BusinessnewProductReviews.length === 0) {
     ratings = 0;
   } else {
-    ratings = avg / BusinessProductReviews.length;
+    ratings = avg / BusinessnewProductReviews.length;
   }
 
-  const numberOfBusinessReviews = BusinessProductReviews.length;
+  const numberOfBusinessReviews = BusinessnewProductReviews.length;
 
   await StoreProduct.findByIdAndUpdate(
     req.query.productId,
     {
-      BusinessProductReviews,
+      BusinessnewProductReviews,
       ratings,
       numberOfBusinessReviews,
     },
@@ -1043,13 +1043,13 @@ module.exports = {
   createProductAdmin,
   getAdminProducts,
   // getProductDetails,
-  createIndividualProductReview,
+  createIndividualnewProductReview,
   updateProductAdmin,
-  getIndividualProductReviews,
-  deleteIndividualProductReview,
-  createBusinessProductReview,
-  getBusinessProductReviews,
-  deleteBusinessProductReview,
+  getIndividualnewProductReviews,
+  deleteIndividualnewProductReview,
+  createBusinessnewProductReview,
+  getBusinessnewProductReviews,
+  deleteBusinessnewProductReview,
   createIndividualProductCustomer,
   getIndividualProductCustomers,
   deleteIndividualProductCustomer,

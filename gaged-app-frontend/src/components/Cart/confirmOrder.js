@@ -30,9 +30,9 @@ const ConfirmOrder = () => {
     shippingCharges += e.shippingCost;
   });
 
-  const tax = subtotal * 0.18;
+  const tax = 0.02651699 * (subtotal + shippingCharges);
 
-  const totalPrice = subtotal + tax + shippingCharges;
+  const totalPrice = subtotal + shippingCharges + tax;
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
@@ -60,7 +60,7 @@ const ConfirmOrder = () => {
             <div className="confirmshippingAreaBox">
               <div>
                 <p>Name:</p>
-                if(!signedUpBusinessInfo)
+                if(!signedUpUserInfo)
                 {
                   <span>
                     {signedUpUserInfo.firstName} {signedUpUserInfo.lastName}

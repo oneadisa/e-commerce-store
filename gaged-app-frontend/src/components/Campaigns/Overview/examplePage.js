@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../Layout/Loader/Loader";
 import Header0 from "../Header0";
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
-import facebook from "../../../images/facebook.svg";
+import faceBook from "../../../images/faceBook.svg";
 import tags from "../../../images/tags.svg";
 import twitter from "../../../images/twitter.svg";
 import whatsapp from "../../../images/whatsapp.svg";
@@ -16,10 +16,10 @@ import {
   getCampaignDetails,
   newBusinessReview,
 } from "../../../actions/campaignActions";
-import { NEW_CAMPAIGN_BUSINESS_REVIEW_RESET } from "../../../constants/campaignConstants";
+import { NEW_CAMPAIGN_REVIEW_RESET } from "../../../constants/campaignConstants";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import IndividualCampaignReviewCard from "../individualCampaignReviewCard";
-import BusinessCampaignReviewCard from "../businessCampaignReviewCard.js.js";
+import campaignReviewCard from "../campaignReviewCard";
+import CampaignReviewCard from "../CampaignReviewCard.js.js";
 import LendHistoryCard from "../lendHistoryCard";
 import RepaymentHistoryCard from "../repaymentHistoryCard";
 
@@ -44,7 +44,7 @@ function LoanThirdBusiness() {
   );
 
   const { success, error: reviewError } = useSelector(
-    (state: RootStateOrAny) => state.newIndividualCampaignReview
+    (state: RootStateOrAny) => state.newCampaignReview
   );
 
   //    const submitReviewToggle = () => {
@@ -77,7 +77,7 @@ function LoanThirdBusiness() {
 
     if (success) {
       alert.success("Review Submitted Successfully");
-      dispatch({ type: NEW_CAMPAIGN_BUSINESS_REVIEW_RESET });
+      dispatch({ type: NEW_CAMPAIGN_REVIEW_RESET });
     }
     dispatch(getCampaignDetails(params.id));
   }, [dispatch, params.id, error, alert, reviewError, success]);
@@ -109,7 +109,7 @@ function LoanThirdBusiness() {
                       <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                         <div className="flex gap-1">
                           <img src={twitter} className="h-8 w-8" alt="" />
-                          <img src={facebook} className="h-8 w-8" alt="" />
+                          <img src={faceBook} className="h-8 w-8" alt="" />
                           <img src={whatsapp} className="h-8 w-8" alt="" />
                         </div>
                         <div className="flex gap-1">
@@ -260,7 +260,7 @@ function LoanThirdBusiness() {
                                   {campaign.businessCampaignReviews &&
                                     campaign.businessCampaignReviews.map(
                                       (review) => (
-                                        <BusinessCampaignReviewCard
+                                        <CampaignReviewCard
                                           key={review._id}
                                           review={review}
                                         />
@@ -274,13 +274,13 @@ function LoanThirdBusiness() {
                               )}
                             </TabPanel>
                             <TabPanel>
-                              {campaign.individualCampaignReviews &&
-                              campaign.individualCampaignReviews[0] ? (
+                              {campaign.campaignReviews &&
+                              campaign.campaignReviews[0] ? (
                                 <div>
-                                  {campaign.individualCampaignReviews &&
-                                    campaign.individualCampaignReviews.map(
+                                  {campaign.campaignReviews &&
+                                    campaign.campaignReviews.map(
                                       (review: any) => (
-                                        <IndividualCampaignReviewCard
+                                        <campaignReviewCard
                                           key={review._id}
                                           review={review}
                                         />
@@ -328,8 +328,8 @@ function LoanThirdBusiness() {
                                   )}
                                 </TabPanel>
                                 <TabPanel>
-                                  {campaign.individualCampaignReviews &&
-                                  campaign.individualCampaignReviews[0] ? (
+                                  {campaign.campaignReviews &&
+                                  campaign.campaignReviews[0] ? (
                                     <div>
                                       {signedUpBusinessInfo.listOfCampaignPayouts &&
                                         signedUpBusinessInfo.listOfCampaignPayouts.map(

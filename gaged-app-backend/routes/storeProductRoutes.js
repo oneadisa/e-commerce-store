@@ -10,13 +10,13 @@
 //   getAdminProducts,
 //   getProductDetails,
 //   createProductAdmin,
-//   createIndividualProductReview,
+//   createIndividualnewProductReview,
 //   updateProductAdmin,
-//   getIndividualProductReviews,
-//   deleteIndividualProductReview,
-//   createBusinessProductReview,
-//   getBusinessProductReviews,
-//   deleteBusinessProductReview,
+//   getIndividualnewProductReviews,
+//   deleteIndividualnewProductReview,
+//   createBusinessnewProductReview,
+//   getBusinessnewProductReviews,
+//   deleteBusinessnewProductReview,
 //   createIndividualProductCustomer,
 //   getIndividualProductCustomers,
 //   deleteIndividualProductCustomer,
@@ -78,19 +78,19 @@
 
 // router
 //   .route("/create-review/business")
-//   .put(protectBusiness, createBusinessProductReview);
+//   .put(protectBusiness, createBusinessnewProductReview);
 
 // router
 //   .route("/reviews/business")
-//   .get(getBusinessProductReviews)
-//   .delete(protectBusiness, deleteBusinessProductReview);
+//   .get(getBusinessnewProductReviews)
+//   .delete(protectBusiness, deleteBusinessnewProductReview);
 
 // router
 //   .route("admin-individual/reviews/business")
 //   .delete(
 //     protectBusiness,
 //     authorizeRoles("admin"),
-//     deleteBusinessProductReview
+//     deleteBusinessnewProductReview
 //   );
 
 // router
@@ -98,24 +98,24 @@
 //   .delete(
 //     protectBusiness,
 //     authorizeRoles("admin"),
-//     deleteBusinessProductReview
+//     deleteBusinessnewProductReview
 //   );
 
 // router
 //   .route("/create-review/individual")
-//   .put(protectUser, createIndividualProductReview);
+//   .put(protectUser, createIndividualnewProductReview);
 
 // router
 //   .route("/reviews/individual")
-//   .get(getIndividualProductReviews)
-//   .delete(protectUser, deleteIndividualProductReview);
+//   .get(getIndividualnewProductReviews)
+//   .delete(protectUser, deleteIndividualnewProductReview);
 
 // router
 //   .route("admin-individual/reviews/individual")
 //   .delete(
 //     protectBusiness,
 //     authorizeRoles("admin"),
-//     deleteIndividualProductReview
+//     deleteIndividualnewProductReview
 //   );
 
 // router
@@ -123,7 +123,7 @@
 //   .delete(
 //     protectBusiness,
 //     authorizeRoles("admin"),
-//     deleteIndividualProductReview
+//     deleteIndividualnewProductReview
 //   );
 
 // router

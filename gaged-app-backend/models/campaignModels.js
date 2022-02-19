@@ -192,7 +192,7 @@ const campaignSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    individualCampaignReviews: [
+    campaignReviews: [
       {
         user: {
           type: mongoose.Schema.ObjectId,
@@ -263,7 +263,7 @@ const campaignSchema = new mongoose.Schema(
       default: 0,
     },
 
-    businessCampaignDonors: [
+    donor: [
       {
         user: {
           type: mongoose.Schema.ObjectId,
@@ -315,7 +315,7 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
-    numberOfBusinessCampaignDonors: {
+    numberOfdonor: {
       type: Number,
       default: 0,
     },

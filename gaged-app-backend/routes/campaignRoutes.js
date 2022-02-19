@@ -7,9 +7,9 @@
 //   UpdateCampaign,
 //   DeleteCampaign,
 //   getCampaignDetails,
-//   createIndividualCampaignReview,
-//   getIndividualCampaignReviews,
-//   deleteIndividualCampaignReview,
+//   createcampaignReview,
+//   getcampaignReviews,
+//   deletecampaignReview,
 //   createBusinessCampaignReview,
 //   getBusinessCampaignReviews,
 //   deleteBusinessCampaignReview,
@@ -101,19 +101,19 @@
 
 // router
 //   .route("/create-review/individual")
-//   .put(protectUser, createIndividualCampaignReview);
+//   .put(protectUser, createcampaignReview);
 
 // router
 //   .route("/reviews/individual")
-//   .get(getIndividualCampaignReviews)
-//   .delete(protectUser, deleteIndividualCampaignReview);
+//   .get(getcampaignReviews)
+//   .delete(protectUser, deletecampaignReview);
 
 // router
 //   .route("admin-individual/reviews/individual")
 //   .delete(
 //     protectBusiness,
 //     authorizeRoles("admin"),
-//     deleteIndividualCampaignReview
+//     deletecampaignReview
 //   );
 
 // router
@@ -121,7 +121,7 @@
 //   .delete(
 //     protectBusiness,
 //     authorizeRoles("admin"),
-//     deleteIndividualCampaignReview
+//     deletecampaignReview
 //   );
 
 // router

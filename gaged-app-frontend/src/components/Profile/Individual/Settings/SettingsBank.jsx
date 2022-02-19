@@ -36,7 +36,7 @@ function SettingsBankIndividual() {
     password: "",
     pic: "",
     twitter: "",
-    facebook: "",
+    faceBook: "",
     whatsApp: "",
     isAdmin: "",
     role: "",
@@ -61,7 +61,7 @@ function SettingsBankIndividual() {
       setUserCredentials.password(signedUpUserInfo.password);
       setUserCredentials.pic(signedUpUserInfo.pic);
       setUserCredentials.twitter(signedUpUserInfo.twitter);
-      setUserCredentials.facebook(signedUpUserInfo.facebook);
+      setUserCredentials.faceBook(signedUpUserInfo.faceBook);
       setUserCredentials.whatsApp(signedUpUserInfo.whatsApp);
       setUserCredentials.isAdmin(signedUpUserInfo.isAdmin);
       setUserCredentials.role(signedUpUserInfo.role);
@@ -112,7 +112,7 @@ function SettingsBankIndividual() {
     myForm.set("password", userCredentials.password);
     myForm.set("pic", userCredentials.pic);
     myForm.set("twitter", userCredentials.twitter);
-    myForm.set("facebook", userCredentials.facebook);
+    myForm.set("faceBook", userCredentials.faceBook);
     myForm.set("whatsApp", userCredentials.whatsApp);
     myForm.set("isAdmin", userCredentials.isAdmin);
     myForm.set("role", userCredentials.role);

@@ -18,7 +18,7 @@ import ProductsNew from "./components/Profile/Business/Store/Products/Main/New.j
 import ProductsOrders from "./components/Profile/Business/Store/Products/Main/Orders.jsx";
 import SingleStoreProduct from "./components/Profile/Business/Store/Products/Main/Update";
 import ProductsCustomers from "./components/Profile/Business/Store/Products/Main/Customers";
-import ProductReviews from "./components/Profile/Business/Store/Products/Main/Reviews";
+import newnewProductReview from "./components/Profile/Business/Store/Products/Main/Reviews";
 
 import SignUpGeneral from "./components/Profile/SignUpGeneral";
 import SetUpProfile1individual from "./components/Profile/SignUp/SetUpProfile-1-individual";

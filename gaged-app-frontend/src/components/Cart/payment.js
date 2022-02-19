@@ -2,23 +2,13 @@ import React, { Fragment, useEffect, useRef } from "react";
 import CheckoutSteps from "../Cart/CheckoutSteps";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
-import { Typography } from "@material-ui/core";
+// import { Typography } from "@material-ui/core";
 import { useAlert } from "react-alert";
-import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
+// import axios from "axios";
 import "./payment.css";
-import CreditCardIcon from "@material-ui/icons/CreditCard";
-import EventIcon from "@material-ui/icons/Event";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import {} from "../../actions/businessActions";
+import { clearErrors, createOrder } from "../../actions/businessActions";
 
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
@@ -27,8 +17,6 @@ const Payment = () => {
 
   const dispatch = useDispatch();
   const alert = useAlert();
-  const stripe = useStripe();
-  const elements = useElements();
   const navigate = useNavigate();
   const payBtn = useRef(null);
 
@@ -43,9 +31,9 @@ const Payment = () => {
   );
   const { error } = useSelector((state: RootStateOrAny) => state.newOrder);
 
-  const paymentData = {
-    amount: Math.round(orderInfo.totalPrice * 100),
-  };
+  // const paymentData = {
+  // amount: Math.round(orderInfo.totalPrice * 100),
+  // };
 
   if (signedUpBusinessInfo) {
     var userInfo = {
@@ -73,93 +61,115 @@ const Payment = () => {
     totalPrice: orderInfo.totalPrice,
   };
 
-  const submitHandler = async (e) => {
+  const SubmitHandler = async (e) => {
     e.preventDefault();
 
     payBtn.current.disabled = true;
 
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axios.post(
-        "/api/v1/payment/process",
-        paymentData,
-        config
-      );
+    const config = {
+      public_key: "FLWPUBK-c49999c8b3ae0a1fafe35a4bad31d166-X",
+      tx_ref: Date.now(),
+      amount: orderInfo.totalPrice,
+      currency: "NGN",
+      payment_options: "card,mobilemoney,ussd,banktransfer",
+      customer: {
+        email: userInfo.email,
+        phonenumber: userInfo.phoneNumber,
+        name: userInfo.name,
+      },
+      // address: {
+      // line1: shippingInfo.address,
+      // city: shippingInfo.city,
+      // state: shippingInfo.state,
+      // postal_code: shippingInfo.pinCode,
+      // country: shippingInfo.country,
+      // },
+      //  handleFlutterPayment({
+      //  callback: (response) => {
+      //  console.log(response);
+      //  closePaymentModal(); // this will close the modal programmatically
+      //  },
+      //  onClose: () => {},
+      //  });
 
-      const client_secret = data.client_secret;
+      customizations: {
+        title: "Gaged",
+        description: "Gaged Checkout",
+        logo: "https://www.linkpicture.com/q/Gaged-Blue.svg",
+      },
+    };
 
-      if (!stripe || !elements) return;
+    const handleFlutterPayment = useFlutterwave(config);
 
-      const result = await stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            name: userInfo.name,
-            email: userInfo.email,
-            address: {
-              line1: shippingInfo.address,
-              city: shippingInfo.city,
-              state: shippingInfo.state,
-              postal_code: shippingInfo.pinCode,
-              country: shippingInfo.country,
-            },
-          },
-        },
-      });
+    handleFlutterPayment({
+      callback: (response) => {
+        console.log(response);
+        closePaymentModal(); // this will close the modal programmatically
 
-      if (result.error) {
-        payBtn.current.disabled = false;
-
-        alert.error(result.error.message);
-      } else {
-        if (result.paymentIntent.status === "succeeded") {
+        if (response.status === "successful") {
           order.paymentInfo = {
-            id: result.paymentIntent.id,
-            status: result.paymentIntent.status,
+            id: response.transaction_id,
+            status: response.status,
           };
-
           dispatch(createOrder(order));
-
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
         }
-      }
+      },
+      onClose: () => {},
+    });
+
+    try {
+      // const config = {
+      // headers: {
+      // "Content-Type": "application/json",
+      // },
+      // };
+      // const { data } = await axios.post(
+      // "/api/v1/payment/process",
+      // paymentData,
+      // config
+      // );
+      // const client_secret = data.client_secret;
+      // if (!stripe || !elements) return;
+      // const result = await stripe.confirmCardPayment(client_secret, {
+      // payment_method: {
+      // card: elements.getElement(CardNumberElement),
+      // billing_details: {
+      // name: userInfo.name,
+      // email: userInfo.email,
+      // address: {
+      // line1: shippingInfo.address,
+      // city: shippingInfo.city,
+      // state: shippingInfo.state,
+      // postal_code: shippingInfo.pinCode,
+      // country: shippingInfo.country,
+      // },
+      // },
+      // },
+      // });
+      // if (result.error) {
+      // payBtn.current.disabled = false;
+      // alert.error(result.error.message);
+      // } else {
+      // if (result.paymentIntent.status === "succeeded") {
+      // order.paymentInfo = {
+      // id: result.paymentIntent.id,
+      // status: result.paymentIntent.status,
+      // };
+      // dispatch(createOrder(order));
+      // navigate("/success");
+      // } else {
+      // alert.error("There's some issue while processing payment ");
+      // }
+      // }
     } catch (error) {
-      payBtn.current.disabled = false;
-      alert.error(error.response.data.message);
+      // payBtn.current.disabled = false;
+      // alert.error(error.response.data.message);
     }
   };
 
-  const config = {
-    public_key: process.env.FLUTTERWAVE_PUBLIC_KEY,
-    tx_ref: Date.now(),
-    amount: orderInfo.totalPrice,
-    currency: "NGN",
-    payment_options: "card,mobilemoney,ussd",
-    customer: {
-      email: userInfo.email,
-      phonenumber: userInfo.phoneNumber,
-      name: userInfo.name,
-    },
-    address: {
-      line1: shippingInfo.address,
-      city: shippingInfo.city,
-      state: shippingInfo.state,
-      postal_code: shippingInfo.pinCode,
-      country: shippingInfo.country,
-    },
-    customizations: {
-      title: "",
-      description: "Gaged Checkout",
-      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
-    },
-  };
-  const handleFlutterPayment = useFlutterwave(config);
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -173,20 +183,8 @@ const Payment = () => {
       <CheckoutSteps activeStep={2} />
       <div className="paymentContainer">
         <div className="App">
-          <h1>Welcome</h1>
-          <button
-            // onClick={() => {
-            // handleFlutterPayment({
-            // callback: (response) => {
-            // console.log(response);
-            // closePaymentModal(); // this will close the modal programmatically
-            // },
-            // onClose: () => {},
-            // });
-            // }}
-            onClick={(e) => submitHandler(e)}
-            ref={payBtn}
-          >
+          <h1>Final Step</h1>
+          <button onClick={(e) => SubmitHandler(e)} ref={payBtn}>
             Pay - ₦{orderInfo && orderInfo.totalPrice}
           </button>
         </div>

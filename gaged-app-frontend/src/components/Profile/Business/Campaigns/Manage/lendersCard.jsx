@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import fundraiser from "../../../../../images/fundraiser.png";
-import facebook from "../../../../../images/facebook.svg";
+import faceBook from "../../../../../images/faceBook.svg";
 import tags from "../../../../../images/tags.svg";
 import twitter from "../../../../../images/twitter.svg";
 import whatsapp from "../../../../../images/whatsapp.svg";
@@ -51,7 +51,7 @@ function Lenders() {
                       <div className="flex md:flex-row justify-between">
                         <div className="flex gap-1">
                           <img alt="" src={twitter} className="h-8 w-8" />
-                          <img alt="" src={facebook} className="h-8 w-8" />
+                          <img alt="" src={faceBook} className="h-8 w-8" />
                           <img alt="" src={whatsapp} className="h-8 w-8" />
                         </div>
                         <div className="flex gap-1">

@@ -82,10 +82,10 @@ const {
   getIndividualOrders,
   updateIndividualOrder,
   deleteindividualOrder,
-  createPersonalProductReview,
-  getMyPersonalProductReviews,
-  getPersonalProductReviews,
-  deletePersonalProductReview,
+  createPersonalnewProductReview,
+  getMyPersonalnewProductReviews,
+  getPersonalnewProductReviews,
+  deletePersonalnewProductReview,
   createPersonalCampaignReview,
   getMyPersonalCampaignReviews,
   getPersonalCampaignReviews,
@@ -370,16 +370,16 @@ router.route("/orders/individual/me").get(getMyIndividualOrders);
 
 router
   .route("/profile-product-review")
-  .put(protectBusiness, createPersonalProductReview);
+  .put(protectBusiness, createPersonalnewProductReview);
 
 router
   .route("/profile-product-review/edit")
-  .get(protectBusiness, getPersonalProductReviews)
-  .delete(protectBusiness, deletePersonalProductReview);
+  .get(protectBusiness, getPersonalnewProductReviews)
+  .delete(protectBusiness, deletePersonalnewProductReview);
 
 router
   .route("/profile-product-review/edit/me")
-  .get(getMyPersonalProductReviews);
+  .get(getMyPersonalnewProductReviews);
 
 router
   .route("/profile-campaign-review")

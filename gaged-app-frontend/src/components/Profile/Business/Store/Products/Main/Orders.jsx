@@ -25,26 +25,27 @@ function ProductsOrders() {
   const { individualOrders, error, loading } = useSelector(
     (state) => state.businessIndividualProductOrders
   );
-  const { businessOrders, loadingBusiness, errorBusiness } = useSelector(
-    (state) => state.businessBusinessProductOrders
+  const { businessOrders, loading, error } = useSelector(
+    (state) => state.Orders
   );
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
-    } else if (errorBusiness) {
-      alert.error(errorBusiness);
+    } else if (error) {
+      alert.error(error);
       dispatch(clearErrors());
     }
     dispatch(getAllIndividualOrders());
     dispatch(getAllBusinessOrders());
-  }, [dispatch, alert, error, errorBusiness]);
+  }, [dispatch, alert, error, error]);
 
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
-      {loadingBusiness || loading ? (
+      {" "}
+      {loading || loading ? (
         <Loader />
       ) : (
         <Fragment>
@@ -54,143 +55,129 @@ function ProductsOrders() {
               handleNav={() => setOpen(!open)}
               button={
                 open ? (
-                  <i className="fas fa-times"></i>
+                  <i className="fas fa-times"> </i>
                 ) : (
-                  <i className="fas fa-bars"></i>
+                  <i className="fas fa-bars"> </i>
                 )
               }
-            />
+            />{" "}
             <div className="lg:bg-magenta-blue lg:px-4 h-screen">
               <div className="block lg:flex lg:space-x-36">
                 <div className="hidden lg:block">
                   <DashBoard />
-                </div>
-                <div className="lg:hidden">{open && <DashBoard />}</div>
+                </div>{" "}
+                <div className="lg:hidden"> {open && <DashBoard />} </div>{" "}
                 <div className="flex flex-col lg:space-y-10 lg:w-4/5">
                   <div className="flex flex-col lg:flex-row px-3 pt-2 gap-2 text-base lg:text-lg font-normal bg-white lg:px-5">
                     <div className="flex justify-between lg:gap-10">
                       <p className="p-1 lg:p-2 cursor-pointer hover:text-Dark-blue">
-                        Overview
-                      </p>
+                        Overview{" "}
+                      </p>{" "}
                       <p className="p-1 lg:p-2 cursor-pointer border-b-2 border-Dark-blue hover:text-Dark-blue">
-                        Products
-                      </p>
+                        Products{" "}
+                      </p>{" "}
                       <p className="p-1 lg:p-2 cursor-pointer hover:text-Dark-blue">
-                        Orders
-                      </p>
+                        Orders{" "}
+                      </p>{" "}
                       <p className="p-1 lg:p-2 cursor-pointer hover:text-Dark-blue">
-                        Customers
-                      </p>
+                        Customers{" "}
+                      </p>{" "}
                       <p className="p-1 lg:p-2 cursor-pointer hover:text-Dark-blue">
-                        Reviews
-                      </p>
-                    </div>
+                        Reviews{" "}
+                      </p>{" "}
+                    </div>{" "}
                     <button className="border border-Dark-blue px-3 mb-2 rounded ml-auto hover:bg-Dark-blue hover:text-white">
-                      Visit store
-                    </button>
-                  </div>
+                      Visit store{" "}
+                    </button>{" "}
+                  </div>{" "}
                   <div className="mt-7 py-5 px-8 bg-white">
-                    <h2 className="text-2xl font-normal">Orders</h2>
-                    {/* <div className="flex mt-3 text-base gap-5 text-Dark-grey"> */}
-                    {/* <p className="text-medium-blue">All</p> */}
-                    {/* <p>Pending</p> */}
-                    {/* <p>Delivered</p> */}
-                    {/* </div> */}
+                    <h2 className="text-2xl font-normal"> Orders </h2>{" "}
+                    {/* <div className="flex mt-3 text-base gap-5 text-Dark-grey"> */}{" "}
+                    {/* <p className="text-medium-blue">All</p> */}{" "}
+                    {/* <p>Pending</p> */} {/* <p>Delivered</p> */}{" "}
+                    {/* </div> */}{" "}
                     <Tabs>
                       <TabList>
                         <div className="flex gap-5 md:gap-10 border-b">
-                          <Tab>Businesses</Tab>
-                          <Tab>Individuals</Tab>
-                        </div>
-                      </TabList>
+                          <Tab> Businesses </Tab> <Tab> Individuals </Tab>{" "}
+                        </div>{" "}
+                      </TabList>{" "}
                       <TabPanels>
                         <TabPanel>
+                          {" "}
                           {individualOrders && individualOrders[0] ? (
                             <>
                               <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>ORDER</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>TOTAL</p>
-                                <p>STATUS</p>
-                                <p>ACTION</p>
-                              </div>
+                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
+                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
+                                <p> ACTION </p>{" "}
+                              </div>{" "}
                               <div>
+                                {" "}
                                 {businessOrders &&
                                   businessOrders.map((order) => (
                                     <BusinessOrderCard
                                       key={order._id}
                                       order={order}
                                     />
-                                  ))}
-                              </div>
+                                  ))}{" "}
+                              </div>{" "}
                             </>
                           ) : (
                             <>
                               <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>ORDER</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>TOTAL</p>
-                                <p>STATUS</p>
-                                <p>ACTION</p>
-                              </div>
+                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
+                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
+                                <p> ACTION </p>{" "}
+                              </div>{" "}
                               <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                No Businesses have placed any ordres yet.
-                              </p>
+                                No Businesses have placed any ordres yet.{" "}
+                              </p>{" "}
                             </>
-                          )}
-                        </TabPanel>
+                          )}{" "}
+                        </TabPanel>{" "}
                         <TabPanel>
+                          {" "}
                           {individualOrders && individualOrders[0] ? (
                             <>
                               <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>ORDER</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>TOTAL</p>
-                                <p>STATUS</p>
-                                <p>ACTION</p>
-                              </div>
+                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
+                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
+                                <p> ACTION </p>{" "}
+                              </div>{" "}
                               <div>
+                                {" "}
                                 {individualOrders &&
                                   individualOrders.map((order) => (
                                     <IndividualOrderCard
                                       key={order._id}
                                       order={order}
                                     />
-                                  ))}
-                              </div>
+                                  ))}{" "}
+                              </div>{" "}
                             </>
                           ) : (
                             <>
                               <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>ORDER</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>TOTAL</p>
-                                <p>STATUS</p>
-                                <p>ACTION</p>
-                              </div>
+                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
+                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
+                                <p> ACTION </p>{" "}
+                              </div>{" "}
                               <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                No Individuals have placed any ordres yet.
-                              </p>
+                                No Individuals have placed any ordres yet.{" "}
+                              </p>{" "}
                             </>
-                          )}
-                        </TabPanel>
-                      </TabPanels>
-                    </Tabs>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                          )}{" "}
+                        </TabPanel>{" "}
+                      </TabPanels>{" "}
+                    </Tabs>{" "}
+                  </div>{" "}
+                </div>{" "}
+              </div>{" "}
+            </div>{" "}
+          </div>{" "}
         </Fragment>
-      )}
+      )}{" "}
     </Fragment>
   );
 }

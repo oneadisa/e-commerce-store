@@ -14,8 +14,8 @@ import {
   deleteStoreProduct,
 } from "../../../../../../actions/businessActions";
 import ProductsCard from "../allProductsCard";
-import { STORE_PRODUCTS_UPDATE_RESET } from "../../constants/productConstants";
 import MetaData from "../../../../../Layout/metaData";
+import { DELETE_STORE_PRODUCTS_RESET } from "../../../../../../constants/businessConstants";
 
 function ProductsAll() {
   const dispatch = useDispatch();
@@ -26,11 +26,12 @@ function ProductsAll() {
     (state: RootStateOrAny) => state.signedUpBusinessInfo
   );
 
+  const { error, products } = useSelector((state) => state.products);
   const {
     isDeleted,
     loading,
     error: deleteError,
-  } = useSelector((state) => state.businessProduct);
+  } = useSelector((state) => state.product);
   useEffect(() => {
     if (!signedUpBusinessInfo) {
       navigate("/");
@@ -46,7 +47,7 @@ function ProductsAll() {
     if (isDeleted) {
       alert.success("Product Deleted Successfully");
       navigate("/products/all");
-      dispatch({ type: STORE_PRODUCTS_UPDATE_RESET });
+      dispatch({ type: DELETE_STORE_PRODUCTS_RESET });
     }
     dispatch(loadBusiness());
   }, [dispatch, error, signedUpBusinessInfo, navigate, deleteError, isDeleted]);
@@ -140,12 +141,12 @@ function ProductsAll() {
                     </div>
                     <div>
                       {signedUpBusinessInfo.storeProducts &&
-                        signedUpBusinessInfo.storeProducts.map((product) => (
+                        signedUpBusinessInfo.storeProducts.map((products) => (
                           <ProductsCard
-                            key={product._id}
-                            product={product}
+                            key={products._id}
+                            products={products}
                             deleteHandler={deleteHandler}
-                            perama={params}
+                            params={params}
                           />
                         ))}
                     </div>

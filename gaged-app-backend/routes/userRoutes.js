@@ -25,10 +25,10 @@ const {
   getMyListOfIndividualCampaignsInvested,
   getListOfIndividualCampaignsInvested,
   deleteIndividualCampaignInvested,
-  createIndividualPersonalProductReview,
-  getMyIndividualPersonalProductReviews,
-  getIndividualPersonalProductReviews,
-  deleteIndividualPersonalProductReview,
+  createIndividualPersonalnewProductReview,
+  getMyIndividualPersonalnewProductReviews,
+  getIndividualPersonalnewProductReviews,
+  deleteIndividualPersonalnewProductReview,
   createIndividualPersonalCampaignReview,
   getMyIndividualPersonalCampaignReviews,
   getIndividualPersonalCampaignReviews,
@@ -105,16 +105,16 @@ router
 
 router
   .route("/profile-product-review")
-  .put(protectBusiness, createIndividualPersonalProductReview);
+  .put(protectBusiness, createIndividualPersonalnewProductReview);
 
 router
   .route("/profile-product-review/edit")
-  .get(protectBusiness, getIndividualPersonalProductReviews)
-  .delete(protectBusiness, deleteIndividualPersonalProductReview);
+  .get(protectBusiness, getIndividualPersonalnewProductReviews)
+  .delete(protectBusiness, deleteIndividualPersonalnewProductReview);
 
 router
   .route("/profile-product-review/edit/me")
-  .get(protectBusiness, getMyIndividualPersonalProductReviews);
+  .get(protectBusiness, getMyIndividualPersonalnewProductReviews);
 
 router
   .route("/profile-campaign-review")

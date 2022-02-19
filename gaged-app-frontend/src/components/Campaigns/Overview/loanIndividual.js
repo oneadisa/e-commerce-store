@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Header0 from "../Header0";
 import Loader from "../../Layout/Loader/Loader";
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
-import facebook from "../../../images/facebook.svg";
+import faceBook from "../../../images/faceBook.svg";
 import tags from "../../../images/tags.svg";
 import twitter from "../../../images/twitter.svg";
 import whatsapp from "../../../images/whatsapp.svg";
@@ -15,7 +15,7 @@ import {
   getCampaignDetails,
   newIndividualReview,
 } from "../../../actions/campaignActions";
-import { NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET } from "../../../constants/campaignConstants";
+import { NEW_CAMPAIGN_REVIEW_RESET } from "../../../constants/campaignConstants";
 
 function LoanThirdIndividual() {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function LoanThirdIndividual() {
   );
 
   const { success, error: reviewError } = useSelector(
-    (state: RootStateOrAny) => state.newIndividualCampaignReview
+    (state: RootStateOrAny) => state.newCampaignReview
   );
 
   //    const submitReviewToggle = () => {
@@ -60,7 +60,7 @@ function LoanThirdIndividual() {
 
     if (success) {
       alert.success("Review Submitted Successfully");
-      dispatch({ type: NEW_CAMPAIGN_INDIVIDUAL_REVIEW_RESET });
+      dispatch({ type: NEW_CAMPAIGN_REVIEW_RESET });
     }
     dispatch(getCampaignDetails(params.id));
   }, [dispatch, params.id, error, alert, reviewError, success]);
@@ -89,7 +89,7 @@ function LoanThirdIndividual() {
                       <div className="flex md:flex-row md:gap-0 justify-between px-0 lg:px-5">
                         <div className="flex gap-1">
                           <img src={twitter} className="h-8 w-8" alt="" />
-                          <img src={facebook} className="h-8 w-8" alt="" />
+                          <img src={faceBook} className="h-8 w-8" alt="" />
                           <img src={whatsapp} className="h-8 w-8" alt="" />
                         </div>
                         <div className="flex gap-1">

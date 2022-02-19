@@ -10,7 +10,7 @@ import {
   getAllIndividualOrders,
   getAllBusinessOrders,
 } from "../../../../../../actions/businessActions";
-import BusinessReviewCard from "../businessReviewCard";
+import ReviewCard from "../reviewCard";
 import IndividualReviewCard from "../individualReviewCard";
 import { useAlert } from "react-alert";
 import MetaData from "../../../../../Layout/MetaData";
@@ -22,27 +22,27 @@ function ProductsReviews() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const { individualReviews, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.businessIndividualProductReviews
+    (state: RootStateOrAny) => state.reviews
   );
-  const { businessReviews, loadingBusiness, errorBusiness } = useSelector(
-    (state: RootStateOrAny) => state.businessBusinessProductReviews
+  const { businessReviews, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.businessBusinessnewProductReviews
   );
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
-    } else if (errorBusiness) {
-      alert.error(errorBusiness);
+    } else if (error) {
+      alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getAllIndividualOrders());
-    dispatch(getAllBusinessOrders());
-  }, [dispatch, alert, error, errorBusiness]);
+    // dispatch(getAllIndividualOrders());
+    // dispatch(getAllBusinessOrders());
+  }, [dispatch, alert, error, error]);
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
-      {loadingBusiness || loading ? (
+      {loading || loading ? (
         <Loader />
       ) : (
         <Fragment>
@@ -94,93 +94,39 @@ function ProductsReviews() {
                     {/* <p>Pending</p> */}
                     {/* <p>Delivered</p> */}
                     {/* </div> */}
-                    <Tabs>
-                      <TabList>
-                        <div className="flex gap-5 md:gap-10 border-b">
-                          <Tab>Businesses</Tab>
-                          <Tab>Individuals</Tab>
+                    {businessReviews && businessReviews[0] ? (
+                      <>
+                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
+                          <p>#</p>
+                          <p>PRODUCT</p>
+                          <p>RATING</p>
+                          <p>CUSTOMER NAME</p>
+                          <p>PHONE</p>
+                          <p>COMMENT</p>
                         </div>
-                      </TabList>
-                      <TabPanels>
-                        <TabPanel>
-                          {businessReviews && businessReviews[0] ? (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>PRODUCT</p>
-                                <p>RATING</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>COMMENT</p>
-                              </div>
-                              <div>
-                                {businessReviews &&
-                                  businessReviews.map((review) => (
-                                    <BusinessReviewCard
-                                      key={review._id}
-                                      review={review}
-                                    />
-                                  ))}
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>PRODUCT</p>
-                                <p>RATING</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>COMMENT</p>
-                                <p>STATUS</p>
-                              </div>
-                              <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                No Businesses have placed any ordres yet.
-                              </p>
-                            </>
-                          )}
-                        </TabPanel>
-                        <TabPanel>
-                          {individualReviews && individualReviews[0] ? (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>PRODUCT</p>
-                                <p>RATING</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>COMMENT</p>
-                                <p>STATUS</p>
-                              </div>
-                              <div>
-                                {individualReviews &&
-                                  individualReviews.map((review) => (
-                                    <IndividualReviewCard
-                                      key={review._id}
-                                      review={review}
-                                    />
-                                  ))}
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-                                <p>PRODUCT</p>
-                                <p>RATING</p>
-                                <p>CUSTOMER NAME</p>
-                                <p>PHONE</p>
-                                <p>COMMENT</p>
-                                <p>STATUS</p>
-                              </div>
-                              <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                No Individuals have placed any ordres yet.
-                              </p>
-                            </>
-                          )}
-                        </TabPanel>
-                      </TabPanels>
-                    </Tabs>
+                        <div>
+                          {businessReviews &&
+                            businessReviews.map((review) => (
+                              <ReviewCard key={review._id} review={review} />
+                            ))}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
+                          <p>#</p>
+                          <p>PRODUCT</p>
+                          <p>RATING</p>
+                          <p>CUSTOMER NAME</p>
+                          <p>PHONE</p>
+                          <p>COMMENT</p>
+                          <p>STATUS</p>
+                        </div>
+                        <p className="text-center font-poppins text-bold text-xl h-screen p-20">
+                          No Businesses have placed any ordres yet.
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

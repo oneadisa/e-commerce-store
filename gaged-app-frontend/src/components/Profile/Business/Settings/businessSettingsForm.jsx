@@ -37,7 +37,7 @@ const BusinessSettingsForm = () => {
     password: "",
     pic: "",
     twitter: "",
-    facebook: "",
+    faceBook: "",
     whatsApp: "",
     isAdmin: "",
     role: "",
@@ -97,7 +97,7 @@ const BusinessSettingsForm = () => {
     totalNumberOfCustomers: "",
     campaignReviews: "",
     numberOfCampaignsReviwed: "",
-    productReviews: "",
+    newnewProductReview: "",
     numberOfProductsReviewed: "",
     totallNumberOfInteractions: "",
     paymentMethod: "",
@@ -115,7 +115,7 @@ const BusinessSettingsForm = () => {
       setBusinessCredentials.password(signedUpBusinessInfo.password);
       setBusinessCredentials.pic(signedUpBusinessInfo.pic);
       setBusinessCredentials.twitter(signedUpBusinessInfo.twitter);
-      setBusinessCredentials.facebook(signedUpBusinessInfo.facebook);
+      setBusinessCredentials.faceBook(signedUpBusinessInfo.faceBook);
       setBusinessCredentials.whatsApp(signedUpBusinessInfo.whatsApp);
       setBusinessCredentials.isAdmin(signedUpBusinessInfo.isAdmin);
       setBusinessCredentials.role(signedUpBusinessInfo.role);
@@ -255,8 +255,8 @@ const BusinessSettingsForm = () => {
       setBusinessCredentials.numberOfCampaignsReviwed(
         signedUpBusinessInfo.numberOfCampaignsReviwed
       );
-      setBusinessCredentials.productReviews(
-        signedUpBusinessInfo.productReviews
+      setBusinessCredentials.newnewProductReview(
+        signedUpBusinessInfo.newnewProductReview
       );
       setBusinessCredentials.numberOfProductsReviewed(
         signedUpBusinessInfo.numberOfProductsReviewed
@@ -296,7 +296,7 @@ const BusinessSettingsForm = () => {
     myForm.set("password", businessCredentials.password);
     myForm.set("pic", businessCredentials.pic);
     myForm.set("twitter", businessCredentials.twitter);
-    myForm.set("facebook", businessCredentials.facebook);
+    myForm.set("faceBook", businessCredentials.faceBook);
     myForm.set("whatsApp", businessCredentials.whatsApp);
     myForm.set("isAdmin", businessCredentials.isAdmin);
     myForm.set("role", businessCredentials.role);
@@ -416,7 +416,7 @@ const BusinessSettingsForm = () => {
       "numberOfCampaignsReviwed",
       businessCredentials.numberOfCampaignsReviwed
     );
-    myForm.set("productReviews", businessCredentials.productReviews);
+    myForm.set("newnewProductReview", businessCredentials.newnewProductReview);
     myForm.set(
       "numberOfProductsReviewed",
       businessCredentials.numberOfProductsReviewed

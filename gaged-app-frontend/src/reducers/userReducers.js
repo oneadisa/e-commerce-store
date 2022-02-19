@@ -39,17 +39,17 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
-  NEW_BUSINESS_ORDERED_FROM_REQUEST,
-  NEW_BUSINESS_ORDERED_FROM_RESET,
-  NEW_BUSINESS_ORDERED_FROM_SUCCESS,
-  NEW_BUSINESS_ORDERED_FROM_FAIL,
-  ALL_BUSINESS_ORDERED_FROM_SUCCESS,
-  ALL_BUSINESS_ORDERED_FROM_REQUEST,
-  ALL_BUSINESS_ORDERED_FROM_FAIL,
-  DELETE_BUSINESS_ORDERED_FROM_REQUEST,
-  DELETE_BUSINESS_ORDERED_FROM_FAIL,
-  DELETE_BUSINESS_ORDERED_FROM_SUCCESS,
-  DELETE_BUSINESS_ORDERED_FROM_RESET,
+  NEW_ORDERED_FROM_REQUEST,
+  NEW_ORDERED_FROM_RESET,
+  NEW_ORDERED_FROM_SUCCESS,
+  NEW_ORDERED_FROM_FAIL,
+  ALL_ORDERED_FROM_SUCCESS,
+  ALL_ORDERED_FROM_REQUEST,
+  ALL_ORDERED_FROM_FAIL,
+  DELETE_ORDERED_FROM_REQUEST,
+  DELETE_ORDERED_FROM_FAIL,
+  DELETE_ORDERED_FROM_SUCCESS,
+  DELETE_ORDERED_FROM_RESET,
   NEW_CAMPAIGN_INVESTED_REQUEST,
   NEW_CAMPAIGN_INVESTED_SUCCESS,
   NEW_CAMPAIGN_INVESTED_RESET,
@@ -372,17 +372,17 @@ export const allBusinessOrderedFromReducer = (
   action
 ) => {
   switch (action.type) {
-    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+    case ALL_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+    case ALL_ORDERED_FROM_SUCCESS:
       return {
         loading: false,
         businessOrderedFrom: action.payload,
       };
-    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+    case ALL_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
@@ -404,17 +404,17 @@ export const myBusinessOrderedFromReducer = (
   action
 ) => {
   switch (action.type) {
-    case ALL_BUSINESS_ORDERED_FROM_REQUEST:
+    case ALL_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case ALL_BUSINESS_ORDERED_FROM_SUCCESS:
+    case ALL_ORDERED_FROM_SUCCESS:
       return {
         loading: false,
         businessOrderedFrom: action.payload,
       };
-    case ALL_BUSINESS_ORDERED_FROM_FAIL:
+    case ALL_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
@@ -436,24 +436,24 @@ export const newBusinessOrderedFromReducer = (
   action
 ) => {
   switch (action.type) {
-    case NEW_BUSINESS_ORDERED_FROM_REQUEST:
+    case NEW_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case NEW_BUSINESS_ORDERED_FROM_SUCCESS:
+    case NEW_ORDERED_FROM_SUCCESS:
       return {
         loading: false,
         success: action.payload.success,
         businessOrderedFrom: action.payload.businessOrderedFrom,
       };
-    case NEW_BUSINESS_ORDERED_FROM_FAIL:
+    case NEW_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case NEW_BUSINESS_ORDERED_FROM_RESET:
+    case NEW_ORDERED_FROM_RESET:
       return {
         ...state,
         success: false,
@@ -470,25 +470,25 @@ export const newBusinessOrderedFromReducer = (
 
 export const businessOrderedFromReducer = (state = {}, action) => {
   switch (action.type) {
-    case DELETE_BUSINESS_ORDERED_FROM_REQUEST:
+    case DELETE_ORDERED_FROM_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case DELETE_BUSINESS_ORDERED_FROM_SUCCESS:
+    case DELETE_ORDERED_FROM_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
 
-    case DELETE_BUSINESS_ORDERED_FROM_FAIL:
+    case DELETE_ORDERED_FROM_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case DELETE_BUSINESS_ORDERED_FROM_RESET:
+    case DELETE_ORDERED_FROM_RESET:
       return {
         ...state,
         isDeleted: false,
@@ -1039,7 +1039,7 @@ export const myProductsReviewsReducer = (
   }
 };
 
-export const newProductReviewsReducer = (
+export const newnewProductReviewsReducer = (
   state = { productsReviews: {} },
   action
 ) => {

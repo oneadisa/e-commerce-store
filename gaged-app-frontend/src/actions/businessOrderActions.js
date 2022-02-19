@@ -1,22 +1,22 @@
 import {
-  CREATE_BUSINESS_ORDER_REQUEST,
-  CREATE_BUSINESS_ORDER_SUCCESS,
-  CREATE_BUSINESS_ORDER_FAIL,
-  MY_BUSINESS_ORDERS_REQUEST,
-  MY_BUSINESS_ORDERS_SUCCESS,
-  MY_BUSINESS_ORDERS_FAIL,
-  ALL_BUSINESS_ORDERS_REQUEST,
-  ALL_BUSINESS_ORDERS_SUCCESS,
-  ALL_BUSINESS_ORDERS_FAIL,
-  UPDATE_BUSINESS_ORDER_REQUEST,
-  UPDATE_BUSINESS_ORDER_SUCCESS,
-  UPDATE_BUSINESS_ORDER_FAIL,
-  DELETE_BUSINESS_ORDER_REQUEST,
-  DELETE_BUSINESS_ORDER_SUCCESS,
-  DELETE_BUSINESS_ORDER_FAIL,
-  BUSINESS_ORDER_DETAILS_REQUEST,
-  BUSINESS_ORDER_DETAILS_SUCCESS,
-  BUSINESS_ORDER_DETAILS_FAIL,
+  CREATE_ORDER_REQUEST,
+  CREATE_ORDER_SUCCESS,
+  CREATE_ORDER_FAIL,
+  MY_ORDERS_REQUEST,
+  MY_ORDERS_SUCCESS,
+  MY_ORDERS_FAIL,
+  ALL_ORDERS_REQUEST,
+  ALL_ORDERS_SUCCESS,
+  ALL_ORDERS_FAIL,
+  UPDATE_ORDER_REQUEST,
+  UPDATE_ORDER_SUCCESS,
+  UPDATE_ORDER_FAIL,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_FAIL,
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_SUCCESS,
+  ORDER_DETAILS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/businessOrderConstants";
 
@@ -25,7 +25,7 @@ import axios from "axios";
 // Create BusinessOrder
 export const createBusinessOrder = (order) => async (dispatch) => {
   try {
-    dispatch({ type: CREATE_BUSINESS_ORDER_REQUEST });
+    dispatch({ type: CREATE_ORDER_REQUEST });
 
     const config = {
       headers: {
@@ -34,10 +34,10 @@ export const createBusinessOrder = (order) => async (dispatch) => {
     };
     const { data } = await axios.post("/api/v1/order/new", order, config);
 
-    dispatch({ type: CREATE_BUSINESS_ORDER_SUCCESS, payload: data });
+    dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: CREATE_BUSINESS_ORDER_FAIL,
+      type: CREATE_ORDER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -46,14 +46,14 @@ export const createBusinessOrder = (order) => async (dispatch) => {
 // My BusinessOrders
 export const myBusinessOrders = () => async (dispatch) => {
   try {
-    dispatch({ type: MY_BUSINESS_ORDERS_REQUEST });
+    dispatch({ type: MY_ORDERS_REQUEST });
 
     const { data } = await axios.get("/api/v1/orders/me");
 
-    dispatch({ type: MY_BUSINESS_ORDERS_SUCCESS, payload: data.orders });
+    dispatch({ type: MY_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
     dispatch({
-      type: MY_BUSINESS_ORDERS_FAIL,
+      type: MY_ORDERS_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -62,14 +62,14 @@ export const myBusinessOrders = () => async (dispatch) => {
 // Get All BusinessOrders (admin)
 export const getAllBusinessOrders = () => async (dispatch) => {
   try {
-    dispatch({ type: ALL_BUSINESS_ORDERS_REQUEST });
+    dispatch({ type: ALL_ORDERS_REQUEST });
 
     const { data } = await axios.get("/api/v1/admin/orders");
 
-    dispatch({ type: ALL_BUSINESS_ORDERS_SUCCESS, payload: data.orders });
+    dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
     dispatch({
-      type: ALL_BUSINESS_ORDERS_FAIL,
+      type: ALL_ORDERS_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -78,7 +78,7 @@ export const getAllBusinessOrders = () => async (dispatch) => {
 // Update BusinessOrder
 export const updateBusinessOrder = (id, order) => async (dispatch) => {
   try {
-    dispatch({ type: UPDATE_BUSINESS_ORDER_REQUEST });
+    dispatch({ type: UPDATE_ORDER_REQUEST });
 
     const config = {
       headers: {
@@ -91,10 +91,10 @@ export const updateBusinessOrder = (id, order) => async (dispatch) => {
       config
     );
 
-    dispatch({ type: UPDATE_BUSINESS_ORDER_SUCCESS, payload: data.success });
+    dispatch({ type: UPDATE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
-      type: UPDATE_BUSINESS_ORDER_FAIL,
+      type: UPDATE_ORDER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -103,14 +103,14 @@ export const updateBusinessOrder = (id, order) => async (dispatch) => {
 // Delete BusinessOrder
 export const deleteBusinessOrder = (id) => async (dispatch) => {
   try {
-    dispatch({ type: DELETE_BUSINESS_ORDER_REQUEST });
+    dispatch({ type: DELETE_ORDER_REQUEST });
 
     const { data } = await axios.delete(`/api/v1/admin/order/${id}`);
 
-    dispatch({ type: DELETE_BUSINESS_ORDER_SUCCESS, payload: data.success });
+    dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
-      type: DELETE_BUSINESS_ORDER_FAIL,
+      type: DELETE_ORDER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -119,14 +119,14 @@ export const deleteBusinessOrder = (id) => async (dispatch) => {
 // Get BusinessOrder Details
 export const getBusinessOrderDetails = (id) => async (dispatch) => {
   try {
-    dispatch({ type: BUSINESS_ORDER_DETAILS_REQUEST });
+    dispatch({ type: ORDER_DETAILS_REQUEST });
 
     const { data } = await axios.get(`/api/v1/order/${id}`);
 
-    dispatch({ type: BUSINESS_ORDER_DETAILS_SUCCESS, payload: data.order });
+    dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
     dispatch({
-      type: BUSINESS_ORDER_DETAILS_FAIL,
+      type: ORDER_DETAILS_FAIL,
       payload: error.response.data.message,
     });
   }
