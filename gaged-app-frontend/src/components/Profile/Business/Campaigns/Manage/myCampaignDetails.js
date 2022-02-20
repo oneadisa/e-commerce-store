@@ -3,7 +3,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../../../Layout/Loader/Loader";
-import Header from "./Header";
+
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import faceBook from "../../../../../images/facebook.svg";
 import tags from "../../../images/tags.svg";
@@ -24,12 +24,12 @@ import LendersCard from "../../../../Campaigns/lendersCard";
 import GeneralErrorMessage from "../../../../Layout/Errors/GeneralErrorMessage";
 
 setInterval(
-  function CampaignDetails() {},
+  function MyCampaignDetails() {},
   1000
   // Get today's date and time
   //  var now = () =>  new Date().getTime();
 );
-function CampaignDetails() {
+function MyCampaignDetails() {
   const dispatch = useDispatch();
   const alert = useAlert();
   let params = useParams();
@@ -201,7 +201,6 @@ function CampaignDetails() {
         <Fragment>
           <MetaData title={`${campaign.campaignName} -- GAGED`} />
           <div className="mx-auto">
-            <Header />
             {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <div className="flex justify-between py-5 md:px-2">
@@ -598,4 +597,4 @@ function CampaignDetails() {
   );
 }
 
-export default CampaignDetails;
+export default MyCampaignDetails;

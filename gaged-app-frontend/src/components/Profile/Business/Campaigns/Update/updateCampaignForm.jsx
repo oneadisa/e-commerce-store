@@ -16,7 +16,7 @@ import {
 import { UPDATE_CAMPAIGN_RESET } from "../../../../../constants/businessConstants";
 
 // import { useNavigate } from "react-router-dom";
-function CampaignForm() {
+function UpdateCampaignForm() {
   const dispatch = useDispatch();
   const alert = useAlert();
   let navigate = useNavigate();
@@ -454,4 +454,4 @@ function CampaignForm() {
   }
 }
 
-export default CampaignForm;
+export default UpdateCampaignForm;

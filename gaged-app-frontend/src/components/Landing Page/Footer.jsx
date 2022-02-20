@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import Logof from "../../images/logo-footer.jpg";
+import Logof from "../../images/Gaged-images/Gaged-Blue.svg";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -29,25 +29,43 @@ function Footer() {
           <div className="flex flex-col">
             <h5 className="font-semibold text-lg mb-2">FEATURES</h5>
             <ul className="flex flex-col gap-1 text-base font-light">
-              <Link to="/" className="text-white hover:text-red-200">Raise funds</Link>
-              <Link to="/" className="text-white hover:text-red-200">Digital store</Link>
-              <Link to="/" className="text-white hover:text-red-200">Explore</Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                Raise funds
+              </Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                Digital store
+              </Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                Explore
+              </Link>
             </ul>
           </div>
           <div className="flex flex-col">
             <h5 className="font-semibold text-lg mb-2">ABOUT</h5>
             <ul className="flex flex-col gap-1 text-base font-light">
-              <Link to="/" className="text-white hover:text-red-200">About us</Link>
-              <Link to="/login" className="text-white hover:text-red-200">Login</Link>
-              <Link to="/signup" className="text-white hover:text-red-200">Sign up</Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                About us
+              </Link>
+              <Link to="/login" className="text-white hover:text-red-200">
+                Login
+              </Link>
+              <Link to="/signup" className="text-white hover:text-red-200">
+                Sign up
+              </Link>
             </ul>
           </div>
           <div className="flex flex-col">
             <h5 className="font-semibold text-lg mb-2">HELP</h5>
             <ul className="flex flex-col gap-1 text-base font-light">
-              <Link to="/" className="text-white hover:text-red-200">Contact us</Link>
-              <Link to="/" className="text-white hover:text-red-200">FAQ</Link>
-              <Link to="/" className="text-white hover:text-red-200">Resources</Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                Contact us
+              </Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                FAQ
+              </Link>
+              <Link to="/" className="text-white hover:text-red-200">
+                Resources
+              </Link>
             </ul>
           </div>
         </div>

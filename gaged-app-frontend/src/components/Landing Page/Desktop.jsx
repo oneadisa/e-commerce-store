@@ -2,7 +2,7 @@
 /* eslint-disable no-lone-blocks */
 /* eslint-disable jsx-a11y/alt-text */
 import { React } from "react";
-import Logoh from "../../images/logo-header.jpg";
+import Logoh from "../../images/Gaged-images/Gaged-White.svg";
 import { Link } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
 // import logout from '../'

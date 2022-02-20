@@ -20,7 +20,7 @@ import {
 } from "../../../../actions/businessActions";
 import { UPDATE_BUSINESS_PROFILE_RESET } from "../../../../constants/businessConstants";
 
-function Wallet() {
+function BusinessWallet() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
@@ -153,7 +153,7 @@ function Wallet() {
       ) : (
         <Fragment>
           <MetaData
-            title={`${signedUpBusinessInfo.businessName}'s GAGED Wallet`}
+            title={`${signedUpBusinessInfo.businessName}'s GAGED BusinessWallet`}
           />
           <div className="mx-auto">
             <Header
@@ -433,4 +433,4 @@ function Wallet() {
   );
 }
 
-export default Wallet;
+export default BusinessWallet;

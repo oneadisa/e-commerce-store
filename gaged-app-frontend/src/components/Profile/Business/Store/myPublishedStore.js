@@ -12,7 +12,7 @@ import { loadBusiness, clearErrors } from "../../../../actions/businessActions";
 import Loader from "../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 
-function PublishedStore() {
+function MyPublishedStore() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -86,4 +86,4 @@ function PublishedStore() {
   );
 }
 
-export default PublishedStore;
+export default MyPublishedStore;

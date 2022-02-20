@@ -24,7 +24,7 @@ import {
   NEW_REVIEW_RESET,
 } from "../../../../../../constants/businessConstants";
 
-export default function Productspopup() {
+export default function ProductDetails() {
   const dispatch = useDispatch();
   let params = useParams();
   const alert = useAlert();

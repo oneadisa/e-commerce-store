@@ -1,45 +1,44 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../../Layout/metaData";
 import CampaignCard from "../../Home/campaignCard";
-import { clearErrors, listCampaigns } from "../../../actions/campaignActions";
+import { clearErrors, getBusiness } from "../../../actions/businessActions";
 import Loader from "../../Layout/Loader/Loader";
-import Typography from "@material-ui/core/Typography";
-import Pagination from "react-js-pagination";
-import Header0 from "./Header0";
+// import Typography from "@material-ui/core/Typography";
+// import Pagination from "react-js-pagination";
 
 function ExploreCampaigns() {
   const dispatch = useDispatch();
   let params = useParams();
   const alert = useAlert();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [campaignCategory, setCampaignCategory] = useState("");
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [campaignCategory, setCampaignCategory] = useState("");
 
   const {
-    campaigns,
+    businesses,
     loading,
     error,
-    campaignsCount,
-    resultPerPage,
-    filteredCampaignsCount,
-  } = useSelector((state) => state.campaigns);
+    // businessesCount,
+    // resultPerPage,
+    // filteredCampaignsCount,
+  } = useSelector((state) => state.businesses);
 
   const keyword = params.keyword;
 
-  const setCurrentPageNo = (e) => {
-    setCurrentPage(e);
-  };
+  // const setCurrentPageNo = (e) => {
+  // setCurrentPage(e);
+  // };
 
-  let count = filteredCampaignsCount;
+  // let count = filteredCampaignsCount;
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(listCampaigns(keyword, currentPage, campaignCategory));
-  }, [dispatch, keyword, currentPage, campaignCategory, alert, error]);
+    dispatch(getBusiness(keyword));
+  }, [dispatch, keyword, alert, error]);
 
   return (
     <Fragment>
@@ -49,13 +48,12 @@ function ExploreCampaigns() {
         <Fragment>
           <MetaData title="campaignS -- ECOMMERCE" />
           <div className="mx-auto">
-            <Header0 />
             <div className="bg-magenta-blue py-14 px-3 lg:px-12 items-center text-center">
               <h1 className="text-2xl md:text-3xl font-bold">
                 Explore Campaigns
               </h1>
               <p className="text-lg my-2 font-normal">
-                Search and discover campaigns, causes and events on Gaged.
+                Search and discover Campaigns, causes and events on Gaged.
               </p>
               <div className="mt-5">
                 <input
@@ -64,31 +62,31 @@ function ExploreCampaigns() {
                 />
               </div>
               <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-7 text-left my-10 md:my-14">
-                {campaigns &&
-                  campaigns.map((campaign) => (
+                {businesses.listOfCampaignsStarted &&
+                  businesses.listOfCampaignsStarted.reverse.map((campaign) => (
                     <CampaignCard key={campaign._id} campaign={campaign} />
                   ))}
               </div>
             </div>
           </div>
-          {resultPerPage < count && (
-            <div className="paginationBox">
-              <Pagination
-                activePage={currentPage}
-                itemsCountPerPage={resultPerPage}
-                totalItemsCount={campaignsCount}
-                onChange={setCurrentPageNo}
-                nextPageText="Next"
-                prevPageText="Prev"
-                firstPageText="1st"
-                lastPageText="Last"
-                itemClass="page-item"
-                linkClass="page-link"
-                activeClass="pageItemActive"
-                activeLinkClass="pageLinkActive"
-              />
-            </div>
-          )}
+          {/* {resultPerPage < count && ( */}
+          {/* <div className="paginationBox"> */}
+          {/* <Pagination */}
+          {/* activePage={currentPage} */}
+          {/* itemsCountPerPage={resultPerPage} */}
+          {/* totalItemsCount={businessesCount} */}
+          {/* onChange={setCurrentPageNo} */}
+          {/* nextPageText="Next" */}
+          {/* prevPageText="Prev" */}
+          {/* firstPageText="1st" */}
+          {/* lastPageText="Last" */}
+          {/* itemClass="page-item" */}
+          {/* linkClass="page-link" */}
+          {/* activeClass="pageItemActive" */}
+          {/* activeLinkClass="pageLinkActive" */}
+          {/* /> */}
+          {/* </div> */}
+          {/* )} */}
         </Fragment>
       )}
     </Fragment>

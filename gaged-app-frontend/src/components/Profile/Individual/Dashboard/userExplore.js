@@ -28,7 +28,7 @@ import CampaignCard from "../../../Home/campaignCard";
 // "Camera",
 // "SmartPhones",
 // ];
-function BusinessDashboard() {
+function UserExplore() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   let params = useParams();
@@ -188,4 +188,4 @@ function BusinessDashboard() {
   );
 }
 
-export default BusinessDashboard;
+export default UserExplore;

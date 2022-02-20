@@ -15,7 +15,7 @@ const BusinessCard = ({ product, business }) => {
           <p className="text-base leading-5">{business.storeTagline}</p>
         </div>
         <button className="w-full border-2 bg-Dark-blue py-2 text-base font-semibold text-white rounded hover:bg-white hover:text-Dark-blue">
-          <Link to={`/profile/business/id/${business._id}`}>Shop</Link>
+          <Link to={`/business/${business._id}`}>Shop</Link>
         </button>
       </div>
     </>

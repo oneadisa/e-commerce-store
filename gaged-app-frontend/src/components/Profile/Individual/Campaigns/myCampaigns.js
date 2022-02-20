@@ -1,41 +1,41 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect, useState } from "react";
-import Header from "./Header";
-import Dashboard from "./Dashboard";
+import Header from "../Dashboard/Header";
+import Dashboard from "../Dashboard/DashBoard";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
-  loadBusiness,
+  loadUser,
   clearErrors,
-} from "../../../../../actions/businessActions";
-import MyCampaignCard from "./myCampaignCard";
-import Loader from "../../../../Layout/Loader/Loader";
-import MetaData from "../../../../Layout/metaData";
-import GeneralErrorMessage from "../../../../Layout/Errors/GeneralErrorMessage";
+} from "../../../../actions/userActions";
+import MyCampaignCard from "../../../Profile/Business/Campaigns/Overview/myCampaignCard";
+import Loader from "../../../Layout/Loader/Loader";
+import MetaData from "../../../Layout/metaData";
+import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 
-function MyCampaigns() {
+function MyCampaignsIndividual() {
   const dispatch = useDispatch();
   const alert = useAlert();
   let navigate = useNavigate();
   // const [message, setMessage] = useState(null);
 
-  const { signedUpBusinessInfo, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.business
+  const { signedUpUserInfo, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.user
   );
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!signedUpUserInfo) {
       navigate("/");
     }
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadBusiness());
-  }, [dispatch, alert, error]);
+    dispatch(loadUser());
+  }, [dispatch, alert, error, signedUpUserInfo, navigate]);
 
   return (
     <Fragment>
@@ -87,15 +87,24 @@ function MyCampaigns() {
                     {/* </div> */}
                     <div className="flex flex-col md:flex-row gap-5 md:gap-2 lg:gap-5 my-10 lg:px-1">
                       <div className="">
-                        {signedUpBusinessInfo.listOfCampaignsStarted &&
-                          signedUpBusinessInfo.listOfCampaignsStarted.map(
-                            (campaign) => (
-                              <MyCampaignCard
-                                key={campaign._id}
-                                campaign={campaign}
-                              />
-                            )
-                          )}
+                        {signedUpUserInfo.listOfCampaignsInvested &&
+                        signedUpUserInfo.listOfCampaignsInvested [0] ? ({signedUpUserInfo.listOfCampaignsInvested &&
+  signedUpUserInfo.listOfCampaignsInvested.map(
+    (campaign) => (
+      <MyCampaignCard
+        key={campaign._id}
+        campaign={campaign}
+      />
+    )
+  )}):( <h2 className="text-center font-poppins text-bold text-xl h-screen p-20">
+   You haven't invested in any of our campaigns yet.
+<Link to="/explore/campaigns">
+  <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue bg-Dark-blue text-white sm:text-base md:text-xl font-medium rounded hover:bg-white hover:animate-bounce hover:text-Dark-blue">
+    Explore Camaigns
+  </button>
+</Link>
+
+ </h2>)}
                       </div>
                     </div>
                   </div>
@@ -109,4 +118,4 @@ function MyCampaigns() {
   );
 }
 
-export default MyCampaigns;
+export default MyCampaignsIndividual;

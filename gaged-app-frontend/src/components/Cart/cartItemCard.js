@@ -17,7 +17,7 @@ const CartItemCard = ({ item, deleteCartItems }) => {
               <div className="flex gap-10 lg:gap-24 border-b-2 border-gray-400 pb-5">
                 <div className="flex flex-col gap-5 md:gap-10">
                   <div className="flex flex-col">
-                    <Link to={`/products/business/id/${item.product}`}>
+                    <Link to={`/products/${item.product}`}>
                       <h4 className="text-lg font-medium">{item.name}</h4>
                     </Link>
                     <p className="text-base font-normal">{item.description}</p>

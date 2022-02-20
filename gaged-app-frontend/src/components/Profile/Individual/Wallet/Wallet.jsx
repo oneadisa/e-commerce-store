@@ -20,7 +20,7 @@ import {
 } from "../../../../actions/userActions";
 import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/userConstants";
 
-function Wallet() {
+function IndividualWallet() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
@@ -152,7 +152,9 @@ function Wallet() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${signedUpUserInfo.firstName}'s GAGED Wallet`} />
+          <MetaData
+            title={`${signedUpUserInfo.firstName}'s GAGED IndividualWallet`}
+          />
           <div className="mx-auto">
             <Header
               handleNav={() => setOpen(!open)}
@@ -431,4 +433,4 @@ function Wallet() {
   );
 }
 
-export default Wallet;
+export default IndividualWallet;
