@@ -71,7 +71,6 @@ const registerBusiness = asyncHandler(async (req, res) => {
     numberOfOrderRequests,
     quantityOfOrders,
     reviews,
-    totalNumberOfReviews,
     businessReviews,
     numberOfBusinessReviews,
     totalNumberOfReviews,
@@ -536,7 +535,6 @@ const updateBusinessProfile = asyncHandler(async (req, res) => {
       totalNumberOfReviews: updatedBusiness.totalNumberOfReviews,
       businessReviews: updatedBusiness.businessReviews,
       numberOfBusinessReviews: updatedBusiness.numberOfBusinessReviews,
-      totalNumberOfReviews: updatedBusiness.totalNumberOfReviews,
       businessOrders: updatedBusiness.businessOrders,
       numberOFBusinessOrders: updatedBusiness.numberOFBusinessOrders,
       orders: updatedBusiness.orders,
@@ -2751,6 +2749,7 @@ const createOrder = catchAsyncErrors(async (req, res, next) => {
     };
 
     business.walletBalance += order.totalPrice;
+    business.totalSales += order.totalPrice;
     business.orders.push(order);
     // business.numberOfindividualOrders = business.orders.length;
     business.totalNumberOfOrders = business.orders.length;
@@ -2802,12 +2801,12 @@ const createOrder = catchAsyncErrors(async (req, res, next) => {
 
   // if (!isOrdered) {
   // business.businessOrders.push(order);
-  // business.numberOfBusinessOrders = business.businessOrders.length;
+  // business.totalNumberOfOrders = business.businessOrders.length;
   // business.totalNumberOfOrders =
   // business.orders.length + business.businessOrders.length;
   // } else {
   // business.businessOrders.push(order);
-  // business.numberOfBusinessOrders = business.businessOrders.length;
+  // business.totalNumberOfOrders = business.businessOrders.length;
   // business.totalNumberOfOrders =
   // business.orders.length + business.businessOrders.length;
   // }
@@ -2866,7 +2865,7 @@ const updateOrder = catchAsyncErrors(async (req, res, next) => {
 // }
 
 // Get Business Orders of a business BusinessProfile
-const getMyBusinessOrders = catchAsyncErrors(async (req, res, next) => {
+const getMyOrders = catchAsyncErrors(async (req, res, next) => {
   const business = await signedUpBusiness.findById(req.user._id);
 
   if (!business) {
@@ -2894,24 +2893,24 @@ const getBusinessOrders = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Business Order
-const deleteBusinessOrder = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.query.businessId);
+const deleteOrder = catchAsyncErrors(async (req, res, next) => {
+  const business = await signedUpBusiness.findById(req.user._id);
 
   if (!business) {
     return next(new ErrorHandler("Business not found", 404));
   }
 
-  const businessOrders = business.businessOrders.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
+  const orders = business.businessOrders.filter(
+    (rev) => rev._id.toString() !== req.params.id.toString()
   );
 
-  const numberOfBusinessOrders = businessOrders.length;
+  const totalNumberOfOrders = orders.length;
 
   await signedUpBusiness.findByIdAndUpdate(
     req.query.businessId,
     {
-      businessOrders,
-      numberOfBusinessOrders,
+      orders,
+      totalNumberOfOrders,
     },
     {
       new: true,
@@ -2922,7 +2921,7 @@ const deleteBusinessOrder = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    businessOrders: business.businessOrders,
+    orders: business.orders,
   });
 });
 
@@ -4010,12 +4009,12 @@ const createBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
 
   if (!isOrdered) {
     product.businessOrders.push(order);
-    product.numberOfBusinessOrders = product.businessOrders.length;
+    product.totalNumberOfOrders = product.businessOrders.length;
     product.totalNumberOfOrders =
       product.orders.length + product.businessOrders.length;
   } else {
     product.businessOrders.push(order);
-    product.numberOfBusinessOrders = product.businessOrders.length;
+    product.totalNumberOfOrders = product.businessOrders.length;
     product.totalNumberOfOrders =
       product.orders.length + product.businessOrders.length;
   }
@@ -4103,13 +4102,13 @@ const deleteBusinessOrderProduct = catchAsyncErrors(async (req, res, next) => {
     (rev) => rev._id.toString() !== req.query.id.toString()
   );
 
-  const numberOfBusinessOrders = businessOrders.length;
+  const totalNumberOfOrders = businessOrders.length;
 
   await signedUpBusiness.findOneAndUpdate(
     { "storeProducts._id": req.query.businessId },
     {
       businessOrders,
-      numberOfBusinessOrders,
+      totalNumberOfOrders,
     },
     {
       new: true,
@@ -4544,10 +4543,10 @@ module.exports = {
   getBusinessReviews,
   deleteBusinessReview,
   createOrder,
-  getMyBusinessOrders,
+  getMyOrders,
   getBusinessOrders,
   updateOrder,
-  deleteBusinessOrder,
+  deleteOrder,
   createBusinessCustomer,
   getMyBusinessCustomers,
   getBusinessCustomers,

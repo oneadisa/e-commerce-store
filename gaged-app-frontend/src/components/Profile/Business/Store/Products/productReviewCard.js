@@ -1,7 +1,7 @@
 import { Rating } from "@material-ui/lab";
 import React from "react";
 
-const BusinessReviewCard = ({ review }) => {
+const ReviewCard = ({ review }) => {
   const options = {
     value: review.rating,
     readOnly: true,
@@ -23,4 +23,4 @@ const BusinessReviewCard = ({ review }) => {
   );
 };
 
-export default BusinessReviewCard;
+export default ReviewCard;

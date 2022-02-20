@@ -2,16 +2,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { Fragment, useEffect, useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import "./Products.css";
 import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
-  getAllIndividualOrders,
-  getAllBusinessOrders,
+  loadBusiness,
 } from "../../../../../../actions/businessActions";
-import BusinessCustomerCard from "../businessCustomerCard";
-import IndividualCustomerCard from "../individualCustomerCard";
+import CustomerCard from "../customerCard";
 import { useAlert } from "react-alert";
 import MetaData from "../../../../../Layout/metaData";
 import Header from "./Header";
@@ -21,11 +18,8 @@ import Loader from "../../../../../Layout/Loader/Loader";
 function ProductsCustomers() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { customers, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.businessIndividualProductCustomers
-  );
-  const { businessCustomers, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.customers
+  const { signedUpBusinessInfo, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
   useEffect(() => {
     if (error) {
@@ -35,9 +29,9 @@ function ProductsCustomers() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getAllIndividualCustomers());
-    dispatch(getAllBusinessCustomers());
-  }, [dispatch, alert, error, error]);
+
+    dispatch(loadBusiness());
+  }, [dispatch, alert, error]);
   const [open, setOpen] = useState(false);
 
   return (
@@ -94,93 +88,41 @@ function ProductsCustomers() {
                     {/* <p>Pending</p> */}
                     {/* <p>Delivered</p> */}
                     {/* </div> */}
-                    <Tabs>
-                      <TabList>
-                        <div className="flex gap-5 md:gap-10 border-b">
-                          <Tab>Businesses</Tab>
-                          <Tab>Individuals</Tab>
+
+                    {signedUpBusinessInfo.customers &&
+                    signedUpBusinessInfo.customers[0] ? (
+                      <>
+                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
+                          <p>#</p>
+
+                          <p>CUSTOMER NAME</p>
+                          <p>PRODUCT</p>
+                          <p>PHONE</p>
+                          <p>EMAIL</p>
                         </div>
-                      </TabList>
-                      <TabPanels>
-                        <TabPanel>
-                          {businessCustomers && businessCustomers[0] ? (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
+                        <div>
+                          {signedUpBusinessInfo.customers &&
+                            signedUpBusinessInfo.customers.map((order) => (
+                              <CustomerCard key={order._id} order={order} />
+                            ))}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
+                          <p>#</p>
 
-                                <p>CUSTOMER NAME</p>
-                                <p>PRODUCT</p>
-                                <p>PHONE</p>
-                                <p>EMAIL</p>
-                              </div>
-                              <div>
-                                {businessCustomers &&
-                                  businessCustomers.map((order) => (
-                                    <BusinessCustomerCard
-                                      key={order._id}
-                                      order={order}
-                                    />
-                                  ))}
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-
-                                <p>CUSTOMER NAME</p>
-                                <p>PRODUCT</p>
-                                <p>PHONE</p>
-                                <p>EMAIL</p>
-                                <p>PRICE</p>
-                              </div>
-                              <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                You have no Business Customers yet...
-                              </p>
-                            </>
-                          )}
-                        </TabPanel>
-                        <TabPanel>
-                          {customers && customers[0] ? (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-
-                                <p>CUSTOMER NAME</p>
-                                <p>PRODUCT</p>
-                                <p>PHONE</p>
-                                <p>EMAIL</p>
-                                <p>PRICE</p>
-                              </div>
-                              <div>
-                                {customers &&
-                                  customers.map((order) => (
-                                    <IndividualCustomerCard
-                                      key={order._id}
-                                      order={order}
-                                    />
-                                  ))}
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p>#</p>
-
-                                <p>CUSTOMER NAME</p>
-                                <p>PRODUCT</p>
-                                <p>PHONE</p>
-                                <p>EMAIL</p>
-                                <p>PRICE</p>
-                              </div>
-                              <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                You have no Individual customers yet..
-                              </p>
-                            </>
-                          )}
-                        </TabPanel>
-                      </TabPanels>
-                    </Tabs>
+                          <p>CUSTOMER NAME</p>
+                          <p>PRODUCT</p>
+                          <p>PHONE</p>
+                          <p>EMAIL</p>
+                          <p>PRICE</p>
+                        </div>
+                        <p className="text-center font-poppins text-bold text-xl h-screen p-20">
+                          You have no signedUpBusinessInfo.customers yet
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

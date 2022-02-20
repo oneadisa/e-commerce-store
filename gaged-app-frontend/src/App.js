@@ -8,7 +8,6 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { loadUser } from "./actions/userActions";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/Landing Page/LandingPage";
@@ -16,7 +15,7 @@ import LandingPage from "./components/Landing Page/LandingPage";
 import ProductsAll from "./components/Profile/Business/Store/Products/Main/All.jsx";
 import ProductsNew from "./components/Profile/Business/Store/Products/Main/New.jsx";
 import ProductsOrders from "./components/Profile/Business/Store/Products/Main/Orders.jsx";
-import SingleStoreProduct from "./components/Profile/Business/Store/Products/Main/Update";
+import UpdateProduct from "./components/Profile/Business/Store/Products/Main/Update";
 import ProductsCustomers from "./components/Profile/Business/Store/Products/Main/Customers";
 import newnewProductReview from "./components/Profile/Business/Store/Products/Main/Reviews";
 
@@ -31,11 +30,13 @@ import LoginBusiness from "./components/Profile/Business/Login/LoginBusiness";
 
 import Campaigns from "./components/Explore/Businesses/ExploreStores.jsx";
 import ExploreStores from "./components/Explore/Businesses/ExploreStores.jsx";
+
+import CampaignDetails from "./components/";
 // import CampaignsFirst from "./components/individual-component/CampaignsFirst";
 // import CampaignsSecond from "./components/individual-component/CampaignsSecond";
 // import CampaignsThird from "./components/individual-component/Campaigns";
-import LoanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
-import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.js";
+// import LoanThirdBusiness from "./components/Campaigns/Overview/loanBusiness.js";
+// import loanThirdIndividual from "./components/Campaigns/Overview/loanIndividual.js";
 
 import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.jsx";
 
@@ -80,18 +81,17 @@ import CampaignForm from "./components/Profile/Business/Campaigns/New/campaignFo
 function App() {
   const [search, setSearch] = useState("");
 
-  const { isAuthenticated, user } = useSelector(
-    (state: RootStateOrAny) => state.user
-  );
+  // const { isAuthenticated, user } = useSelector(
+  // (state: RootStateOrAny) => state.user
+  // );
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  // const [stripeApiKey, setStripeApiKey] = useState("");
 
-  <ChakraProvider></ChakraProvider>;
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+  // async function getStripeApiKey() {
+  // const { data } = await axios.get("/api/v1/stripeapikey");
 
-    setStripeApiKey(data.stripeApiKey);
-  }
+  // setStripeApiKey(data.stripeApiKey);
+  // }
 
   useEffect(() => {
     WebFont.load({
@@ -101,8 +101,6 @@ function App() {
     });
 
     store.dispatch(loadUser());
-
-    getStripeApiKey();
   }, []);
 
   window.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -129,7 +127,7 @@ function App() {
             path="/business/campaign/overviewLoan"
             element={<OverviewLoan />}
           />
-          <Route path="/campaign/:id" element={<LoanThirdBusiness />} />
+          {/* <Route path="/campaign/:id" element={<LoanThirdBusiness />} /> */}
           {/* <Route path="/business/campaign/lenders" element={<Lenders />} /> */}
           {/* <Route path="/business/campaign/comments" element={<Comments />} /> */}
           <Route path="/gaged" element={<LandingPage />} />
@@ -153,7 +151,7 @@ function App() {
           />{" "}
           <Route path="/individualLogin" element={<LoginUser />} />{" "}
           <Route path="/businessLogin" element={<LoginBusiness />} />{" "}
-          <Route path="/store/products/:id" element={<SingleStoreProduct />} />{" "}
+          <Route path="/store/products/:id" element={<UpdateProduct />} />{" "}
           <Route path="/store/products/all" element={<ProductsAll />} />{" "}
           <Route path="/store/products/new" element={<ProductsNew />} />{" "}
           <Route path="/store/products/orders" element={<ProductsOrders />} />{" "}
@@ -162,10 +160,7 @@ function App() {
           <Route path="/settings/general" element={<SettingsGeneral />} />{" "}
           <Route path="/settings/bankCode" element={<SettingsBank />} />{" "}
           <Route path="/settings/store" element={<SettingsStore />} />{" "}
-          <Route
-            path="/published"
-            element={<PublishedStore product={undefined} match={undefined} />}
-          />
+          <Route path="/published" element={<PublishedStore />} />
           {/* <Route path="/campaigns/first" element={<CampaignsFirst />} /> */}
           {/* <Route path="/campaigns/second" element={<CampaignsSecond />} /> */}
           {/* <Route path="/campaigns/third" element={<CampaignsThird />} /> */}

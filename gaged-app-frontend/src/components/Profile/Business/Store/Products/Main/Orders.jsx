@@ -2,16 +2,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { Fragment, useEffect, useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import "./Products.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
-  getAllIndividualOrders,
-  getAllBusinessOrders,
+  loadBusiness,
 } from "../../../../../../actions/businessActions";
-import BusinessOrderCard from "../businessOrderCard";
-import IndividualOrderCard from "../individualOrderCard";
+import OrderCard from "../orderCard";
+
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
 import Header from "./Header";
@@ -22,11 +20,8 @@ function ProductsOrders() {
   const dispatch = useDispatch();
 
   const alert = useAlert();
-  const { individualOrders, error, loading } = useSelector(
-    (state) => state.businessIndividualProductOrders
-  );
-  const { businessOrders, loading, error } = useSelector(
-    (state) => state.Orders
+  const { signedUpBusinessInfo, loading, error } = useSelector(
+    (state) => state.business
   );
   useEffect(() => {
     if (error) {
@@ -36,9 +31,8 @@ function ProductsOrders() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getAllIndividualOrders());
-    dispatch(getAllBusinessOrders());
-  }, [dispatch, alert, error, error]);
+    dispatch(loadBusiness());
+  }, [dispatch, alert, error]);
 
   const [open, setOpen] = useState(false);
 
@@ -96,81 +90,34 @@ function ProductsOrders() {
                     {/* <p className="text-medium-blue">All</p> */}{" "}
                     {/* <p>Pending</p> */} {/* <p>Delivered</p> */}{" "}
                     {/* </div> */}{" "}
-                    <Tabs>
-                      <TabList>
-                        <div className="flex gap-5 md:gap-10 border-b">
-                          <Tab> Businesses </Tab> <Tab> Individuals </Tab>{" "}
+                    {signedUpBusinessInfo.orders &&
+                    signedUpBusinessInfo.orders[0] ? (
+                      <>
+                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
+                          <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
+                          <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
+                          <p> ACTION </p>{" "}
                         </div>{" "}
-                      </TabList>{" "}
-                      <TabPanels>
-                        <TabPanel>
+                        <div>
                           {" "}
-                          {individualOrders && individualOrders[0] ? (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
-                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
-                                <p> ACTION </p>{" "}
-                              </div>{" "}
-                              <div>
-                                {" "}
-                                {businessOrders &&
-                                  businessOrders.map((order) => (
-                                    <BusinessOrderCard
-                                      key={order._id}
-                                      order={order}
-                                    />
-                                  ))}{" "}
-                              </div>{" "}
-                            </>
-                          ) : (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
-                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
-                                <p> ACTION </p>{" "}
-                              </div>{" "}
-                              <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                No Businesses have placed any ordres yet.{" "}
-                              </p>{" "}
-                            </>
-                          )}{" "}
-                        </TabPanel>{" "}
-                        <TabPanel>
-                          {" "}
-                          {individualOrders && individualOrders[0] ? (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
-                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
-                                <p> ACTION </p>{" "}
-                              </div>{" "}
-                              <div>
-                                {" "}
-                                {individualOrders &&
-                                  individualOrders.map((order) => (
-                                    <IndividualOrderCard
-                                      key={order._id}
-                                      order={order}
-                                    />
-                                  ))}{" "}
-                              </div>{" "}
-                            </>
-                          ) : (
-                            <>
-                              <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
-                                <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
-                                <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
-                                <p> ACTION </p>{" "}
-                              </div>{" "}
-                              <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                No Individuals have placed any ordres yet.{" "}
-                              </p>{" "}
-                            </>
-                          )}{" "}
-                        </TabPanel>{" "}
-                      </TabPanels>{" "}
-                    </Tabs>{" "}
+                          {signedUpBusinessInfo.orders &&
+                            signedUpBusinessInfo.orders.reverse.map((order) => (
+                              <OrderCard key={order._id} order={order} />
+                            ))}{" "}
+                        </div>{" "}
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
+                          <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
+                          <p> PHONE </p> <p> TOTAL </p> <p> STATUS </p>{" "}
+                          <p> ACTION </p>{" "}
+                        </div>{" "}
+                        <p className="text-center font-poppins text-bold text-xl h-screen p-20">
+                          You have no orders yet.{" "}
+                        </p>{" "}
+                      </>
+                    )}{" "}
                   </div>{" "}
                 </div>{" "}
               </div>{" "}

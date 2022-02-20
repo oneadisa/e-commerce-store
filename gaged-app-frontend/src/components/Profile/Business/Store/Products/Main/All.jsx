@@ -23,10 +23,11 @@ function ProductsAll() {
   let params = useParams();
 
   const { error, signedUpBusinessInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessInfo
+    (state: RootStateOrAny) => state.business
   );
 
-  const { error, products } = useSelector((state) => state.products);
+  const businessId = params.id;
+
   const {
     isDeleted,
     loading,
@@ -102,9 +103,11 @@ function ProductsAll() {
                         Reviews
                       </p>
                     </div>
-                    <button className="border border-Dark-blue px-3 mb-2 rounded ml-auto hover:bg-Dark-blue hover:text-white">
-                      <Link to="store/me">Visit store </Link>
-                    </button>
+                    <Link to={`store/${businessId}`}>
+                      <button className="border border-Dark-blue px-3 mb-2 rounded ml-auto hover:bg-Dark-blue hover:text-white">
+                        Visit store
+                      </button>
+                    </Link>
                   </div>
                   {error && (
                     <GeneralErrorMessage bg="danger">

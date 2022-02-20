@@ -877,11 +877,6 @@ const signUpBusinessTemplate = new mongoose.Schema({
         type: Number,
         default: 0,
       },
-      user: {
-        type: mongoose.Schema.ObjectId,
-        required: false,
-        ref: "mySignedUpBusinessTable",
-      },
     },
     {
       timestamps: true,

@@ -15,16 +15,14 @@ const {
   getSingleBusiness,
   updateBusinessRole,
   deleteBusiness,
-
   getAllCampaigns,
   getSingleCampaign,
+  UpdateCampaign,
+  DeleteCampaign,
   createCampaignStarted,
   getListOfCampaignsStarted,
   getMyListOfCampaignsStarted,
   deleteCampaignStarted,
-  UpdateCampaign,
-  DeleteCampaign,
-
   createCampaignReview,
   getCampaignReviews,
   deleteCampaignReview,
@@ -33,21 +31,20 @@ const {
   deleteBusinessCampaignReview,
   createCampaignDonation,
   getCampaignDonations,
-  deleteCampaignDonation,
   getParticularCampaignDonation,
+  deleteCampaignDonation,
   createBusinessCampaignDonation,
   getBusinessCampaignDonations,
   deleteBusinessCampaignDonation,
-
   createCampaignInvested,
   getListOfCampaignsInvested,
   getMyListOfCampaignsInvested,
   getParticularCampaignsInvested,
   deleteCampaignInvested,
-  createBusinessInvestor,
-  getMyBusinessInvestors,
-  getBusinessInvestors,
-  deleteBusinessInvestor,
+  createInvestor,
+  getMyInvestors,
+  getInvestors,
+  deleteInvestor,
   createIndividualInvestor,
   getMyIndividualInvestors,
   getIndividualInvestors,
@@ -56,19 +53,19 @@ const {
   getMyBusinessOrderedFrom,
   getBusinessOrderedFrom,
   deleteBusinessOrderedFrom,
-  createIndividualReview,
-  getMyIndividualReviews,
+  createReview,
+  getMyReviews,
   getIndividualReviews,
-  deleteIndividualReview,
+  deleteReview,
   createBusinessReview,
   getMyBusinessReviews,
   getBusinessReviews,
   deleteBusinessReview,
-  createBusinessOrder,
-  getMyBusinessOrders,
+  createOrder,
+  getMyOrders,
   getBusinessOrders,
-  updateBusinessOrder,
-  deleteBusinessOrder,
+  updateOrder,
+  deleteOrder,
   createBusinessCustomer,
   getMyBusinessCustomers,
   getBusinessCustomers,
@@ -95,13 +92,12 @@ const {
   getMyListOfCampaignsPayouts,
   getListOfCampaignsPayouts,
   createCampaignPayout,
-
   createStoreProduct,
+  getSingleProduct,
   getMyListOfStoreProducts,
   getListOfStoreProducts,
   deleteBusinessStoreProduct,
   UpdateBusinessStoreProduct,
-
   createReviewProduct,
   getReviewsProduct,
   deleteReviewProduct,
@@ -122,7 +118,6 @@ const {
   updateBusinessOrderProduct,
   getBusinessOrdersProduct,
   deleteBusinessOrderProduct,
-  getSingleProduct,
 } = require("../controllers/businessController");
 
 const {
@@ -185,9 +180,7 @@ router
   .get(getBusinessCampaignReviews)
   .delete(protectBusiness, deleteBusinessCampaignReview);
 
-router
-  .route("/create-review")
-  .put(protectUser, createCampaignReview);
+router.route("/create-review").put(protectUser, createCampaignReview);
 
 router
   .route("/reviews/")
@@ -212,8 +205,7 @@ router
   .get(getCampaignDonations)
   .delete(protectUser, deleteCampaignDonation);
 
-  router.route("donations/one").get((protectUser,getParticularCampaignDonation)
-
+router.route("donations/one").get(protectUser, getParticularCampaignDonation);
 
 router
   .route("/campaign-started/me")
@@ -247,18 +239,14 @@ router
   .route("/campaign-paid/particular/id/:id")
   .get(protectBusiness, getParticularCampaignPayouts);
 
-router
-  .route("/create-investor/business")
-  .put(protectBusiness, createBusinessInvestor);
+router.route("/create-investor").put(protectBusiness, createInvestor);
 
 router
-  .route("/investors/business")
-  .get(getBusinessInvestors)
-  .delete(protectBusiness, deleteBusinessInvestor);
+  .route("/investors")
+  .get(getInvestors)
+  .delete(protectBusiness, deleteInvestor);
 
-router
-  .route("/investors/business/me")
-  .get(protectBusiness, getMyBusinessInvestors);
+router.route("/investors/me").get(protectBusiness, getMyInvestors);
 
 router
   .route("/create-investor/individual")
@@ -291,26 +279,22 @@ router
   .route("admin-business/reviews/business")
   .delete(protectBusiness, authorizeRoles("admin"), deleteBusinessReview);
 
-router
-  .route("/create-review/individual")
-  .put(protectBusiness, createIndividualReview);
+router.route("/create-review").put(protectBusiness, createReview);
 
 router
-  .route("/reviews/individual")
+  .route("/reviews")
   .get(getIndividualReviews)
-  .delete(protectBusiness, deleteIndividualReview);
+  .delete(protectBusiness, deleteReview);
+
+router.route("/reviews/me").get(protectBusiness, getMyReviews);
 
 router
-  .route("/reviews/individual/me")
-  .get(protectBusiness, getMyIndividualReviews);
+  .route("admin-individual/reviews")
+  .delete(protectUser, authorizeRoles("admin"), deleteReview);
 
 router
-  .route("admin-individual/reviews/individual")
-  .delete(protectUser, authorizeRoles("admin"), deleteIndividualReview);
-
-router
-  .route("admin-business/reviews/individual")
-  .delete(protectBusiness, authorizeRoles("admin"), deleteIndividualReview);
+  .route("admin-business/reviews")
+  .delete(protectBusiness, authorizeRoles("admin"), deleteReview);
 
 router
   .route("/create-customer/business")
@@ -334,24 +318,18 @@ router
 
 router.route("/customer/individual/me").get(getMyIndividualCustomers);
 
+router.route("/create-order").put(protectBusiness, createOrder);
 router
-  .route("/create-order/business")
-  .put(protectBusiness, createBusinessOrder);
-router
-  .route("/orders/business")
-  .get(protectBusiness, getBusinessOrders)
-  .delete(protectBusiness, deleteBusinessOrder)
-  .put(protectBusiness, updateBusinessOrder);
+  .route("/orders")
+  .get(protectBusiness, getMyOrders)
+  .delete(protectBusiness, deleteOrder)
+  .put(protectBusiness, updateOrder);
 
-router
-  .route("/orders/business/id/:id")
-  .put(protectBusiness, updateBusinessOrder);
+router.route("/orders/id/:id").put(protectBusiness, updateOrder);
 
-router
-  .route("/orders/business/id")
-  .delete(protectBusiness, deleteBusinessOrder);
+router.route("/orders/business/:id").delete(protectBusiness, deleteOrder);
 
-router.route("/orders/business/me").get(getMyBusinessOrders);
+router.route("/orders/me").get(getMyOrders);
 
 router
   .route("/create-order/individual")

@@ -407,16 +407,17 @@ export const signUpBusiness =
 
 // Get All BUSINESSES
 export const getBusiness =
-  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
+  () =>
+  // keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0
   async (dispatch) => {
     try {
       dispatch({ type: ALL_BUSINESSS_REQUEST });
 
-      let link = `/app/business/business/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `/app/business/business/all`;
 
-      if (category) {
-        link = `/app/business/business/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
-      }
+      // if (category) {
+      // link = `/app/business/business/all?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      // }
 
       const { data } = await axios.get(link);
 
