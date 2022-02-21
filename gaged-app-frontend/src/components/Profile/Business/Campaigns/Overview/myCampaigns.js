@@ -21,13 +21,13 @@ function MyCampaigns() {
   let navigate = useNavigate();
   // const [message, setMessage] = useState(null);
 
-  const { signedUpBusinessInfo, loading, error } = useSelector(
+  const { businessInfo, loading, error } = useSelector(
     (state: RootStateOrAny) => state.business
   );
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
       navigate("/");
     }
     if (error) {
@@ -87,8 +87,8 @@ function MyCampaigns() {
                     {/* </div> */}
                     <div className="flex flex-col md:flex-row gap-5 md:gap-2 lg:gap-5 my-10 lg:px-1">
                       <div className="">
-                        {signedUpBusinessInfo.listOfCampaignsStarted &&
-                          signedUpBusinessInfo.listOfCampaignsStarted.map(
+                        {businessInfo.listOfCampaignsStarted &&
+                          businessInfo.listOfCampaignsStarted.map(
                             (campaign) => (
                               <MyCampaignCard
                                 key={campaign._id}

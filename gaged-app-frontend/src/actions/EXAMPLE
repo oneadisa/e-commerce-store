@@ -731,8 +731,8 @@ const Tabs = ({ color }) => {
                         {campaign.businsessCampaignReviews &&
                         campaign.businessCampaignReviews[0] ? (
                           <div>
-                            {signedUpBusinessInfo.listOfCampaignsInvested &&
-                              signedUpBusinessInfo.listOfCampaignsInvested.map(
+                            {businessInfo.listOfCampaignsInvested &&
+                              businessInfo.listOfCampaignsInvested.map(
                                 (lend) => (
                                   <LendHistoryCard key={lend._id} lend={lend} />
                                 )
@@ -755,8 +755,8 @@ const Tabs = ({ color }) => {
                         {campaign.campaignReviews &&
                         campaign.campaignReviews[0] ? (
                           <div>
-                            {signedUpBusinessInfo.listOfCampaignPayouts &&
-                              signedUpBusinessInfo.listOfCampaignPayouts.map(
+                            {businessInfo.listOfCampaignPayouts &&
+                              businessInfo.listOfCampaignPayouts.map(
                                 (repayment) => (
                                   <RepaymentHistoryCard
                                     key={repayment._id}
@@ -895,8 +895,8 @@ export default function TabsRender() {
                   {campaign.businsessCampaignReviews &&
                   campaign.businessCampaignReviews[0] ? (
                     <div>
-                      {signedUpBusinessInfo.listOfCampaignsInvested &&
-                        signedUpBusinessInfo.listOfCampaignsInvested.map(
+                      {businessInfo.listOfCampaignsInvested &&
+                        businessInfo.listOfCampaignsInvested.map(
                           (lend) => (
                             <LendHistoryCard key={lend._id} lend={lend} />
                           )
@@ -911,8 +911,8 @@ export default function TabsRender() {
                 <TabPanel>
                   {campaign.campaignReviews && campaign.campaignReviews[0] ? (
                     <div>
-                      {signedUpBusinessInfo.listOfCampaignPayouts &&
-                        signedUpBusinessInfo.listOfCampaignPayouts.map(
+                      {businessInfo.listOfCampaignPayouts &&
+                        businessInfo.listOfCampaignPayouts.map(
                           (repayment) => (
                             <RepaymentHistoryCard
                               key={repayment._id}

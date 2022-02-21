@@ -8,7 +8,7 @@ import People from "../../../images/Gaged-images/Group 3577.png";
 import Loader from "../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../Layout/Errors/GeneralErrorMessage";
 import { Link } from "react-router-dom";
-import { signUpBusiness } from "../../../actions/businessActions";
+import { signUpBusiness, clearErrors } from "../../../actions/businessActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function SetUpProfile2Business() {
@@ -43,16 +43,18 @@ function SetUpProfile2Business() {
     });
   }
   const dispatch = useDispatch();
-  const businessSignUp = useSelector(
-    (state: RootStateOrAny) => state.businessSignUp
-  );
-  const { loading, error, signedUpBusinessInfo } = businessSignUp;
+  const business = useSelector((state: RootStateOrAny) => state.business);
+  const { loading, error, isAuthenticated } = business;
 
   useEffect(() => {
-    if (signedUpBusinessInfo) {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (isAuthenticated) {
       navigate("/business/dashboard");
     }
-  }, [navigate, signedUpBusinessInfo]);
+  }, [dispatch, error, navigate, isAuthenticated]);
 
   const handleClick = async (event) => {
     event.preventDefault();

@@ -20,7 +20,7 @@ function ProductsOrders() {
   const dispatch = useDispatch();
 
   const alert = useAlert();
-  const { signedUpBusinessInfo, loading, error } = useSelector(
+  const { businessInfo, loading, error } = useSelector(
     (state) => state.business
   );
   useEffect(() => {
@@ -90,8 +90,7 @@ function ProductsOrders() {
                     {/* <p className="text-medium-blue">All</p> */}{" "}
                     {/* <p>Pending</p> */} {/* <p>Delivered</p> */}{" "}
                     {/* </div> */}{" "}
-                    {signedUpBusinessInfo.orders &&
-                    signedUpBusinessInfo.orders[0] ? (
+                    {businessInfo.orders && businessInfo.orders[0] ? (
                       <>
                         <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
                           <p> # </p> <p> ORDER </p> <p> CUSTOMER NAME </p>{" "}
@@ -100,8 +99,8 @@ function ProductsOrders() {
                         </div>{" "}
                         <div>
                           {" "}
-                          {signedUpBusinessInfo.orders &&
-                            signedUpBusinessInfo.orders.reverse.map((order) => (
+                          {businessInfo.orders &&
+                            businessInfo.orders.reverse.map((order) => (
                               <OrderCard key={order._id} order={order} />
                             ))}{" "}
                         </div>{" "}

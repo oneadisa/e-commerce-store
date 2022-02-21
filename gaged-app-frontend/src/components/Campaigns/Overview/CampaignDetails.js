@@ -39,19 +39,15 @@ function CampaignDetails() {
   const [showFundModal, setShowFundModal] = React.useState(false);
   const [message, setMessage] = React.useState("");
 
-  const signedUpBusinessLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state: RootStateOrAny) => state.business);
+  const { businessInfo } = business;
 
-  const { signedUpUserInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
+  const { userInfo } = useSelector((state: RootStateOrAny) => state.user);
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
     }
-  }, [dispatch, navigate, signedUpBusinessInfo]);
-  useEffect(() => {}, [signedUpBusinessInfo]);
+  }, [dispatch, navigate, businessInfo]);
+  useEffect(() => {}, [businessInfo]);
 
   const { campaign, loading, error } = useSelector(
     (state: RootStateOrAny) => state.campaignDetails
@@ -68,7 +64,7 @@ function CampaignDetails() {
   const InvestHandler = async (e) => {
     e.preventDefault();
 
-    if (!signedUpUserInfo || signedUpBusinessInfo) {
+    if (!userInfo || businessInfo) {
       setMessage("Please Login or Sign Up to Invest in this campaign");
     } else {
       const config = {
@@ -78,9 +74,9 @@ function CampaignDetails() {
         currency: "NGN",
         payment_options: "card,mobilemoney,ussd,banktransfer",
         customer: {
-          email: signedUpBusinessInfo.email,
-          phonenumber: signedUpBusinessInfo.phoneNumber,
-          name: signedUpBusinessInfo.businessName,
+          email: businessInfo.email,
+          phonenumber: businessInfo.phoneNumber,
+          name: businessInfo.businessName,
         },
         customizations: {
           title: "Gaged",
@@ -617,8 +613,8 @@ function CampaignDetails() {
                                       {campaign.businsessCampaignReviews &&
                                       campaign.businessCampaignReviews[0] ? (
                                         <div>
-                                          {signedUpBusinessInfo.listOfCampaignsInvested &&
-                                            signedUpBusinessInfo.listOfCampaignsInvested.map(
+                                          {businessInfo.listOfCampaignsInvested &&
+                                            businessInfo.listOfCampaignsInvested.map(
                                               (lend) => (
                                                 <LendHistoryCard
                                                   key={lend._id}
@@ -647,8 +643,8 @@ function CampaignDetails() {
                                       {campaign.campaignReviews &&
                                       campaign.campaignReviews[0] ? (
                                         <div>
-                                          {signedUpBusinessInfo.listOfCampaignPayouts &&
-                                            signedUpBusinessInfo.listOfCampaignPayouts.map(
+                                          {businessInfo.listOfCampaignPayouts &&
+                                            businessInfo.listOfCampaignPayouts.map(
                                               (repayment) => (
                                                 <RepaymentHistoryCard
                                                   key={repayment._id}

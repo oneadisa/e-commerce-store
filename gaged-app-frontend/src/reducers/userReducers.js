@@ -2,7 +2,7 @@ import {
   SIGNED_UP_USER_LOGIN_FAIL,
   SIGNED_UP_USER_LOGIN_REQUEST,
   SIGNED_UP_USER_LOGIN_SUCCESS,
-  SIGNED_UP_USER_LOGOUT,
+  // SIGNED_UP_USER_LOGOUT,
   USER_SIGN_UP_FAIL,
   USER_SIGN_UP_REQUEST,
   USER_SIGN_UP_SUCCESS,
@@ -103,39 +103,39 @@ import {
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
-export const signedUpUserLoginReducer = (state = {}, action) => {
-  switch (action.type) {
-    case SIGNED_UP_USER_LOGIN_REQUEST:
-      return { loading: true };
+// export const userReducer = (state = {}, action) => {
+// switch (action.type) {
+// case SIGNED_UP_USER_LOGIN_REQUEST:
+// return { loading: true };
+//
+// case SIGNED_UP_USER_LOGIN_SUCCESS:
+// return { loading: false, userInfo: action.payload };
+//
+// case SIGNED_UP_USER_LOGIN_FAIL:
+// return { loading: false, error: action.payload };
+//
+// case SIGNED_UP_USER_LOGOUT:
+// return {};
+//
+// default:
+// return state;
+// }
+// };
+//
+// export const userReducer = (state = {}, action) => {
+// switch (action.type) {
+// case USER_SIGN_UP_REQUEST:
+// return { loading: true };
+// case USER_SIGN_UP_SUCCESS:
+// return { loading: false, userInfo: action.payload };
+// case USER_SIGN_UP_FAIL:
+// return { loading: false, error: action.payload };
+// default:
+// return state;
+// }
+// };
 
-    case SIGNED_UP_USER_LOGIN_SUCCESS:
-      return { loading: false, signedUpUserInfo: action.payload };
-
-    case SIGNED_UP_USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
-
-    case SIGNED_UP_USER_LOGOUT:
-      return {};
-
-    default:
-      return state;
-  }
-};
-
-export const userSignUpReducer = (state = {}, action) => {
-  switch (action.type) {
-    case USER_SIGN_UP_REQUEST:
-      return { loading: true };
-    case USER_SIGN_UP_SUCCESS:
-      return { loading: false, signedUpUserInfo: action.payload };
-    case USER_SIGN_UP_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const userReducer = (state = { signedUpUserInfo: {} }, action) => {
+export const userReducer = (state = { userInfo: {} }, action) => {
   switch (action.type) {
     case SIGNED_UP_USER_LOGIN_REQUEST:
     case USER_SIGN_UP_REQUEST:
@@ -151,13 +151,13 @@ export const userReducer = (state = { signedUpUserInfo: {} }, action) => {
         ...state,
         loading: false,
         isAuthenticated: true,
-        signedUpUserInfo: action.payload,
+        userInfo: action.payload,
       };
 
     case LOGOUT_SUCCESS:
       return {
         loading: false,
-        signedUpUserInfo: null,
+        userInfo: null,
         isAuthenticated: false,
       };
     case SIGNED_UP_USER_LOGIN_FAIL:
@@ -166,7 +166,7 @@ export const userReducer = (state = { signedUpUserInfo: {} }, action) => {
         ...state,
         loading: false,
         isAuthenticated: false,
-        signedUpUserInfo: null,
+        userInfo: null,
         error: action.payload,
       };
 
@@ -174,7 +174,7 @@ export const userReducer = (state = { signedUpUserInfo: {} }, action) => {
       return {
         loading: false,
         isAuthenticated: false,
-        signedUpUserInfo: null,
+        userInfo: null,
         error: action.payload,
       };
 
@@ -332,10 +332,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
   }
 };
 
-export const userDetailsReducer = (
-  state = { signedUpUserInfo: {} },
-  action
-) => {
+export const userDetailsReducer = (state = { userInfo: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return {
@@ -346,7 +343,7 @@ export const userDetailsReducer = (
       return {
         ...state,
         loading: false,
-        signedUpUserInfo: action.payload,
+        userInfo: action.payload,
       };
 
     case USER_DETAILS_FAIL:

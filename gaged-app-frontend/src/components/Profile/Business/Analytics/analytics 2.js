@@ -17,17 +17,15 @@ import BusinessCard from "../../../Home/businessCard";
 function BusinessDashboard() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const signedUpBusinessLogin = useSelector(
-    (state) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state) => state.business);
+  const { businessInfo } = business;
   useEffect(() => {
     dispatch();
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
     }
-  }, [dispatch, navigate, signedUpBusinessInfo]);
+  }, [dispatch, navigate, businessInfo]);
 
-  useEffect(() => {}, [signedUpBusinessInfo]);
+  useEffect(() => {}, [businessInfo]);
 
   const [open, setOpen] = useState(false);
 

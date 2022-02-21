@@ -31,7 +31,7 @@ import LoginGeneral from "./components/Profile/LoginGeneral";
 import LoginUser from "./components/Profile/Individual/Login/LoginUser";
 import LoginBusiness from "./components/Profile/Business/Login/LoginBusiness";
 
-import Campaigns from "./components/Explore/Businesses/ExploreStores.jsx";
+// import Campaigns from "./components/Explore/Businesses/ExploreStores.jsx";
 import ExploreStores from "./components/Explore/Businesses/ExploreStores.jsx";
 
 import CampaignDetails from "./components/Campaigns/Overview/CampaignDetails";
@@ -43,7 +43,7 @@ import CampaignDetails from "./components/Campaigns/Overview/CampaignDetails";
 
 import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.jsx";
 
-import Campaign1 from "./components/Profile/Business/Campaigns/Overview/myCampaigns.js";
+// import Campaign1 from "./components/Profile/Business/Campaigns/Overview/myCampaigns.js";
 // import Campaign2 from "./components/campaign-components/Campaign2";
 // import Campaign3 from "./components/campaign-components/Campaign3";
 //
@@ -60,14 +60,14 @@ import OverviewDonation from "./components/Profile/Business/Campaigns/Manage/Don
 import OverviewEquity from "./components/Profile/Business/Campaigns/Manage/Equity.jsx";
 import OverviewLoan from "./components/Profile/Business/Campaigns/Manage/Loan.jsx";
 
-import Demographics from "./components/Profile/Business/Campaigns/New/Demographics.jsx";
-import Finance from "./components/Profile/Business/Campaigns/New/Finance.jsx";
-import Organisation from "./components/Profile/Business/Campaigns/New/Organisation";
-import Review from "./components/Profile/Business/Campaigns/New/Review.jsx";
-import SetSchedule from "./components/Profile/Business/Campaigns/New/SetSchedule";
-import Target from "./components/Profile/Business/Campaigns/New/Target";
-import TargetII from "./components/Profile/Business/Campaigns/New/TargetII";
-
+// import Demographics from "./components/Profile/Business/Campaigns/New/Demographics.jsx";
+// import Finance from "./components/Profile/Business/Campaigns/New/Finance.jsx";
+// import Organisation from "./components/Profile/Business/Campaigns/New/Organisation";
+// import Review from "./components/Profile/Business/Campaigns/New/Review.jsx";
+// import SetSchedule from "./components/Profile/Business/Campaigns/New/SetSchedule";
+// import Target from "./components/Profile/Business/Campaigns/New/Target";
+// import TargetII from "./components/Profile/Business/Campaigns/New/TargetII";
+//
 import Cart from "./components/Cart/Cart.jsx";
 import Shipping from "./components/Cart/shipping";
 import ConfirmOrder from "./components/Cart/confirmOrder";
@@ -109,15 +109,15 @@ function App() {
   // setStripeApiKey(data.stripeApiKey);
   // }
 
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Poppins", "Droid Sans", "Chilanka"],
-      },
-    });
+  // useEffect(() => {
+  // WebFont.load({
+  // google: {
+  // families: ["Poppins", "Droid Sans", "Chilanka"],
+  // },
+  // });
 
-    store.dispatch(loadUser());
-  }, []);
+  // store.dispatch(loadUser());
+  // }, []);
 
   window.addEventListener("contextmenu", (e) => e.preventDefault());
 
@@ -198,7 +198,7 @@ function App() {
         <Route path="/store/products/new" element={<ProductsNew />} />{" "}
         <Route path="/store/products/orders" element={<ProductsOrders />} />{" "}
         <Route path="/explore/stores" element={<ExploreStores />} />{" "}
-        <Route path="/campaigns" element={<Campaigns />} />{" "}
+        {/* <Route path="/campaigns" element={<Campaigns />} />{" "} */}
         <Route path="/settings/general" element={<SettingsGeneral />} />{" "}
         <Route path="/settings/bankCode" element={<SettingsBank />} />{" "}
         <Route path="/settings/store" element={<SettingsStore />} />{" "}
@@ -208,16 +208,16 @@ function App() {
         {/* <Route path="/campaigns/third" element={<CampaignsThird />} /> */}
         <Route path="/explore/campaigns" element={<ExploreCampaigns />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/campaigns/all" element={<Campaign1 />} />{" "}
+        {/* <Route path="/campaigns/all" element={<Campaign1 />} />{" "} */}
         {/* <Route path="/campaigns/live" element={<Campaign2 />} />{" "} */}
         {/* <Route path="/campaigns/completed" element={<Campaign3 />} />{" "} */}
-        <Route path="/new-campaign/demographics" element={<Demographics />} />{" "}
-        <Route path="/new-campaign/finance" element={<Finance />} />{" "}
-        <Route path="/new-campaign/organisation" element={<Organisation />} />{" "}
-        <Route path="/new-campaign/review" element={<Review />} />{" "}
-        <Route path="/new-campaign/set-schedule" element={<SetSchedule />} />{" "}
-        <Route path="/new-campaign/target" element={<Target />} />{" "}
-        <Route path="/new-campaign/target-II" element={<TargetII />} />{" "}
+        {/* <Route path="/new-campaign/demographics" element={<Demographics />} />{" "} */}
+        {/* <Route path="/new-campaign/finance" element={<Finance />} />{" "} */}
+        {/* <Route path="/new-campaign/organisation" element={<Organisation />} />{" "} */}
+        {/* <Route path="/new-campaign/review" element={<Review />} />{" "} */}
+        {/* <Route path="/new-campaign/set-schedule" element={<SetSchedule />} />{" "} */}
+        {/* <Route path="/new-campaign/target" element={<Target />} />{" "} */}
+        {/* <Route path="/new-campaign/target-II" element={<TargetII />} />{" "} */}
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>{" "}
     </Router>

@@ -21,8 +21,8 @@ function CampaignForm() {
     (state: RootStateOrAny) => state.businessNewCampaignStarted
   );
 
-  const { signedUpBusinessInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  const { businessInfo } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
   useEffect(() => {
     if (error) {
@@ -178,14 +178,14 @@ function CampaignForm() {
   };
 
   useEffect(() => {
-    if (signedUpBusinessInfo) {
-      setCampaignCredentials.twitter(signedUpBusinessInfo.twitter);
-      setCampaignCredentials.faceBook(signedUpBusinessInfo.faceBook);
-      setCampaignCredentials.whatsApp(signedUpBusinessInfo.whatsApp);
+    if (businessInfo) {
+      setCampaignCredentials.twitter(businessInfo.twitter);
+      setCampaignCredentials.faceBook(businessInfo.faceBook);
+      setCampaignCredentials.whatsApp(businessInfo.whatsApp);
     } else {
       navigate("/");
     }
-  }, [signedUpBusinessInfo, navigate]);
+  }, [businessInfo, navigate]);
   // Proceed to next step
   const nextStep = () => {
     setStep(step + 1);

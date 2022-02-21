@@ -32,17 +32,15 @@ function BusinessExplore() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   let params = useParams();
-  const signedUpBusinessLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state: RootStateOrAny) => state.business);
+  const { businessInfo } = business;
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
       navigate("/");
     }
-  }, [dispatch, navigate, signedUpBusinessInfo]);
+  }, [dispatch, navigate, businessInfo]);
 
-  useEffect(() => {}, [signedUpBusinessInfo]);
+  useEffect(() => {}, [businessInfo]);
 
   const [open, setOpen] = useState(false);
 
@@ -116,8 +114,7 @@ function BusinessExplore() {
                   <div className="text-right pl-1 pr-10">
                     <Mainscreen
                       title={`Welcome Back ${
-                        signedUpBusinessInfo &&
-                        signedUpBusinessInfo.businessName
+                        businessInfo && businessInfo.businessName
                       }`}
                     >
                       <Link to="/explore/stores">

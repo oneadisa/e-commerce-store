@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Loader from "../../../Layout/Loader/Loader";
 import { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../../../actions/userActions";
+import { userLogin, clearErrors } from "../../../../actions/userActions";
 import ErrorMessage from "../../../Layout/Errors/LoginErrorMessage";
 import { useNavigate } from "react-router-dom";
 
@@ -18,9 +18,9 @@ function LoginUser() {
   // eslint-disable-next-line no-unused-vars
 
   // useEffect(() => {
-  // const signedUpUserInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
+  // const userInfo = localStorage.get("signedUpUseInfo", JSON.stringify(data))
 
-  // if (signedUpUserInfo) {
+  // if (userInfo) {
   // navigate.push('/')
   // }
   //
@@ -28,16 +28,19 @@ function LoginUser() {
 
   const dispatch = useDispatch();
 
-  const signedUpUserLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
-  const { loading, error, signedUpUserInfo } = signedUpUserLogin;
+  const user = useSelector((state: RootStateOrAny) => state.user);
+  const { loading, error, isAuthenticated } = user;
 
   useEffect(() => {
-    if (signedUpUserInfo) {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    if (isAuthenticated) {
       navigate("/individual/dashboard");
     }
-  }, [navigate, signedUpUserInfo]);
+  }, [dispatch, error, isAuthenticated, navigate]);
 
   const submitHandler = async (event) => {
     event.preventDefault();

@@ -344,7 +344,7 @@ export const businessLogin = (email, password) => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem("signedUpBusinessInfo", JSON.stringify(data));
+    localStorage.setItem("businessInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: SIGNED_UP_BUSINESS_LOGIN_FAIL,
@@ -393,7 +393,7 @@ export const signUpBusiness =
         payload: data,
       });
 
-      localStorage.setItem("signedUpBusinessInfo", JSON.stringify(data));
+      localStorage.setItem("businessInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
         type: BUSINESS_SIGN_UP_FAIL,
@@ -477,13 +477,23 @@ export const register = (userData) => async (dispatch) => {
 };
 
 // Load Business
-export const loadBusiness = () => async (dispatch) => {
+export const loadBusiness = () => async (dispatch, getState) => {
   try {
     dispatch({ type: LOAD_BUSINESS_REQUEST });
 
-    const { data } = await axios.get(`/app/business/me`);
+    const {
+      business: { businessInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${businessInfo.token}`,
+      },
+    };
 
-    dispatch({ type: LOAD_BUSINESS_SUCCESS, payload: data.user });
+    const { data } = await axios.get("/app/business/me", config);
+
+    dispatch({ type: LOAD_BUSINESS_SUCCESS, payload: data.business });
   } catch (error) {
     dispatch({
       type: LOAD_BUSINESS_FAIL,
@@ -504,17 +514,17 @@ export const logout = () => async (dispatch) => {
 };
 
 // Update Profile
-export const updateProfile = (userData, getState) => async (dispatch) => {
+export const updateProfile = (userData) => async (dispatch, getState) => {
   try {
     dispatch({ type: UPDATE_BUSINESS_PROFILE_REQUEST });
 
     const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
+      business: { businessInfo },
     } = getState();
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        Authorization: `Bearer ${businessInfo.token}`,
       },
     };
 
@@ -534,11 +544,19 @@ export const updateProfile = (userData, getState) => async (dispatch) => {
 };
 
 // Update Password
-export const updatePassword = (passwords) => async (dispatch) => {
+export const updatePassword = (passwords) => async (dispatch, getState) => {
   try {
     dispatch({ type: UPDATE_BUSINESS_PASSWORD_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" } };
+    const {
+      business: { businessInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${businessInfo.token}`,
+      },
+    };
 
     const { data } = await axios.put(
       `/app/business/password/update`,
@@ -729,12 +747,23 @@ export const getAllProducts = (id) => async (dispatch) => {
 };
 
 // Delete Product
-export const deleteStoreProduct = (id) => async (dispatch) => {
+export const deleteStoreProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: STORE_PRODUCTS_DELETE_REQUEST });
 
+    const {
+      business: { businessInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${businessInfo.token}`,
+      },
+    };
+
     const { data } = await axios.delete(
-      `app/business/products/business/id/${id}`
+      `app/business/products/business/id/${id}`,
+      config
     );
 
     dispatch({
@@ -1083,12 +1112,12 @@ export const newCampaignStarted =
       dispatch({ type: NEW_CAMPAIGN_STARTED_REQUEST });
 
       const {
-        signedUpBusinessLogin: { signedUpBusinessInfo },
+        business: { businessInfo },
       } = getState();
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+          Authorization: `Bearer ${businessInfo.token}`,
         },
       };
 
@@ -1966,12 +1995,12 @@ export const listMyCampaigns = () => async (dispatch, getState) => {
     });
 
     const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
+      business: { businessInfo },
     } = getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        Authorization: `Bearer ${businessInfo.token}`,
       },
     };
 
@@ -2000,13 +2029,13 @@ export const createCampaignAction =
       });
 
       const {
-        signedUpBusinessLogin: { signedUpBusinessInfo },
+        business: { businessInfo },
       } = getState();
 
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+          Authorization: `Bearer ${businessInfo.token}`,
         },
       };
 
@@ -2039,12 +2068,12 @@ export const deleteCampaignAction = (id) => async (dispatch, getState) => {
     });
 
     const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
+      business: { businessInfo },
     } = getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        Authorization: `Bearer ${businessInfo.token}`,
       },
     };
 
@@ -2076,13 +2105,13 @@ export const updateCampaignAction = (id) => async (dispatch, getState) => {
     });
 
     const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
+      business: { businessInfo },
     } = getState();
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        Authorization: `Bearer ${businessInfo.token}`,
       },
     };
 

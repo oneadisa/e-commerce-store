@@ -32,20 +32,18 @@ function LoginBusiness() {
   // }, [history])
 
   const dispatch = useDispatch();
-  const signedUpBusinessLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
-  );
-  const { loading, error, signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state: RootStateOrAny) => state.business);
+  const { loading, error, isAuthenticated } = business;
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
 
-    if (signedUpBusinessInfo) {
+    if (isAuthenticated) {
       navigate("/business/dashboard");
     }
-  }, [alert, dispatch, error, navigate, signedUpBusinessInfo]);
+  }, [alert, dispatch, error, navigate, isAuthenticated]);
 
   const submitHandler = async (event) => {
     event.preventDefault();

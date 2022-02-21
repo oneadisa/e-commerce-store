@@ -24,7 +24,7 @@ export default function Analytics() {
   const alert = useAlert();
   let navigate = useNavigate();
   const [message] = useState(null);
-  const { signedUpBusinessInfo, error, loading } = useSelector(
+  const { businessInfo, error, loading } = useSelector(
     (state: RootStateOrAny) => state.business
   );
   const [state] = useState({
@@ -55,7 +55,7 @@ export default function Analytics() {
     series: [
       {
         name: "series-1",
-        data: [0, signedUpBusinessInfo.totalSales],
+        data: [0, businessInfo.totalSales],
       },
     ],
   });
@@ -87,24 +87,22 @@ export default function Analytics() {
   // series: [
   // {
   // name: "series-1",
-  // data: [0, signedUpBusinessInfo.totalNumberOfOrders],
+  // data: [0, businessInfo.totalNumberOfOrders],
   // },
   // ],
   // });
   let investors = 0;
-  signedUpBusinessInfo.listOfCampaignsStarted &&
-    signedUpBusinessInfo.listOfCampaignsStarted.forEach((item) => {
+  businessInfo.listOfCampaignsStarted &&
+    businessInfo.listOfCampaignsStarted.forEach((item) => {
       item.totalNumberOfCampaignDonors += investors;
     });
 
-  var revenue =
-    signedUpBusinessInfo.walletBalance - signedUpBusinessInfo.totalSales;
+  var revenue = businessInfo.walletBalance - businessInfo.totalSales;
   var average =
-    signedUpBusinessInfo.totalAmountRaised -
-    signedUpBusinessInfo.totalNumberOfCampaignsStarted;
+    businessInfo.totalAmountRaised - businessInfo.totalNumberOfCampaignsStarted;
 
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
       navigate("/");
     }
     if (error) {
@@ -112,11 +110,11 @@ export default function Analytics() {
       dispatch(clearErrors());
     }
     dispatch(loadBusiness());
-  }, [dispatch, alert, error, signedUpBusinessInfo, navigate]);
+  }, [dispatch, alert, error, businessInfo, navigate]);
 
   return (
     <Fragment>
-      <MetaData title={`${signedUpBusinessInfo.businessName} - Dashboard`} />
+      <MetaData title={`${businessInfo.businessName} - Dashboard`} />
       {loading ? (
         <Loader />
       ) : (
@@ -149,7 +147,7 @@ export default function Analytics() {
                             <img src={ticket} alt="ticket" />
                           </div>
                           <h2 className=" font-bold">
-                            $ {signedUpBusinessInfo.totalSales}
+                            $ {businessInfo.totalSales}
                           </h2>
                         </div>
                         <div className="py-2 flex items-center justify-between text-xs font-semibold">
@@ -195,7 +193,7 @@ export default function Analytics() {
                             <img src={bag} alt="bag" />
                           </div>
                           <h2 className=" font-bold">
-                            $ {signedUpBusinessInfo.totalSales}
+                            $ {businessInfo.totalSales}
                           </h2>
                         </div>
                         <div className="py-2 flex items-center justify-between text-xs font-semibold">

@@ -12,8 +12,8 @@ import {
   clearErrors,
   updateProfile,
   loadUser,
-} from "../../../../actions/signedUpUserInfoActions";
-import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/signedUpUserInfoConstants";
+} from "../../../../actions/userInfoActions";
+import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/userInfoConstants";
 import Loader from "../../../Layout/Loader/Loader";
 import MetaData from "../../../Layout/metaData";
 
@@ -24,9 +24,7 @@ function SettingsBankIndividual() {
   const { loading, error, isUpdated } = useSelector(
     (state: RootStateOrAny) => state.userProfile
   );
-  const { signedUpUserInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
+  const { userInfo } = useSelector((state: RootStateOrAny) => state.business);
 
   const [userCredentials, setUserCredentials] = useState({
     firstName: "",
@@ -53,29 +51,29 @@ function SettingsBankIndividual() {
     bankAccountNumber: "",
   });
   useEffect(() => {
-    if (signedUpUserInfo) {
-      setUserCredentials.firstName(signedUpUserInfo.firstName);
-      setUserCredentials.lastName(signedUpUserInfo.lastName);
-      setUserCredentials.email(signedUpUserInfo.email);
-      setUserCredentials.phoneNumber(signedUpUserInfo.phoneNumber);
-      setUserCredentials.password(signedUpUserInfo.password);
-      setUserCredentials.pic(signedUpUserInfo.pic);
-      setUserCredentials.twitter(signedUpUserInfo.twitter);
-      setUserCredentials.faceBook(signedUpUserInfo.faceBook);
-      setUserCredentials.whatsApp(signedUpUserInfo.whatsApp);
-      setUserCredentials.isAdmin(signedUpUserInfo.isAdmin);
-      setUserCredentials.role(signedUpUserInfo.role);
-      setUserCredentials.meansOfID(signedUpUserInfo.meansOfID);
-      setUserCredentials.IDpic(signedUpUserInfo.IDpic);
-      setUserCredentials.regNum(signedUpUserInfo.regNum);
-      setUserCredentials.natureOfBusiness(signedUpUserInfo.natureOfBusiness);
-      setUserCredentials.personalEmail(signedUpUserInfo.personalEmail);
-      setUserCredentials.businessAddress(signedUpUserInfo.businessAddress);
-      setUserCredentials.cacCertificate(signedUpUserInfo.cacCertificate);
-      setUserCredentials.formCO7(signedUpUserInfo.formCO7);
-      setUserCredentials.bankCode(signedUpUserInfo.bankCode);
-      setUserCredentials.bankAccountName(signedUpUserInfo.bankAccountName);
-      setUserCredentials.bankAccountNumber(signedUpUserInfo.bankAccountNumber);
+    if (userInfo) {
+      setUserCredentials.firstName(userInfo.firstName);
+      setUserCredentials.lastName(userInfo.lastName);
+      setUserCredentials.email(userInfo.email);
+      setUserCredentials.phoneNumber(userInfo.phoneNumber);
+      setUserCredentials.password(userInfo.password);
+      setUserCredentials.pic(userInfo.pic);
+      setUserCredentials.twitter(userInfo.twitter);
+      setUserCredentials.faceBook(userInfo.faceBook);
+      setUserCredentials.whatsApp(userInfo.whatsApp);
+      setUserCredentials.isAdmin(userInfo.isAdmin);
+      setUserCredentials.role(userInfo.role);
+      setUserCredentials.meansOfID(userInfo.meansOfID);
+      setUserCredentials.IDpic(userInfo.IDpic);
+      setUserCredentials.regNum(userInfo.regNum);
+      setUserCredentials.natureOfBusiness(userInfo.natureOfBusiness);
+      setUserCredentials.personalEmail(userInfo.personalEmail);
+      setUserCredentials.businessAddress(userInfo.businessAddress);
+      setUserCredentials.cacCertificate(userInfo.cacCertificate);
+      setUserCredentials.formCO7(userInfo.formCO7);
+      setUserCredentials.bankCode(userInfo.bankCode);
+      setUserCredentials.bankAccountName(userInfo.bankAccountName);
+      setUserCredentials.bankAccountNumber(userInfo.bankAccountNumber);
     }
     if (error) {
       alert.error(error);
@@ -89,7 +87,7 @@ function SettingsBankIndividual() {
         type: UPDATE_USER_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, alert, navigate, signedUpUserInfo, isUpdated]);
+  }, [dispatch, error, alert, navigate, userInfo, isUpdated]);
 
   // const updateProfileDataChange = (e) => {
   // const reader = new FileReader();

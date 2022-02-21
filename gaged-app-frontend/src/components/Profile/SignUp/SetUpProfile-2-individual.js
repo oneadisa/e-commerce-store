@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import GeneralErrorMessage from "../../Layout/Errors/GeneralErrorMessage";
 // import PictureErrorMessage from '../../componenets/PictureErrorMessage';
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { signUpUser } from "../../../actions/userActions";
+import { signUpUser, clearErrors } from "../../../actions/userActions";
 // import { useForm } from "react-hook-form";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -49,8 +49,8 @@ function SetUpProfile2Individual() {
 
   const dispatch = useDispatch();
 
-  const userSignUp = useSelector((state: RootStateOrAny) => state.userSignUp);
-  const { loading, error, signedUpUserInfo } = userSignUp;
+  const user = useSelector((state: RootStateOrAny) => state.user);
+  const { loading, error, isAuthenticated } = user;
 
   // const postDetails = (pics) => {
   // if (
@@ -82,10 +82,14 @@ function SetUpProfile2Individual() {
   // }
 
   useEffect(() => {
-    if (signedUpUserInfo) {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (isAuthenticated) {
       navigate("/individual/dashboard");
     }
-  }, [navigate, signedUpUserInfo]);
+  }, [dispatch, error, navigate, isAuthenticated]);
 
   const handleClick = (event) => {
     event.preventDefault();

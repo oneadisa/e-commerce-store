@@ -109,12 +109,12 @@ export const listMyStoreProducts = () => async (dispatch, getState) => {
     });
 
     const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
+      business: { businessInfo },
     } = getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        Authorization: `Bearer ${businessInfo.token}`,
       },
     };
 
@@ -144,13 +144,13 @@ export const createStoreProductAction =
       });
 
       const {
-        signedUpBusinessLogin: { signedUpBusinessInfo },
+        business: { businessInfo },
       } = getState();
 
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+          Authorization: `Bearer ${businessInfo.token}`,
         },
       };
 
@@ -183,12 +183,12 @@ export const deleteStoreProductAction = (id) => async (dispatch, getState) => {
     });
 
     const {
-      signedUpBusinessLogin: { signedUpBusinessInfo },
+      business: { businessInfo },
     } = getState();
 
     const config = {
       headers: {
-        Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+        Authorization: `Bearer ${businessInfo.token}`,
       },
     };
 
@@ -218,13 +218,13 @@ export const updateStoreProductAction =
       });
 
       const {
-        signedUpBusinessLogin: { signedUpBusinessInfo },
+        business: { businessInfo },
       } = getState();
 
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+          Authorization: `Bearer ${businessInfo.token}`,
         },
       };
 

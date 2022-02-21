@@ -15,15 +15,13 @@ import Header from "./Header";
 function UserDashboard() {
   // const dispatch = useDispatch();
 
-  const signedUpUserLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
-  const { signedUpUserInfo, loading } = signedUpUserLogin;
+  const user = useSelector((state: RootStateOrAny) => state.user);
+  const { userInfo, loading } = user;
   // useEffect(() => {
   // dispatch();
-  // if (!signedUpUserInfo) {
+  // if (!userInfo) {
   // }
-  // }, [dispatch, navigate, signedUpUserInfo]);
+  // }, [dispatch, navigate, userInfo]);
 
   const [open, setOpen] = useState(false);
 
@@ -37,7 +35,7 @@ function UserDashboard() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${signedUpUserInfo.firstName}'s Dashboard`} />
+          <MetaData title={`${userInfo.firstName}'s Dashboard`} />
           <div className="mx-auto h-screen">
             <Header
               handleNav={() => setOpen(!open)}
@@ -58,9 +56,7 @@ function UserDashboard() {
                 <div className="lg:my-10 lg:space-y-10 lg:w-4/5 lg:h-2/5">
                   <div className="text-right pl-1 pr-10">
                     <Mainscreen
-                      title={`Welcome Back ${
-                        signedUpUserInfo && signedUpUserInfo.firstName
-                      }`}
+                      title={`Welcome Back ${userInfo && userInfo.firstName}`}
                     >
                       <button className="bg-white text-black w-40 m-4 h-12 border-2 border-black py-3 rounded hover:bg-blue-800 hover: hover:text-gray-100">
                         Explore

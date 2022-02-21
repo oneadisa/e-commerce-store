@@ -299,42 +299,39 @@ import {
   CAMPAIGN_DETAILS_SUCCESS,
 } from "../constants/businessConstants";
 
-export const signedUpBusinessLoginReducer = (state = {}, action) => {
-  switch (action.type) {
-    case SIGNED_UP_BUSINESS_LOGIN_REQUEST:
-      return { loading: true };
+// export const businessReducer = (state = {}, action) => {
+// switch (action.type) {
+// case SIGNED_UP_BUSINESS_LOGIN_REQUEST:
+// return { loading: true };
+//
+// case SIGNED_UP_BUSINESS_LOGIN_SUCCESS:
+// return { loading: false, businessInfo: action.payload };
+//
+// case SIGNED_UP_BUSINESS_LOGIN_FAIL:
+// return { loading: false, error: action.payload };
+//
+// case SIGNED_UP_BUSINESS_LOGOUT:
+// return {};
+//
+// default:
+// return state;
+// }
+// };
+//
+// export const businessReducer = (state = {}, action) => {
+// switch (action.type) {
+// case BUSINESS_SIGN_UP_REQUEST:
+// return { loading: true };
+// case BUSINESS_SIGN_UP_SUCCESS:
+// return { loading: false, businessInfo: action.payload };
+// case BUSINESS_SIGN_UP_FAIL:
+// return { loading: false, error: action.payload };
+// default:
+// return state;
+// }
+// };
 
-    case SIGNED_UP_BUSINESS_LOGIN_SUCCESS:
-      return { loading: false, signedUpBusinessInfo: action.payload };
-
-    case SIGNED_UP_BUSINESS_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
-
-    case SIGNED_UP_BUSINESS_LOGOUT:
-      return {};
-
-    default:
-      return state;
-  }
-};
-
-export const businessSignUpReducer = (state = {}, action) => {
-  switch (action.type) {
-    case BUSINESS_SIGN_UP_REQUEST:
-      return { loading: true };
-    case BUSINESS_SIGN_UP_SUCCESS:
-      return { loading: false, signedUpBusinessInfo: action.payload };
-    case BUSINESS_SIGN_UP_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
-export const businessReducer = (
-  state = { signedUpBusinessInfo: {} },
-  action
-) => {
+export const businessReducer = (state = { businessInfo: {} }, action) => {
   switch (action.type) {
     case SIGNED_UP_BUSINESS_LOGIN_REQUEST:
     case BUSINESS_SIGN_UP_REQUEST:
@@ -350,13 +347,13 @@ export const businessReducer = (
         ...state,
         loading: false,
         isAuthenticated: true,
-        signedUpBusinessInfo: action.payload,
+        businessInfo: action.payload,
       };
 
     case LOGOUT_SUCCESS:
       return {
         loading: false,
-        signedUpBusinessInfo: null,
+        businessInfo: null,
         isAuthenticated: false,
       };
     case SIGNED_UP_BUSINESS_LOGIN_FAIL:
@@ -365,7 +362,7 @@ export const businessReducer = (
         ...state,
         loading: false,
         isAuthenticated: false,
-        signedUpBusinessInfo: null,
+        businessInfo: null,
         error: action.payload,
       };
 
@@ -373,7 +370,7 @@ export const businessReducer = (
       return {
         loading: false,
         isAuthenticated: false,
-        signedUpBusinessInfo: null,
+        businessInfo: null,
         error: action.payload,
       };
 
@@ -564,7 +561,7 @@ export const singleBusinessesReducer = (state = { business: {} }, action) => {
 };
 
 export const businessDetailsReducer = (
-  state = { signedUpBusinessInfo: {} },
+  state = { businessInfo: {} },
   action
 ) => {
   switch (action.type) {
@@ -577,7 +574,7 @@ export const businessDetailsReducer = (
       return {
         ...state,
         loading: false,
-        signedUpBusinessInfo: action.payload,
+        businessInfo: action.payload,
       };
 
     case BUSINESS_DETAILS_FAIL:

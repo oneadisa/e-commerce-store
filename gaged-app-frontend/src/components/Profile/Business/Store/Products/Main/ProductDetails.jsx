@@ -33,14 +33,12 @@ export default function ProductDetails() {
     (state) => state.newReview
   );
 
-  const { business } = useSelector((state) => state.singleBusinesses);
-  const signedUpBusinessLogin = useSelector(
-    (state) => state.signedUpBusinessLogin
-  );
+  // const { business } = useSelector((state) => state.singleBusinesses);
+  const { business } = useSelector((state) => state.business);
 
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const { businessInfo } = business;
 
-  const { signedUpUserInfo } = useSelector((state) => state.signedUpUserLogin);
+  const { userInfo } = useSelector((state) => state.user);
 
   const options = {
     size: "large",
@@ -76,7 +74,7 @@ export default function ProductDetails() {
     myForm.set("comment", comment);
     myForm.set("productId", params.id);
 
-    if (signedUpBusinessInfo || signedUpUserInfo) {
+    if (businessInfo || userInfo) {
       dispatch(newProductReview(myForm));
     } else {
       alert.error("Please Sign Up or Login to perfrom that action");

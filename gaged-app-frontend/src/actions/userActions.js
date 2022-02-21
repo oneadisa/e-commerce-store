@@ -117,7 +117,7 @@ export const userLogin = (email, password) => async (dispatch) => {
       payload: data,
     });
 
-    localStorage.setItem("signedUpUserInfo", JSON.stringify(data));
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: SIGNED_UP_USER_LOGIN_FAIL,
@@ -130,7 +130,7 @@ export const userLogin = (email, password) => async (dispatch) => {
 };
 
 // export const logout = () => async(dispatch) => {
-// localStorage.removeItem("signedUpUserInfo");
+// localStorage.removeItem("userInfo");
 // dispatch({
 // type: SIGNED_UP_USER_LOGOUT
 // });
@@ -173,7 +173,7 @@ export const signUpUser =
         payload: data,
       });
 
-      localStorage.setItem("signedUpUserInfo", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
         type: USER_SIGN_UP_FAIL,
@@ -230,10 +230,20 @@ export const register = (userData) => async (dispatch) => {
 };
 
 // Load User
-export const loadUser = () => async (dispatch) => {
+export const loadUser = () => async (dispatch, getState) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
+    const {
+      user: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+        config,
+      },
+    };
     const { data } = await axios.get(`/app/individual/me`);
 
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
@@ -254,11 +264,19 @@ export const logout = () => async (dispatch) => {
 };
 
 // Update Profile
-export const updateProfile = (userData) => async (dispatch) => {
+export const updateProfile = (userData) => async (dispatch, getState) => {
   try {
     dispatch({ type: UPDATE_USER_PROFILE_REQUEST });
 
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const {
+      business: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
     const { data } = await axios.put(
       `/app/individual/me/update`,

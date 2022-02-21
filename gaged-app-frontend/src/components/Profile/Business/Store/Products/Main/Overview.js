@@ -28,7 +28,7 @@ function Overview() {
   const alert = useAlert();
   let navigate = useNavigate();
   const [message] = useState(null);
-  const { signedUpBusinessInfo, error, loading } = useSelector(
+  const { businessInfo, error, loading } = useSelector(
     (state: RootStateOrAny) => state.business
   );
   let today = new Date().toLocaleDateString();
@@ -60,7 +60,7 @@ function Overview() {
     series: [
       {
         name: "series-1",
-        data: [0, signedUpBusinessInfo.totalSales],
+        data: [0, businessInfo.totalSales],
       },
     ],
   });
@@ -93,26 +93,25 @@ function Overview() {
     series: [
       {
         name: "series-1",
-        data: [0, signedUpBusinessInfo.totalNumberOfOrders],
+        data: [0, businessInfo.totalNumberOfOrders],
       },
     ],
   });
 
   let investors = 0;
-  signedUpBusinessInfo.listOfCampaignsStarted &&
-    signedUpBusinessInfo.listOfCampaignsStarted.forEach((item) => {
+  businessInfo.listOfCampaignsStarted &&
+    businessInfo.listOfCampaignsStarted.forEach((item) => {
       item.totalNumberOfCampaignDonors += investors;
     });
 
-  var revenue =
-    signedUpBusinessInfo.walletBalance - signedUpBusinessInfo.totalSales;
+  var revenue = businessInfo.walletBalance - businessInfo.totalSales;
 
   //  var average =
-  //  signedUpBusinessInfo.totalAmountRaised -
-  //  signedUpBusinessInfo.totalNumberOfCampaignsStarted;
+  //  businessInfo.totalAmountRaised -
+  //  businessInfo.totalNumberOfCampaignsStarted;
 
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
       navigate("/");
     }
 
@@ -121,13 +120,13 @@ function Overview() {
       dispatch(clearErrors());
     }
     dispatch(loadBusiness());
-  }, [dispatch, alert, error, signedUpBusinessInfo, navigate]);
+  }, [dispatch, alert, error, businessInfo, navigate]);
 
   const [open, setOpen] = useState(false);
 
   return (
     <Fragment>
-      <MetaData title={`${signedUpBusinessInfo.businessName} - Dashboard`} />
+      <MetaData title={`${businessInfo.businessName} - Dashboard`} />
       {loading ? (
         <Loader children={undefined} />
       ) : (
@@ -185,7 +184,7 @@ function Overview() {
                               <img src={ticket} alt="ticket" />
                             </div>
                             <h2 className=" font-bold">
-                              $ {signedUpBusinessInfo.totalSales}
+                              $ {businessInfo.totalSales}
                             </h2>
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
@@ -231,7 +230,7 @@ function Overview() {
                               <img src={bag} alt="bag" />
                             </div>
                             <h2 className=" font-bold">
-                              {signedUpBusinessInfo.numberOfStoreProducts}
+                              {businessInfo.numberOfStoreProducts}
                             </h2>
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
@@ -281,7 +280,7 @@ function Overview() {
                                 <img src={bag} alt="ticket" />
                               </div>
                               <h2 className="font-bold">
-                                {signedUpBusinessInfo.totalNumberOfOrders}
+                                {businessInfo.totalNumberOfOrders}
                               </h2>
                             </div>
                             <p className="text-gray-400 text-sm">
@@ -303,9 +302,7 @@ function Overview() {
                             <h3 className="font-bold">No of customers</h3>
                             <div className="py-2 flex justify-between items-center font-medium w-1/2">
                               <div>
-                                <p>
-                                  {signedUpBusinessInfo.totalNumberOfOrders}
-                                </p>
+                                <p>{businessInfo.totalNumberOfOrders}</p>
                                 <p className="font-normal text-sm">Total</p>
                               </div>
                               <div>
@@ -327,7 +324,7 @@ function Overview() {
                         <div className="border-2 border-gray-300 lg:p-2 md:w-2/3">
                           <div className="p-2 pb-3 flex justify-between items-center">
                             <h4 className="font-bold">Latest Orders</h4>
-                            <Link to="/store/signedUpBusinessInfo.orders">
+                            <Link to="/store/businessInfo.orders">
                               <p className="text-sm text-Dark-blue font-semibold">
                                 view all
                               </p>
@@ -358,13 +355,13 @@ function Overview() {
                                       </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-300">
-                                      {signedUpBusinessInfo.orders &&
-                                      signedUpBusinessInfo.orders[0] ? (
+                                      {businessInfo.orders &&
+                                      businessInfo.orders[0] ? (
                                         <>
                                           <div>
                                             {" "}
-                                            {signedUpBusinessInfo.orders &&
-                                              signedUpBusinessInfo.orders
+                                            {businessInfo.orders &&
+                                              businessInfo.orders
                                                 .slice(0, 5)
                                                 .map((order) => (
                                                   <OrderCard

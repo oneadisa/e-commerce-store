@@ -32,17 +32,15 @@ function UserExplore() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   let params = useParams();
-  const signedUpUserLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
-  const { signedUpUserInfo } = signedUpUserLogin;
+  const user = useSelector((state: RootStateOrAny) => state.user);
+  const { userInfo } = user;
   useEffect(() => {
-    if (!signedUpUserInfo) {
+    if (!userInfo) {
       navigate("/");
     }
-  }, [dispatch, navigate, signedUpUserInfo]);
+  }, [dispatch, navigate, userInfo]);
 
-  useEffect(() => {}, [signedUpUserInfo]);
+  useEffect(() => {}, [userInfo]);
 
   const [open, setOpen] = useState(false);
 
@@ -115,9 +113,7 @@ function UserExplore() {
                 <div className="lg:my-10 lg:space-y-10 lg:w-4/5 lg:h-2/5">
                   <div className="text-right pl-1 pr-10">
                     <Mainscreen
-                      title={`Welcome Back ${
-                        signedUpUserInfo && signedUpUserInfo.firstName
-                      }`}
+                      title={`Welcome Back ${userInfo && userInfo.firstName}`}
                     >
                       <Link to="/explore/stores">
                         <button className="bg-white text-black w-40 m-4 h-12 border-2 border-black py-3 rounded hover:bg-blue-800 hover: hover:text-gray-100">

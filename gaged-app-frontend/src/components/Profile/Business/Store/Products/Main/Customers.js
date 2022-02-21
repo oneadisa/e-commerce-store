@@ -17,7 +17,7 @@ import Loader from "../../../../../Layout/Loader/Loader";
 function ProductsCustomers() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { signedUpBusinessInfo, loading, error } = useSelector(
+  const { businessInfo, loading, error } = useSelector(
     (state: RootStateOrAny) => state.business
   );
   useEffect(() => {
@@ -88,8 +88,7 @@ function ProductsCustomers() {
                     {/* <p>Delivered</p> */}
                     {/* </div> */}
 
-                    {signedUpBusinessInfo.customers &&
-                    signedUpBusinessInfo.customers[0] ? (
+                    {businessInfo.customers && businessInfo.customers[0] ? (
                       <>
                         <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
                           <p>#</p>
@@ -100,8 +99,8 @@ function ProductsCustomers() {
                           <p>EMAIL</p>
                         </div>
                         <div>
-                          {signedUpBusinessInfo.customers &&
-                            signedUpBusinessInfo.customers.map((order) => (
+                          {businessInfo.customers &&
+                            businessInfo.customers.map((order) => (
                               <CustomerCard key={order._id} order={order} />
                             ))}
                         </div>
@@ -118,7 +117,7 @@ function ProductsCustomers() {
                           <p>PRICE</p>
                         </div>
                         <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                          You have no signedUpBusinessInfo.customers yet
+                          You have no businessInfo.customers yet
                         </p>
                       </>
                     )}

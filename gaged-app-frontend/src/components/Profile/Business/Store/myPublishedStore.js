@@ -18,11 +18,11 @@ function MyPublishedStore() {
 
   const alert = useAlert();
 
-  const { signedUpBusinessInfo, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessInfo
+  const { businessInfo, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.businessInfo
   );
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
       navigate("/");
     }
     if (error) {
@@ -30,7 +30,7 @@ function MyPublishedStore() {
       dispatch(clearErrors());
     }
     dispatch(loadBusiness());
-  }, [dispatch, alert, error, signedUpBusinessInfo, navigate]);
+  }, [dispatch, alert, error, businessInfo, navigate]);
 
   return (
     <Fragment>
@@ -38,7 +38,7 @@ function MyPublishedStore() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${signedUpBusinessInfo.businessName} -- GAGED`} />
+          <MetaData title={`${businessInfo.businessName} -- GAGED`} />
           {error && (
             <GeneralErrorMessage bg="danger">{error}</GeneralErrorMessage>
           )}
@@ -73,8 +73,8 @@ function MyPublishedStore() {
                 </div>
               </div>
               <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 lg:gap-10 text-left py-6 px-4 lg:py-10 lg:px-20 bg-magenta-blue">
-                {signedUpBusinessInfo.storeProducts &&
-                  signedUpBusinessInfo.storeProducts.map((product) => (
+                {businessInfo.storeProducts &&
+                  businessInfo.storeProducts.map((product) => (
                     <ProductCard key={product._id} product={product} />
                   ))}
               </div>

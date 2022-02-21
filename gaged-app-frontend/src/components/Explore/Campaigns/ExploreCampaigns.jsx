@@ -11,7 +11,7 @@ import Loader from "../../Layout/Loader/Loader";
 
 function ExploreCampaigns() {
   const dispatch = useDispatch();
-  let params = useParams();
+  // let params = useParams();
   const alert = useAlert();
   // const [currentPage, setCurrentPage] = useState(1);
   // const [campaignCategory, setCampaignCategory] = useState("");
@@ -25,7 +25,7 @@ function ExploreCampaigns() {
     // filteredCampaignsCount,
   } = useSelector((state) => state.businesses);
 
-  const keyword = params.keyword;
+  // const keyword = params.keyword;
 
   // const setCurrentPageNo = (e) => {
   // setCurrentPage(e);
@@ -37,8 +37,8 @@ function ExploreCampaigns() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getBusiness(keyword));
-  }, [dispatch, keyword, alert, error]);
+    dispatch(getBusiness());
+  }, [dispatch, alert, error]);
 
   return (
     <Fragment>
@@ -46,7 +46,7 @@ function ExploreCampaigns() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="campaignS -- ECOMMERCE" />
+          <MetaData title="Gaged Campaigns" />
           <div className="mx-auto">
             <div className="bg-magenta-blue py-14 px-3 lg:px-12 items-center text-center">
               <h1 className="text-2xl md:text-3xl font-bold">

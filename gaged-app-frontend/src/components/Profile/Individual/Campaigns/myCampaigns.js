@@ -18,13 +18,13 @@ function MyCampaignsIndividual() {
   let navigate = useNavigate();
   // const [message, setMessage] = useState(null);
 
-  const { signedUpUserInfo, loading, error } = useSelector(
+  const { userInfo, loading, error } = useSelector(
     (state: RootStateOrAny) => state.user
   );
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (!signedUpUserInfo) {
+    if (!userInfo) {
       navigate("/");
     }
     if (error) {
@@ -32,7 +32,7 @@ function MyCampaignsIndividual() {
       dispatch(clearErrors());
     }
     dispatch(loadUser());
-  }, [dispatch, alert, error, signedUpUserInfo, navigate]);
+  }, [dispatch, alert, error, userInfo, navigate]);
 
   return (
     <Fragment>
@@ -84,11 +84,11 @@ function MyCampaignsIndividual() {
                     {/* </div> */}
                     <div className="flex flex-col md:flex-row gap-5 md:gap-2 lg:gap-5 my-10 lg:px-1">
                       <div className="">
-                        {signedUpUserInfo.listOfCampaignsInvested &&
-                        signedUpUserInfo.listOfCampaignsInvested[0] ? (
+                        {userInfo.listOfCampaignsInvested &&
+                        userInfo.listOfCampaignsInvested[0] ? (
                           <>
-                            {signedUpUserInfo.listOfCampaignsInvested &&
-                              signedUpUserInfo.listOfCampaignsInvested.map(
+                            {userInfo.listOfCampaignsInvested &&
+                              userInfo.listOfCampaignsInvested.map(
                                 (campaign) => (
                                   <MyCampaignCard
                                     key={campaign._id}

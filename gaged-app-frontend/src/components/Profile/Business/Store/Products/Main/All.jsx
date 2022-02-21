@@ -22,7 +22,7 @@ function ProductsAll() {
   let navigate = useNavigate();
   let params = useParams();
 
-  const { error, signedUpBusinessInfo } = useSelector(
+  const { error, businessInfo } = useSelector(
     (state: RootStateOrAny) => state.business
   );
 
@@ -34,7 +34,7 @@ function ProductsAll() {
     error: deleteError,
   } = useSelector((state) => state.product);
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
       navigate("/");
     }
     if (error) {
@@ -51,7 +51,7 @@ function ProductsAll() {
       dispatch({ type: DELETE_STORE_PRODUCT_RESET });
     }
     dispatch(loadBusiness());
-  }, [dispatch, error, signedUpBusinessInfo, navigate, deleteError, isDeleted]);
+  }, [dispatch, error, businessInfo, navigate, deleteError, isDeleted]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
@@ -143,8 +143,8 @@ function ProductsAll() {
                       </p>{" "}
                     </div>
                     <div>
-                      {signedUpBusinessInfo.storeProducts &&
-                        signedUpBusinessInfo.storeProducts.map((products) => (
+                      {businessInfo.storeProducts &&
+                        businessInfo.storeProducts.map((products) => (
                           <ProductsCard
                             key={products._id}
                             products={products}

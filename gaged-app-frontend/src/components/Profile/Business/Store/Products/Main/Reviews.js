@@ -20,7 +20,7 @@ import Loader from "../../../../../Layout/Loader/Loader";
 function ProductsReviews() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { signedUpBusinessInfo, loading, error } = useSelector(
+  const { businessInfo, loading, error } = useSelector(
     (state: RootStateOrAny) => state.business
   );
   useEffect(() => {
@@ -91,8 +91,7 @@ function ProductsReviews() {
                     {/* <p>Pending</p> */}
                     {/* <p>Delivered</p> */}
                     {/* </div> */}
-                    {signedUpBusinessInfo.reviews &&
-                    signedUpBusinessInfo.reviews[0] ? (
+                    {businessInfo.reviews && businessInfo.reviews[0] ? (
                       <>
                         <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
                           <p>#</p>
@@ -103,8 +102,8 @@ function ProductsReviews() {
                           <p>COMMENT</p>
                         </div>
                         <div>
-                          {signedUpBusinessInfo.reviews &&
-                            signedUpBusinessInfo.reviews.map((review) => (
+                          {businessInfo.reviews &&
+                            businessInfo.reviews.map((review) => (
                               <ReviewCard key={review._id} review={review} />
                             ))}
                         </div>

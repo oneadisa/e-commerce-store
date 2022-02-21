@@ -2,8 +2,6 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
-  signedUpUserLoginReducer,
-  userSignUpReducer,
   userReducer,
   userProfileReducer,
   forgotUserPasswordReducer,
@@ -33,8 +31,6 @@ import {
   productsReviewsReducer,
 } from "./reducers/userReducers";
 import {
-  businessSignUpReducer,
-  signedUpBusinessLoginReducer,
   businessReducer,
   businessProfileReducer,
   forgotBusinessPasswordReducer,
@@ -181,8 +177,6 @@ import {
 
 const reducer = combineReducers({
   //this will contain our reducers
-  signedUpUserLogin: signedUpUserLoginReducer,
-  userSignUp: userSignUpReducer,
   user: userReducer,
   userProifle: userProfileReducer,
   forgotUserPassword: forgotUserPasswordReducer,
@@ -211,8 +205,6 @@ const reducer = combineReducers({
   newnewProductReviews: newnewProductReviewsReducer,
   productsReviews: productsReviewsReducer,
 
-  signedUpBusinessLogin: signedUpBusinessLoginReducer,
-  businessSignUp: businessSignUpReducer,
   business: businessReducer,
   businessProfile: businessProfileReducer,
   forgotBusinessPassword: forgotBusinessPasswordReducer,
@@ -341,20 +333,20 @@ const reducer = combineReducers({
   cart: cartReducer,
 });
 
-const userInfoFromStorage = localStorage.getItem("signedUpUserInfo")
-  ? JSON.parse(localStorage.getItem("signedUpUserInfo"))
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
-const businessInfoFromStorage = localStorage.getItem("signedUpBusinessInfo")
-  ? JSON.parse(localStorage.getItem("signedUpBusinessInfo"))
+const businessInfoFromStorage = localStorage.getItem("businessInfo")
+  ? JSON.parse(localStorage.getItem("businessInfo"))
   : null;
 
 const InitialState = {
-  signedUpUserLoginReducer: {
-    signedUpUserInfo: userInfoFromStorage,
+  userReducer: {
+    userInfo: userInfoFromStorage,
   },
-  signedUpBusinessLoginReducer: {
-    signedUpBusinessInfo: businessInfoFromStorage,
+  businessReducer: {
+    businessInfo: businessInfoFromStorage,
   },
   cart: {
     cartItems: localStorage.getItem("cartItems")

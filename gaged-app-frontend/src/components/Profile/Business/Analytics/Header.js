@@ -11,10 +11,8 @@ function Header(props) {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const signedUpBusinessLogin = useSelector(
-    (state) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state) => state.business);
+  const { businessInfo } = business;
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -123,7 +121,7 @@ function Header(props) {
                           "block w-full text-left px-4 py-2 text-sm"
                         )}
                         onClick={() => {
-                          localStorage.removeItem("signedUpBusinessInfo");
+                          localStorage.removeItem("businessInfo");
                           navigate("/");
                         }}
                       >

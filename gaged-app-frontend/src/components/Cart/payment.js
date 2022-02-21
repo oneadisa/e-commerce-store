@@ -23,37 +23,35 @@ const Payment = () => {
   const { shippingInfo, cartItems } = useSelector(
     (state: RootStateOrAny) => state.cart
   );
-  const { signedUpBusinessInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  const { businessInfo } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
-  const { signedUpUserInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
+  const { userInfo } = useSelector((state: RootStateOrAny) => state.user);
   const { error } = useSelector((state: RootStateOrAny) => state.newOrder);
 
   // const paymentData = {
   // amount: Math.round(orderInfo.totalPrice * 100),
   // };
 
-  if (signedUpBusinessInfo) {
-    var userInfo = {
-      name: signedUpBusinessInfo.businessName,
-      phoneNumber: signedUpBusinessInfo.phoneNumber,
-      email: signedUpBusinessInfo.email,
-      pic: signedUpBusinessInfo.pic,
+  if (businessInfo) {
+    var inputInfo = {
+      name: businessInfo.businessName,
+      phoneNumber: businessInfo.phoneNumber,
+      email: businessInfo.email,
+      pic: businessInfo.pic,
     };
   } else {
-    userInfo = {
-      name: signedUpUserInfo.firstName + " " + signedUpUserInfo.lastName,
-      phoneNumber: signedUpUserInfo.phoneNumber,
-      email: signedUpUserInfo.email,
-      pic: signedUpUserInfo.pic,
+    inputInfo = {
+      name: userInfo.firstName + " " + userInfo.lastName,
+      phoneNumber: userInfo.phoneNumber,
+      email: userInfo.email,
+      pic: userInfo.pic,
     };
   }
 
   const order = {
     shippingInfo,
-    userInfo,
+    inputInfo,
     orderItems: cartItems,
     itemsPrice: orderInfo.subtotal,
     taxPrice: orderInfo.tax,
@@ -73,9 +71,9 @@ const Payment = () => {
       currency: "NGN",
       payment_options: "card,mobilemoney,ussd,banktransfer",
       customer: {
-        email: userInfo.email,
-        phonenumber: userInfo.phoneNumber,
-        name: userInfo.name,
+        email: inputInfo.email,
+        phonenumber: inputInfo.phoneNumber,
+        name: inputInfo.name,
       },
       // address: {
       // line1: shippingInfo.address,

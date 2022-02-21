@@ -12,12 +12,10 @@ const ConfirmOrder = () => {
   const { shippingInfo, cartItems } = useSelector(
     (state: RootStateOrAny) => state.cart
   );
-  const { signedUpBusinessInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  const { businessInfo } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
-  const { signedUpUserInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
+  const { userInfo } = useSelector((state: RootStateOrAny) => state.user);
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -60,13 +58,13 @@ const ConfirmOrder = () => {
             <div className="confirmshippingAreaBox">
               <div>
                 <p>Name:</p>
-                if(!signedUpUserInfo)
+                if(!userInfo)
                 {
                   <span>
-                    {signedUpUserInfo.firstName} {signedUpUserInfo.lastName}
+                    {userInfo.firstName} {userInfo.lastName}
                   </span>
                 }
-                else{<span>{signedUpBusinessInfo.businessName}</span>}
+                else{<span>{businessInfo.businessName}</span>}
               </div>
               <div>
                 <p>Phone:</p>

@@ -29,15 +29,13 @@ function LoanThirdBusiness() {
   let params = useParams();
   let navigate = useNavigate();
 
-  const signedUpBusinessLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state: RootStateOrAny) => state.business);
+  const { businessInfo } = business;
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
     }
-  }, [dispatch, navigate, signedUpBusinessInfo]);
-  useEffect(() => {}, [signedUpBusinessInfo]);
+  }, [dispatch, navigate, businessInfo]);
+  useEffect(() => {}, [businessInfo]);
 
   const { campaign, loading, error } = useSelector(
     (state: RootStateOrAny) => state.campaignDetails
@@ -311,8 +309,8 @@ function LoanThirdBusiness() {
                                   {campaign.businsessCampaignReviews &&
                                   campaign.businessCampaignReviews[0] ? (
                                     <div>
-                                      {signedUpBusinessInfo.listOfCampaignsInvested &&
-                                        signedUpBusinessInfo.listOfCampaignsInvested.map(
+                                      {businessInfo.listOfCampaignsInvested &&
+                                        businessInfo.listOfCampaignsInvested.map(
                                           (lend) => (
                                             <LendHistoryCard
                                               key={lend._id}
@@ -331,8 +329,8 @@ function LoanThirdBusiness() {
                                   {campaign.campaignReviews &&
                                   campaign.campaignReviews[0] ? (
                                     <div>
-                                      {signedUpBusinessInfo.listOfCampaignPayouts &&
-                                        signedUpBusinessInfo.listOfCampaignPayouts.map(
+                                      {businessInfo.listOfCampaignPayouts &&
+                                        businessInfo.listOfCampaignPayouts.map(
                                           (repayment) => (
                                             <RepaymentHistoryCard
                                               key={repayment._id}

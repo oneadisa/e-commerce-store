@@ -13,7 +13,7 @@ import greengraph from "../../../../images/green-graph.svg";
 // import { GoKebabVertical } from 'react-icons/go';
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
-import { clearErrors, loadBusiness } from "../../../../actions/businessActions";
+import { loadBusiness } from "../../../../actions/businessActions";
 import MetaData from "../../../Layout/metaData.js";
 import Loader from "../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
@@ -28,9 +28,16 @@ function DashBoardMain() {
   let navigate = useNavigate();
   const [message] = useState(null);
 
-  const { signedUpBusinessInfo, error, loading } = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
+  const { businessInfo, isAuthenticated, loading } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
+
+  useEffect(() => {
+    if (isAuthenticated === false) {
+      navigate("/businessLogin");
+    }
+    dispatch(loadBusiness());
+  }, [dispatch, alert, businessInfo, navigate, isAuthenticated]);
 
   const [state] = useState({
     options: {
@@ -60,7 +67,7 @@ function DashBoardMain() {
     series: [
       {
         name: "series-1",
-        data: [0, signedUpBusinessInfo.totalSales],
+        data: [0, businessInfo.totalSales],
       },
     ],
   });
@@ -93,39 +100,25 @@ function DashBoardMain() {
     series: [
       {
         name: "series-1",
-        data: [0, signedUpBusinessInfo.totalNumberOfOrders],
+        data: [0, businessInfo.totalNumberOfOrders],
       },
     ],
   });
 
   let investors = 0;
-  signedUpBusinessInfo.listOfCampaignsStarted &&
-    signedUpBusinessInfo.listOfCampaignsStarted.forEach((item) => {
+  businessInfo.listOfCampaignsStarted &&
+    businessInfo.listOfCampaignsStarted.forEach((item) => {
       item.totalNumberOfCampaignDonors += investors;
     });
 
-  var revenue =
-    signedUpBusinessInfo.walletBalance - signedUpBusinessInfo.totalSales;
+  var revenue = businessInfo.walletBalance - businessInfo.totalSales;
 
   var average =
-    signedUpBusinessInfo.totalAmountRaised -
-    signedUpBusinessInfo.totalNumberOfCampaignsStarted;
-
-  useEffect(() => {
-    if (!signedUpBusinessInfo) {
-      navigate("/");
-    }
-
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
-    dispatch(loadBusiness());
-  }, [dispatch, alert, error, signedUpBusinessInfo, navigate]);
+    businessInfo.totalAmountRaised - businessInfo.totalNumberOfCampaignsStarted;
 
   return (
     <Fragment>
-      <MetaData title={`${signedUpBusinessInfo.businessName} - Dashboard`} />
+      <MetaData title={`${businessInfo.businessName} - Dashboard`} />
       {loading ? (
         <Loader />
       ) : (
@@ -141,7 +134,6 @@ function DashBoardMain() {
             }
           />
           {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
-          {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
           <div className="lg:bg-magenta-blue lg:pb-24 lg:px-5">
             <div className="block lg:flex lg:space-x-28">
               <div className="hidden lg:block">
@@ -170,7 +162,7 @@ function DashBoardMain() {
                               <img src={ticket} alt="ticket" />
                             </div>
                             <h2 className=" font-bold">
-                              $ {signedUpBusinessInfo.totalSales}
+                              $ {businessInfo.totalSales}
                             </h2>
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
@@ -216,7 +208,7 @@ function DashBoardMain() {
                               <img src={bag} alt="bag" />
                             </div>
                             <h2 className=" font-bold">
-                              {signedUpBusinessInfo.numberOfStoreProducts}
+                              {businessInfo.numberOfStoreProducts}
                             </h2>
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
@@ -266,7 +258,7 @@ function DashBoardMain() {
                                 <img src={bag} alt="ticket" />
                               </div>
                               <h2 className="font-bold">
-                                {signedUpBusinessInfo.totalNumberOfOrders}
+                                {businessInfo.totalNumberOfOrders}
                               </h2>
                             </div>
                             <p className="text-gray-400 text-sm">
@@ -288,7 +280,7 @@ function DashBoardMain() {
                         <h3 className="font-bold">No of customers</h3>
                         <div className="py-2 flex justify-between items-center font-medium w-1/2">
                           <div>
-                            <p>{signedUpBusinessInfo.totalNumberOfOrders}</p>
+                            <p>{businessInfo.totalNumberOfOrders}</p>
                             <p className="font-normal text-sm">Total</p>
                           </div>
                           <div>
@@ -322,7 +314,7 @@ function DashBoardMain() {
                           <img src={ticket} alt="ticket" />
                         </div>
                         <h2 className="font-bold">
-                          {signedUpBusinessInfo.totalNumberOfCampaignsStarted}
+                          {businessInfo.totalNumberOfCampaignsStarted}
                         </h2>
                       </div>
                       <p className="text-gray-400 text-xs">TOTAL CAMPAIGN</p>
@@ -333,7 +325,7 @@ function DashBoardMain() {
                           <img src={ticket} alt="ticket" />
                         </div>
                         <h2 className="font-bold">
-                          $ {signedUpBusinessInfo.totalAmountRaised}
+                          $ {businessInfo.totalAmountRaised}
                         </h2>
                       </div>
                       <p className="text-gray-400 text-xs">

@@ -35,8 +35,8 @@ function IndividualWallet() {
 
   const [filter, setFilter] = useState("Date");
 
-  const { signedUpUserInfo, loading } = useSelector(
-    (state: RootStateOrAny) => state.business
+  const { userInfo, loading } = useSelector(
+    (state: RootStateOrAny) => state.user
   );
 
   const { error, isUpdated } = useSelector(
@@ -56,9 +56,9 @@ function IndividualWallet() {
       currency: "NGN",
       payment_options: "card,mobilemoney,ussd,banktransfer",
       customer: {
-        email: signedUpUserInfo.email,
-        phonenumber: signedUpUserInfo.phoneNumber,
-        name: signedUpUserInfo.firstName + " " + signedUpUserInfo.lastName,
+        email: userInfo.email,
+        phonenumber: userInfo.phoneNumber,
+        name: userInfo.firstName + " " + userInfo.lastName,
       },
       customizations: {
         title: "Gaged",
@@ -94,8 +94,8 @@ function IndividualWallet() {
       );
     } else {
       const transferData = {
-        account_bank: signedUpUserInfo.bankCode,
-        account_number: signedUpUserInfo.bankAccountNumber,
+        account_bank: userInfo.bankCode,
+        account_number: userInfo.bankAccountNumber,
         amount: withdrawValue,
         narration: "Akhlm Pstmn Trnsfr xx007",
         currency: "NGN",
@@ -109,7 +109,7 @@ function IndividualWallet() {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${signedUpUserInfo.token}`,
+            Authorization: `Bearer ${userInfo.token}`,
           },
         };
         const { data } = await axios.post(
@@ -128,9 +128,9 @@ function IndividualWallet() {
   };
 
   useEffect(() => {
-    if (signedUpUserInfo) {
-      setWalletBalance(signedUpUserInfo.walletBalance);
-      setName(signedUpUserInfo.firstName + " " + signedUpUserInfo.lastName);
+    if (userInfo) {
+      setWalletBalance(userInfo.walletBalance);
+      setName(userInfo.firstName + " " + userInfo.lastName);
     }
     if (error) {
       alert.error(error);
@@ -144,7 +144,7 @@ function IndividualWallet() {
         type: UPDATE_USER_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, alert, isUpdated, signedUpUserInfo, navigate]);
+  }, [dispatch, error, alert, isUpdated, userInfo, navigate]);
 
   return (
     <Fragment>
@@ -152,9 +152,7 @@ function IndividualWallet() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData
-            title={`${signedUpUserInfo.firstName}'s GAGED IndividualWallet`}
-          />
+          <MetaData title={`${userInfo.firstName}'s GAGED IndividualWallet`} />
           <div className="mx-auto">
             <Header
               handleNav={() => setOpen(!open)}

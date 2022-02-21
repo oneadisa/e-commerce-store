@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../../../Layout/Loader/Loader";
 
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
-import faceBook from "../../../../../images/facebook.svg";
+import faceBook from "../../../../../images/faceBook.svg";
 import tags from "../../../../../images/tags.svg";
 import twitter from "../../../../../images/twitter.svg";
 import whatsapp from "../../../../../images/whatsapp.svg";
@@ -39,19 +39,15 @@ function MyCampaignDetails() {
   const [showFundModal, setShowFundModal] = React.useState(false);
   const [message, setMessage] = React.useState("");
 
-  const signedUpBusinessLogin = useSelector(
-    (state: RootStateOrAny) => state.signedUpBusinessLogin
-  );
-  const { signedUpBusinessInfo } = signedUpBusinessLogin;
+  const business = useSelector((state: RootStateOrAny) => state.business);
+  const { businessInfo } = business;
 
-  const { signedUpUserInfo } = useSelector(
-    (state: RootStateOrAny) => state.signedUpUserLogin
-  );
+  const { userInfo } = useSelector((state: RootStateOrAny) => state.user);
   useEffect(() => {
-    if (!signedUpBusinessInfo) {
+    if (!businessInfo) {
     }
-  }, [dispatch, navigate, signedUpBusinessInfo]);
-  useEffect(() => {}, [signedUpBusinessInfo]);
+  }, [dispatch, navigate, businessInfo]);
+  useEffect(() => {}, [businessInfo]);
 
   const { campaign, loading, error } = useSelector(
     (state: RootStateOrAny) => state.campaignDetails
@@ -77,7 +73,7 @@ function MyCampaignDetails() {
   const InvestHandler = async (e) => {
     e.preventDefault();
 
-    if (!signedUpUserInfo || signedUpBusinessInfo) {
+    if (!userInfo || businessInfo) {
       setMessage("Please Login or Sign Up to Invest in this campaign");
     } else {
       const config = {
@@ -87,9 +83,9 @@ function MyCampaignDetails() {
         currency: "NGN",
         payment_options: "card,mobilemoney,ussd,banktransfer",
         customer: {
-          email: signedUpBusinessInfo.email,
-          phonenumber: signedUpBusinessInfo.phoneNumber,
-          name: signedUpBusinessInfo.businessName,
+          email: businessInfo.email,
+          phonenumber: businessInfo.phoneNumber,
+          name: businessInfo.businessName,
         },
         customizations: {
           title: "Gaged",

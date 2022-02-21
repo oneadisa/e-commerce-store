@@ -35,7 +35,7 @@ function BusinessWallet() {
 
   const [filter, setFilter] = useState("Date");
 
-  const { signedUpBusinessInfo, loading } = useSelector(
+  const { businessInfo, loading } = useSelector(
     (state: RootStateOrAny) => state.business
   );
 
@@ -56,9 +56,9 @@ function BusinessWallet() {
       currency: "NGN",
       payment_options: "card,mobilemoney,ussd,banktransfer",
       customer: {
-        email: signedUpBusinessInfo.email,
-        phonenumber: signedUpBusinessInfo.phoneNumber,
-        name: signedUpBusinessInfo.businessName,
+        email: businessInfo.email,
+        phonenumber: businessInfo.phoneNumber,
+        name: businessInfo.businessName,
       },
       customizations: {
         title: "Gaged",
@@ -94,8 +94,8 @@ function BusinessWallet() {
       );
     } else {
       const transferData = {
-        account_bank: signedUpBusinessInfo.bankCode,
-        account_number: signedUpBusinessInfo.bankAccountNumber,
+        account_bank: businessInfo.bankCode,
+        account_number: businessInfo.bankAccountNumber,
         amount: withdrawValue,
         narration: "Akhlm Pstmn Trnsfr xx007",
         currency: "NGN",
@@ -109,7 +109,7 @@ function BusinessWallet() {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${signedUpBusinessInfo.token}`,
+            Authorization: `Bearer ${businessInfo.token}`,
           },
         };
         const { data } = await axios.post(
@@ -128,9 +128,9 @@ function BusinessWallet() {
   };
 
   useEffect(() => {
-    if (signedUpBusinessInfo) {
-      setWalletBalance(signedUpBusinessInfo.walletBalance);
-      setName(signedUpBusinessInfo.businessName);
+    if (businessInfo) {
+      setWalletBalance(businessInfo.walletBalance);
+      setName(businessInfo.businessName);
     }
     if (error) {
       alert.error(error);
@@ -144,7 +144,7 @@ function BusinessWallet() {
         type: UPDATE_BUSINESS_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, alert, isUpdated, signedUpBusinessInfo, navigate]);
+  }, [dispatch, error, alert, isUpdated, businessInfo, navigate]);
 
   return (
     <Fragment>
@@ -153,7 +153,7 @@ function BusinessWallet() {
       ) : (
         <Fragment>
           <MetaData
-            title={`${signedUpBusinessInfo.businessName}'s GAGED BusinessWallet`}
+            title={`${businessInfo.businessName}'s GAGED BusinessWallet`}
           />
           <div className="mx-auto">
             <Header

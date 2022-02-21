@@ -11,6 +11,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 const Campaign = require("../models/campaignModels");
 const signedUpBusiness = require("../models/signUpBusinessModels");
+const ApiFeatures = require("../utils/apiFeatures");
 
 const registerBusiness = asyncHandler(async (req, res) => {
   // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
@@ -157,7 +158,7 @@ const registerBusiness = asyncHandler(async (req, res) => {
     totalNumberOfReviews,
     businessReviews,
     numberOfBusinessReviews,
-    totalNumberOfReviews,
+
     businessOrders,
     numberOFBusinessOrders,
     orders,
@@ -637,11 +638,11 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 // Get Business Detail
 const getBusinessDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await signedUpBusiness.findById(req.user.id);
+  const business = await signedUpBusiness.findById(req.user._id);
 
   res.status(200).json({
     success: true,
-    user,
+    business,
   });
 });
 
@@ -691,12 +692,12 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 // Get all users(admin)
 const getAllBusiness = catchAsyncErrors(async (req, res, next) => {
-  const users = await signedUpBusiness.find();
+  // const users = await signedUpBusiness.find();
 
-  res.status(200).json({
-    success: true,
-    users,
-  });
+  // res.status(200).json({
+  // success: true,
+  // users,
+  // });
 
   const resultPerPage = 40;
   const businessCount = await signedUpBusiness.countDocuments();
