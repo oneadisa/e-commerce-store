@@ -17,7 +17,7 @@ import {
 } from "../../../../../../actions/businessActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import MetaData from "../../../../../Layout/MetaData";
+import MetaData from "../../../../../Layout/metaData";
 import { STORE_PRODUCTS_UPDATE_RESET } from "../../../../../../constants/businessConstants";
 import {} from "../../../../../../constants/businessConstants";
 

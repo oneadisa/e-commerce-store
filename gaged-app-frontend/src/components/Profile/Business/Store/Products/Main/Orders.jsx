@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { Fragment, useEffect, useState } from "react";
-import "./Products.css";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
@@ -11,10 +11,10 @@ import {
 import OrderCard from "../orderCard";
 
 import { useAlert } from "react-alert";
-import MetaData from "../layout/MetaData";
+import MetaData from "../../../../../Layout/metaData";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
-import Loader from "../../../../../Layout/Loader";
+import Loader from "../../../../../Layout/Loader/Loader";
 
 function ProductsOrders() {
   const dispatch = useDispatch();

@@ -6,10 +6,10 @@ import Loader from "../../../../Layout/Loader/Loader";
 
 import { useSelector, useDispatch, RootStateOrAny } from "react-redux";
 import faceBook from "../../../../../images/facebook.svg";
-import tags from "../../../images/tags.svg";
-import twitter from "../../../images/twitter.svg";
-import whatsapp from "../../../images/whatsapp.svg";
-import left from "../../../images/left.svg";
+import tags from "../../../../../images/tags.svg";
+import twitter from "../../../../../images/twitter.svg";
+import whatsapp from "../../../../../images/whatsapp.svg";
+import left from "../../../../../images/left.svg";
 import { useAlert } from "react-alert";
 import MetaData from "../../../../Layout/metaData";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";

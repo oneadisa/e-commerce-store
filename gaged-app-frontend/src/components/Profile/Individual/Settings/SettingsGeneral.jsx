@@ -15,8 +15,8 @@ import {
   clearErrors,
   updateProfile,
   loadUser,
-} from "../../../../actions/signedUpUserInfoActions";
-import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/signedUpUserInfoConstants";
+} from "../../../../actions/userActions";
+import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/userConstants";
 import Loader from "../../../Layout/Loader/Loader";
 import MetaData from "../../../Layout/metaData";
 import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";

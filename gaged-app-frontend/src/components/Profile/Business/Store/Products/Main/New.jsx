@@ -14,7 +14,7 @@ import { clearErrors } from "../../../../../../actions/storeProductsActions";
 import { newProduct } from "../../../../../../actions/businessActions";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import MetaData from "../../../../../Layout/MetaData";
+import MetaData from "../../../../../Layout/metaData";
 import { NEW_STORE_PRODUCTS_RESET } from "../../../../../../constants/businessConstants";
 // import { STORE_PRODUCTS_CREATE_RESET } from "../../../../../../constants/storeProductsConstants";
 import {} from "../../../../../../constants/businessConstants";

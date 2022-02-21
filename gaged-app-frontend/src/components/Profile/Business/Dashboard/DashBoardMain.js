@@ -29,7 +29,7 @@ function DashBoardMain() {
   const [message] = useState(null);
 
   const { signedUpBusinessInfo, error, loading } = useSelector(
-    (state: RootStateOrAny) => state.business
+    (state: RootStateOrAny) => state.signedUpBusinessLogin
   );
 
   const [state] = useState({

@@ -3,17 +3,16 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 
 import React, { Fragment, useEffect, useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import {
   clearErrors,
-  getAllIndividualOrders,
-  getAllBusinessOrders,
+  getBusiness,
 } from "../../../../../../actions/businessActions";
 import ReviewCard from "../reviewCard";
-import IndividualReviewCard from "../individualReviewCard";
+
 import { useAlert } from "react-alert";
-import MetaData from "../../../../../Layout/MetaData";
+import MetaData from "../../../../../Layout/metaData";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
 import Loader from "../../../../../Layout/Loader/Loader";
@@ -21,11 +20,8 @@ import Loader from "../../../../../Layout/Loader/Loader";
 function ProductsReviews() {
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { individualReviews, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.reviews
-  );
-  const { businessReviews, loading, error } = useSelector(
-    (state: RootStateOrAny) => state.businessBusinessnewProductReviews
+  const { signedUpBusinessInfo, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
   useEffect(() => {
     if (error) {
@@ -35,9 +31,10 @@ function ProductsReviews() {
       alert.error(error);
       dispatch(clearErrors());
     }
+    dispatch(getBusiness());
     // dispatch(getAllIndividualOrders());
     // dispatch(getAllBusinessOrders());
-  }, [dispatch, alert, error, error]);
+  }, [dispatch, alert, error]);
   const [open, setOpen] = useState(false);
 
   return (
@@ -94,7 +91,8 @@ function ProductsReviews() {
                     {/* <p>Pending</p> */}
                     {/* <p>Delivered</p> */}
                     {/* </div> */}
-                    {businessReviews && businessReviews[0] ? (
+                    {signedUpBusinessInfo.reviews &&
+                    signedUpBusinessInfo.reviews[0] ? (
                       <>
                         <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2">
                           <p>#</p>
@@ -105,8 +103,8 @@ function ProductsReviews() {
                           <p>COMMENT</p>
                         </div>
                         <div>
-                          {businessReviews &&
-                            businessReviews.map((review) => (
+                          {signedUpBusinessInfo.reviews &&
+                            signedUpBusinessInfo.reviews.map((review) => (
                               <ReviewCard key={review._id} review={review} />
                             ))}
                         </div>

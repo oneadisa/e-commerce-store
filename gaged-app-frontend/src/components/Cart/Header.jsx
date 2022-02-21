@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import MetaData from "../Layout/metaData";
-import Logof from "https://www.linkpicture.com/q/Gaged-Blue.svg";
+import Logof from "../../images/Gaged-images/Gaged-Blue.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { logout } from "../../../actions/businessActions";

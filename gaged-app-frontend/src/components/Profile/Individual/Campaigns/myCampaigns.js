@@ -6,10 +6,7 @@ import Dashboard from "../Dashboard/DashBoard";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  loadUser,
-  clearErrors,
-} from "../../../../actions/userActions";
+import { loadUser, clearErrors } from "../../../../actions/userActions";
 import MyCampaignCard from "../../../Profile/Business/Campaigns/Overview/myCampaignCard";
 import Loader from "../../../Layout/Loader/Loader";
 import MetaData from "../../../Layout/metaData";
@@ -88,23 +85,30 @@ function MyCampaignsIndividual() {
                     <div className="flex flex-col md:flex-row gap-5 md:gap-2 lg:gap-5 my-10 lg:px-1">
                       <div className="">
                         {signedUpUserInfo.listOfCampaignsInvested &&
-                        signedUpUserInfo.listOfCampaignsInvested [0] ? ({signedUpUserInfo.listOfCampaignsInvested &&
-  signedUpUserInfo.listOfCampaignsInvested.map(
-    (campaign) => (
-      <MyCampaignCard
-        key={campaign._id}
-        campaign={campaign}
-      />
-    )
-  )}):( <h2 className="text-center font-poppins text-bold text-xl h-screen p-20">
-   You haven't invested in any of our campaigns yet.
-<Link to="/explore/campaigns">
-  <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue bg-Dark-blue text-white sm:text-base md:text-xl font-medium rounded hover:bg-white hover:animate-bounce hover:text-Dark-blue">
-    Explore Camaigns
-  </button>
-</Link>
-
- </h2>)}
+                        signedUpUserInfo.listOfCampaignsInvested[0] ? (
+                          <>
+                            {signedUpUserInfo.listOfCampaignsInvested &&
+                              signedUpUserInfo.listOfCampaignsInvested.map(
+                                (campaign) => (
+                                  <MyCampaignCard
+                                    key={campaign._id}
+                                    campaign={campaign}
+                                  />
+                                )
+                              )}
+                          </>
+                        ) : (
+                          <>
+                            <h2 className="text-center font-poppins text-bold text-xl h-screen p-20">
+                              You haven't invested in any of our campaigns yet.
+                            </h2>
+                            <Link to="/explore/campaigns">
+                              <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue bg-Dark-blue text-white sm:text-base md:text-xl font-medium rounded hover:bg-white hover:animate-bounce hover:text-Dark-blue">
+                                Explore Camaigns
+                              </button>
+                            </Link>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

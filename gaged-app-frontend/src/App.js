@@ -69,10 +69,10 @@ import Target from "./components/Profile/Business/Campaigns/New/Target";
 import TargetII from "./components/Profile/Business/Campaigns/New/TargetII";
 
 import Cart from "./components/Cart/Cart.jsx";
-import Shipping from "./components/Cart/Shipping";
-import ConfirmOrder from "./components/Cart/ConfirmOrder";
-import Payment from "./components/Cart/Payment";
-import OrderSuccess from "./components/Cart/OrderSuccess";
+import Shipping from "./components/Cart/shipping";
+import ConfirmOrder from "./components/Cart/confirmOrder";
+import Payment from "./components/Cart/payment";
+import OrderSuccess from "./components/Cart/orderSuccess";
 import Analytics from "./components/Profile/Business/Analytics/Analytics";
 import MyCampaignDetails from "./components/Profile/Business/Campaigns/Manage/myCampaignDetails";
 import CampaignForm from "./components/Profile/Business/Campaigns/New/campaignForm";
@@ -123,10 +123,11 @@ function App() {
 
   return (
     <Router>
-      <Route path="/gaged" element={<LandingPage />} />
-      <Route path="/" element={<LandingPage />} /> <Header />
+      {/* <Header /> */}
       <Routes>
         {" "}
+        <Route path="/gaged" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/business/dashboard" element={<BusinessDashboard />} />
         <Route path="/individual/explore" element={<UserExplore />} />
         <Route path="/business/explore" element={<BusinessExplore />} />

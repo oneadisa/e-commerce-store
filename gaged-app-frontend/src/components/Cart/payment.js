@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect, useRef } from "react";
-import CheckoutSteps from "../Cart/CheckoutSteps";
+import CheckoutSteps from "./CheckoutSteps";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
-import MetaData from "../layout/MetaData";
+import MetaData from "../Layout/metaData";
 // import { Typography } from "@material-ui/core";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 
 // import axios from "axios";
 import "./payment.css";
-import { clearErrors, createOrder } from "../../actions/businessActions";
+import { clearErrors, newOrder } from "../../actions/businessActions";
 
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
@@ -111,7 +111,7 @@ const Payment = () => {
             id: response.transaction_id,
             status: response.status,
           };
-          dispatch(createOrder(order));
+          dispatch(newOrder(order));
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
@@ -158,7 +158,7 @@ const Payment = () => {
       // id: result.paymentIntent.id,
       // status: result.paymentIntent.status,
       // };
-      // dispatch(createOrder(order));
+      // dispatch(newOrder(order));
       // navigate("/success");
       // } else {
       // alert.error("There's some issue while processing payment ");

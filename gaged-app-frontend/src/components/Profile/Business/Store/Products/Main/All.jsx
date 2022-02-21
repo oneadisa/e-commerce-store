@@ -15,7 +15,7 @@ import {
 } from "../../../../../../actions/businessActions";
 import ProductsCard from "../allProductsCard";
 import MetaData from "../../../../../Layout/metaData";
-import { DELETE_STORE_PRODUCTS_RESET } from "../../../../../../constants/businessConstants";
+import { DELETE_STORE_PRODUCT_RESET } from "../../../../../../constants/businessConstants";
 
 function ProductsAll() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function ProductsAll() {
     if (isDeleted) {
       alert.success("Product Deleted Successfully");
       navigate("/products/all");
-      dispatch({ type: DELETE_STORE_PRODUCTS_RESET });
+      dispatch({ type: DELETE_STORE_PRODUCT_RESET });
     }
     dispatch(loadBusiness());
   }, [dispatch, error, signedUpBusinessInfo, navigate, deleteError, isDeleted]);

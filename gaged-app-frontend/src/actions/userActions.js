@@ -34,9 +34,9 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
-  SINGLE_USER_REQUEST,
-  SINGLE_USER_SUCCESS,
-  SINGLE_USER_FAIL,
+  // SINGLE_USER_REQUEST,
+  // SINGLE_USER_SUCCESS,
+  // SINGLE_USER_FAIL,
   NEW_ORDERED_FROM_REQUEST,
   NEW_ORDERED_FROM_SUCCESS,
   NEW_ORDERED_FROM_FAIL,
@@ -354,19 +354,19 @@ export const getAllUsers = () => async (dispatch) => {
 };
 
 // get  Business Details
-export const getSingleBusiness = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: SINGLE_USER_REQUEST });
-    const { data } = await axios.get(`/app/individual/admin/user/${id}`);
-
-    dispatch({ type: SINGLE_USER_SUCCESS, payload: data.user });
-  } catch (error) {
-    dispatch({
-      type: SINGLE_USER_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+// export const getSingleBusiness = (id) => async (dispatch) => {
+// try {
+// dispatch({ type: SINGLE_USER_REQUEST });
+// const { data } = await axios.get(`/app/individual/admin/user/${id}`);
+//
+// dispatch({ type: SINGLE_USER_SUCCESS, payload: data.user });
+// } catch (error) {
+// dispatch({
+// type: SINGLE_USER_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
 
 // get  User Details
 export const getUserDetails = () => async (dispatch) => {
@@ -811,31 +811,32 @@ export const deleteCampaignReview =
   };
 
 // NEW PRODUCT REVIEW
-export const newnewProductReview = (newProductReviewData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_PRODUCT_REVIEWS_REQUEST });
+export const newnewProductReview =
+  (newProductReviewData) => async (dispatch) => {
+    try {
+      dispatch({ type: NEW_PRODUCT_REVIEWS_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
 
-    const { data } = await axios.put(
-      `app/business/profile-product-review/`,
-      newProductReviewData,
-      config
-    );
+      const { data } = await axios.put(
+        `app/business/profile-product-review/`,
+        newProductReviewData,
+        config
+      );
 
-    dispatch({
-      type: NEW_PRODUCT_REVIEWS_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_PRODUCT_REVIEWS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: NEW_PRODUCT_REVIEWS_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: NEW_PRODUCT_REVIEWS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 // Get All newnewProductReview of a Business
 export const getAllnewProductReview = (id) => async (dispatch) => {

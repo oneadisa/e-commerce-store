@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../../actions/storeProductsActions";
 import { getAllOrders } from "../../actions/orderActions.js";
 import { getAllUsers } from "../../actions/userActions.js";
-import MetaData from "../layout/MetaData";
+import MetaData from "../Layout/MetaData";
 
 const Dashboard = () => {
   const dispatch = useDispatch();

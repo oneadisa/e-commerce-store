@@ -17,7 +17,7 @@ import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 import { useNavigate } from "react-router-dom";
 import Chart from "react-apexcharts";
 
-function Analytics() {
+export default function Analytics() {
   const [open, setOpen] = useState(false);
   let today = new Date().toLocaleDateString();
   const dispatch = useDispatch();
@@ -321,5 +321,3 @@ function Analytics() {
     </Fragment>
   );
 }
-
-export default Analytics;

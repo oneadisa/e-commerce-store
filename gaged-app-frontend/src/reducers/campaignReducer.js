@@ -34,17 +34,6 @@ import {
   DELETE_INDIVIDUAL_DONOR_SUCCESS,
   DELETE_INDIVIDUAL_DONOR_FAIL,
   DELETE_INDIVIDUAL_DONOR_RESET,
-  NEW_CAMPAIGN_REVIEW_REQUEST,
-  NEW_CAMPAIGN_REVIEW_SUCCESS,
-  NEW_CAMPAIGN_REVIEW_FAIL,
-  NEW_CAMPAIGN_REVIEW_RESET,
-  ALL_CAMPAIGN_REVIEWS_REQUEST,
-  ALL_CAMPAIGN_REVIEWS_SUCCESS,
-  ALL_CAMPAIGN_REVIEWS_FAIL,
-  DELETE_CAMPAIGN_REVIEW_REQUEST,
-  DELETE_CAMPAIGN_REVIEW_SUCCESS,
-  DELETE_CAMPAIGN_REVIEW_FAIL,
-  DELETE_CAMPAIGN_REVIEW_RESET,
   NEW_DONOR_SUCCESS,
   NEW_DONOR_FAIL,
   NEW_DONOR_RESET,
@@ -357,39 +346,39 @@ export const individualCampaignDonorReducer = (state = {}, action) => {
   }
 };
 
-export const newCampaignReviewReducer = (state = {}, action) => {
-  switch (action.type) {
-    case NEW_CAMPAIGN_REVIEW_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case NEW_CAMPAIGN_REVIEW_SUCCESS:
-      return {
-        loading: false,
-        success: action.payload,
-      };
-    case NEW_CAMPAIGN_REVIEW_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    case NEW_CAMPAIGN_REVIEW_RESET:
-      return {
-        ...state,
-        success: false,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
-
+// export const newCampaignReviewReducer = (state = {}, action) => {
+// switch (action.type) {
+// case NEW_CAMPAIGN_REVIEW_REQUEST:
+// return {
+// ...state,
+// loading: true,
+// };
+// case NEW_CAMPAIGN_REVIEW_SUCCESS:
+// return {
+// loading: false,
+// success: action.payload,
+// };
+// case NEW_CAMPAIGN_REVIEW_FAIL:
+// return {
+// ...state,
+// loading: false,
+// error: action.payload,
+// };
+// case NEW_CAMPAIGN_REVIEW_RESET:
+// return {
+// ...state,
+// success: false,
+// };
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
+//
 export const campaignReviewsReducer = (state = { reviews: [] }, action) => {
   switch (action.type) {
     case ALL_CAMPAIGN_REVIEWS_REQUEST:
@@ -486,34 +475,34 @@ export const newDonorReducer = (state = {}, action) => {
   }
 };
 
-export const donorReducer = (state = { donors: [] }, action) => {
-  switch (action.type) {
-    case ALL_DONORS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case ALL_DONORS_SUCCESS:
-      return {
-        loading: false,
-        donors: action.payload,
-      };
-    case ALL_DONORS_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
+// export const donorReducer = (state = { donors: [] }, action) => {
+// switch (action.type) {
+// case ALL_DONORS_REQUEST:
+// return {
+// ...state,
+// loading: true,
+// };
+// case ALL_DONORS_SUCCESS:
+// return {
+// loading: false,
+// donors: action.payload,
+// };
+// case ALL_DONORS_FAIL:
+// return {
+// ...state,
+// loading: false,
+// error: action.payload,
+// };
+//
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
 
 export const donorReducer = (state = {}, action) => {
   switch (action.type) {

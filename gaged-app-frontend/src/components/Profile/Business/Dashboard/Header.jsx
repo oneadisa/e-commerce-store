@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logof from "https://www.linkpicture.com/q/Gaged-Blue.svg";
+import Logof from "../../../../images/Gaged-images/Gaged-Blue.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";

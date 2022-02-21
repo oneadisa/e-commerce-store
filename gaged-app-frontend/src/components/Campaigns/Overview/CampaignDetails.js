@@ -18,7 +18,7 @@ import {
   newCampaignReview,
 } from "../../../actions/businessActions";
 import { NEW_CAMPAIGN_REVIEW_RESET } from "../../../constants/businessConstants";
-import CampaignReviewCard from "../CampaignReviewCard.js.js";
+import CampaignReviewCard from "../campaignReviewCard.js.js";
 import LendHistoryCard from "../lendHistoryCard";
 import RepaymentHistoryCard from "../repaymentHistoryCard";
 import GeneralErrorMessage from "../../Layout/Errors/GeneralErrorMessage";

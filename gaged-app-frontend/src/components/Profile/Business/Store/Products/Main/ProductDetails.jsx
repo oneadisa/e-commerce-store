@@ -3,21 +3,19 @@ import { useParams } from "react-router-dom";
 import Carousel from "react-elastic-carousel";
 // import { GoStar } from "react-icons/go";
 // import { MdOutlineStarOutline } from "react-icons/md";
-import ReviewCard from "../productReviewCard";
+import ReviewCard from "../reviewCard";
 
 import {
   clearErrors,
   getProductDetails,
-  newReview,
   newProductReview,
-} from "../../../../actions/businessActions";
+} from "../../../../../../actions/businessActions";
 
-import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "../layout/Loader/Loader";
+import Loader from "../../../../../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
-import MetaData from "../layout/MetaData";
-import { addItemsToCart } from "../../../../actions/cartActions";
+import MetaData from "../../../../../Layout/metaData.js";
+import { addItemsToCart } from "../../../../../../actions/cartActions";
 import { Rating } from "@material-ui/lab";
 import {
   NEW_PRODUCT_REVIEW_RESET,
@@ -34,16 +32,6 @@ export default function ProductDetails() {
   const { success, error: reviewError } = useSelector(
     (state) => state.newReview
   );
-  const { successBusiness, error: reviewBusinessError } = useSelector(
-    (state) => state.businessNewBusinessnewProductReview
-  );
-  const { successProduct, errorProduct: reviewProductError } = useSelector(
-    (state) => state.newIndividualSinglenewProductReview
-  );
-  const {
-    successProductBusiness,
-    errorProductBusiness: reviewProductBusinessError,
-  } = useSelector((state) => state.newnewProductReview);
 
   const { business } = useSelector((state) => state.singleBusinesses);
   const signedUpBusinessLogin = useSelector(
@@ -89,7 +77,6 @@ export default function ProductDetails() {
     myForm.set("productId", params.id);
 
     if (signedUpBusinessInfo || signedUpUserInfo) {
-      dispatch(newReview(myForm));
       dispatch(newProductReview(myForm));
     } else {
       alert.error("Please Sign Up or Login to perfrom that action");
@@ -105,26 +92,8 @@ export default function ProductDetails() {
       alert.error(reviewError);
       dispatch(clearErrors());
     }
-    if (reviewBusinessError) {
-      alert.error(reviewBusinessError);
-      dispatch(clearErrors());
-    }
 
-    if (reviewProductError) {
-      alert.error(reviewProductError);
-      dispatch(clearErrors());
-    }
-
-    if (reviewProductBusinessError) {
-      alert.error(reviewProductBusinessError);
-      dispatch(clearErrors());
-    }
-    if (
-      success &&
-      successBusiness &&
-      successProduct &&
-      successProductBusiness
-    ) {
+    if (success) {
       alert.success("Review Submitted Successfully");
       dispatch({
         type: NEW_PRODUCT_REVIEW_RESET,
@@ -132,20 +101,7 @@ export default function ProductDetails() {
       });
     }
     dispatch(getProductDetails(params.id));
-  }, [
-    dispatch,
-    params.id,
-    error,
-    alert,
-    reviewError,
-    success,
-    successBusiness,
-    successProduct,
-    successProductBusiness,
-    reviewBusinessError,
-    reviewProductError,
-    reviewProductBusinessError,
-  ]);
+  }, [dispatch, params.id, error, alert, reviewError, success]);
 
   return (
     <Fragment>

@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { Fragment, useEffect, useState } from "react";
-import "./Products.css";
 import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
