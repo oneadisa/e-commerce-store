@@ -23,7 +23,7 @@ function ExploreCampaigns() {
     // businessesCount,
     // resultPerPage,
     // filteredCampaignsCount,
-  } = useSelector((state) => state.businesses);
+  } = useSelector((state) => state.allBusinesses);
 
   // const keyword = params.keyword;
 
@@ -62,10 +62,16 @@ function ExploreCampaigns() {
                 />
               </div>
               <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-7 text-left my-10 md:my-14">
-                {businesses.listOfCampaignsStarted &&
-                  businesses.listOfCampaignsStarted.reverse.map((campaign) => (
-                    <CampaignCard key={campaign._id} campaign={campaign} />
-                  ))}
+                {businesses &&
+                  businesses.map(function (nested) {
+                    return nested.listOfCampaignsStarted.map(function (
+                      campaign
+                    ) {
+                      return (
+                        <CampaignCard key={campaign._id} campaign={campaign} />
+                      );
+                    });
+                  })}
               </div>
             </div>
           </div>

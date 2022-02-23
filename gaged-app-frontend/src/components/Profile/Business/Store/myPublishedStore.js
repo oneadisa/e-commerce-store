@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../../../Layout/metaData";
 import ProductCard from "../../../Home/productCard";
-import { loadBusiness, clearErrors } from "../../../../actions/businessActions";
+import { clearErrors } from "../../../../actions/businessActions";
 import Loader from "../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 
@@ -29,7 +29,6 @@ function MyPublishedStore() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadBusiness());
   }, [dispatch, alert, error, businessInfo, navigate]);
 
   return (

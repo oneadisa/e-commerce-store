@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BusinessCard = ({ product, business }) => {
+const BusinessCard = ({ business }) => {
   return (
     <>
       <div className="flex flex-col">

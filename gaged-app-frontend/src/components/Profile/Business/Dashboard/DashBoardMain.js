@@ -13,11 +13,11 @@ import greengraph from "../../../../images/green-graph.svg";
 // import { GoKebabVertical } from 'react-icons/go';
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
-import { loadBusiness } from "../../../../actions/businessActions";
+// import { loadBusiness } from "../../../../actions/businessActions";
 import MetaData from "../../../Layout/metaData.js";
 import Loader from "../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Chart from "react-apexcharts";
 
 function DashBoardMain() {
@@ -36,7 +36,7 @@ function DashBoardMain() {
     if (isAuthenticated === false) {
       navigate("/businessLogin");
     }
-    dispatch(loadBusiness());
+    // dispatch(loadBusiness());
   }, [dispatch, alert, businessInfo, navigate, isAuthenticated]);
 
   const [state] = useState({
@@ -114,7 +114,7 @@ function DashBoardMain() {
   var revenue = businessInfo.walletBalance - businessInfo.totalSales;
 
   var average =
-    businessInfo.totalAmountRaised - businessInfo.totalNumberOfCampaignsStarted;
+    businessInfo.totalAmountRaised / businessInfo.totalNumberOfCampaignsStarted;
 
   return (
     <Fragment>
@@ -142,16 +142,20 @@ function DashBoardMain() {
               <div className="lg:hidden">{open && <DashBoard />}</div>
               <div className="flex flex-col pt-5 md:pt-10 lg:pt-16 lg:space-y-7 lg:w-4/5">
                 <div className="md:ml-auto px-2">
-                  <button className="w-44 h-12 border-2 border-gray-600 bg-white rounded font-semibold hover:bg-Dark-blue hover:text-white">
-                    Explore
-                  </button>
+                  <Link to="/business/explore">
+                    <button className="w-44 h-12 border-2 border-gray-600 bg-white rounded font-semibold hover:bg-Dark-blue hover:text-white">
+                      Explore
+                    </button>
+                  </Link>
                 </div>
                 <div className="py-6 px-2 pb-10 lg:pl-8 lg:pr-4 p-4 bg-white">
                   <div className="flex justify-between items-center font-bold">
                     <h1 className="text-lg">Store Overview</h1>
-                    <button className="text-sm font-semibold text-Dark-blue py-1 px-2 rounded-md hover:bg-Dark-blue hover:text-white">
-                      see more
-                    </button>
+                    <Link to="/store/products/overview">
+                      <button className="text-sm font-semibold text-Dark-blue py-1 px-2 rounded-md hover:bg-Dark-blue hover:text-white">
+                        See more
+                      </button>
+                    </Link>
                   </div>
                   <div className="py-3 flex flex-col md:flex-row gap-5">
                     <div className="flex flex-col gap-7 md:w-2/3">
@@ -162,17 +166,17 @@ function DashBoardMain() {
                               <img src={ticket} alt="ticket" />
                             </div>
                             <h2 className=" font-bold">
-                              $ {businessInfo.totalSales}
+                              ₦ {businessInfo.totalSales}
                             </h2>
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
                             <h3 className="text-gray-400">TOTAL SALES</h3>
-                            <select className="w-14 bg-transparent text-green-500 outline-none cursor-pointer">
-                              <option value="">+18%</option>
-                              <option value="+25%">+25%</option>
-                              <option value="+25%">+35%</option>
-                              <option value="+25%">+50%</option>
-                            </select>
+                            {/* <select className="w-14 bg-transparent text-green-500 outline-none cursor-pointer"> */}
+                            {/* <option value="">+18%</option> */}
+                            {/* <option value="+25%">+25%</option> */}
+                            {/* <option value="+25%">+35%</option> */}
+                            {/* <option value="+25%">+50%</option> */}
+                            {/* </select> */}
                           </div>
                           <img
                             src={greengraph}
@@ -185,16 +189,16 @@ function DashBoardMain() {
                             <div className="w-7 h-7 bg-red-300 rounded flex items-center justify-center">
                               <img src={cashapp} alt="ticket" />
                             </div>
-                            <h2 className="font-bold">$ {revenue}</h2>
+                            <h2 className="font-bold">₦ {revenue}</h2>
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
                             <h3 className="text-gray-400">REVENUE</h3>
-                            <select className="w-14 bg-transparent text-red-500 outline-none cursor-pointer">
-                              <option value="">+18%</option>
-                              <option value="+25%">+25%</option>
-                              <option value="+25%">+35%</option>
-                              <option value="+25%">+50%</option>
-                            </select>
+                            {/* <select className="w-14 bg-transparent text-red-500 outline-none cursor-pointer"> */}
+                            {/* <option value="">+18%</option> */}
+                            {/* <option value="+25%">+25%</option> */}
+                            {/* <option value="+25%">+35%</option> */}
+                            {/* <option value="+25%">+50%</option> */}
+                            {/* </select> */}
                           </div>
                           <img
                             src={redgraph}
@@ -213,12 +217,12 @@ function DashBoardMain() {
                           </div>
                           <div className="py-2 flex items-center justify-between text-xs font-semibold">
                             <h3 className="text-gray-400">PRODUCTS</h3>
-                            <select className="w-14 bg-transparent text-blue-500 outline-none cursor-pointer">
-                              <option value="">+18%</option>
-                              <option value="+25%">+25%</option>
-                              <option value="+25%">+35%</option>
-                              <option value="+25%">+50%</option>
-                            </select>
+                            {/* <select className="w-14 bg-transparent text-blue-500 outline-none cursor-pointer"> */}
+                            {/* <option value="">+18%</option> */}
+                            {/* <option value="+25%">+25%</option> */}
+                            {/* <option value="+25%">+35%</option> */}
+                            {/* <option value="+25%">+50%</option> */}
+                            {/* </select> */}
                           </div>
                         </div>
                       </div>
@@ -229,15 +233,15 @@ function DashBoardMain() {
                               Sales report
                             </h1>
                             <span className="text-sm text-gray-400">
-                              as of {today}
+                              As of {today}
                             </span>
                           </div>
-                          <select className="px-2 w-32 h-8 font-bold bg-gray-300 outline-none cursor-pointer">
-                            <option>MONTHLY</option>
-                            <option>YEARLY</option>
-                            <option>WEEKLY</option>
-                            <option>DAILY</option>
-                          </select>
+                          {/* <select className="px-2 w-32 h-8 font-bold bg-gray-300 outline-none cursor-pointer"> */}
+                          {/* <option>MONTHLY</option> */}
+                          {/* <option>YEARLY</option> */}
+                          {/* <option>WEEKLY</option> */}
+                          {/* <option>DAILY</option> */}
+                          {/* </select> */}
                         </div>
                         {/* <LineChart className="w-full" height={250} /> */}
                         <Chart
@@ -270,23 +274,23 @@ function DashBoardMain() {
                               <div className="w-7 h-7 bg-green-300 rounded flex items-center justify-center">
                                 <img src={bag} alt="ticket" />
                               </div>
-                              <h2 className="font-bold">186</h2>
+                              {/* <h2 className="font-bold">186</h2> */}
                             </div>
-                            <p className="text-gray-400 text-sm">COMPLETED</p>
+                            {/* <p className="text-gray-400 text-sm">COMPLETED</p> */}
                           </div>
                         </div>
                       </div>
                       <div className="p-2 lg:px-5 lg:py-3 border-2 border-gray-300">
-                        <h3 className="font-bold">No of customers</h3>
+                        <h3 className="font-bold">Number of customers</h3>
                         <div className="py-2 flex justify-between items-center font-medium w-1/2">
                           <div>
                             <p>{businessInfo.totalNumberOfOrders}</p>
                             <p className="font-normal text-sm">Total</p>
                           </div>
-                          <div>
-                            <p>17</p>
-                            <p className="font-normal text-sm">New</p>
-                          </div>
+                          {/* <div> */}
+                          {/* <p>17</p> */}
+                          {/* <p className="font-normal text-sm">New</p> */}
+                          {/* </div> */}
                         </div>
                         {/* <LineChart className="w-full h-40" height={200} /> */}
                         <Chart
@@ -302,9 +306,11 @@ function DashBoardMain() {
                 <div className="bg-white mt-2 py-6 px-2 pb-10 lg:pl-8 lg:pr-4 p-4">
                   <div className="flex justify-between items-center font-bold">
                     <h1 className="text-lg">Campaign Overview</h1>
-                    <button className="text-sm font-semibold text-Dark-blue py-1 px-2 rounded-md hover:bg-Dark-blue hover:text-white">
-                      see more
-                    </button>
+                    <Link to="/business/campaigns/me">
+                      <button className="text-sm font-semibold text-Dark-blue py-1 px-2 rounded-md hover:bg-Dark-blue hover:text-white">
+                        See more
+                      </button>
+                    </Link>
                   </div>
 
                   <div className="mt-3 flex flex-col md:flex-row gap-5 items-center">
@@ -325,7 +331,7 @@ function DashBoardMain() {
                           <img src={ticket} alt="ticket" />
                         </div>
                         <h2 className="font-bold">
-                          $ {businessInfo.totalAmountRaised}
+                          ₦ {businessInfo.totalAmountRaised}
                         </h2>
                       </div>
                       <p className="text-gray-400 text-xs">
@@ -337,16 +343,16 @@ function DashBoardMain() {
                         <div className="w-7 h-7 bg-green-300 rounded flex items-center justify-center">
                           <img src={ticket} alt="ticket" />
                         </div>
-                        <h2 className="font-bold">$ {average}</h2>
+                        <h2 className="font-bold">₦ {average}</h2>
                       </div>
                       <div className="py-2 flex items-center justify-between text-xs font-semibold">
-                        <h3 className="text-gray-400">AVERAGE RAISE</h3>
-                        <select className="w-14 bg-transparent text-blue-500 outline-none cursor-pointer">
-                          <option value="">+18%</option>
-                          <option value="+25%">+25%</option>
-                          <option value="+25%">+35%</option>
-                          <option value="+25%">+50%</option>
-                        </select>
+                        <h3 className="text-gray-400">AVERAGE RAISED</h3>
+                        {/* <select className="w-14 bg-transparent text-blue-500 outline-none cursor-pointer"> */}
+                        {/* <option value="">+18%</option> */}
+                        {/* <option value="+25%">+25%</option> */}
+                        {/* <option value="+25%">+35%</option> */}
+                        {/* <option value="+25%">+50%</option> */}
+                        {/* </select> */}
                       </div>
                     </div>
                     <div className="pt-5 pb-2 px-4 bg-green-50 w-full md:w-1/4 h-28 flex flex-col gap-3">
@@ -356,7 +362,9 @@ function DashBoardMain() {
                         </div>
                         <h2 className="font-bold">{investors}</h2>
                       </div>
-                      <p className="text-gray-400 text-xs">NO OF INVESTORS</p>
+                      <p className="text-gray-400 text-xs">
+                        NUMBER OF INVESTORS
+                      </p>
                     </div>
                     {/* <div className="p-2 bg-gray-100 w-full md:w-1/2 h-28 flex flex-col gap-3"> */}
                     {/* <div className="flex justify-between items-center"> */}
@@ -390,18 +398,18 @@ function DashBoardMain() {
                         <div className="flex justify-between items-center">
                           <div>
                             <h1 className="text-lg font-semibold">
-                              Sales report
+                              Earning report
                             </h1>
                             <span className="text-sm text-gray-400">
-                              as of {today}
+                              As of {today}
                             </span>
                           </div>
-                          <select className="px-2 w-32 h-8 font-bold bg-gray-300 outline-none cursor-pointer">
-                            <option>MONTHLY</option>
-                            <option>YEARLY</option>
-                            <option>WEEKLY</option>
-                            <option>DAILY</option>
-                          </select>
+                          {/* <select className="px-2 w-32 h-8 font-bold bg-gray-300 outline-none cursor-pointer"> */}
+                          {/* <option>MONTHLY</option> */}
+                          {/* <option>YEARLY</option> */}
+                          {/* <option>WEEKLY</option> */}
+                          {/* <option>DAILY</option> */}
+                          {/* </select> */}
                         </div>
                         {/* <LineChartII className="w-full" height={250} /> */}
                         <Chart

@@ -423,7 +423,7 @@ export const getBusiness =
 
       dispatch({
         type: ALL_BUSINESSS_SUCCESS,
-        payload: data,
+        payload: data.businesses,
       });
     } catch (error) {
       dispatch({
@@ -638,7 +638,7 @@ export const getSingleBusiness = (id) => async (dispatch) => {
     dispatch({ type: SINGLE_BUSINESS_REQUEST });
     const { data } = await axios.get(`/app/business/profile/business/id/${id}`);
 
-    dispatch({ type: SINGLE_BUSINESS_SUCCESS, payload: data.user });
+    dispatch({ type: SINGLE_BUSINESS_SUCCESS, payload: data.business });
   } catch (error) {
     dispatch({
       type: SINGLE_BUSINESS_FAIL,
@@ -2137,37 +2137,25 @@ export const updateCampaignAction = (id) => async (dispatch, getState) => {
 };
 
 // Get All Campaigns
-export const getCampaign =
-  (
-    keyword = "",
-    currentPage = 1,
-    price = [0, 25000],
-    campaignCategory,
-    ratings = 0
-  ) =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: ALL_CAMPAIGN_REQUEST });
+export const getCampaign = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_CAMPAIGN_REQUEST });
 
-      let link = `/app/business/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+    let link = `/app/business/business/all`;
 
-      if (campaignCategory) {
-        link = `/app/business/campaigns?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&campaignCategory=${campaignCategory}&ratings[gte]=${ratings}`;
-      }
+    const { data } = await axios.get(link);
 
-      const { data } = await axios.get(link);
-
-      dispatch({
-        type: ALL_CAMPAIGN_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: ALL_CAMPAIGN_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+    dispatch({
+      type: ALL_CAMPAIGN_SUCCESS,
+      payload: data.campaigns,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_CAMPAIGN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // Get All Campaigns For Admin
 export const getAdminCampaign = () => async (dispatch) => {

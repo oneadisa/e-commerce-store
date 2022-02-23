@@ -11,10 +11,7 @@ import greengraph from "../../../../../../images/green-graph.svg";
 import OrderCard from "../overviewOrderCard";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
-import {
-  clearErrors,
-  loadBusiness,
-} from "../../../../../../actions/businessActions";
+import { clearErrors } from "../../../../../../actions/businessActions";
 import MetaData from "../../../../../Layout/metaData.js";
 import Loader from "../../../../../Layout/Errors/GeneralErrorMessage";
 import GeneralErrorMessage from "../../../../../Layout/Errors/GeneralErrorMessage";
@@ -119,7 +116,6 @@ function Overview() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadBusiness());
   }, [dispatch, alert, error, businessInfo, navigate]);
 
   const [open, setOpen] = useState(false);

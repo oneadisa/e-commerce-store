@@ -6,10 +6,7 @@ import Dashboard from "./Dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-import {
-  loadBusiness,
-  clearErrors,
-} from "../../../../../actions/businessActions";
+import { clearErrors } from "../../../../../actions/businessActions";
 import MyCampaignCard from "./myCampaignCard";
 import Loader from "../../../../Layout/Loader/Loader";
 import MetaData from "../../../../Layout/metaData";
@@ -34,8 +31,7 @@ function MyCampaigns() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadBusiness());
-  }, [dispatch, alert, error]);
+  }, [dispatch, alert, error, businessInfo, navigate]);
 
   return (
     <Fragment>

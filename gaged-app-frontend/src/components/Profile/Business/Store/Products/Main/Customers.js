@@ -3,10 +3,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React, { Fragment, useEffect, useState } from "react";
 import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
-import {
-  clearErrors,
-  loadBusiness,
-} from "../../../../../../actions/businessActions";
+import { clearErrors } from "../../../../../../actions/businessActions";
 import CustomerCard from "../customerCard";
 import { useAlert } from "react-alert";
 import MetaData from "../../../../../Layout/metaData";
@@ -28,8 +25,6 @@ function ProductsCustomers() {
       alert.error(error);
       dispatch(clearErrors());
     }
-
-    dispatch(loadBusiness());
   }, [dispatch, alert, error]);
   const [open, setOpen] = useState(false);
 

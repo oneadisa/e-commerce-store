@@ -5,10 +5,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import {
-  clearErrors,
-  getBusiness,
-} from "../../../../../../actions/businessActions";
+import { clearErrors } from "../../../../../../actions/businessActions";
 import ReviewCard from "../reviewCard";
 
 import { useAlert } from "react-alert";
@@ -31,7 +28,7 @@ function ProductsReviews() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getBusiness());
+
     // dispatch(getAllIndividualOrders());
     // dispatch(getAllBusinessOrders());
   }, [dispatch, alert, error]);

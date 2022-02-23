@@ -4,10 +4,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  clearErrors,
-  loadBusiness,
-} from "../../../../../../actions/businessActions";
+import { clearErrors } from "../../../../../../actions/businessActions";
 import OrderCard from "../orderCard";
 
 import { useAlert } from "react-alert";
@@ -31,7 +28,6 @@ function ProductsOrders() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadBusiness());
   }, [dispatch, alert, error]);
 
   const [open, setOpen] = useState(false);

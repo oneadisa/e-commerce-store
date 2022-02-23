@@ -6,7 +6,7 @@ import Dashboard from "../Dashboard/DashBoard";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate, Link } from "react-router-dom";
-import { loadUser, clearErrors } from "../../../../actions/userActions";
+import { clearErrors } from "../../../../actions/userActions";
 import MyCampaignCard from "../../../Profile/Business/Campaigns/Overview/myCampaignCard";
 import Loader from "../../../Layout/Loader/Loader";
 import MetaData from "../../../Layout/metaData";
@@ -31,7 +31,6 @@ function MyCampaignsIndividual() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadUser());
   }, [dispatch, alert, error, userInfo, navigate]);
 
   return (
@@ -66,9 +65,9 @@ function MyCampaignsIndividual() {
                     <h1 className="text-3xl font-bold text-medium-blue">
                       Fundraising Campaigns
                     </h1>
-                    <button className="lg:mr-10 w-36 h-10 bg-white border-2 border-black hover:text-white hover:bg-Dark-blue hover:border-white">
-                      New campaign
-                    </button>
+                    {/* <button className="lg:mr-10 w-36 h-10 bg-white border-2 border-black hover:text-white hover:bg-Dark-blue hover:border-white"> */}
+                    {/* New campaign */}
+                    {/* </button> */}
                   </div>
                   <div className="my-3">
                     {/* <div className="flex justify-between md:justify-start border-b-2 border-black"> */}

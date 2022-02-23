@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import DashBoard from "./DashBoard";
 import {
-  loadBusiness,
   clearErrors,
   deleteStoreProduct,
 } from "../../../../../../actions/businessActions";
@@ -50,7 +49,6 @@ function ProductsAll() {
       navigate("/products/all");
       dispatch({ type: DELETE_STORE_PRODUCT_RESET });
     }
-    dispatch(loadBusiness());
   }, [dispatch, error, businessInfo, navigate, deleteError, isDeleted]);
 
   const deleteHandler = (id) => {

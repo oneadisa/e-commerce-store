@@ -34,7 +34,10 @@ function DashBoard() {
         </Link>
       </li>
       <li className="my-3 p-3">
-        <Link to="/" className="flex items-center gap-3 hover:text-Dark-blue">
+        <Link
+          to="/business/analytics"
+          className="flex items-center gap-3 hover:text-Dark-blue"
+        >
           <GrAnalytics />
           <p>Analytics</p>
         </Link>

@@ -144,7 +144,6 @@ function App() {
         <Route path="/business/campaign/new" element={<CampaignForm />} />
         <Route path="/business/customers" element={<ProductsCustomers />} />
         <Route path="/business/reviews" element={<ProductsReviews />} />
-        <Route path="/business/overview" element={<Overview />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/campaign/:id" element={<CampaignDetails />} />
         <Route path="/cart" element={<Cart />} />
@@ -194,6 +193,7 @@ function App() {
         <Route path="/individualLogin" element={<LoginUser />} />{" "}
         <Route path="/businessLogin" element={<LoginBusiness />} />{" "}
         <Route path="/store/products/:id" element={<UpdateProduct />} />{" "}
+        <Route path="/store/products/overview" element={<Overview />} />
         <Route path="/store/products/all" element={<ProductsAll />} />{" "}
         <Route path="/store/products/new" element={<ProductsNew />} />{" "}
         <Route path="/store/products/orders" element={<ProductsOrders />} />{" "}

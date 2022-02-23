@@ -638,7 +638,7 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 // Get Business Detail
 const getBusinessDetails = catchAsyncErrors(async (req, res, next) => {
-  const business = await signedUpBusiness.findById(req.user._id);
+  const business = await signedUpBusiness.findById(req.user.id);
 
   res.status(200).json({
     success: true,
@@ -711,8 +711,60 @@ const getAllBusiness = catchAsyncErrors(async (req, res, next) => {
   if (!businesses) {
     return next(new ErrorHandler("Order not found with this Id", 404));
   }
+
+  // let campaigns = businesses.map((e) => {
+  // return e.listOfCampaignsStarted;
+  // });
+
+  // let realCampaigns = campaigns.map((e) => {return });
+
+  // var campaigns = businesses.map((nested) => nested.map((element) => element));
+
+  var campaigns = businesses.map(function (nested) {
+    return nested.listOfCampaignsStarted.map(function (element) {
+      return element;
+    });
+  });
+
   res.status(200).json({
     success: true,
+
+    campaigns,
+    businesses,
+    businessCount,
+    resultPerPage,
+    filteredBusinessCount,
+  });
+});
+
+// Get all users(admin)
+const getAllCampaigns = catchAsyncErrors(async (req, res, next) => {
+  // const users = await signedUpBusiness.find();
+
+  // res.status(200).json({
+  // success: true,
+  // users,
+  // });
+
+  const resultPerPage = 40;
+  const businessCount = await signedUpBusiness.countDocuments();
+  const apiFeature = new ApiFeatures(signedUpBusiness.find(), req.query)
+    .search()
+    .filter();
+  let businesses = await apiFeature.query;
+  let filteredBusinessCount = businesses.length;
+  apiFeature.pagination(resultPerPage);
+  businesses = await apiFeature.query.clone();
+  if (!businesses) {
+    return next(new ErrorHandler("Order not found with this Id", 404));
+  }
+
+  // let campaigns = businesses.map((e) => {
+  // return e.listOfCampaignsStarted;
+  // });
+  res.status(200).json({
+    success: true,
+    // campaigns,
     businesses,
     businessCount,
     resultPerPage,
@@ -722,9 +774,9 @@ const getAllBusiness = catchAsyncErrors(async (req, res, next) => {
 
 // Get single Business
 const getSingleBusiness = catchAsyncErrors(async (req, res, next) => {
-  const user = await signedUpBusiness.findById(req.params.id);
+  const business = await signedUpBusiness.findById(req.params.id);
 
-  if (!user) {
+  if (!business) {
     return next(
       new ErrorHandler(`Business does not exist with Id: ${req.params.id}`)
     );
@@ -732,7 +784,7 @@ const getSingleBusiness = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    user,
+    business,
   });
 });
 
@@ -845,27 +897,27 @@ const findStoreProducts = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Get All Campaign
-const getAllCampaigns = catchAsyncErrors(async (req, res) => {
-  const resultPerPage = 20;
-
-  const business = await signedUpBusiness.find();
-  const campaignsCount = await signedUpBusiness.countDocuments();
-  const apiFeature = new ApiFeatures(signedUpBusiness.find(), req.query)
-    .search()
-    .filter();
-  let campaigns = await apiFeature.query;
-  let filteredCampaignsCount = campaigns.length;
-  apiFeature.pagination(resultPerPage);
-  campaigns = await apiFeature.query.clone();
-  res.status(200).json({
-    success: true,
-    campaigns,
-    campaignsCount,
-    resultPerPage,
-    filteredCampaignsCount,
-  });
-});
-
+// const getAllCampaigns = catchAsyncErrors(async (req, res) => {
+// const resultPerPage = 20;
+//
+// const business = await signedUpBusiness.find();
+// const campaignsCount = await signedUpBusiness.countDocuments();
+// const apiFeature = new ApiFeatures(signedUpBusiness.find(), req.query)
+// .search()
+// .filter();
+// let campaigns = await apiFeature.query;
+// let filteredCampaignsCount = campaigns.length;
+// apiFeature.pagination(resultPerPage);
+// campaigns = await apiFeature.query.clone();
+// res.status(200).json({
+// success: true,
+// campaigns,
+// campaignsCount,
+// resultPerPage,
+// filteredCampaignsCount,
+// });
+// });
+//
 // Create New CampaignStarted BusinessProfile or Update a CampaignStarted BusinessProfile
 const createCampaignStarted = catchAsyncErrors(async (req, res, next) => {
   const {

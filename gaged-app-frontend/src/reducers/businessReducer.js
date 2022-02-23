@@ -3100,10 +3100,10 @@ export const campaignsReducer = (state = { campaigns: [] }, action) => {
     case ALL_CAMPAIGN_SUCCESS:
       return {
         loading: false,
-        campaigns: action.payload.campaigns,
-        campaignsCount: action.payload.campaignsCount,
-        resultPerPage: action.payload.resultPerPage,
-        filteredCampaignsCount: action.payload.filteredCampaignsCount,
+        campaigns: action.payload,
+        // campaignsCount: action.payload.campaignsCount,
+        // resultPerPage: action.payload.resultPerPage,
+        // filteredCampaignsCount: action.payload.filteredCampaignsCount,
       };
 
     case ADMIN_CAMPAIGN_SUCCESS:
