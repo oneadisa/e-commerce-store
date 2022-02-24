@@ -242,10 +242,10 @@ function UpdateProduct() {
                       </div>{" "}
                     </div>{" "}
                     <div className="flex gap-5 flex-col lg:w-1/3">
-                      <div className="border-2 py-2">
-                        <h4 className="text-lg font-medium px-3 py-1">
-                          Publish product{" "}
-                        </h4>{" "}
+                      {/* <div className="border-2 py-2"> */}
+                        {/* <h4 className="text-lg font-medium px-3 py-1"> */}
+                          {/* Publish product{" "} */}
+                        {/* </h4>{" "} */}
                         {/* <div className="border-t-2 px-3 pt-3"> */}{" "}
                         {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}{" "}
                         {/* Product status */} {/* </p> */}{" "}
@@ -259,7 +259,7 @@ function UpdateProduct() {
                         {/* </Switch> */} {/* <div> */}{" "}
                         {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}{" "}
                         {/* Draft */} {/* </p> */} {/* </div> */} {/* </div> */}{" "}
-                      </div>{" "}
+                      {/* </div>{" "} */}
                       <div className="flex justify-between mt-4">
                         {" "}
                         {/* <button className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white "> */}{" "}

@@ -10,7 +10,7 @@ import greengraph from "../../../../images/green-graph.svg";
 // import LineChartII from "../../../Layout/Charts/LineChartII";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
-import { clearErrors, loadBusiness } from "../../../../actions/businessActions";
+import { clearErrors } from "../../../../actions/businessActions";
 import MetaData from "../../../Layout/metaData.js";
 import Loader from "../../../Layout/Loader/Loader";
 import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
@@ -109,12 +109,12 @@ export default function Analytics() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(loadBusiness());
+    // dispatch(loadBusiness());
   }, [dispatch, alert, error, businessInfo, navigate]);
 
   return (
     <Fragment>
-      <MetaData title={`${businessInfo.businessName} - Dashboard`} />
+      <MetaData title={`${businessInfo.businessName} - Analytics`} />
       {loading ? (
         <Loader />
       ) : (

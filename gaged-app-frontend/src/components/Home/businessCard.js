@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const BusinessCard = ({ business }) => {
   return (
-    <>
+    <Link to={`/business/${business._id}`}>
       <div className="flex flex-col">
         <div className="mb-20">
           <img
@@ -18,7 +18,7 @@ const BusinessCard = ({ business }) => {
           <Link to={`/business/${business._id}`}>Shop</Link>
         </button>
       </div>
-    </>
+    </Link>
   );
 };
 export default BusinessCard;

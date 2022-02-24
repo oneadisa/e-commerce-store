@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect, useState } from "react";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
@@ -65,9 +66,11 @@ function MyCampaigns() {
                     <h1 className="text-3xl font-bold text-medium-blue">
                       Fundraising Campaigns
                     </h1>
-                    <button className="lg:mr-10 w-36 h-10 bg-white border-2 border-black hover:text-white hover:bg-Dark-blue hover:border-white">
-                      New campaign
-                    </button>
+                    <Link to="/business/campaign/new">
+                      <button className="lg:mr-10 w-36 h-10 bg-white border-2 border-black hover:text-white hover:bg-Dark-blue hover:border-white">
+                        New campaign
+                      </button>
+                    </Link>
                   </div>
                   <div className="my-3">
                     {/* <div className="flex justify-between md:justify-start border-b-2 border-black"> */}
@@ -84,14 +87,30 @@ function MyCampaigns() {
                     <div className="flex flex-col md:flex-row gap-5 md:gap-2 lg:gap-5 my-10 lg:px-1">
                       <div className="">
                         {businessInfo.listOfCampaignsStarted &&
-                          businessInfo.listOfCampaignsStarted.map(
-                            (campaign) => (
-                              <MyCampaignCard
-                                key={campaign._id}
-                                campaign={campaign}
-                              />
-                            )
-                          )}
+                        businessInfo.listOfCampaignsStarted[0] ? (
+                          <>
+                            {businessInfo.listOfCampaignsStarted &&
+                              businessInfo.listOfCampaignsStarted.map(
+                                (campaign) => (
+                                  <MyCampaignCard
+                                    key={campaign._id}
+                                    campaign={campaign}
+                                  />
+                                )
+                              )}
+                          </>
+                        ) : (
+                          <>
+                            <h2 className="text-center font-poppins text-bold text-xl h-screen p-20">
+                              You haven't started any Campaigns yet.
+                            </h2>
+                            <Link to="/explore/campaigns">
+                              <button className="py-2 px-10 md:py-3 md:px-20 border-2 border-Dark-blue bg-Dark-blue text-white sm:text-base md:text-xl font-medium rounded hover:bg-white hover:animate-bounce hover:text-Dark-blue">
+                                Explore Camaigns
+                              </button>
+                            </Link>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>

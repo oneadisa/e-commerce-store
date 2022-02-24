@@ -2,19 +2,14 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Mainscreen from "../../../Layout/Mainscreen";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+
 import Loader from "../../../Layout/Loader/Loader";
 import Header from "./Header";
-import {
-  clearErrors,
-  getProduct,
-} from "../../../../actions/storeProductsActions";
 import DashBoard from "./DashBoard";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { useAlert } from "react-alert";
 import {} from "react-router-dom";
-import { getBusiness, logout } from "../../../../actions/businessActions";
+import { getBusiness, clearErrors } from "../../../../actions/businessActions";
 import MetaData from "../../../Layout/metaData";
 import BusinessCard from "../../../Home/businessCard";
 import CampaignCard from "../../../Home/campaignCard";
@@ -59,7 +54,7 @@ function BusinessExplore() {
     // businessesCount,
     // resultPerPage,
     // filteredProductsCount,
-  } = useSelector((state: RootStateOrAny) => state.businesses);
+  } = useSelector((state: RootStateOrAny) => state.allBusinesses);
 
   // const {
   // campaigns
@@ -135,13 +130,12 @@ function BusinessExplore() {
                         </h4>
                         <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
                           {businesses &&
-                            businesses.reverse
+                            businesses
                               .slice(0, 5)
                               .map((business) => (
                                 <BusinessCard
                                   key={business._id}
                                   business={business}
-                                  product={undefined}
                                 />
                               ))}
                         </div>
@@ -159,7 +153,7 @@ function BusinessExplore() {
                         </h2>
                         <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
                           {businesses.listOfCampaignsStarted &&
-                            businesses.listOfCampaignsStarted.reverse
+                            businesses.listOfCampaignsStarted
                               .slice(0, 5)
                               .map((campaign) => (
                                 <CampaignCard

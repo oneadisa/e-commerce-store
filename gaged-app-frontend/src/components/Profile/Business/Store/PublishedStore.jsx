@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useLayoutEffect } from "react";
 // import Logof from "../../../../images/logo-footer.jpg";
 // import drink1 from "../../../../images/drink1.png";
 // import drink2 from "../../../../images/drink2.png";
@@ -19,7 +19,7 @@ import GeneralErrorMessage from "../../../Layout/Errors/GeneralErrorMessage";
 function PublishedStore() {
   const dispatch = useDispatch();
 
-  let params = useParams();
+  let { id } = useParams();
 
   const alert = useAlert();
 
@@ -27,13 +27,13 @@ function PublishedStore() {
     (state: RootStateOrAny) => state.singleBusinesses
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getSingleBusiness(params.id));
-  }, [dispatch, alert, error, params.id]);
+    dispatch(getSingleBusiness({ id }));
+  }, [dispatch, alert, error, id]);
 
   return (
     <Fragment>
@@ -59,10 +59,10 @@ function PublishedStore() {
             <div className="items-center text-center">
               <div className="bg-gray-400 py-12 px-4">
                 <h1 className="text-3xl md:text-3xl lg:text-3xl font-bold">
-                  Store Name
+                  {business.businessName}
                 </h1>
                 <p className="text-xl my-3 lg:my-2 font-medium">
-                  Tagline, motto or description
+                  {business.storeTagline}
                 </p>
                 <div className="mt-4">
                   <input

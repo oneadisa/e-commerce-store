@@ -96,7 +96,7 @@ function ProductsOrders() {
                         <div>
                           {" "}
                           {businessInfo.orders &&
-                            businessInfo.orders.reverse.map((order) => (
+                            businessInfo.orders.map((order) => (
                               <OrderCard key={order._id} order={order} />
                             ))}{" "}
                         </div>{" "}

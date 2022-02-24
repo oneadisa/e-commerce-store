@@ -3,11 +3,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CampaignCard = ({ campaign }) => {
-  const shortForm = substr(campaign.investorBrief, 0, 100);
+  const shortForm = campaign.investorBrief.slice(0, 100);
 
   var countDownDate = new Date(campaign.endDateString).getTime();
 
   // Update the count down every 1 second
+  let p;
+
   var x = setInterval(function () {
     // Get today's date and time
     var now = new Date().getTime();
@@ -44,22 +46,21 @@ const CampaignCard = ({ campaign }) => {
       clearInterval(x);
       document.getElementById("demo").innerHTML = "EXPIRED";
     }
-  }, 1000);
 
-  let p;
-  if (distance > 1000 * 60 * 60 * 24 * 7) {
-    p = <p className="text-lg">{weeks} weeks left</p>;
-  } else if (distance > 1000 * 60 * 60 * 24) {
-    p = <p className="text-lg">{days} days left</p>;
-  } else if (distance > 1000 * 60 * 60) {
-    p = <p className="text-lg">{hours} hours left</p>;
-  } else if (distance > 1000 * 60) {
-    p = <p className="text-lg">{minutes} minutes left</p>;
-  } else if (distance > 1000) {
-    p = <p className="text-lg">{seconds} seconds left</p>;
-  } else {
-    p = <p className="text-lg">EXPIRED</p>;
-  }
+    if (distance > 1000 * 60 * 60 * 24 * 7) {
+      p = <p className="text-lg">{weeks} weeks left</p>;
+    } else if (distance > 1000 * 60 * 60 * 24) {
+      p = <p className="text-lg">{days} days left</p>;
+    } else if (distance > 1000 * 60 * 60) {
+      p = <p className="text-lg">{hours} hours left</p>;
+    } else if (distance > 1000 * 60) {
+      p = <p className="text-lg">{minutes} minutes left</p>;
+    } else if (distance > 1000) {
+      p = <p className="text-lg">{seconds} seconds left</p>;
+    } else {
+      p = <p className="text-lg">EXPIRED</p>;
+    }
+  }, 1000);
 
   const progress = (
     campaign.amountAlreadyRaised / campaign.amountBeingRaised
@@ -81,9 +82,9 @@ const CampaignCard = ({ campaign }) => {
             <p className="text-lg">$ {campaign.amountBeingRaised}</p>
           </div>
           <div className="py-2">
-            <div class="p-6 space-y-2 artboard phone">
+            <div className="p-6 space-y-2 artboard phone">
               <progress
-                class="progress progress-info"
+                className="progress progress-info"
                 value={progress}
                 max="100"
               ></progress>

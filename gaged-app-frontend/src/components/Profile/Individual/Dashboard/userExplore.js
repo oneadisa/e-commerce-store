@@ -133,13 +133,12 @@ function UserExplore() {
                         </h4>
                         <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
                           {businesses &&
-                            businesses.reverse
+                            businesses
                               .slice(0, 5)
                               .map((business) => (
                                 <BusinessCard
                                   key={business._id}
                                   business={business}
-                                  product={undefined}
                                 />
                               ))}
                         </div>
@@ -157,7 +156,7 @@ function UserExplore() {
                         </h2>
                         <div className="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 my-5 lg:my-8">
                           {businesses.listOfCampaignsStarted &&
-                            businesses.listOfCampaignsStarted.reverse
+                            businesses.listOfCampaignsStarted
                               .slice(0, 5)
                               .map((campaign) => (
                                 <CampaignCard
