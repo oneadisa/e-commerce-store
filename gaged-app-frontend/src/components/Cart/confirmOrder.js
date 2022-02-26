@@ -5,7 +5,7 @@ import MetaData from "../Layout/metaData";
 // import "./ConfirmOrder.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-import "./confirmOrder.css";
+import "./ConfirmOrder.css";
 
 const ConfirmOrder = () => {
   const navigate = useNavigate();
