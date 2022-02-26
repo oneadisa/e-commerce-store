@@ -1,7 +1,0 @@
-POST http://localhost:8080/app/loginBusiness
-Content-Type: application/json
-
-{
-    "email": "abdu@hello.co", 
-    "password": "qwerty"
-}

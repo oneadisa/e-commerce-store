@@ -11,15 +11,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/oneadisa/guage.git"
+        "url": "git+https://github.com/oneadisa/gaged.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/oneadisa/guage/issues"
+        "url": "https://github.com/oneadisa/gaged/issues"
     },
-    "homepage": "https://github.com/oneadisa/guage#readme",
+    "homepage": "https://github.com/oneadisa/gaged#readme",
     "dependencies": {
         "async": "^3.2.3",
         "axios": "^0.24.0",
