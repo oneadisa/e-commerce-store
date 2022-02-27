@@ -8,7 +8,7 @@ const path = require("path");
 const errorMiddleware = require("./middlewares/error");
 
 // Config
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "gaged-app-backend/config/config.env" });
 }
 

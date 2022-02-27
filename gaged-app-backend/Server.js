@@ -14,7 +14,7 @@ process.on("uncaughtException", (err) => {
 });
 
 // Config
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "gaged-app-backend/config/config.env" });
 }
 
