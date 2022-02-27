@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, "../gaged-app-frontend/build")));
 
 app.get("*", (req, res) => {
   res.sendFile(
-    path.resolve(__dirname, "../gagaed-app-frontend/build/index.html")
+    path.resolve(__dirname, "../gaged-app-frontend/build/index.html")
   );
 });
 

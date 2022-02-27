@@ -5,7 +5,7 @@
     "main": "gaged-app-backend/Server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon gaged-app-backend/Server.js",
+        "start": "nodemon gaged-app-backend/Server.js && npm run build --prefix gaged-app-frontend",
         "dev": "nodemon gaged-app-backend/Server.js",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix gaged-app-frontend && npm run build --prefix gaged-app-frontend"
     },
