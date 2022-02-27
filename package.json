@@ -19,7 +19,7 @@
     "bugs": {
         "url": "https://github.com/oneadisa/gaged/issues"
     },
-    "homepage": "https://github.com/oneadisa/gaged#readme",
+    "homepage": "https://github.com/oneadisa/gaged",
     "dependencies": {
         "async": "^3.2.3",
         "axios": "^0.24.0",
