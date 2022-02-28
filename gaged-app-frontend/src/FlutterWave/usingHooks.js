@@ -3,7 +3,7 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 export default function App() {
   const config = {
-    public_key: process.env.FLUTTERWAVE_PUBLIC_KEY,
+    public_key: "FLWPUBK - c49999c8b3ae0a1fafe35a4bad31d166 - X",
     tx_ref: Date.now(),
     amount: 100,
     currency: "NGN",

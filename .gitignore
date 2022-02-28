@@ -35,7 +35,7 @@ yarn-error.log*
 /gaged-app-frontend/coverage
 
 # production
-/gaged-app-frontend/build
+
 
 # misc
 /gaged-app-backend/config/config.env
