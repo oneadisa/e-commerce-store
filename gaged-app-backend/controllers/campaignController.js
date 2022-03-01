@@ -49,24 +49,24 @@ const getMyCampaigns = asyncHandler(async (req, res, next) => {
 });
 
 // Get All Campaign
-// const getAllCampaigns = catchAsyncErrors(async (req, res) => {
-// const resultPerPage = 20;
-// const campaignsCount = await Campaign.countDocuments();
-// const apiFeature = new ApiFeatures(Campaign.find(), req.query)
-// .search()
-// .filter();
-// let campaigns = await apiFeature.query;
-// let filteredCampaignsCount = campaigns.length;
-// apiFeature.pagination(resultPerPage);
-// campaigns = await apiFeature.query.clone();
-// res.status(200).json({
-// success: true,
-// campaigns,
-// campaignsCount,
-// resultPerPage,
-// filteredCampaignsCount,
-// });
-// });
+const getAllCampaigns = catchAsyncErrors(async (req, res) => {
+  const resultPerPage = 20;
+  const campaignsCount = await Campaign.countDocuments();
+  const apiFeature = new ApiFeatures(Campaign.find(), req.query)
+    .search()
+    .filter();
+  let campaigns = await apiFeature.query;
+  let filteredCampaignsCount = campaigns.length;
+  apiFeature.pagination(resultPerPage);
+  campaigns = await apiFeature.query.clone();
+  res.status(200).json({
+    success: true,
+    campaigns,
+    campaignsCount,
+    resultPerPage,
+    filteredCampaignsCount,
+  });
+});
 
 const CreateCampaign = asyncHandler(async (req, res) => {
   const {
@@ -981,9 +981,9 @@ module.exports = {
   createcampaignReview,
   getcampaignReviews,
   deletecampaignReview,
-  createBusinessCampaignReview,
-  getBusinessCampaignReviews,
-  deleteBusinessCampaignReview,
+  // createBusinessCampaignReview,
+  // getBusinessCampaignReviews,
+  // deleteBusinessCampaignReview,
   createdonation,
   getdonations,
   deletedonation,

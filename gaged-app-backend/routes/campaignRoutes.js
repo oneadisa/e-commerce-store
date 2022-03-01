@@ -68,30 +68,30 @@ router
 
 router.route("/admin-business/campaign/:id").get(getCampaignDetailsAdmin);
 
-router
-  .route("/create-review/business")
-  .put(protectBusiness, createBusinessCampaignReview);
+// router
+//   .route("/create-review/business")
+//   .put(protectBusiness, createBusinessCampaignReview);
+//
+// router
+//   .route("/reviews/business")
+//   .get(getBusinessCampaignReviews)
+//   .delete(protectBusiness, deleteBusinessCampaignReview);
 
-router
-  .route("/reviews/business")
-  .get(getBusinessCampaignReviews)
-  .delete(protectBusiness, deleteBusinessCampaignReview);
-
-router
-  .route("/admin-individual/reviews/business")
-  .delete(
-    protectBusiness,
-    authorizeRoles("admin"),
-    deleteBusinessCampaignReview
-  );
-
-router
-  .route("/admin-business/reviews/business")
-  .delete(
-    protectBusiness,
-    authorizeRoles("admin"),
-    deleteBusinessCampaignReview
-  );
+// router
+//   .route("/admin-individual/reviews/business")
+//   .delete(
+// protectBusiness,
+// authorizeRoles("admin"),
+// deleteBusinessCampaignReview
+//   );
+//
+// router
+//   .route("/admin-business/reviews/business")
+//   .delete(
+// protectBusiness,
+// authorizeRoles("admin"),
+// deleteBusinessCampaignReview
+//   );
 
 router.route("/create-review").put(protectBusiness, createcampaignReview);
 
