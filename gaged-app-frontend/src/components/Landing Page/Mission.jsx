@@ -31,7 +31,7 @@ function Mission() {
             <h3 className="text-2xl font-bold mb-4 text-faded-blue">3</h3>
             <h4 className="text-lg font-bold mb-2">Raise funds</h4>
             <p className="md:text-base lg:text-lg">
-              Start a fundraising campaign to get the capital needed to scale
+              Start an investment campaign to get the capital needed to scale
               your business
             </p>
           </div>

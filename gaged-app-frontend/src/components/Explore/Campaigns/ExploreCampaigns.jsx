@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import MetaData from "../../Layout/metaData";
 import CampaignCard from "../../Home/campaignCard";
-import { clearErrors, getBusiness } from "../../../actions/businessActions";
+import { clearErrors, listCampaigns } from "../../../actions/campaignActions";
 import Loader from "../../Layout/Loader/Loader";
 // import Typography from "@material-ui/core/Typography";
 // import Pagination from "react-js-pagination";
@@ -17,13 +16,13 @@ function ExploreCampaigns() {
   // const [campaignCategory, setCampaignCategory] = useState("");
 
   const {
-    businesses,
+    campaigns,
     loading,
     error,
     // businessesCount,
     // resultPerPage,
     // filteredCampaignsCount,
-  } = useSelector((state) => state.allBusinesses);
+  } = useSelector((state) => state.campaigns);
 
   // const keyword = params.keyword;
 
@@ -37,7 +36,7 @@ function ExploreCampaigns() {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getBusiness());
+    dispatch(listCampaigns());
   }, [dispatch, alert, error]);
 
   return (
@@ -46,7 +45,7 @@ function ExploreCampaigns() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="Gaged Campaigns" />
+          <MetaData title="Campaigns on Gaged" />
           <div className="mx-auto">
             <div className="bg-magenta-blue py-14 px-3 lg:px-12 items-center text-center">
               <h1 className="text-2xl md:text-3xl font-bold">
@@ -62,16 +61,10 @@ function ExploreCampaigns() {
                 />
               </div>
               <div className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-7 text-left my-10 md:my-14">
-                {businesses &&
-                  businesses.map(function (nested) {
-                    return nested.listOfCampaignsStarted.map(function (
-                      campaign
-                    ) {
-                      return (
-                        <CampaignCard key={campaign._id} campaign={campaign} />
-                      );
-                    });
-                  })}
+                {campaigns &&
+                  campaigns.map((campaign) => (
+                    <CampaignCard key={campaign._id} campaign={campaign} />
+                  ))}
               </div>
             </div>
           </div>

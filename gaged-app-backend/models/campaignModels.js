@@ -194,19 +194,19 @@ const campaignSchema = new mongoose.Schema(
     },
     campaignReviews: [
       {
-        user: {
-          type: mongoose.Schema.ObjectId,
-          ref: "mySignedUpUserTable",
-          required: false,
-        },
-        firstName: {
+        // user: {
+        // type: mongoose.Schema.ObjectId,
+        // ref: "mySignedUpUserTable",
+        // required: false,
+        // },
+        name: {
           type: String,
           required: true,
         },
-        lastName: {
-          type: String,
-          required: true,
-        },
+        // lastName: {
+        // type: String,
+        // required: true,
+        // },
         pic: {
           type: String,
           required: false,
@@ -223,54 +223,54 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
-    numberOfIndividualReviews: {
+    numberOfReviews: {
       type: Number,
       default: 0,
     },
-    businessCampaignReviews: [
-      {
-        user: {
-          type: mongoose.Schema.ObjectId,
-          ref: "mySignedUpBusinessTable",
-          required: false,
-        },
-        businessName: {
-          type: String,
-          required: true,
-        },
-        commentedAt: {
-          type: Date,
-          default: Date.now,
-        },
-        comment: {
-          type: String,
-          required: true,
-        },
-        pic: {
-          type: String,
-          required: false,
-          default:
-            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-        },
-      },
-    ],
-    numberOfBusinessReviews: {
-      type: Number,
-      default: 0,
-    },
+    // businessCampaignReviews: [
+    // {
+    // user: {
+    // type: mongoose.Schema.ObjectId,
+    // ref: "mySignedUpBusinessTable",
+    // required: false,
+    // },
+    // name: {
+    // type: String,
+    // required: true,
+    // },
+    // commentedAt: {
+    // type: Date,
+    // default: Date.now,
+    // },
+    // comment: {
+    // type: String,
+    // required: true,
+    // },
+    // pic: {
+    // type: String,
+    // required: false,
+    // default:
+    // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    // },
+    // },
+    // ],
+    // numberOfBusinessReviews: {
+    // type: Number,
+    // default: 0,
+    // },
     totalNumberOfCampaignReviews: {
       type: Number,
       default: 0,
     },
 
-    donor: [
+    donors: [
       {
-        user: {
-          type: mongoose.Schema.ObjectId,
-          ref: "mySignedUpBusinessTable",
-          required: false,
-        },
-        businessName: {
+        // user: {
+        // type: mongoose.Schema.ObjectId,
+        // ref: "mySignedUpBusinessTable",
+        // required: false,
+        // },
+        name: {
           type: String,
           required: false,
         },
@@ -315,71 +315,71 @@ const campaignSchema = new mongoose.Schema(
         },
       },
     ],
-    numberOfdonor: {
-      type: Number,
-      default: 0,
-    },
+    // numberOfdonors: {
+    // type: Number,
+    // default: 0,
+    // },
 
-    individualCampaignDonors: [
-      {
-        user: {
-          type: mongoose.Schema.ObjectId,
-          ref: "mySignedUpUserTable",
-          required: false,
-        },
-        firstName: {
-          type: String,
-          required: false,
-        },
-        lastName: {
-          type: String,
-          required: false,
-        },
-        amount: {
-          type: Number,
-          default: 0,
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-          required: false,
-        },
-        pic: {
-          type: String,
-          required: false,
-          default:
-            "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
-        },
-        typeOfDonation: {
-          type: String,
-          required: false,
-        },
-        amountToBeRepaid: {
-          type: Number,
-          default: 0,
-        },
-        amountToBeRepaidPerTime: {
-          type: Number,
-          default: 0,
-        },
-        firstPaymentDateDonor: {
-          type: String,
-          required: false,
-        },
-        lastPaymentDate: {
-          type: String,
-          required: false,
-        },
-        amountAlreadyRepaid: {
-          type: Number,
-          default: 0,
-        },
-      },
-    ],
-    numberOfIndividualCampaignDonors: {
-      type: Number,
-      default: 0,
-    },
+    // individualCampaignDonors: [
+    // {
+    // user: {
+    // type: mongoose.Schema.ObjectId,
+    // ref: "mySignedUpUserTable",
+    // required: false,
+    // },
+    // firstName: {
+    // type: String,
+    // required: false,
+    // },
+    // lastName: {
+    // type: String,
+    // required: false,
+    // },
+    // amount: {
+    // type: Number,
+    // default: 0,
+    // },
+    // date: {
+    // type: Date,
+    // default: Date.now,
+    // required: false,
+    // },
+    // pic: {
+    // type: String,
+    // required: false,
+    // default:
+    // "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    // },
+    // typeOfDonation: {
+    // type: String,
+    // required: false,
+    // },
+    // amountToBeRepaid: {
+    // type: Number,
+    // default: 0,
+    // },
+    // amountToBeRepaidPerTime: {
+    // type: Number,
+    // default: 0,
+    // },
+    // firstPaymentDateDonor: {
+    // type: String,
+    // required: false,
+    // },
+    // lastPaymentDate: {
+    // type: String,
+    // required: false,
+    // },
+    // amountAlreadyRepaid: {
+    // type: Number,
+    // default: 0,
+    // },
+    // },
+    // ],
+    // numberOfIndividualCampaignDonors: {
+    // type: Number,
+    // default: 0,
+    // },
     totalNumberOfCampaignDonors: {
       type: Number,
       default: 0,
