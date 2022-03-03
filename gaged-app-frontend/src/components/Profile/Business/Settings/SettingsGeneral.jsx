@@ -91,7 +91,7 @@ function SettingsGeneral(props) {
                           placeholder="Business Name"
                           className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           name="businessName"
-                          value={props.businessCredentials.businessName}
+                          value={props.businessName}
                           onChange={(e) => props.handleChange(e)}
                         />
                       </div>
@@ -103,7 +103,7 @@ function SettingsGeneral(props) {
                           placeholder="Account Holder Name"
                           className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           name="accountHolderName"
-                          value={props.businessCredentials.accountHolderName}
+                          value={props.accountHolderName}
                           onChange={(e) => props.handleChange(e)}
                         />
                       </div>
@@ -115,7 +115,7 @@ function SettingsGeneral(props) {
                           placeholder="Phone Number"
                           className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           name="phoneNumber"
-                          value={props.businessCredentials.phoneNumber}
+                          value={props.phoneNumber}
                           onChange={(e) => props.handleChange(e)}
                         />
                       </div>
@@ -128,7 +128,7 @@ function SettingsGeneral(props) {
                         placeholder="Email Address"
                         className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                         name="email"
-                        value={props.businessCredentials.email}
+                        value={props.email}
                         onChange={(e) => props.handleChange(e)}
                       />
                     </div>
@@ -217,7 +217,7 @@ function SettingsGeneral(props) {
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             onChange={(e) => props.handleChange(e)}
                             name="regNum"
-                            value={props.businessCredentials.regNum}
+                            value={props.regNum}
                           />
                         </div>
                         <div className="flex flex-col gap-2">
@@ -319,10 +319,7 @@ function SettingsGeneral(props) {
                         </p>
                         <div className="flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3">
                           <label className="text-base font-normal text-gray-700 mt-3">
-                            <img
-                              src={props.businessCredentials.IDpic}
-                              className="h-20 w-20"
-                            />
+                            <img src={props.IDpic} className="h-20 w-20" />
                           </label>
 
                           <div>
@@ -363,7 +360,7 @@ function SettingsGeneral(props) {
                             placeholder="Business Name"
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="businessName"
-                            value={props.businessCredentials.businessName}
+                            value={props.businessName}
                             onChange={(e) => props.handleChange(e)}
                           />
                         </div>
@@ -390,7 +387,7 @@ function SettingsGeneral(props) {
                             placeholder="Email address"
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="personalEmail"
-                            value={props.businessCredentials.personalEmail}
+                            value={props.personalEmail}
                             onChange={(e) => props.handleChange(e)}
                           />
                         </div>
@@ -402,7 +399,7 @@ function SettingsGeneral(props) {
                             placeholder="Business Address"
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="businessAddress"
-                            value={props.businessCredentials.businessAddress}
+                            value={props.businessAddress}
                             onChange={(e) => props.handleChange(e)}
                           />
                         </div>
@@ -474,10 +471,7 @@ function SettingsGeneral(props) {
                     </p>
                     <div className="flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3">
                       <label className="text-base font-normal text-gray-700 mt-3">
-                        <img
-                          src={props.businessCredentials.cacCertificate}
-                          className="h-20 w-20"
-                        />
+                        <img src={props.cacCertificate} className="h-20 w-20" />
                       </label>
                       <div>
                         <input
@@ -510,10 +504,7 @@ function SettingsGeneral(props) {
                     </p>
                     <div className="flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3">
                       <label className="text-base font-normal text-gray-700 mt-3">
-                        <img
-                          src={props.businessCredentials.formCO7}
-                          className="h-20 w-20"
-                        />
+                        <img src={props.formCO7} className="h-20 w-20" />
                       </label>
 
                       <div>
@@ -549,7 +540,7 @@ function SettingsGeneral(props) {
                         className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                         onChange={(e) => props.handleChange(e)}
                         name="password"
-                        value={props.businessCredentials.password}
+                        value={props.password}
                       />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -561,7 +552,7 @@ function SettingsGeneral(props) {
                         className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                         onChange={(e) => props.handleChange(e)}
                         name="confirmPassword"
-                        value={props.businessCredentials.confirmPassword}
+                        value={props.confirmPassword}
                       />
                     </div>
                   </div>

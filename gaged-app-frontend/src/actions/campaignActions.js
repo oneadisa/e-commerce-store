@@ -20,15 +20,15 @@ import {
   CAMPAIGN_DETAILS_REQUEST,
   CAMPAIGN_DETAILS_FAIL,
   CAMPAIGN_DETAILS_SUCCESS,
-  NEW_INDIVIDUAL_DONOR_SUCCESS,
-  NEW_INDIVIDUAL_DONOR_FAIL,
-  NEW_INDIVIDUAL_DONOR_REQUEST,
-  ALL_INDIVIDUAL_DONORS_REQUEST,
-  ALL_INDIVIDUAL_DONORS_SUCCESS,
-  ALL_INDIVIDUAL_DONORS_FAIL,
-  DELETE_INDIVIDUAL_DONOR_REQUEST,
-  DELETE_INDIVIDUAL_DONOR_SUCCESS,
-  DELETE_INDIVIDUAL_DONOR_FAIL,
+  // NEW_INDIVIDUAL_DONOR_SUCCESS,
+  // NEW_INDIVIDUAL_DONOR_FAIL,
+  // NEW_INDIVIDUAL_DONOR_REQUEST,
+  // ALL_INDIVIDUAL_DONORS_REQUEST,
+  // ALL_INDIVIDUAL_DONORS_SUCCESS,
+  // ALL_INDIVIDUAL_DONORS_FAIL,
+  // DELETE_INDIVIDUAL_DONOR_REQUEST,
+  // DELETE_INDIVIDUAL_DONOR_SUCCESS,
+  // DELETE_INDIVIDUAL_DONOR_FAIL,
   NEW_CAMPAIGN_REVIEW_REQUEST,
   NEW_CAMPAIGN_REVIEW_SUCCESS,
   NEW_CAMPAIGN_REVIEW_FAIL,
@@ -62,24 +62,25 @@ import {
 import axios from "axios";
 
 export const listCampaigns =
-  (keyword = "", currentPage = 1, campaignCategory) =>
+  () =>
+  // keyword = "", currentPage = 1, campaignCategory
   async (dispatch) => {
     try {
       dispatch({
         type: ALL_CAMPAIGN_REQUEST,
       });
 
-      let link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}`;
+      let link = `/app/campaigns/all`;
 
-      if (campaignCategory) {
-        link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&campaignCategory=${campaignCategory}`;
-      }
+      // if (campaignCategory) {
+      // link = `/app/campaigns/all?keyword=${keyword}&page=${currentPage}&campaignCategory=${campaignCategory}`;
+      // }
 
       const { data } = await axios.get(link);
 
       dispatch({
         type: ALL_CAMPAIGN_SUCCESS,
-        payload: data,
+        payload: data.campaigns,
       });
     } catch (error) {
       const message =
@@ -113,7 +114,7 @@ export const listMyCampaigns = () => async (dispatch, getState) => {
 
     dispatch({
       type: MY_CAMPAIGN_SUCCESS,
-      payload: data,
+      payload: data.campaigns,
     });
   } catch (error) {
     const message =
@@ -126,45 +127,44 @@ export const listMyCampaigns = () => async (dispatch, getState) => {
     });
   }
 };
-export const createCampaignAction =
-  (campaignData) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: NEW_CAMPAIGN_REQUEST,
-      });
+export const createCampaign = (campaignData) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: NEW_CAMPAIGN_REQUEST,
+    });
 
-      const {
-        business: { businessInfo },
-      } = getState();
+    const {
+      business: { businessInfo },
+    } = getState();
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${businessInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${businessInfo.token}`,
+      },
+    };
 
-      const { data } = await axios.post(
-        `/app/campaigns/create`,
-        { campaignData },
-        config
-      );
+    const { data } = await axios.post(
+      `/app/campaigns/create`,
+      { campaignData },
+      config
+    );
 
-      dispatch({
-        type: NEW_CAMPAIGN_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({
-        type: NEW_CAMPAIGN_FAIL,
-        payload: message,
-      });
-    }
-  };
+    dispatch({
+      type: NEW_CAMPAIGN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: NEW_CAMPAIGN_FAIL,
+      payload: message,
+    });
+  }
+};
 
 export const deleteCampaignAction = (id) => async (dispatch, getState) => {
   try {
@@ -182,7 +182,10 @@ export const deleteCampaignAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`/app/campaigns/${id}`, config);
+    const { data } = await axios.delete(
+      `/app/campaigns/campaign/${id}`,
+      config
+    );
 
     dispatch({
       type: DELETE_CAMPAIGN_SUCCESS,
@@ -200,75 +203,44 @@ export const deleteCampaignAction = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateCampaignAction =
-  (
-    id,
-    productTitle,
-    shortDescription,
-    productDetails,
-    standardPrice,
-    discountedPrice,
-    price,
-    productStockCount,
-    productUnitCount,
-    productSKU,
-    productImageOne,
-    productImageTwo,
-    productImageThree,
-    campaignCategory
-  ) =>
-  async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: UPDATE_CAMPAIGN_REQUEST,
-      });
+export const updateCampaignAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: UPDATE_CAMPAIGN_REQUEST,
+    });
 
-      const {
-        business: { businessInfo },
-      } = getState();
+    const {
+      business: { businessInfo },
+    } = getState();
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${businessInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${businessInfo.token}`,
+      },
+    };
 
-      const { data } = await axios.put(
-        `/app/campaigns/${id}`,
-        {
-          productTitle,
-          shortDescription,
-          productDetails,
-          standardPrice,
-          discountedPrice,
-          price,
-          productStockCount,
-          productUnitCount,
-          productSKU,
-          productImageOne,
-          productImageTwo,
-          productImageThree,
-          campaignCategory,
-        },
-        config
-      );
+    const { data } = await axios.put(
+      `/app/campaigns/campaign/${id}`,
+      {},
+      config
+    );
 
-      dispatch({
-        type: UPDATE_CAMPAIGN_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      dispatch({
-        type: UPDATE_CAMPAIGN_FAIL,
-        payload: message,
-      });
-    }
-  };
+    dispatch({
+      type: UPDATE_CAMPAIGN_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: UPDATE_CAMPAIGN_FAIL,
+      payload: message,
+    });
+  }
+};
 
 // Get All Campaigns
 export const getCampaign =
@@ -323,7 +295,7 @@ export const getAdminCampaign = () => async (dispatch) => {
 };
 
 // Create Campaign
-export const createCampaign = (productData) => async (dispatch) => {
+export const createCampaignAdmin = (productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_CAMPAIGN_REQUEST });
 
@@ -350,7 +322,7 @@ export const createCampaign = (productData) => async (dispatch) => {
 };
 
 // Update Campaign
-export const updateCampaign = (id, productData) => async (dispatch) => {
+export const updateCampaignAdmin = (id, productData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_CAMPAIGN_REQUEST });
 
@@ -377,7 +349,7 @@ export const updateCampaign = (id, productData) => async (dispatch) => {
 };
 
 // Delete Campaign
-export const deleteCampaign = (id) => async (dispatch) => {
+export const deleteCampaignAdmin = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_CAMPAIGN_REQUEST });
 
@@ -415,7 +387,7 @@ export const getCampaignDetails = (id) => async (dispatch) => {
 };
 
 // NEW CAMPAIGN REVIEW
-export const newBusinessReview = (reviewData) => async (dispatch) => {
+export const newReview = (reviewData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_CAMPAIGN_REVIEW_REQUEST });
 
@@ -424,14 +396,14 @@ export const newBusinessReview = (reviewData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `/app/campaigns/review`,
+      `/app/campaigns/create-review`,
       reviewData,
       config
     );
 
     dispatch({
       type: NEW_CAMPAIGN_REVIEW_SUCCESS,
-      payload: data.success,
+      payload: data.campaignReviews,
     });
   } catch (error) {
     dispatch({
@@ -442,7 +414,7 @@ export const newBusinessReview = (reviewData) => async (dispatch) => {
 };
 
 // Get All Business Reviews of a Campaign
-export const getAllBusinessReviews = (id) => async (dispatch) => {
+export const getAllReviews = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_CAMPAIGN_REVIEWS_REQUEST });
 
@@ -450,7 +422,7 @@ export const getAllBusinessReviews = (id) => async (dispatch) => {
 
     dispatch({
       type: ALL_CAMPAIGN_REVIEWS_SUCCESS,
-      payload: data.reviews,
+      payload: data.campaignReviews,
     });
   } catch (error) {
     dispatch({
@@ -461,29 +433,28 @@ export const getAllBusinessReviews = (id) => async (dispatch) => {
 };
 
 // Delete Business Review of a Campaign
-export const deleteBusinessReviews =
-  (reviewId, productId) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_CAMPAIGN_REVIEW_REQUEST });
+export const deleteReviews = (reviewId, campaignId) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_CAMPAIGN_REVIEW_REQUEST });
 
-      const { data } = await axios.delete(
-        `/app/campaigns/reviews?id=${reviewId}&productId=${productId}`
-      );
+    const { data } = await axios.delete(
+      `/app/campaigns/reviews?id=${reviewId}&campaignId=${campaignId}`
+    );
 
-      dispatch({
-        type: DELETE_CAMPAIGN_REVIEW_SUCCESS,
-        payload: data.success,
-      });
-    } catch (error) {
-      dispatch({
-        type: DELETE_CAMPAIGN_REVIEW_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+    dispatch({
+      type: DELETE_CAMPAIGN_REVIEW_SUCCESS,
+      payload: data.campaignReviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_CAMPAIGN_REVIEW_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // NEW BUSINESS DONOR
-export const newBusinessCustomer = (donorata) => async (dispatch) => {
+export const newDonor = (donorata) => async (dispatch) => {
   try {
     dispatch({ type: NEW_DONOR_REQUEST });
 
@@ -495,7 +466,7 @@ export const newBusinessCustomer = (donorata) => async (dispatch) => {
 
     dispatch({
       type: NEW_DONOR_SUCCESS,
-      payload: data.success,
+      payload: data.donors,
     });
   } catch (error) {
     dispatch({
@@ -506,7 +477,7 @@ export const newBusinessCustomer = (donorata) => async (dispatch) => {
 };
 
 // Get All Business Customers of a Campaign
-export const getAllBusinessCustomers = (id) => async (dispatch) => {
+export const getAllDonors = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_DONORS_REQUEST });
 
@@ -525,158 +496,157 @@ export const getAllBusinessCustomers = (id) => async (dispatch) => {
 };
 
 // Delete Business Customer of a Campaign
-export const deleteBusinessCustomers =
-  (donorId, productId) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_DONOR_REQUEST });
-
-      const { data } = await axios.delete(
-        `/app/campaigns/donors?id=${donorId}&productId=${productId}`
-      );
-
-      dispatch({
-        type: DELETE_DONOR_SUCCESS,
-        payload: data.success,
-      });
-    } catch (error) {
-      dispatch({
-        type: DELETE_DONOR_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
-
-// NEW CAMPAIGN_INDIVIDUAL REVIEW
-export const newIndividualReview = (reviewData) => async (dispatch) => {
+export const deleteDonor = (donorId, campaignId) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_CAMPAIGN_REVIEW_REQUEST });
+    dispatch({ type: DELETE_DONOR_REQUEST });
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
-
-    const { data } = await axios.put(
-      `/app/campaigns/review`,
-      reviewData,
-      config
+    const { data } = await axios.delete(
+      `/app/campaigns/donors?id=${donorId}&campaignId=${campaignId}`
     );
 
     dispatch({
-      type: NEW_CAMPAIGN_REVIEW_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_CAMPAIGN_REVIEW_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
-
-// Get All Individual Reviews of a Campaign
-export const getAllIndividualReviews = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_CAMPAIGN_REVIEWS_REQUEST });
-
-    const { data } = await axios.get(`/app/campaigns/reviews?id=${id}`);
-
-    dispatch({
-      type: ALL_CAMPAIGN_REVIEWS_SUCCESS,
-      payload: data.reviews,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_CAMPAIGN_REVIEWS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
-
-// Delete Individual Review of a Campaign
-export const deleteIndividualReviews =
-  (reviewId, productId) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_CAMPAIGN_REVIEW_REQUEST });
-
-      const { data } = await axios.delete(
-        `/app/campaigns/reviews?id=${reviewId}&productId=${productId}`
-      );
-
-      dispatch({
-        type: DELETE_CAMPAIGN_REVIEW_SUCCESS,
-        payload: data.success,
-      });
-    } catch (error) {
-      dispatch({
-        type: DELETE_CAMPAIGN_REVIEW_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
-
-// NEW INDIVIDUAL DONOR
-export const newIndividualCustomer = (donorata) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_INDIVIDUAL_DONOR_REQUEST });
-
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
-
-    const { data } = await axios.put(`/app/campaigns/donor`, donorata, config);
-
-    dispatch({
-      type: NEW_INDIVIDUAL_DONOR_SUCCESS,
-      payload: data.success,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_INDIVIDUAL_DONOR_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
-
-// Get All Individual Customers of a Campaign
-export const getAllIndividualCustomers = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_INDIVIDUAL_DONORS_REQUEST });
-
-    const { data } = await axios.get(`/app/campaigns/donors?id=${id}`);
-
-    dispatch({
-      type: ALL_INDIVIDUAL_DONORS_SUCCESS,
+      type: DELETE_DONOR_SUCCESS,
       payload: data.donors,
     });
   } catch (error) {
     dispatch({
-      type: ALL_INDIVIDUAL_DONORS_FAIL,
+      type: DELETE_DONOR_FAIL,
       payload: error.response.data.message,
     });
   }
 };
 
-// Delete Individual Customer of a Campaign
-export const deleteIndividualCustomers =
-  (donorId, productId) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_INDIVIDUAL_DONOR_REQUEST });
+// NEW CAMPAIGN_INDIVIDUAL REVIEW
+// export const newIndividualReview = (reviewData) => async (dispatch) => {
+// try {
+// dispatch({ type: NEW_CAMPAIGN_REVIEW_REQUEST });
+//
+// const config = {
+// headers: { "Content-Type": "application/json" },
+// };
+//
+// const { data } = await axios.put(
+// `/app/campaigns/review`,
+// reviewData,
+// config
+// );
+//
+// dispatch({
+// type: NEW_CAMPAIGN_REVIEW_SUCCESS,
+// payload: data.success,
+// });
+// } catch (error) {
+// dispatch({
+// type: NEW_CAMPAIGN_REVIEW_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
 
-      const { data } = await axios.delete(
-        `/app/campaigns/donors?id=${donorId}&productId=${productId}`
-      );
+// Get All Individual Reviews of a Campaign
+// export const getAllIndividualReviews = (id) => async (dispatch) => {
+// try {
+// dispatch({ type: ALL_CAMPAIGN_REVIEWS_REQUEST });
+//
+// const { data } = await axios.get(`/app/campaigns/reviews?id=${id}`);
+//
+// dispatch({
+// type: ALL_CAMPAIGN_REVIEWS_SUCCESS,
+// payload: data.reviews,
+// });
+// } catch (error) {
+// dispatch({
+// type: ALL_CAMPAIGN_REVIEWS_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
 
-      dispatch({
-        type: DELETE_INDIVIDUAL_DONOR_SUCCESS,
-        payload: data.success,
-      });
-    } catch (error) {
-      dispatch({
-        type: DELETE_INDIVIDUAL_DONOR_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+// Delete Individual Review of a Campaign
+// export const deleteIndividualReviews =
+// (reviewId, campaignId) => async (dispatch) => {
+// try {
+// dispatch({ type: DELETE_CAMPAIGN_REVIEW_REQUEST });
+//
+// const { data } = await axios.delete(
+// `/app/campaigns/reviews?id=${reviewId}&campaignId=${campaignId}`
+// );
+//
+// dispatch({
+// type: DELETE_CAMPAIGN_REVIEW_SUCCESS,
+// payload: data.success,
+// });
+// } catch (error) {
+// dispatch({
+// type: DELETE_CAMPAIGN_REVIEW_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
+
+//NEW INDIVIDUAL DONOR
+// export const newIndividualCustomer = (donorata) => async (dispatch) => {
+// try {
+// dispatch({ type: NEW_INDIVIDUAL_DONOR_REQUEST });
+//
+// const config = {
+// headers: { "Content-Type": "application/json" },
+// };
+//
+// const { data } = await axios.put(`/app/campaigns/donor`, donorata, config);
+//
+// dispatch({
+// type: NEW_INDIVIDUAL_DONOR_SUCCESS,
+// payload: data.success,
+// });
+// } catch (error) {
+// dispatch({
+// type: NEW_INDIVIDUAL_DONOR_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
+//
+//Get All Individual Customers of a Campaign
+// export const getAllIndividualCustomers = (id) => async (dispatch) => {
+// try {
+// dispatch({ type: ALL_INDIVIDUAL_DONORS_REQUEST });
+//
+// const { data } = await axios.get(`/app/campaigns/donors?id=${id}`);
+//
+// dispatch({
+// type: ALL_INDIVIDUAL_DONORS_SUCCESS,
+// payload: data.donors,
+// });
+// } catch (error) {
+// dispatch({
+// type: ALL_INDIVIDUAL_DONORS_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
+//
+//Delete Individual Customer of a Campaign
+// export const deleteIndividualCustomers =
+// (donorId, campaignId) => async (dispatch) => {
+// try {
+// dispatch({ type: DELETE_INDIVIDUAL_DONOR_REQUEST });
+//
+// const { data } = await axios.delete(
+// `/app/campaigns/donors?id=${donorId}&campaignId=${campaignId}`
+// );
+//
+// dispatch({
+// type: DELETE_INDIVIDUAL_DONOR_SUCCESS,
+// payload: data.success,
+// });
+// } catch (error) {
+// dispatch({
+// type: DELETE_INDIVIDUAL_DONOR_FAIL,
+// payload: error.response.data.message,
+// });
+// }
+// };
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {

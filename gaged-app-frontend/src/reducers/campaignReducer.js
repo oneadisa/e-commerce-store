@@ -23,17 +23,17 @@ import {
   CAMPAIGN_DETAILS_REQUEST,
   CAMPAIGN_DETAILS_FAIL,
   CAMPAIGN_DETAILS_SUCCESS,
-  NEW_INDIVIDUAL_DONOR_SUCCESS,
-  NEW_INDIVIDUAL_DONOR_FAIL,
-  NEW_INDIVIDUAL_DONOR_RESET,
-  NEW_INDIVIDUAL_DONOR_REQUEST,
-  ALL_INDIVIDUAL_DONORS_REQUEST,
-  ALL_INDIVIDUAL_DONORS_SUCCESS,
-  ALL_INDIVIDUAL_DONORS_FAIL,
-  DELETE_INDIVIDUAL_DONOR_REQUEST,
-  DELETE_INDIVIDUAL_DONOR_SUCCESS,
-  DELETE_INDIVIDUAL_DONOR_FAIL,
-  DELETE_INDIVIDUAL_DONOR_RESET,
+  // NEW_INDIVIDUAL_DONOR_SUCCESS,
+  // NEW_INDIVIDUAL_DONOR_FAIL,
+  // NEW_INDIVIDUAL_DONOR_RESET,
+  // NEW_INDIVIDUAL_DONOR_REQUEST,
+  // ALL_INDIVIDUAL_DONORS_REQUEST,
+  // ALL_INDIVIDUAL_DONORS_SUCCESS,
+  // ALL_INDIVIDUAL_DONORS_FAIL,
+  // DELETE_INDIVIDUAL_DONOR_REQUEST,
+  // DELETE_INDIVIDUAL_DONOR_SUCCESS,
+  // DELETE_INDIVIDUAL_DONOR_FAIL,
+  // DELETE_INDIVIDUAL_DONOR_RESET,
   NEW_DONOR_SUCCESS,
   NEW_DONOR_FAIL,
   NEW_DONOR_RESET,
@@ -70,10 +70,10 @@ export const campaignsReducer = (state = { campaigns: [] }, action) => {
     case ALL_CAMPAIGN_SUCCESS:
       return {
         loading: false,
-        campaigns: action.payload.campaigns,
-        campaignsCount: action.payload.campaignsCount,
-        resultPerPage: action.payload.resultPerPage,
-        filteredCampaignsCount: action.payload.filteredCampaignsCount,
+        campaigns: action.payload,
+        // campaignsCount: action.payload.campaignsCount,
+        // resultPerPage: action.payload.resultPerPage,
+        // filteredCampaignsCount: action.payload.filteredCampaignsCount,
       };
 
     case ADMIN_CAMPAIGN_SUCCESS:
@@ -247,104 +247,104 @@ export const campaignDetailsReducer = (state = { campaign: {} }, action) => {
   }
 };
 
-export const newIndividualCampaignDonorReducer = (state = {}, action) => {
-  switch (action.type) {
-    case NEW_INDIVIDUAL_DONOR_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case NEW_INDIVIDUAL_DONOR_SUCCESS:
-      return {
-        loading: false,
-        success: action.payload,
-      };
-    case NEW_INDIVIDUAL_DONOR_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    case NEW_INDIVIDUAL_DONOR_RESET:
-      return {
-        ...state,
-        success: false,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
-
-export const individualCampaignDonorsReducer = (
-  state = { donors: [] },
-  action
-) => {
-  switch (action.type) {
-    case ALL_INDIVIDUAL_DONORS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case ALL_INDIVIDUAL_DONORS_SUCCESS:
-      return {
-        loading: false,
-        donors: action.payload,
-      };
-    case ALL_INDIVIDUAL_DONORS_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
-
-export const individualCampaignDonorReducer = (state = {}, action) => {
-  switch (action.type) {
-    case DELETE_INDIVIDUAL_DONOR_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case DELETE_INDIVIDUAL_DONOR_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        isDeleted: action.payload,
-      };
-    case DELETE_INDIVIDUAL_DONOR_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    case DELETE_INDIVIDUAL_DONOR_RESET:
-      return {
-        ...state,
-        isDeleted: false,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    default:
-      return state;
-  }
-};
+// export const newIndividualCampaignDonorReducer = (state = {}, action) => {
+// switch (action.type) {
+// case NEW_INDIVIDUAL_DONOR_REQUEST:
+// return {
+// ...state,
+// loading: true,
+// };
+// case NEW_INDIVIDUAL_DONOR_SUCCESS:
+// return {
+// loading: false,
+// success: action.payload,
+// };
+// case NEW_INDIVIDUAL_DONOR_FAIL:
+// return {
+// ...state,
+// loading: false,
+// error: action.payload,
+// };
+// case NEW_INDIVIDUAL_DONOR_RESET:
+// return {
+// ...state,
+// success: false,
+// };
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
+//
+// export const individualCampaignDonorsReducer = (
+// state = { donors: [] },
+// action
+// ) => {
+// switch (action.type) {
+// case ALL_INDIVIDUAL_DONORS_REQUEST:
+// return {
+// ...state,
+// loading: true,
+// };
+// case ALL_INDIVIDUAL_DONORS_SUCCESS:
+// return {
+// loading: false,
+// donors: action.payload,
+// };
+// case ALL_INDIVIDUAL_DONORS_FAIL:
+// return {
+// ...state,
+// loading: false,
+// error: action.payload,
+// };
+//
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
+//
+// export const individualCampaignDonorReducer = (state = {}, action) => {
+// switch (action.type) {
+// case DELETE_INDIVIDUAL_DONOR_REQUEST:
+// return {
+// ...state,
+// loading: true,
+// };
+// case DELETE_INDIVIDUAL_DONOR_SUCCESS:
+// return {
+// ...state,
+// loading: false,
+// isDeleted: action.payload,
+// };
+// case DELETE_INDIVIDUAL_DONOR_FAIL:
+// return {
+// ...state,
+// loading: false,
+// error: action.payload,
+// };
+// case DELETE_INDIVIDUAL_DONOR_RESET:
+// return {
+// ...state,
+// isDeleted: false,
+// };
+// case CLEAR_ERRORS:
+// return {
+// ...state,
+// error: null,
+// };
+// default:
+// return state;
+// }
+// };
 
 // export const newCampaignReviewReducer = (state = {}, action) => {
 // switch (action.type) {
@@ -475,34 +475,34 @@ export const newDonorReducer = (state = {}, action) => {
   }
 };
 
-// export const donorReducer = (state = { donors: [] }, action) => {
-// switch (action.type) {
-// case ALL_DONORS_REQUEST:
-// return {
-// ...state,
-// loading: true,
-// };
-// case ALL_DONORS_SUCCESS:
-// return {
-// loading: false,
-// donors: action.payload,
-// };
-// case ALL_DONORS_FAIL:
-// return {
-// ...state,
-// loading: false,
-// error: action.payload,
-// };
-//
-// case CLEAR_ERRORS:
-// return {
-// ...state,
-// error: null,
-// };
-// default:
-// return state;
-// }
-// };
+export const donorsReducer = (state = { donors: [] }, action) => {
+  switch (action.type) {
+    case ALL_DONORS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case ALL_DONORS_SUCCESS:
+      return {
+        loading: false,
+        donors: action.payload,
+      };
+    case ALL_DONORS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
 export const donorReducer = (state = {}, action) => {
   switch (action.type) {

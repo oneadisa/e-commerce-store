@@ -15,24 +15,24 @@ const {
   getSingleBusiness,
   updateBusinessRole,
   deleteBusiness,
-  getAllCampaigns,
-  getSingleCampaign,
-  UpdateCampaign,
-  DeleteCampaign,
-  createCampaignStarted,
-  getListOfCampaignsStarted,
-  getMyListOfCampaignsStarted,
-  deleteCampaignStarted,
-  createCampaignReview,
-  getCampaignReviews,
-  deleteCampaignReview,
+  // getAllCampaigns,
+  // getSingleCampaign,
+  // UpdateCampaign,
+  // DeleteCampaign,
+  // createCampaignStarted,
+  // getListOfCampaignsStarted,
+  // getMyListOfCampaignsStarted,
+  // deleteCampaignStarted,
+  // createCampaignReview,
+  // getCampaignReviews,
+  // deleteCampaignReview,
   createBusinessCampaignReview,
   getBusinessCampaignReviews,
   deleteBusinessCampaignReview,
-  createCampaignDonation,
-  getCampaignDonations,
-  getParticularCampaignDonation,
-  deleteCampaignDonation,
+  // createCampaignDonation,
+  // getCampaignDonations,
+  // getParticularCampaignDonation,
+  // deleteCampaignDonation,
   createBusinessCampaignDonation,
   getBusinessCampaignDonations,
   deleteBusinessCampaignDonation,
@@ -122,9 +122,7 @@ const {
 
 const {
   protectBusiness,
-
   authorizeRoles,
-  protectUser,
 } = require("../middlewares/authMiddleware");
 
 router.route("/signUp/2/business").post(registerBusiness);
@@ -162,15 +160,15 @@ router
 
 router.route("/business-ordered-from/me").get(getMyBusinessOrderedFrom);
 
-router.route("/campaigns", getAllCampaigns);
-
-router.route("/campaign-start").put(protectBusiness, createCampaignStarted);
-
-router
-  .route("/campaign-started")
-  .get(getListOfCampaignsStarted)
-  .delete(protectBusiness, deleteCampaignStarted);
-
+// router.route("/campaigns") getAllCampaigns;
+//
+// router.route("/campaign-start").put(protectBusiness, createCampaignStarted);
+//
+// router
+// .route("/campaign-started")
+// .get(getListOfCampaignsStarted)
+// .delete(protectBusiness, deleteCampaignStarted);
+//
 router
   .route("/create-review/business")
   .put(protectBusiness, createBusinessCampaignReview);
@@ -180,13 +178,13 @@ router
   .get(getBusinessCampaignReviews)
   .delete(protectBusiness, deleteBusinessCampaignReview);
 
-router.route("/create-review").put(protectUser, createCampaignReview);
-
-router
-  .route("/reviews/")
-  .get(getCampaignReviews)
-  .delete(protectUser, deleteCampaignReview);
-
+// router.route("/create-review").put(createCampaignReview);
+//
+// router
+// .route("/reviews/")
+// .get(getCampaignReviews)
+// .delete(protectBusiness, deleteCampaignReview);
+//
 router
   .route("/create-donation/business")
   .put(protectBusiness, createBusinessCampaignDonation);
@@ -196,20 +194,22 @@ router
   .get(getBusinessCampaignDonations)
   .delete(protectBusiness, deleteBusinessCampaignDonation);
 
-router
-  .route("/create-donation/individual")
-  .put(protectUser, createCampaignDonation);
-
-router
-  .route("/donations/")
-  .get(getCampaignDonations)
-  .delete(protectUser, deleteCampaignDonation);
-
-router.route("donations/one").get(protectUser, getParticularCampaignDonation);
-
-router
-  .route("/campaign-started/me")
-  .get(protectBusiness, getMyListOfCampaignsStarted);
+// router
+// .route("/create-donation/individual")
+// .put(protectBusiness, createCampaignDonation);
+//
+// router
+// .route("/donations/")
+// .get(getCampaignDonations)
+// .delete(protectBusiness, deleteCampaignDonation);
+//
+// router
+// .route("donations/one")
+// .get(protectBusiness, getParticularCampaignDonation);
+//
+// router
+// .route("/campaign-started/me")
+// .get(protectBusiness, getMyListOfCampaignsStarted);
 
 router.route("/campaign-invest").put(protectBusiness, createCampaignInvested);
 
@@ -274,7 +274,7 @@ router.route("/reviews/business/me").get(protectBusiness, getMyBusinessReviews);
 
 router
   .route("admin-individual/reviews/business")
-  .delete(protectUser, authorizeRoles("admin"), deleteBusinessReview);
+  .delete(protectBusiness, authorizeRoles("admin"), deleteBusinessReview);
 router
   .route("admin-business/reviews/business")
   .delete(protectBusiness, authorizeRoles("admin"), deleteBusinessReview);
@@ -290,7 +290,7 @@ router.route("/reviews/me").get(protectBusiness, getMyReviews);
 
 router
   .route("admin-individual/reviews")
-  .delete(protectUser, authorizeRoles("admin"), deleteReview);
+  .delete(protectBusiness, authorizeRoles("admin"), deleteReview);
 
 router
   .route("admin-business/reviews")
@@ -396,11 +396,11 @@ router
   .get(getSingleProduct)
   .put(UpdateBusinessStoreProduct)
   .delete(protectBusiness, deleteBusinessStoreProduct);
-router
-  .route("/campaigns/business/id/:id")
-  .get(getSingleCampaign)
-  .put(protectBusiness, UpdateCampaign)
-  .delete(protectBusiness, DeleteCampaign);
+// router
+// .route("/campaigns/business/id/:id")
+// .get(getSingleCampaign)
+// .put(protectBusiness, UpdateCampaign)
+// .delete(protectBusiness, DeleteCampaign);
 
 router.route("/products/review").put(protectBusiness, createReviewProduct);
 
