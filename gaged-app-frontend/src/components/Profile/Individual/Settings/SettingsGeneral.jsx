@@ -29,56 +29,57 @@ function SettingsGeneralIndividual() {
   const { loading, error, isUpdated } = useSelector(
     (state: RootStateOrAny) => state.userProfile
   );
-  const { userInfo } = useSelector((state: RootStateOrAny) => state.user);
+  const { userInfo } = useSelector((state: RootStateOrAny) => state.business);
 
-  const [picMessage, setPicMessage] = useState("");
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [email, setemail] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
-  const [password, setpassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
-  const [pic, setpic] = useState("");
-  const [twitter, settwitter] = useState("");
-  const [faceBook, setfaceBook] = useState("");
-  const [whatsApp, setwhatsApp] = useState("");
-  const [isAdmin, setisAdmin] = useState("");
-  const [role, setrole] = useState("");
-  const [meansOfID, setmeansOfID] = useState("");
-  const [IDpic, setIDpic] = useState("");
-  const [regNum, setregNum] = useState("");
-  const [natureOfBusiness, setnatureOfBusiness] = useState("");
-  const [personalEmail, setpersonalEmail] = useState("");
-  const [businessAddress, setbusinessAddress] = useState("");
-  const [cacCertificate, setcacCertificate] = useState("");
-  const [formCO7, setformCO7] = useState("");
-  const [bankCode, setbankCode] = useState("");
-  const [bankAccountName, setbankAccountName] = useState("");
-  const [bankAccountNumber, setbankAccountNumber] = useState("");
+  const [userCredentials, setUserCredentials] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    pic: "",
+    twitter: "",
+    faceBook: "",
+    whatsApp: "",
+    isAdmin: "",
+    role: "",
+    meansOfID: "",
+    IDpic: "",
+    regNum: "",
+    natureOfBusiness: "",
+    personalEmail: "",
+    businessAddress: "",
+    cacCertificate: "",
+    formCO7: "",
+    bankCode: "",
+    bankAccountName: "",
+    bankAccountNumber: "",
+    confirmPassword: "",
+  });
   useEffect(() => {
     if (userInfo) {
-      setfirstName(userInfo.firstName);
-      setlastName(userInfo.lastName);
-      setemail(userInfo.email);
-      setphoneNumber(userInfo.phoneNumber);
-      setpassword(userInfo.password);
-      setpic(userInfo.pic);
-      settwitter(userInfo.twitter);
-      setfaceBook(userInfo.faceBook);
-      setwhatsApp(userInfo.whatsApp);
-      setisAdmin(userInfo.isAdmin);
-      setrole(userInfo.role);
-      setmeansOfID(userInfo.meansOfID);
-      setIDpic(userInfo.IDpic);
-      setregNum(userInfo.regNum);
-      setnatureOfBusiness(userInfo.natureOfBusiness);
-      setpersonalEmail(userInfo.personalEmail);
-      setbusinessAddress(userInfo.businessAddress);
-      setcacCertificate(userInfo.cacCertificate);
-      setformCO7(userInfo.formCO7);
-      setbankCode(userInfo.bankCode);
-      setbankAccountName(userInfo.bankAccountName);
-      setbankAccountNumber(userInfo.bankAccountNumber);
+      setUserCredentials.firstName(userInfo.firstName);
+      setUserCredentials.lastName(userInfo.lastName);
+      setUserCredentials.email(userInfo.email);
+      setUserCredentials.phoneNumber(userInfo.phoneNumber);
+      setUserCredentials.password(userInfo.password);
+      setUserCredentials.pic(userInfo.pic);
+      setUserCredentials.twitter(userInfo.twitter);
+      setUserCredentials.faceBook(userInfo.faceBook);
+      setUserCredentials.whatsApp(userInfo.whatsApp);
+      setUserCredentials.isAdmin(userInfo.isAdmin);
+      setUserCredentials.role(userInfo.role);
+      setUserCredentials.meansOfID(userInfo.meansOfID);
+      setUserCredentials.IDpic(userInfo.IDpic);
+      setUserCredentials.regNum(userInfo.regNum);
+      setUserCredentials.natureOfBusiness(userInfo.natureOfBusiness);
+      setUserCredentials.personalEmail(userInfo.personalEmail);
+      setUserCredentials.businessAddress(userInfo.businessAddress);
+      setUserCredentials.cacCertificate(userInfo.cacCertificate);
+      setUserCredentials.formCO7(userInfo.formCO7);
+      setUserCredentials.bankCode(userInfo.bankCode);
+      setUserCredentials.bankAccountName(userInfo.bankAccountName);
+      setUserCredentials.bankAccountNumber(userInfo.bankAccountNumber);
     }
     if (error) {
       alert.error(error);
@@ -87,12 +88,13 @@ function SettingsGeneralIndividual() {
     if (isUpdated) {
       alert.success("Profile Updated Successfully");
       dispatch(loadUser());
-      navigate("/settings/individual/bank");
+      navigate("/settings/individual/general");
       dispatch({
         type: UPDATE_USER_PROFILE_RESET,
       });
     }
   }, [dispatch, error, alert, navigate, userInfo, isUpdated]);
+
   // const updateProfileDataChange = (e) => {
   // const reader = new FileReader();
   // reader.onload = () => {
@@ -103,38 +105,38 @@ function SettingsGeneralIndividual() {
   // };
   // reader.readAsDataURL(e.target.files[0]);
   // };
+
   const updateProfileSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    myForm.set("firstName", firstName);
-    myForm.set("lasrName", lastName);
-    myForm.set("email", email);
-    myForm.set("phoneNumber", phoneNumber);
-    myForm.set("password", password);
-    myForm.set("pic", pic);
-    myForm.set("twitter", twitter);
-    myForm.set("faceBook", faceBook);
-    myForm.set("whatsApp", whatsApp);
-    myForm.set("isAdmin", isAdmin);
-    myForm.set("role", role);
-    myForm.set("meansOfID", meansOfID);
-    myForm.set("IDpic", IDpic);
-    myForm.set("regNum", regNum);
-    myForm.set("natureOfBusiness", natureOfBusiness);
-    myForm.set("personalEmail", personalEmail);
-    myForm.set("businessAddress", businessAddress);
-    myForm.set("cacCertificate", cacCertificate);
-    myForm.set("formCO7", formCO7);
-    myForm.set("bankCode", bankCode);
-    myForm.set("bankAccountName", bankAccountName);
-    myForm.set("bankAccountNumber", bankAccountNumber);
-    if (password !== confirmPassword) {
+    myForm.set("firstName", userCredentials.firstName);
+    myForm.set("lasrName", userCredentials.lastName);
+    myForm.set("email", userCredentials.email);
+    myForm.set("phoneNumber", userCredentials.phoneNumber);
+    myForm.set("password", userCredentials.password);
+    myForm.set("pic", userCredentials.pic);
+    myForm.set("twitter", userCredentials.twitter);
+    myForm.set("faceBook", userCredentials.faceBook);
+    myForm.set("whatsApp", userCredentials.whatsApp);
+    myForm.set("isAdmin", userCredentials.isAdmin);
+    myForm.set("role", userCredentials.role);
+    myForm.set("meansOfID", userCredentials.meansOfID);
+    myForm.set("IDpic", userCredentials.IDpic);
+    myForm.set("regNum", userCredentials.regNum);
+    myForm.set("natureOfBusiness", userCredentials.natureOfBusiness);
+    myForm.set("personalEmail", userCredentials.personalEmail);
+    myForm.set("businessAddress", userCredentials.businessAddress);
+    myForm.set("cacCertificate", userCredentials.cacCertificate);
+    myForm.set("formCO7", userCredentials.formCO7);
+    myForm.set("bankCode", userCredentials.bankCode);
+    myForm.set("bankAccountName", userCredentials.bankAccountName);
+    myForm.set("bankAccountNumber", userCredentials.bankAccountNumber);
+    if (userCredentials.password !== userCredentials.confirmPassword) {
       setMessage("Oops, Passwords do not match. Please try again.");
     } else dispatch(updateProfile(myForm));
   };
 
   function postIDpic(pics) {
-    setPicMessage(null);
     if (
       pics.type === "image/jpeg" ||
       pics.type === "image/png" ||
@@ -151,24 +153,24 @@ function SettingsGeneralIndividual() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          setIDpic(data.url.toString());
+          setUserCredentials.IDPic(data.url.toString());
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      return setPicMessage("Please select at least one image.");
+      // return setPicMessage("Please select at least one image.");
     }
   }
-  // function handleChange(e) {
-  // const { value, name } = e.currentTarget;
-  // setUserCredentials((prevValue) => {
-  // return {
-  // ...prevValue,
-  // [name]: value,
-  // };
-  // });
-  // }
+  function handleChange(e) {
+    const { value, name } = e.currentTarget;
+    setUserCredentials((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  }
 
   // function postDetails(pics) {
   // if (
@@ -187,7 +189,7 @@ function SettingsGeneralIndividual() {
   // .then((res) => res.json())
   // .then((data) => {
   // console.log(data);
-  // setIDPic(data.url.toString());
+  // setUserCredentials.IDPic(data.url.toString());
   // })
   // .catch((err) => {
   // console.log(err);
@@ -221,9 +223,6 @@ function SettingsGeneralIndividual() {
             />
             {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
             {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
-            {picMessage && (
-              <GeneralErrorMessage>{picMessage}</GeneralErrorMessage>
-            )}
             <div className="lg:bg-magenta-blue lg:px-2 h-full">
               <div className="block lg:flex lg:space-x-32">
                 <div className="hidden lg:block">
@@ -256,8 +255,8 @@ function SettingsGeneralIndividual() {
                               placeholder="First Name"
                               className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                               name="firstName"
-                              value={firstName}
-                              onChange={(e) => setfirstName(e.target.value)}
+                              value={userCredentials.firstName}
+                              onChange={(e) => handleChange(e)}
                             />
                           </div>
                           <div className="flex flex-col gap-2 md:w-1/4">
@@ -268,8 +267,8 @@ function SettingsGeneralIndividual() {
                               placeholder="Last Name"
                               className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                               name="lastName"
-                              value={lastName}
-                              onChange={(e) => setlastName(e.target.value)}
+                              value={userCredentials.lastName}
+                              onChange={(e) => handleChange(e)}
                             />
                           </div>
                           <div className="flex flex-col gap-2 md:w-1/4">
@@ -280,8 +279,8 @@ function SettingsGeneralIndividual() {
                               placeholder="Phone Number"
                               className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                               name="phoneNumber"
-                              value={phoneNumber}
-                              onChange={(e) => setphoneNumber(e.target.value)}
+                              value={userCredentials.phoneNumber}
+                              onChange={(e) => handleChange(e)}
                             />
                           </div>
                         </div>
@@ -293,8 +292,8 @@ function SettingsGeneralIndividual() {
                             placeholder="Email Address"
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="email"
-                            value={email}
-                            onChange={(e) => setemail(e.target.value)}
+                            value={userCredentials.email}
+                            onChange={(e) => handleChange(e)}
                           />
                         </div>
                         <div className="flex flex-col md:flex-row gap-5 md:gap-12 mt-8">
@@ -308,8 +307,9 @@ function SettingsGeneralIndividual() {
                                   <Menu.Button className="flex w-64 items-center px-2">
                                     <div
                                       className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                                      onChange={() => setmeansOfID(identity)}
-                                      // name="meansOfID"
+                                      onChange={(e) => handleChange(e)}
+                                      name="meansOfID"
+                                      value={identity}
                                     >
                                       {identity}
                                     </div>
@@ -381,9 +381,9 @@ function SettingsGeneralIndividual() {
                               <input
                                 placeholder="registration number of valid ID"
                                 className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                                onChange={(e) => setregNum(e.target.value)}
+                                onChange={(e) => handleChange(e)}
                                 name="regNum"
-                                value={regNum}
+                                value={userCredentials.regNum}
                               />
                             </div>
                           </div>
@@ -434,9 +434,9 @@ function SettingsGeneralIndividual() {
                             <input
                               placeholder="New Password"
                               className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                              onChange={(e) => setpassword(e.target.value)}
+                              onChange={(e) => handleChange(e)}
                               name="password"
-                              value={password}
+                              value={userCredentials.password}
                             />
                           </div>
                           <div className="flex flex-col gap-2">
@@ -446,11 +446,9 @@ function SettingsGeneralIndividual() {
                             <input
                               placeholder="Confirm Password"
                               className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                              onChange={(e) =>
-                                setconfirmPassword(e.target.value)
-                              }
+                              onChange={(e) => handleChange(e)}
                               name="confirmPassword"
-                              value={confirmPassword}
+                              value={userCredentials.confirmPassword}
                             />
                           </div>
                         </div>

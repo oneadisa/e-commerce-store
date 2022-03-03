@@ -68,4 +68,3 @@ This section has moved here: [https://faceBook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://faceBook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://faceBook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# gaged-app-frontend

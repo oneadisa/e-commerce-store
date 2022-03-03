@@ -5,7 +5,7 @@ import left from "../../../../../images/left.svg";
 import right from "../../../../../images/right.svg";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function SetSchedule(props) {
   const forward = (e) => {
@@ -120,9 +120,7 @@ function SetSchedule(props) {
                         <Menu.Button className="flex w-full items-center ">
                           <div
                             className="flex  text-gray-400 pl-3 text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                            onChange={(e) =>
-                              props.setduration_pledged_profit(e.target.value)
-                            }
+                            onChange={(e) => props.handleChange(e)}
                             name="duration_pledged_profit"
                             value={duration}
                           >
@@ -233,16 +231,14 @@ function SetSchedule(props) {
                       placeholder="MM-DD-YYYY"
                       required
                       pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}"
-                      onChange={(e) =>
-                        props.setgo_live_schedule(e.target.value)
-                      }
-                      value={props.go_live_schedule}
+                      onChange={(e) => props.handleChange(e)}
+                      value={props.campaignCredentials.go_live_schedule}
                     />
                     <button
                       className="mt-5 mb-9 text-base font-medium w-48 h-10 border border-Dark-blue hover:bg-medium-blue hover:text-white"
-                      onClick={(e) => props.setgo_live_schedule(e.target.value)}
+                      onClick={props.handleChange}
                       name="go_live_schedule"
-                      value={props.go_live_schedule}
+                      value={props.campaignCredentials.go_live_schedule}
                     >
                       Set schedule
                     </button>

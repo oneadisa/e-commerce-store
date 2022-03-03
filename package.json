@@ -2,25 +2,25 @@
     "name": "gaged",
     "version": "1.0.0",
     "description": "Gaged Application",
-    "main": "Server.js",
+    "main": "gaged-app-backend/Server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node Server.js",
-        "start:dev": "nodemon Server.js",
-        "dev": "nodemon Server.js",
+        "start": "node gaged-app-backend/Server.js",
+        "start:dev": "nodemon gaged-app-backend/Server.js",
+        "dev": "nodemon gaged-app-backend/Server.js",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix gaged-app-frontend && npm run build --prefix gaged-app-frontend"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Gaged-INC/gaged-app-backend.git"
+        "url": "git+https://github.com/oneadisa/gaged.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Gaged-INC/gaged-app-backend/issues"
+        "url": "https://github.com/oneadisa/gaged/issues"
     },
-    "homepage": "https://github.com/Gaged-INC/gaged-app-backend",
+    "homepage": "https://github.com/oneadisa/gaged",
     "dependencies": {
         "async": "^3.2.3",
         "axios": "^0.24.0",

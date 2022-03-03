@@ -121,8 +121,8 @@ function Organisation(props, nextStep) {
                       className="mt-5 h-12 w-full pl-3 border-2 border-gray-400 placeholder-gray-500 outline-none"
                       name="campaignName"
                       placeholder="Registered name"
-                      value={props.campaignName}
-                      onChange={(e) => props.setcampaignName(e.target.value)}
+                      value={props.campaignCredentials.campaignName}
+                      onChange={(e) => props.handleChange(e)}
                     />
                     <div className="mt-3">
                       <h2 className="text-lg font-semibold">
@@ -142,9 +142,7 @@ function Organisation(props, nextStep) {
                                 name="natureOfBusiness"
                                 className="radio"
                                 value="Limited Liability Company"
-                                onClick={(e) =>
-                                  props.setnatureOfBusiness(e.target.value)
-                                }
+                                onClick={(e) => props.handleChange(e)}
                               />
                             </label>
                           </div>
@@ -160,9 +158,7 @@ function Organisation(props, nextStep) {
                                 name="natureOfBusiness"
                                 className="radio"
                                 value="Sole Proprietorship"
-                                onClick={(e) =>
-                                  props.setnatureOfBusiness(e.target.value)
-                                }
+                                onClick={(e) => props.handleChange(e)}
                               />
                             </label>
                           </div>
@@ -179,9 +175,7 @@ function Organisation(props, nextStep) {
                               name="natureOfBusiness"
                               className="radio"
                               value="Unregistered"
-                              onClick={(e) =>
-                                props.setnatureOfBusiness(e.target.value)
-                              }
+                              onClick={(e) => props.handleChange(e)}
                             />
                           </label>
                         </div>
@@ -193,8 +187,8 @@ function Organisation(props, nextStep) {
                   <h3 className="text-lg font-semibold">Select a category</h3>
                   <div
                     className="my-4 grid grid-cols-2 md:grid-cols-3 gap-y-4 lg:w-4/6"
-                    // onChange={(e) => props.set(e.target.value)}
-                    // defaultValue={props.campaignCategory}
+                    // onChange={(e) => props.handleChange(e)}
+                    // defaultValue={props.campaignCredentials.campaignCategory}
                   >
                     <div className="flex gap-2 items-center">
                       <label className="cursor-pointer label">
@@ -203,9 +197,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Community"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Community</div>
@@ -219,9 +211,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Food and Drink"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">
@@ -237,9 +227,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Sports"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Sports</div>
@@ -253,9 +241,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Transport"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Transport</div>
@@ -269,9 +255,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7 "
                           value="Retail"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Retail</div>
@@ -285,9 +269,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Entertainment"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">
@@ -303,9 +285,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Hospitality"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Hospitality</div>
@@ -319,9 +299,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Travel"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Travel</div>
@@ -335,9 +313,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Tourism"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Tourism</div>
@@ -351,9 +327,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Education"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Education</div>
@@ -367,9 +341,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Health and Fitness"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">
@@ -385,9 +357,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Politics"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Politics</div>
@@ -401,9 +371,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Technology"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Technology</div>
@@ -417,9 +385,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Creative Arts"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">
@@ -435,9 +401,7 @@ function Organisation(props, nextStep) {
                           name="campaignCategory"
                           className="h-7 w-7  "
                           value="Leisure"
-                          onChange={(e) =>
-                            props.setcampaignCategory(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <div className="text-sm font-medium">Leisure</div>
@@ -451,19 +415,19 @@ function Organisation(props, nextStep) {
                   <div className="mt-3 md:w-4/5">
                     <div
                       className="flex flex-col md:flex-row gap-5 lg:gap-8"
-                      onChange={(e) =>
-                        props.setbusiness_address_country(e.target.value)
+                      onChange={(e) => props.handleChange(e)}
+                      defaultValue={
+                        props.campaignCredentials.business_address_country
                       }
-                      defaultValue={props.business_address_country}
                     >
                       <select
                         id="country"
                         name="business_address_country"
                         className="border-2 border-gray-400 h-10 pl-3 outline-none"
-                        onChange={(e) =>
-                          props.setbusiness_address_country(e.target.value)
+                        onChange={(e) => props.handleChange(e)}
+                        defaultValue={
+                          props.campaignCredentials.business_address_country
                         }
-                        defaultValue={props.business_address_country}
                       >
                         <option disabled={true} selected={true}>
                           Choose Country
@@ -478,10 +442,10 @@ function Organisation(props, nextStep) {
                         placeholder="City"
                         name="business_address_city"
                         className="border-2 border-gray-400 h-10 pl-3 outline-none"
-                        onChange={(e) =>
-                          props.setbusiness_address_city(e.target.value)
+                        onChange={(e) => props.handleChange(e)}
+                        defaultValue={
+                          props.campaignCredentials.business_address_city
                         }
-                        defaultValue={props.business_address_city}
                       />
                     </div>
                     <div className="my-5">
@@ -489,9 +453,13 @@ function Organisation(props, nextStep) {
                         name="business_address_office"
                         placeholder="Office Address"
                         className="border-2 border-gray-400 h-10 w-full pl-3 outline-none"
-                        onChange={(e) => props.setbusiness_address_office(e)}
-                        value={props.business_address_office}
-                        defaultValue={props.business_address_office}
+                        onChange={(e) => props.handleChange(e)}
+                        value={
+                          props.campaignCredentials.business_address_office
+                        }
+                        defaultValue={
+                          props.campaignCredentials.business_address_office
+                        }
                       />
                     </div>
                     <div className="flex flex-col gap-3 mt-5">
@@ -560,9 +528,9 @@ function Organisation(props, nextStep) {
                         <input
                           className="border-2 border-l border-gray-400 h-10 w-full pl-3 outline-none"
                           name="phoneNumber"
-                          onChange={(e) => props.setPhoneNumber(e.target.value)}
-                          defaultValue={props.phoneNumber}
-                          value={props.phoneNumber}
+                          onChange={(e) => props.handleChange(e)}
+                          defaultValue={props.campaignCredentials.phoneNumber}
+                          value={props.campaignCredentials.phoneNumber}
                         />
                       </div>
                     </div>
@@ -582,9 +550,9 @@ function Organisation(props, nextStep) {
                         className="border-2 border-l border-gray-400 h-40 w-full py-2 px-3 text-sm outline-none"
                         placeholder="People are far more likely to support your project if they know Link little bit about you and what you do."
                         name="investorBrief"
-                        onChange={(e) => props.setinvestorBrief(e.target.value)}
-                        defaultValue={props.investorBrief}
-                        value={props.investorBrief}
+                        onChange={(e) => props.handleChange(e)}
+                        defaultValue={props.campaignCredentials.investorBrief}
+                        value={props.campaignCredentials.investorBrief}
                       />
                     </div>
                   </div>
@@ -603,7 +571,7 @@ function Organisation(props, nextStep) {
                       <input
                         className="border-2 border-l border-gray-400 h-10 w-full text-sm outline-none"
                         name="campaignVideo"
-                        value={props.campaignVideo}
+                        value={props.campaignCredentials.campaignVideo}
                         placeholder="https://"
                       />
                     </div>
@@ -622,10 +590,10 @@ function Organisation(props, nextStep) {
                               accept="image/*"
                               className="sr-only"
                               onChange={(e) =>
-                                props.set(e.target.value.target.files[0])
+                                props.handleChange(e.target.files[0])
                               }
-                              defaultValue={props.pitchDeck}
-                              value={props.pitchDeck}
+                              defaultValue={props.campaignCredentials.pitchDeck}
+                              value={props.campaignCredentials.pitchDeck}
                             />
                           </div>
                           <label className="text-sm text-gray-600 mt-3">
@@ -654,9 +622,7 @@ function Organisation(props, nextStep) {
                             name="familiarWithCrowdFunding"
                             className="radio"
                             value="Yes"
-                            onClick={(e) =>
-                              props.setfamiliarWithCrowdfunding(e.target.value)
-                            }
+                            onClick={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>
@@ -670,9 +636,7 @@ function Organisation(props, nextStep) {
                             name="familiarWithCrowdFunding"
                             className="radio"
                             value="No"
-                            onClick={(e) =>
-                              props.setfamiliarWithCrowdfunding(e.target.value)
-                            }
+                            onChange={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>
@@ -680,11 +644,11 @@ function Organisation(props, nextStep) {
                   </div>
                   <div className="flex flex-col gap-3">
                     <h3 className="text-base font-semibold">
-                      Do you operate a store on Gaged?
+                      Do you operate Link store on Gaged?
                     </h3>
                     <div
                       className="flex gap-8 card p-6"
-                      onChange={(e) => props.set(e.target.value)}
+                      onChange={(e) => props.handleChange(e)}
                     >
                       <div className="flex gap-1 items-center form-control">
                         <label className="cursor-pointer label">
@@ -696,9 +660,7 @@ function Organisation(props, nextStep) {
                             name="storeOnGaged"
                             className="radio"
                             value="Yes"
-                            onClick={(e) =>
-                              props.setstoreOnGaged(e.target.value)
-                            }
+                            onClick={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>
@@ -712,9 +674,7 @@ function Organisation(props, nextStep) {
                             name="storeOnGaged"
                             className="radio"
                             value="No"
-                            onClick={(e) =>
-                              props.setstoreOnGaged(e.target.value)
-                            }
+                            onClick={(e) => props.handleChange(e)}
                           />
                         </label>
                       </div>

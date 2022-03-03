@@ -79,11 +79,10 @@ function CampaignForm() {
     firstPaymentDateString: "",
     endDateString: "",
     paymentStartDate: "",
+    twitter: "",
+    faceBook: "",
+    whatsApp: "",
   });
-
-  const [twitter, settwitter] = useState("");
-  const [faceBook, setfaceBook] = useState("");
-  const [whatsApp, setwhatsApp] = useState("");
 
   const createCampaignSubmitHandler = (e) => {
     e.preventDefault();
@@ -126,9 +125,9 @@ function CampaignForm() {
       "amountToBeRepaidPerPayout",
       campaignCredentials.amountToBeRepaidPerPayout
     );
-    myForm.set("twitter", twitter);
-    myForm.set("faceBook", faceBook);
-    myForm.set("whatsApp", whatsApp);
+    myForm.set("twitter", campaignCredentials.twitter);
+    myForm.set("faceBook", campaignCredentials.faceBook);
+    myForm.set("whatsApp", campaignCredentials.whatsApp);
     myForm.set(
       "pledged_profit_to_lenders",
       campaignCredentials.pledged_profit_to_lenders
@@ -180,9 +179,9 @@ function CampaignForm() {
 
   useEffect(() => {
     if (businessInfo) {
-      settwitter(businessInfo.twitter);
-      setfaceBook(businessInfo.faceBook);
-      setwhatsApp(businessInfo.whatsApp);
+      setCampaignCredentials.twitter(businessInfo.twitter);
+      setCampaignCredentials.faceBook(businessInfo.faceBook);
+      setCampaignCredentials.whatsApp(businessInfo.whatsApp);
     } else {
       navigate("/");
     }
