@@ -122,9 +122,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_age"
                           className="checkbox h-7 w-7"
-                          onClick={(e) =>
-                            props.setideal_target_audience_age(e.target.value)
-                          }
+                          onClick={(e) => props.handleChange(e)}
                           value="Children (0-11)"
                         />
                         <span className="label-text">
@@ -140,9 +138,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_age"
                           className="checkbox h-7 w-7"
-                          onClick={(e) =>
-                            props.setideal_target_audience_age(e.target.value)
-                          }
+                          onClick={(e) => props.handleChange(e)}
                           value="Youths (12-25)"
                         />
                         <span className="label-text">
@@ -157,9 +153,7 @@ function Demographics(props) {
                         type="checkbox"
                         name="ideal_target_audience_age"
                         className="checkbox h-7 w-7"
-                        onClick={(e) =>
-                          props.setideal_target_audience_age(e.target.value)
-                        }
+                        onClick={(e) => props.handleChange(e)}
                         value="Older (60+)"
                       />
                       <label className="cursor-pointer label">
@@ -181,11 +175,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
                           className="checkbox h-7 w-7"
-                          onClick={(e) =>
-                            props.setideal_target_audience_health_issues_or_disabilities(
-                              e.target.value
-                            )
-                          }
+                          onClick={(e) => props.handleChange(e)}
                           value="Physical disabilities"
                         />
                         <span className="label-text">
@@ -201,11 +191,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
                           className="checkbox h-7 w-7"
-                          onClick={(e) =>
-                            props.setideal_target_audience_health_issues_or_disabilities(
-                              e.target.value
-                            )
-                          }
+                          onClick={(e) => props.handleChange(e)}
                           value="Addiction Issues"
                         />
                         <span className="label-text">
@@ -221,11 +207,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="ideal_target_audience_health_issues_or_disabilities"
                           className="checkbox h-7 w-7"
-                          onClick={(e) =>
-                            props.setideal_target_audience_health_issues_or_disabilities(
-                              e.target.value
-                            )
-                          }
+                          onClick={(e) => props.handleChange(e)}
                           value="Cognitive Or Learning Disabilities"
                         />
                         <span className="label-text">
@@ -246,7 +228,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onClick={(e) => props.setgender(e.target.value)}
+                          onClick={(e) => props.handleChange(e)}
                           value="Male"
                         />
                         <span className="label-text">
@@ -260,7 +242,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onClick={(e) => props.setgender(e.target.value)}
+                          onClick={(e) => props.handleChange(e)}
                           value="Female"
                         />
                         <span className="label-text">
@@ -274,7 +256,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onClick={(e) => props.setgender(e.target.value)}
+                          onClick={(e) => props.handleChange(e)}
                           value="Gender Neutral"
                         />
                         <span className="label-text">
@@ -290,7 +272,7 @@ function Demographics(props) {
                           type="checkbox"
                           name="gender"
                           className="checkbox h-7 w-7"
-                          onClick={(e) => props.setgender(e.target.value)}
+                          onClick={(e) => props.handleChange(e)}
                           value="Non-Binary"
                         />
                         <span className="label-text">

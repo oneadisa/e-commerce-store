@@ -92,8 +92,8 @@ function SettingsStore(props) {
                   <label className="text-base font-medium">Store Name</label>
                   <input
                     name="storeName"
-                    value={props.storeName}
-                    onChange={(e) => props.setStoreName(e.target.value)}
+                    value={props.businessCredentials.storeName}
+                    onChange={(e) => props.handleChange(e)}
                     placeholder="Store Name"
                     className="border-2 py-2 pl-5 pr-3 rounded outline-none"
                   />
@@ -103,9 +103,9 @@ function SettingsStore(props) {
                     Delivery Charge{" "}
                   </label>
                   <input
-                    name="shippingCost"
-                    value={props.shippingCost}
-                    onChange={(e) => props.setshippingCost(e.target.value)}
+                    name="storeName"
+                    value={props.businessCredentials.shippingCost}
+                    onChange={(e) => props.handleChange(e)}
                     placeholder="Delivery Charge"
                     className="border-2 py-2 pl-5 pr-3 rounded outline-none"
                   />
@@ -114,9 +114,9 @@ function SettingsStore(props) {
                   <div className="flex flex-col gap-2 md:w-3/5">
                     <label className="text-base font-medium">Tagline</label>
                     <input
-                      name="storetagline"
-                      value={props.tagLine}
-                      onChange={(e) => props.setstoretagline(e.target.value)}
+                      name="tagLine"
+                      value={props.businessCredentials.tagLine}
+                      onChange={(e) => props.handleChange(e)}
                       placeholder="Entice your customer with Link catchy phrase"
                       className="border-2 py-2 pl-5 pr-3 rounded outline-none"
                     />
@@ -124,11 +124,9 @@ function SettingsStore(props) {
                   <div className="flex flex-col gap-2 md:w-3/5">
                     <label className="text-base font-medium">Description</label>
                     <textarea
-                      name="storeDescription"
-                      onChange={(e) =>
-                        props.setstoreDescription(e.target.value)
-                      }
-                      value={props.storeDescription}
+                      name="description"
+                      onChange={(e) => props.handleChange(e)}
+                      value={props.businessCredentials.description}
                       placeholder="Differentiate your business from others, let your customers understand your value proposition."
                       className="border-2 py-2 pl-5 pr-3 rounded outline-none h-36 md:h-44"
                     />
@@ -143,10 +141,10 @@ function SettingsStore(props) {
                     <div className="flex flex-col md:flex-row md:w-3/5">
                       <input
                         id="p1"
-                        name="storeLink"
-                        value={`${props.storeLink}.gaged.io`}
-                        onChange={(e) => props.storeLink(e)}
-                        placeholder={props.storeLink}
+                        name="link"
+                        value={`${props.businessCredentials.link}.gaged.io`}
+                        onChange={(e) => props.handleChange(e)}
+                        placeholder={props.businessCredentials.link}
                         className="border-2 border-b md:border-b-2 md:border-r rounded rounded-b-none md:rounded-b md:rounded-r-none py-2 pl-5 pr-3 md:w-3/5"
                       />
                       <div
@@ -172,7 +170,10 @@ function SettingsStore(props) {
                   <div className="flex flex-col items-center text-center bg-gray-100 md:w-1/3 lg:w-1/5 p-5 mt-1">
                     <div className="flex flex-col py-8 w-full bg-gray-100 items-center text-center my-3">
                       <label className="text-base font-normal text-gray-700 mt-3">
-                        <img src={props.storeLogo} className="w-20 h-20" />
+                        <img
+                          src={props.businessCredentials.storeLogo}
+                          className="w-20 h-20"
+                        />
                       </label>
                       <div>
                         <input

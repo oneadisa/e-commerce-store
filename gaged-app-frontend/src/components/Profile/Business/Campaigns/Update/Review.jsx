@@ -5,7 +5,7 @@ import video from "../../../../../images/rectangle.svg";
 import right from "../../../../../images/right.svg";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Review(props) {
   const back = (e) => {
@@ -193,15 +193,15 @@ function Review(props) {
                       <iframe
                         width="500"
                         height="294"
-                        src={props.campaignVideo}
+                        src={props.campaignCredentials.campaignVideo}
                         title="campaignVideo"
                       ></iframe>
                       <div className="flex flex-col">
                         <h4 className="text-base font-medium">
-                          {props.campaignName}
+                          {props.campaignCredentials.campaignName}
                         </h4>
                         <p className="text-base mt-1 mb-3">
-                          {props.investorBrief}
+                          {props.campaignCredentials.investorBrief}
                         </p>
                         <div className="w-full h-1 pt-1 rounded-md bg-Dark-grey" />
                       </div>

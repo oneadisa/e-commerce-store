@@ -92,9 +92,7 @@ function SettingsGeneral(props) {
                           className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           name="businessName"
                           value={props.businessName}
-                          onChange={(e) =>
-                            props.setbusinessName(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                       </div>
                       <div className="flex flex-col gap-2 md:w-1/4">
@@ -106,9 +104,7 @@ function SettingsGeneral(props) {
                           className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           name="accountHolderName"
                           value={props.accountHolderName}
-                          onChange={(e) =>
-                            props.setaccountHolderName(e.target.value)
-                          }
+                          onChange={(e) => props.handleChange(e)}
                         />
                       </div>
                       <div className="flex flex-col gap-2 md:w-1/4">
@@ -120,7 +116,7 @@ function SettingsGeneral(props) {
                           className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                           name="phoneNumber"
                           value={props.phoneNumber}
-                          onChange={(e) => props.setphoneNumber(e.target.value)}
+                          onChange={(e) => props.handleChange(e)}
                         />
                       </div>
                     </div>
@@ -133,7 +129,7 @@ function SettingsGeneral(props) {
                         className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                         name="email"
                         value={props.email}
-                        onChange={(e) => props.setemail(e.target.value)}
+                        onChange={(e) => props.handleChange(e)}
                       />
                     </div>
                     <div className="flex flex-col md:flex-row gap-5 md:gap-12 mt-8">
@@ -147,9 +143,7 @@ function SettingsGeneral(props) {
                               <Menu.Button className="flex w-64 items-center px-2">
                                 <div
                                   className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                                  onChange={(e) =>
-                                    props.setmeansOfID(e.target.value)
-                                  }
+                                  onChange={(e) => props.handleChange(e)}
                                   name="meansOfID"
                                   value={identity}
                                 >
@@ -221,7 +215,7 @@ function SettingsGeneral(props) {
                           <input
                             placeholder="registration number of valid ID"
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                            onChange={(e) => props.setregNum(e.target.value)}
+                            onChange={(e) => props.handleChange(e)}
                             name="regNum"
                             value={props.regNum}
                           />
@@ -235,9 +229,7 @@ function SettingsGeneral(props) {
                               <Menu.Button className="flex w-64 items-center px-2">
                                 <div
                                   className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                                  onChange={(e) =>
-                                    props.setcategory(e.target.value)
-                                  }
+                                  onChange={(e) => props.handleChange(e)}
                                   name="category"
                                   value={category}
                                 >
@@ -369,9 +361,7 @@ function SettingsGeneral(props) {
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="businessName"
                             value={props.businessName}
-                            onChange={(e) =>
-                              props.setbusinessName(e.target.value)
-                            }
+                            onChange={(e) => props.handleChange(e)}
                           />
                         </div>
                         <div className="flex flex-col gap-2 md:w-2/5">
@@ -381,7 +371,7 @@ function SettingsGeneral(props) {
                           <input
                             placeholder={category}
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                            onChange={(e) => props.setcategory(e.target.value)}
+                            onChange={(e) => props.handleChange(e)}
                             name="category"
                             value={category}
                           />
@@ -398,9 +388,7 @@ function SettingsGeneral(props) {
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="personalEmail"
                             value={props.personalEmail}
-                            onChange={(e) =>
-                              props.setpersonalEmail(e.target.value)
-                            }
+                            onChange={(e) => props.handleChange(e)}
                           />
                         </div>
                         <div className="flex flex-col gap-2 md:w-2/5">
@@ -412,9 +400,7 @@ function SettingsGeneral(props) {
                             className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
                             name="businessAddress"
                             value={props.businessAddress}
-                            onChange={(e) =>
-                              props.businessAddress(e.target.value)
-                            }
+                            onChange={(e) => props.handleChange(e)}
                           />
                         </div>
                       </div>
@@ -431,9 +417,7 @@ function SettingsGeneral(props) {
                             name="natureOfBusiness"
                             className="radio"
                             value="Limited Liability Company"
-                            onClick={(e) =>
-                              props.natureOfBusiness(e.target.value)
-                            }
+                            onClick={(e) => props.handleChange(e)}
                           />
                           <span className="label-text">
                             <h4 className="text-xs font-normal">
@@ -449,9 +433,7 @@ function SettingsGeneral(props) {
                             name="natureOfBusiness"
                             className="radio"
                             value="Sole Proprietorship"
-                            onClick={(e) =>
-                              props.natureOfBusiness(e.target.value)
-                            }
+                            onClick={(e) => props.handleChange(e)}
                           />
                           <span className="label-text">
                             <h4 className="text-xs font-normal">
@@ -470,9 +452,7 @@ function SettingsGeneral(props) {
                           name="natureOfBusiness"
                           className="radio"
                           value="Unregistered"
-                          onClick={(e) =>
-                            props.natureOfBusiness(e.target.value)
-                          }
+                          onClick={(e) => props.handleChange(e)}
                         />
                         <span className="label-text">
                           <h4 className="text-xs font-normal">Unregistered</h4>
@@ -558,7 +538,7 @@ function SettingsGeneral(props) {
                       <input
                         placeholder="New Password"
                         className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                        onChange={(e) => props.setpassword(e.target.value)}
+                        onChange={(e) => props.handleChange(e)}
                         name="password"
                         value={props.password}
                       />
@@ -570,9 +550,7 @@ function SettingsGeneral(props) {
                       <input
                         placeholder="Confirm Password"
                         className="border-2 border-gray-200 rounded py-3 pl-5 outline-none"
-                        onChange={(e) =>
-                          props.setconfirmPassword(e.target.value)
-                        }
+                        onChange={(e) => props.handleChange(e)}
                         name="confirmPassword"
                         value={props.confirmPassword}
                       />

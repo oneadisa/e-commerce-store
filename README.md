@@ -6,4 +6,3 @@ Hi! We are **GAGED LLC**, our goal is to power SMEs to achieve their growth obje
 ## Author
 
 **Twitter** Click [Here](https://twitter.com/Gaged_) **@Gaged\_**
-# gaged-app-backend
