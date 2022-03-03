@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import left from "../../../../../images/left.svg";
 import right from "../../../../../images/right.svg";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Header from "./Header";
 import DashboardCamp from "./DashboardCamp";
 
@@ -137,7 +137,7 @@ text-medium-blue rounded "
                         id="bankCode"
                         name="bankCode"
                         class="form-control form-control-alternative"
-                        onChange={(e) => props.handleChange(e)}
+                        onChange={(e) => props.setbankCode(e.target.value)}
                       >
                         <option value="">
                           <label
@@ -267,15 +267,19 @@ text-medium-blue rounded "
                       className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                       placeholder="Account Name"
                       name="bank_account_name"
-                      onChange={(e) => props.handleChange(e)}
-                      value={props.campaignCredentials.bank_account_name}
+                      onChange={(e) =>
+                        props.setbank_account_name(e.target.value)
+                      }
+                      value={props.bank_account_name}
                     />
                     <input
                       className="h-10 w-full pl-5 text-sm border-2 border-gray-400 placeholder-gray-500 outline-none"
                       placeholder="Account Number"
                       name="bank_account_number"
-                      onChange={(e) => props.handleChange(e)}
-                      value={props.campaignCredentials.bank_account_number}
+                      onChange={(e) =>
+                        props.setbank_account_number(e.target.value)
+                      }
+                      value={props.bank_account_number}
                     />
                   </div>
                   <div className="flex justify-between mt-14 md:w-3/5 lg:w-1/2">
