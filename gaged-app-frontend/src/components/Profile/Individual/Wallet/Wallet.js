@@ -30,8 +30,8 @@ function IndividualWallet() {
   const [showWithdrawModal, setShowWithdrawModal] = React.useState(false);
   const [message, setMessage] = useState(null);
 
-  const [withdrawValue, setWithdrawValue] = useState(0);
-  const [fundValue, setFundValue] = useState(0);
+  const [withdrawValue, setWithdrawValue] = useState("");
+  const [fundValue, setFundValue] = useState("");
 
   const [filter, setFilter] = useState("Date");
 
@@ -52,7 +52,7 @@ function IndividualWallet() {
     const config = {
       public_key: "FLWPUBK-c49999c8b3ae0a1fafe35a4bad31d166-X",
       tx_ref: Date.now(),
-      amount: fundValue,
+      amount: Number(fundValue),
       currency: "NGN",
       payment_options: "card,mobilemoney,ussd,banktransfer",
       customer: {
@@ -76,7 +76,7 @@ function IndividualWallet() {
           //   id: response.transaction_id,
           //   status: response.status,
           // };
-          dispatch();
+          dispatch(loadUser());
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
@@ -96,7 +96,7 @@ function IndividualWallet() {
       const transferData = {
         account_bank: userInfo.bankCode,
         account_number: userInfo.bankAccountNumber,
-        amount: withdrawValue,
+        amount: Number(withdrawValue),
         narration: "Akhlm Pstmn Trnsfr xx007",
         currency: "NGN",
         reference: "akhlm-pstmnpyt-rfxx007_PMCKDU_1",
@@ -119,7 +119,7 @@ function IndividualWallet() {
         );
       } catch (error) {}
 
-      setWalletBalance((walletBalance -= withdrawValue));
+      setWalletBalance((walletBalance -= Number(withdrawValue)));
 
       const myForm = new FormData();
       myForm.set("walletBalance", walletBalance);
@@ -164,16 +164,8 @@ function IndividualWallet() {
                 )
               }
             />
-            {message && (
-              <GeneralErrorMessage variant="danger">
-                {message}
-              </GeneralErrorMessage>
-            )}
-            {error && (
-              <GeneralErrorMessage variant="danger">
-                {error}
-              </GeneralErrorMessage>
-            )}
+            {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
+            {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <div className="lg:bg-magenta-blue lg:px-4">
               <div className="block lg:flex lg:space-x-32">
                 <div className="hidden lg:block">
