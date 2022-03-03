@@ -16,11 +16,11 @@ import axios from "axios";
 import {
   updateProfile,
   clearErrors,
-  loadUser,
-} from "../../../../actions/userActions";
-import { UPDATE_USER_PROFILE_RESET } from "../../../../constants/userConstants";
+  loadBusiness,
+} from "../../../../actions/businessActions";
+import { UPDATE_BUSINESS_PROFILE_RESET } from "../../../../constants/businessConstants";
 
-function IndividualWallet() {
+function BusinessWallet() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
@@ -30,13 +30,13 @@ function IndividualWallet() {
   const [showWithdrawModal, setShowWithdrawModal] = React.useState(false);
   const [message, setMessage] = useState(null);
 
-  const [withdrawValue, setWithdrawValue] = useState(0);
-  const [fundValue, setFundValue] = useState(0);
+  const [withdrawValue, setWithdrawValue] = useState("");
+  const [fundValue, setFundValue] = useState("");
 
   const [filter, setFilter] = useState("Date");
 
-  const { userInfo, loading } = useSelector(
-    (state: RootStateOrAny) => state.user
+  const { businessInfo, loading } = useSelector(
+    (state: RootStateOrAny) => state.business
   );
 
   const { error, isUpdated } = useSelector(
@@ -56,9 +56,9 @@ function IndividualWallet() {
       currency: "NGN",
       payment_options: "card,mobilemoney,ussd,banktransfer",
       customer: {
-        email: userInfo.email,
-        phonenumber: userInfo.phoneNumber,
-        name: userInfo.firstName + " " + userInfo.lastName,
+        email: businessInfo.email,
+        phonenumber: businessInfo.phoneNumber,
+        name: businessInfo.businessName,
       },
       customizations: {
         title: "Gaged",
@@ -76,7 +76,7 @@ function IndividualWallet() {
           //   id: response.transaction_id,
           //   status: response.status,
           // };
-          dispatch();
+          dispatch(loadBusiness());
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
@@ -94,8 +94,8 @@ function IndividualWallet() {
       );
     } else {
       const transferData = {
-        account_bank: userInfo.bankCode,
-        account_number: userInfo.bankAccountNumber,
+        account_bank: businessInfo.bankCode,
+        account_number: businessInfo.bankAccountNumber,
         amount: withdrawValue,
         narration: "Akhlm Pstmn Trnsfr xx007",
         currency: "NGN",
@@ -109,7 +109,7 @@ function IndividualWallet() {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.token}`,
+            Authorization: `Bearer ${businessInfo.token}`,
           },
         };
         const { data } = await axios.post(
@@ -119,7 +119,7 @@ function IndividualWallet() {
         );
       } catch (error) {}
 
-      setWalletBalance((walletBalance -= withdrawValue));
+      setWalletBalance((walletBalance -= Number(withdrawValue)));
 
       const myForm = new FormData();
       myForm.set("walletBalance", walletBalance);
@@ -128,23 +128,23 @@ function IndividualWallet() {
   };
 
   useEffect(() => {
-    if (userInfo) {
-      setWalletBalance(userInfo.walletBalance);
-      setName(userInfo.firstName + " " + userInfo.lastName);
+    if (businessInfo) {
+      setWalletBalance(businessInfo.walletBalance);
+      setName(businessInfo.businessName);
     }
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      alert.success("Profile Updated Successfully");
-      dispatch(loadUser());
+      alert.success("Transaction successful.");
+      dispatch(loadBusiness());
       navigate("/business/wallet");
       dispatch({
-        type: UPDATE_USER_PROFILE_RESET,
+        type: UPDATE_BUSINESS_PROFILE_RESET,
       });
     }
-  }, [dispatch, error, alert, isUpdated, userInfo, navigate]);
+  }, [dispatch, error, alert, isUpdated, businessInfo, navigate]);
 
   return (
     <Fragment>
@@ -152,7 +152,9 @@ function IndividualWallet() {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${userInfo.firstName}'s GAGED IndividualWallet`} />
+          <MetaData
+            title={`${businessInfo.businessName}'s GAGED BusinessWallet`}
+          />
           <div className="mx-auto">
             <Header
               handleNav={() => setOpen(!open)}
@@ -164,16 +166,8 @@ function IndividualWallet() {
                 )
               }
             />
-            {message && (
-              <GeneralErrorMessage variant="danger">
-                {message}
-              </GeneralErrorMessage>
-            )}
-            {error && (
-              <GeneralErrorMessage variant="danger">
-                {error}
-              </GeneralErrorMessage>
-            )}
+            {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
+            {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <div className="lg:bg-magenta-blue lg:px-4">
               <div className="block lg:flex lg:space-x-32">
                 <div className="hidden lg:block">
@@ -313,11 +307,9 @@ function IndividualWallet() {
                         <div className="md:w-1/2 border-b md:border-b-0 md:border-r border-black pb-5 md:pb-0 md:pr-3">
                           <div className="flex justify-between text-sm font-medium text-gray-400">
                             <p>LAST PAYOUT</p>
-                            <p>May 17, 2021</p>
+                            {/* <p>May 17, 2021</p> */}
                           </div>
-                          <h3 className="my-3 text-4xl font-semibold">
-                            $5,000
-                          </h3>
+                          <h3 className="my-3 text-4xl font-semibold">₦</h3>
                           <div className="my-4 py-1 w-14 rounded-full text-sm text-center text-green-900 font-medium bg-green-200 ">
                             Paid
                           </div>
@@ -328,11 +320,9 @@ function IndividualWallet() {
                         <div className="md:w-1/2 border-t md:border-t-0 md:border-l pt-5 md:pt-0 md:pr-3 md:pl-6">
                           <div className="flex justify-between text-sm font-medium text-gray-400">
                             <p>NEXT PAYOUT</p>
-                            <p>June 18, 2021</p>
+                            {/* <p>June 18, 2021</p> */}
                           </div>
-                          <h3 className="my-3 text-4xl font-semibold">
-                            $2,300
-                          </h3>
+                          <h3 className="my-3 text-4xl font-semibold">₦</h3>
                           <div className="my-4 py-1 w-20 rounded-full text-sm text-center text-brown font-medium bg-light-orange">
                             Pending
                           </div>
@@ -431,4 +421,4 @@ function IndividualWallet() {
   );
 }
 
-export default IndividualWallet;
+export default BusinessWallet;

@@ -30,15 +30,6 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    styled: true,
-    themes: false,
-    base: false,
-    utils: true,
-    logs: true,
-    rtl: true,
-  },
 };
 
 // module.exports = {

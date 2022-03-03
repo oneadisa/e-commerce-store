@@ -7,7 +7,7 @@ import right from "../../../../../images/right.svg";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import { Dialog } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
@@ -54,6 +54,10 @@ function Target(props) {
   const sixth = (e) => {
     e.preventDefault();
     props.sixthStep();
+  };
+
+  const payBack = (e) => {
+    return props.pledged_profit_to_lenders * props.amountBeingRaised;
   };
 
   const [open, setOpen] = useState(false);
@@ -137,7 +141,7 @@ function Target(props) {
                           checked="checked"
                           class="radio"
                           value="Loan"
-                          onChange={(e) => props.handleChange(e)}
+                          onChange={(e) => props.setfundingType(e.target.value)}
                         />
                         <span class="label-text">
                           <div className="flex gap-5 items-center px-2 w-full md:w-56 h-12 bg-Dark-blue border-2 border-Dark-blue">
@@ -161,7 +165,9 @@ function Target(props) {
                               checked="checked"
                               class="radio"
                               value="Equity"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setfundingType(e.target.value)
+                              }
                               disabled="disabled"
                             />
                             <span class="label-text">Equity</span>
@@ -190,7 +196,9 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setcategoryFunding(e.target.value)
+                              }
                               value="$0 – $999"
                             />
                             <span class="label-text">
@@ -329,7 +337,9 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setcategoryFunding(e.target.value)
+                              }
                               value="$1000 – $9,999"
                             />
                             <span class="label-text">
@@ -469,7 +479,9 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setcategoryFunding(e.target.value)
+                              }
                               value="$10,000 – $99,999"
                             />
                             <span class="label-text">
@@ -607,7 +619,9 @@ function Target(props) {
                               name="categoryFunding"
                               checked="checked"
                               class="radio"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setcategoryFunding(e.target.value)
+                              }
                               value="> $100,000"
                             />
                             <span class="label-text">
@@ -752,8 +766,10 @@ function Target(props) {
                       <input
                         className="border-2 border-gray-400 w-56 h-10 outline-none"
                         name="amountBeingRaised"
-                        onChange={(e) => props.handleChange(e)}
-                        value={props.campaignCredentials.amountBeingRaised}
+                        onChange={(e) =>
+                          props.setamountBeingRaised(e.target.value)
+                        }
+                        value={props.amountBeingRaised}
                       />
                     </div>
                   </div>
@@ -769,16 +785,16 @@ function Target(props) {
                       <input
                         className="border-2 border-gray-400 w-56 h-10 outline-none"
                         name="pledged_profit_to_lenders"
-                        value={
-                          props.campaignCredentials.pledged_profit_to_lenders
+                        value={props.pledged_profit_to_lenders}
+                        onChange={(e) =>
+                          props.setpledged_profit_to_lenders(e.target.value)
                         }
-                        onChange={(e) => props.handleChange(e)}
-                        // onChange={(e) => props.handleChange(e)}
+                        // onChange={(e) => props.set(e.target.value)}
                       />
                       <br />
                       <p>
-                        If you raise $1000, you will have to pay $
-                        {props.payBack} back to your Lenders.
+                        If you raise $1000, you will have to pay ${payBack} back
+                        to your Lenders.
                       </p>
                     </div>
                   </div>
@@ -794,7 +810,9 @@ function Target(props) {
                           <Menu.Button className="flex w-64 items-center px-2">
                             <div
                               className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setduration_pledged_profit(e.target.value)
+                              }
                               name="duration_pledged_profit"
                               value={duration}
                             >
@@ -877,7 +895,11 @@ function Target(props) {
                           <Menu.Button className="flex w-64 items-center px-2">
                             <div
                               className="text-sm font-medium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                              onChange={(e) => props.handleChange(e)}
+                              onChange={(e) =>
+                                props.setrepayment_schedule_pledged_profit(
+                                  e.target.value
+                                )
+                              }
                               name="repayment_schedule_pledged_profit"
                               value={schedule}
                             >
