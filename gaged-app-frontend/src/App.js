@@ -48,11 +48,11 @@ import ExploreCampaigns from "./components/Explore/Campaigns/ExploreCampaigns.js
 // import Campaign3 from "./components/campaign-components/Campaign3";
 //
 import SettingsBank from "./components/Profile/Business/Settings/SettingsBank.jsx";
-import SettingsGeneral from "./components/Profile/Business/Settings/SettingsGeneral";
-import SettingsStore from "./components/Profile/Business/Settings/SettingsStore";
+import SettingsGeneral from "./components/Profile/Business/Settings/SettingsGeneral.jsx";
+import SettingsStore from "./components/Profile/Business/Settings/SettingsStore.jsx";
 
-import SettingsBankIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.jsx";
-import SettingsGeneralIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.jsx";
+import SettingsBankIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.js";
+import SettingsGeneralIndividual from "./components/Profile/Individual/Settings/SettingsGeneral.js";
 
 // import Comments from "./components/managecampaign-component/Comments";
 // import Lenders from "./components/managecampaign-component/Lenders";
