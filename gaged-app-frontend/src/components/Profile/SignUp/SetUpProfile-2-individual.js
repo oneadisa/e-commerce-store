@@ -118,181 +118,105 @@ function SetUpProfile2Individual() {
       {error && (
         <GeneralErrorMessage variant="danger">{error}</GeneralErrorMessage>
       )}
-      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10">
+      <div className="mx-auto w-full flex lg:items-center flex-col lg:flex-row gap-10 lg:gap-14 px-2 md:px-5 pb-7 lg:px-7 lg:pb-10">
         <div className="">
-          <img src={People}></img>
+          <img src={People} alt="" />
         </div>
 
-        <div className="flex flex-col gap-5 lg:mt-16">
-          <div className="flex flex-col gap-1">
-            <h1 className="font-normal font-poppins text-3xl">
+        <div className="flex flex-col gap-5 lg:mt-10">
+          <div className="flex flex-col gap-2">
+            <h1 className="font-medium tracking-wide font-poppins text-3xl md:text-4xl">
               Let us set up your profile
             </h1>
-            <p className="font-poppins text-base lg:w-3/4">
+            <p className="font-poppins text-lg lg:w-2/3">
               Please provide correct information while setting up an account.
             </p>
           </div>
-          {/* {message && <ErrorMessage/> } */}
 
           <form onSubmit={handleClick} className="flex flex-col gap-5 md:gap-2">
             {loading && <Loader />}
             <div className="mb-4">
-              {/* <label htmlFor="" className="text-xs font-semibold px-1"></label> */}
+              <button className="w-44 text-base font-medium h-9 bg-indigo-200 rounded-md hover:bg-indigo-500 hover:text-white">
+                Sign up with email
+              </button>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-5 lg:gap-3">
               <div className="">
-                {/* <div className="w-10 z-10 pl-1 text-start pointer-events-none flex ">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                <button className="w-44 text-base font-medium h-9 bg-indigo-200 hover:bg-indigo-500">
-                  Sign up with email
-                </button>
+                <input
+                  onChange={handlechange}
+                  name="firstName"
+                  type="text"
+                  className="h-12 w-full md:w-72 lg:w-60 pl-5 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                  placeholder="First name"
+                  value={credentials.firstName}
+                />
+              </div>
+
+              <div className="">
+                <input
+                  onChange={handlechange}
+                  name="lastName"
+                  type="text"
+                  className="h-12 w-full md:w-72 lg:w-60 pl-5 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                  placeholder="Last name"
+                  value={credentials.lastName}
+                />
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-2 md:gap-3">
+            <div className="flex flex-col md:flex-row gap-5 lg:gap-3">
               <div className="">
-                {/* <label
-                  htmlFor=""
-                  className="text-xs font-semibold"
-                ></label> */}
-                <div className="">
-                  {/* <div className="z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                  <input
-                    onChange={handlechange}
-                    name="firstName"
-                    type="text"
-                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
-                    placeholder="First name"
-                    value={credentials.firstName}
-                  />
-                </div>
+                <input
+                  onChange={handlechange}
+                  name="email"
+                  type="text"
+                  className="h-12 w-full md:w-72 lg:w-60 pl-5 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                  placeholder="Email"
+                  value={credentials.email}
+                />
               </div>
 
               <div className="">
-                {/* <label
-                  htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label> */}
-                <div className="">
-                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-start">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                  <input
-                    onChange={handlechange}
-                    name="lastName"
-                    type="text"
-                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
-                    placeholder="Last name"
-                    value={credentials.lastName}
-                  />
-                </div>
+                <input
+                  onChange={handlechange}
+                  name="phoneNumber"
+                  type="number"
+                  className="h-12 w-full md:w-72 lg:w-60 pl-5 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                  placeholder="Phone"
+                  value={credentials.phoneNumber}
+                />
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-2 md:gap-3 w-full">
+            <div className="flex flex-col md:flex-row gap-5 lg:gap-3">
               <div className="">
-                {/* <label
-                  htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label> */}
-                <div className="">
-                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                  <input
-                    onChange={handlechange}
-                    name="email"
-                    type="text"
-                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
-                    placeholder="Email"
-                    value={credentials.email}
-                  />
-                </div>
+                <input
+                  onChange={handlechange}
+                  name="password"
+                  type={passwordShown ? "text" : "password"}
+                  className="h-12 w-full md:w-72 lg:w-60 pl-5 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                  placeholder="Password"
+                  value={credentials.password}
+                />
               </div>
 
               <div className="">
-                {/* <label
-                  htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label> */}
-                <div className="">
-                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                  <input
-                    onChange={handlechange}
-                    name="phoneNumber"
-                    type="number"
-                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
-                    placeholder="Phone"
-                    value={credentials.phoneNumber}
-                  />
-                </div>
+                <input
+                  onChange={handlechange}
+                  name="confirmPassword"
+                  type={passwordShown ? "text" : "password"}
+                  className="h-12 w-full md:w-72 lg:w-60 pl-5 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
+                  placeholder="Confirm Password"
+                  value={credentials.confirmPassword}
+                />
+                <i className="fas fa-eye -ml-8" onClick={togglePasswordVisiblity} />
               </div>
             </div>
-
-            <div className="flex flex-col md:flex-row gap-2 md:gap-3">
-              <div className="">
-                {/* <label
-                  htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label> */}
-                <div className="">
-                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                  <input
-                    onChange={handlechange}
-                    name="password"
-                    type={passwordShown ? "text" : "password"}
-                    className="h-12 w-full pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
-                    placeholder="Password"
-                    value={credentials.password}
-                  />
-                  {/* <i className="fa fa-eye transform translate-y-4 translate-x-3" onClick={togglePasswordVisiblity}/> */}
-                </div>
-              </div>
-
-              <div className="">
-                {/* <label
-                  htmlFor=""
-                  className="text-xs font-semibold px-1"
-                ></label> */}
-                <div className="">
-                  {/* <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-black text-lg"></i>
-                  </div> */}
-                  <input
-                    onChange={handlechange}
-                    name="confirmPassword"
-                    type={passwordShown ? "text" : "password"}
-                    className="h-12 w-full md:w-auto pl-3 placeholder-black border-2 border-gray-500 outline-none focus:border-blue-500"
-                    placeholder="Confirm Password"
-                    value={credentials.confirmPassword}
-                  />
-                  <i className="fas fa-eye" onClick={togglePasswordVisiblity} />
-                </div>
-              </div>
-            </div>
-            {/* {picMessage && (<><PictureErrorMessage children={undefined} variant='danger' />{picMessage} <PictureErrorMessage children={undefined} /></>)} */}
-            {/* <div className="w-1/2 px-3 mb-5"> */}
-            {/* <label htmlFor="" className="text-xs  font-semibold shadow-lg tracking-wide cursor-pointer px-1"> */}
-            {/* <div className="flex transform  -translate-y-1"> */}
-            {/*              */}
-            {/* <div className="w-10 z-1 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-black text-lg"></i></div> */}
-            {/* <svg className="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> */}
-            {/* <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" /> */}
-            {/* </svg> */}
-            {/* <span  className="w-full mt-2 text-base leading-normal -ml-10 pl-10 pr-3 py-2 text-left bg-indigo-300 outline-none hover:bg-indigo-500" placeholder="Add your Profile Image">Add your Profile Image</span> */}
-            {/* <input onChange={(e) => postDetails(e.target.files[0])} name='pic' type='image/png' className="hidden" value={credentials.pic}  /> */}
-            {/* </div> */}
-            {/* </label> */}
-            {/* </div> */}
           </form>
 
-          <div className="flex flex-col gap-8 w-full lgw-3/4">
-            <div className="flex flex-col">
+          <div className="flex flex-col gap-8 w-full lg:w-3/4">
+            <div className="flex flex-col gap-2">
               <div className="flex gap-2">
                 <input
                   type="checkbox"
@@ -308,7 +232,7 @@ function SetUpProfile2Individual() {
               <div className="">
                 <p className="font-poppins text-sm">
                   By creating an account, you agree to the{" "}
-                  <Link to="" className="text-indigo-400">
+                  <Link to="" className="text-indigo-400 hover:text-indigo-500">
                     Terms of Service
                   </Link>
                 </p>
@@ -318,14 +242,14 @@ function SetUpProfile2Individual() {
             <div className="flex flex-col gap-4">
               <button
                 onClick={handleClick}
-                className="h-10 w-full md:w-2/5 text-sm text-white font-normal bg-Dark-blue text-whitefont-semibold hover:bg-blue-800"
+                className="h-12 w-full md:w-60 text-white tracking-wider bg-Dark-blue rounded-md text-whitefont-semibold hover:bg-blue-800"
               >
                 Create account
               </button>
 
               <p className="font-poppins text-sm font-normal">
                 Already on Gaged?
-                <Link to="/individualLogin" className="text-indigo-400">
+                <Link to="/individualLogin" className="text-indigo-400 hover:text-indigo-500">
                   {" "}
                   Login Here
                 </Link>
