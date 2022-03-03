@@ -10,27 +10,27 @@ function SetUpProfile1Business() {
   return (
     <>
       <HeaderSignUp children={undefined} title={undefined} />
-      <div className="p-1 h-screen w-screen flex  md:flex-row items-center  bg-white">
-        <div className=" flex justify-around content text-3xl text-center md:text-left pl-6 p-8 transform -translate-y-16 ">
-          <img src={People}></img>
+      <div className="font-poppins mx-auto w-full flex lg:items-center flex-col lg:flex-row gap-10 lg:gap-14 px-2 md:px-5 pb-10 lg:px-7 lg:pb-10">
+        <div className="w-full">
+          <img src={People} alt="" />
         </div>
-        <div className="transform -translate-y-32">
-          <h1 className="text-4xl lg:text-5xl font-medium font-poppins text-black">
+
+        <div className="lg:mr-20 flex flex-col gap-2 justify-center md:w-2/3">
+          <h1 className="font-medium text-3xl md:text-4xl">
             Let us set up your profile
           </h1>
-          <p className="text-left text-lg my-4 md:text-xl font-poppins">
+          <p className="text-lg md:w-4/5">
             Please provide correct information while signing up for an account
           </p>
-          <div>
-            <Link to="/">
-              <button className=" font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium  hover:bg-Dark-blue hover:text-white flex justify-left space-x-7">
-                Sign Up with Facebook
+          <div className="pt-3 flex flex-col gap-7">
+            <Link to="/" className="w-full">
+              <button className="w-full h-12 border-2 border-gray-400 font-medium hover:border-Dark-blue  hover:bg-Dark-blue hover:text-white">
+                Sign up with Facebook
               </button>
             </Link>
-            <br />
-            <Link to="/signup/2/business">
-              <button className=" font-poppins py-2 px-10 md:py-3 md:px-20 border-2 border-black text-black sm:text-base md:text-xl font-medium r hover:bg-Dark-blue hover:text-white flex justify-left space-x-7">
-                Sign Up With Email
+            <Link to="/signup/2/business" className="w-full">
+              <button className="w-full h-12 border-2 border-gray-400 font-medium hover:border-Dark-blue hover:bg-Dark-blue hover:text-white">
+                Sign up With Email
               </button>
             </Link>
           </div>

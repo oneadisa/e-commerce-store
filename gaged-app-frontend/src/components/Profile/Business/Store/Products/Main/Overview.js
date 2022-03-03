@@ -140,8 +140,8 @@ function Overview() {
           {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
           {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
 
-          <div className="lg:bg-magenta-blue lg:pb-24 lg:px-5">
-            <div className="block lg:flex lg:space-x-28">
+          <div className="lg:bg-magenta-blue lg:pb-24 lg:px-6">
+            <div className="block lg:flex lg:space-x-20">
               <div className="hidden lg:block">
                 <DashBoard />
               </div>
@@ -294,105 +294,107 @@ function Overview() {
                               {/* </div> */}
                             </div>
                           </div>
-                          <div className="p-2 lg:px-5 lg:py-3 border-2 border-gray-300">
-                            <h3 className="font-bold">No of customers</h3>
-                            <div className="py-2 flex justify-between items-center font-medium w-1/2">
-                              <div>
-                                <p>{businessInfo.totalNumberOfOrders}</p>
-                                <p className="font-normal text-sm">Total</p>
-                              </div>
-                              <div>
-                                <p>17</p>
-                                <p className="font-normal text-sm">New</p>
-                              </div>
-                            </div>
-                            {/* <LineChart className="w-full h-40" height={200} /> */}
-                            <Chart
-                              options={secondState.options}
-                              series={secondState.series}
-                              type="area"
-                              height={200}
-                            />
-                          </div>
+                          
                         </div>
                       </div>
-                      <div className="flex flex-col md:flex-row gap-5">
-                        <div className="border-2 border-gray-300 lg:p-2 md:w-2/3">
-                          <div className="p-2 pb-3 flex justify-between items-center">
-                            <h4 className="font-bold">Latest Orders</h4>
-                            <Link to="/store/businessInfo.orders">
-                              <p className="text-sm text-Dark-blue font-semibold">
-                                view all
-                              </p>
-                            </Link>
+                      <div className="p-2 lg:px-5 lg:py-3 border-2 border-gray-300">
+                        <h3 className="font-bold">No of customers</h3>
+                        <div className="py-2 flex justify-between items-center font-medium w-1/2">
+                          <div>
+                            <p>{businessInfo.totalNumberOfOrders}</p>
+                            <p className="font-normal text-sm">Total</p>
                           </div>
-                          <div className="container flex mx-auto">
-                            <div className="flex flex-col mx-auto">
-                              <div className="w-full">
-                                <div className="border-b border-gray-200 shadow">
-                                  <table className="divide-y divide-green-400 ">
-                                    <thead className="bg-gray-50">
-                                      <tr>
-                                        <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
-                                          PRODUCT NAME
-                                        </th>
-                                        <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
-                                          CATEGORY
-                                        </th>
-                                        <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
-                                          QUANTITY
-                                        </th>
-                                        <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
-                                          TOTAL
-                                        </th>
-                                        <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
-                                          ACTION
-                                        </th>
-                                      </tr>
-                                    </thead>
-                                    <tbody className="bg-white divide-y divide-gray-300">
-                                      {businessInfo.orders &&
-                                      businessInfo.orders[0] ? (
-                                        <>
-                                          <div>
-                                            {" "}
-                                            {businessInfo.orders &&
-                                              businessInfo.orders
-                                                .slice(0, 5)
-                                                .map((order) => (
-                                                  <OrderCard
-                                                    key={order._id}
-                                                    order={order}
-                                                  />
-                                                ))}{" "}
-                                          </div>{" "}
-                                        </>
-                                      ) : (
-                                        <>
-                                          <div className="flex space-y-5 lg:space-y-0 lg:flex-row justify-between lg:border-b border-black mt-10 pb-2 px-2"></div>{" "}
-                                          <p className="text-center font-poppins text-bold text-xl h-screen p-20">
-                                            You have no orders yet.{" "}
-                                          </p>{" "}
-                                        </>
-                                      )}{" "}
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
+                          <div>
+                            <p>17</p>
+                            <p className="font-normal text-sm">New</p>
                           </div>
                         </div>
-                        {/* <div className="border-2 border-gray-300 p-2 lg:p-4 md:w-1/3"> */}
-                        {/* <h3 className="font-bold">Top selling products</h3> */}
-                        {/* </div> */}
+                        {/* <LineChart className="w-full h-40" height={200} /> */}
+                        <Chart
+                          options={secondState.options}
+                          series={secondState.series}
+                          type="area"
+                          height={200}
+                          className="w-full"
+                        />
+                      </div>
                       </div>
                     </div>
+                    <div className="flex flex-col md:flex-row gap-5">
+                      <div className="border-2 border-gray-300 lg:p-2 md:w-2/3">
+                        <div className="p-2 pb-3 flex justify-between items-center">
+                          <h4 className="font-bold">Latest Orders</h4>
+                          <Link to="/store/businessInfo.orders">
+                            <p className="text-sm text-Dark-blue font-semibold">
+                              view all
+                            </p>
+                          </Link>
+                        </div>
+                        <div className="container flex">
+                          <div className="flex flex-col mx-auto">
+                            <div className="w-full">
+                              <div className="border-b border-gray-200 shadow">
+                                <table className="divide-y divide-green-400 ">
+                                  <thead className="bg-gray-50">
+                                    <tr>
+                                      <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
+                                        PRODUCT NAME
+                                      </th>
+                                      <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
+                                        CATEGORY
+                                      </th>
+                                      <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
+                                        QUANTITY
+                                      </th>
+                                      <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
+                                        TOTAL
+                                      </th>
+                                      <th className="px-2 md:px-6 py-2 text-xs text-gray-500">
+                                        ACTION
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="bg-white divide-y divide-gray-300">
+                                    {businessInfo.orders &&
+                                    businessInfo.orders[0] ? (
+                                      <>
+                                        <div>
+                                          {" "}
+                                          {businessInfo.orders &&
+                                            businessInfo.orders
+                                              .slice(0, 5)
+                                              .map((order) => (
+                                                <OrderCard
+                                                  key={order._id}
+                                                  order={order}
+                                                />
+                                              ))}{" "}
+                                        </div>{" "}
+                                      </>
+                                    ) : (
+                                      <>
+                                        <div className="flex space-y-5 lg:space-y-0 lg:flex-row mt-3"></div>{" "}
+                                        <p className="text-center font-poppins text-bold text-xl p-2">
+                                          You have no orders yet.{" "}
+                                        </p>{" "}
+                                      </>
+                                    )}{" "}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="border-2 border-gray-300 p-2 lg:p-4 md:w-1/3"> */}
+                      {/* <h3 className="font-bold">Top selling products</h3> */}
+                    </div>
                   </div>
+                  
                 </div>
               </div>
             </div>
           </div>
-        </div>
       )}
     </Fragment>
   );

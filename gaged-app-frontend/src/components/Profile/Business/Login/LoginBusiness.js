@@ -55,12 +55,12 @@ function LoginBusiness() {
       <HeaderSignUp children={undefined} title={undefined} />
       {error && <ErrorMessage children={undefined} />}
 
-      <div className="flex flex-col lg:flex-row gap-5 md:gap-10 lg:gap-14 px-2 pb-7 lg:px-7 lg:pb-10 mx-auto">
+      <div className="mx-auto w-full flex lg:items-center flex-col lg:flex-row gap-10 lg:gap-14 px-2 md:px-5 pb-7 lg:px-7 lg:pb-10">
         <div className="">
-          <img src={People} />
+          <img src={People} alt='' />
         </div>
 
-        <div className="lg:mt-40">
+        <div className="lg:mt-24 flex flex-col justify-center">
           {loading && <Loader />}
           <form className="flex flex-col md:w-4/5 justify-center">
             <h1 className="text-2xl md:text-3xl font-semibold font-poppins">
@@ -102,11 +102,11 @@ function LoginBusiness() {
           </form>
 
           <div className="my-5">
-            <p className="font-poppins font-medium">
+            <p className="font-poppins my-5 font-medium">
               Don't have an account?{" "}
               <Link
                 to="/signup"
-                className="font-poppins text-blue-700 space-y-7"
+                className="font-poppins text-Dark-blue hover:text-blue-600"
               >
                 Sign Up
               </Link>
