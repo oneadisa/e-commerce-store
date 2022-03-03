@@ -30,8 +30,8 @@ function BusinessWallet() {
   const [showWithdrawModal, setShowWithdrawModal] = React.useState(false);
   const [message, setMessage] = useState(null);
 
-  const [withdrawValue, setWithdrawValue] = useState(0);
-  const [fundValue, setFundValue] = useState(0);
+  const [withdrawValue, setWithdrawValue] = useState("");
+  const [fundValue, setFundValue] = useState("");
 
   const [filter, setFilter] = useState("Date");
 
@@ -76,7 +76,7 @@ function BusinessWallet() {
           //   id: response.transaction_id,
           //   status: response.status,
           // };
-          dispatch();
+          dispatch(loadBusiness());
           navigate("/success");
         } else {
           alert.error("There's some issue while processing payment ");
@@ -119,7 +119,7 @@ function BusinessWallet() {
         );
       } catch (error) {}
 
-      setWalletBalance((walletBalance -= withdrawValue));
+      setWalletBalance((walletBalance -= Number(withdrawValue)));
 
       const myForm = new FormData();
       myForm.set("walletBalance", walletBalance);
@@ -137,7 +137,7 @@ function BusinessWallet() {
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      alert.success("Profile Updated Successfully");
+      alert.success("Transaction successful.");
       dispatch(loadBusiness());
       navigate("/business/wallet");
       dispatch({
@@ -166,16 +166,8 @@ function BusinessWallet() {
                 )
               }
             />
-            {message && (
-              <GeneralErrorMessage variant="danger">
-                {message}
-              </GeneralErrorMessage>
-            )}
-            {error && (
-              <GeneralErrorMessage variant="danger">
-                {error}
-              </GeneralErrorMessage>
-            )}
+            {message && <GeneralErrorMessage>{message}</GeneralErrorMessage>}
+            {error && <GeneralErrorMessage>{error}</GeneralErrorMessage>}
             <div className="lg:bg-magenta-blue lg:px-4">
               <div className="block lg:flex lg:space-x-32">
                 <div className="hidden lg:block">
@@ -315,11 +307,9 @@ function BusinessWallet() {
                         <div className="md:w-1/2 border-b md:border-b-0 md:border-r border-black pb-5 md:pb-0 md:pr-3">
                           <div className="flex justify-between text-sm font-medium text-gray-400">
                             <p>LAST PAYOUT</p>
-                            <p>May 17, 2021</p>
+                            {/* <p>May 17, 2021</p> */}
                           </div>
-                          <h3 className="my-3 text-4xl font-semibold">
-                            $5,000
-                          </h3>
+                          <h3 className="my-3 text-4xl font-semibold">₦</h3>
                           <div className="my-4 py-1 w-14 rounded-full text-sm text-center text-green-900 font-medium bg-green-200 ">
                             Paid
                           </div>
@@ -330,11 +320,9 @@ function BusinessWallet() {
                         <div className="md:w-1/2 border-t md:border-t-0 md:border-l pt-5 md:pt-0 md:pr-3 md:pl-6">
                           <div className="flex justify-between text-sm font-medium text-gray-400">
                             <p>NEXT PAYOUT</p>
-                            <p>June 18, 2021</p>
+                            {/* <p>June 18, 2021</p> */}
                           </div>
-                          <h3 className="my-3 text-4xl font-semibold">
-                            $2,300
-                          </h3>
+                          <h3 className="my-3 text-4xl font-semibold">₦</h3>
                           <div className="my-4 py-1 w-20 rounded-full text-sm text-center text-brown font-medium bg-light-orange">
                             Pending
                           </div>
