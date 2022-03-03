@@ -71,7 +71,7 @@ function SettingsBank(props) {
                     id="bankCode"
                     name="bankCode"
                     class="form-control form-control-alternative"
-                    onChange={(e) => props.handleChange(e)}
+                    onChange={(e) => props.setbankCode(e.target.value)}
                   >
                     <option value="">
                       <label
@@ -147,7 +147,7 @@ function SettingsBank(props) {
                     <input
                       placeholder="Account Name"
                       className="border-2 py-2 pl-5 rounded outline-none"
-                      onChange={(e) => props.handleChange(e)}
+                      onChange={(e) => props.setbankAccountName(e.target.value)}
                       name="bankAccountName"
                       value={props.businessCredentials.bankAccountName}
                     />
@@ -159,7 +159,9 @@ function SettingsBank(props) {
                     <input
                       placeholder="Account Number"
                       className="border-2 py-2 pl-5 rounded outline-none"
-                      onChange={(e) => props.handleChange(e)}
+                      onChange={(e) =>
+                        props.setbankAccountNumber(e.target.value)
+                      }
                       name="bankAccountNumber"
                       value={props.businessCredentials.bankAccountNumber}
                     />
