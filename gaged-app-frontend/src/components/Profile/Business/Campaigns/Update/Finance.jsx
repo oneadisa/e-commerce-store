@@ -104,7 +104,7 @@ text-medium-blue rounded "
                   </button>
                   <button
                     className="cursor-pointer p-1 md:p-2 hover:text-medium-blue"
-                    onClick={sixth}
+                    onClick={sixth} 
                   >
                     Review
                   </button>
