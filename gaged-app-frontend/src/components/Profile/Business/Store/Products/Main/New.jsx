@@ -42,8 +42,10 @@ function ProductsNew() {
     price: 0,
     category: "",
     productUnitCount: 0,
-    shippingCost: 0,
   });
+  
+  const [shippingCost, setShippingCost] = useState(0);
+  
 
   const alert = useAlert();
 
@@ -54,7 +56,7 @@ function ProductsNew() {
 
   useEffect(() => {
     if (businessInfo) {
-      setProductCredentials.shippingCost(businessInfo.shippingCost);
+      setShippingCost(businessInfo.shippingCost);
     }
     if (error || businessError) {
       alert.error(error);
