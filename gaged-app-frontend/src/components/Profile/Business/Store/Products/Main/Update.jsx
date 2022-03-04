@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { Fragment, useEffect, useState } from "react";
 // import { Switch } from "@headlessui/react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { Fragment } from "react";
 // import { Menu, Transition } from "@headlessui/react";
 // import { ChevronDownIcon } from "@heroicons/react/solid";
@@ -38,17 +38,15 @@ function UpdateProduct() {
   const business = useSelector((state: RootStateOrAny) => state.business);
   const { businessInfo } = business;
 
-  const [productCredentials, setProductCredentials] = useState({
-    productTitle: "",
-    shortDescription: "",
-    productDetails: "",
-    standardPrice: "",
-    discountedPrice: "",
-    price: "",
-    category: "",
-    productUnitCount: "",
-    shippingCost: "",
-  });
+  const [productTitle, setproductTitle] = useState("");
+  const [shortDescription, setshortDescription] = useState("");
+  const [productDetails, setproductDetails] = useState("");
+  const [standardPrice, setstandardPrice] = useState("");
+  const [discountedPrice, setdiscountedPrice] = useState("");
+  const [price, setprice] = useState(0);
+  // const [category, setcategory] = useState("")
+  const [productUnitCount, setproductUnitCount] = useState(0);
+  const [shippingCost, setshippingCost] = useState(0);
 
   const alert = useAlert();
 
@@ -60,16 +58,15 @@ function UpdateProduct() {
 
   useEffect(() => {
     if (businessInfo) {
-      setProductCredentials.shippingCost(businessInfo.shippingCost);
+      setshippingCost(businessInfo.shippingCost);
     }
     if (product && product._id !== productId) {
       dispatch(getProductDetails(productId));
     } else {
-      setProductCredentials.productTitle(product.productTitle);
-      setProductCredentials.shortDescription(product.shortDescription);
-      setProductCredentials.price(product.price);
-      setProductCredentials.category(product.category);
-      setProductCredentials.prod(product.productTitle);
+      setproductTitle(product.productTitle);
+      setshortDescription(product.shortDescription);
+      setprice(product.price);
+      // setcategory(product.category);
       setOldImages(product.images);
     }
     if (error) {
@@ -82,7 +79,7 @@ function UpdateProduct() {
     }
     if (isUpdated) {
       alert.success("Product Updated Successfully");
-      navigate("/admin/products");
+      navigate("/business/dashboard");
       dispatch({ type: STORE_PRODUCTS_UPDATE_RESET });
     }
   }, [
@@ -100,17 +97,16 @@ function UpdateProduct() {
   const updateProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    myForm.set("productTitle", productCredentials.productTitle);
-    myForm.set("standardPrice", productCredentials.standardPrice);
-    myForm.set("shortDescription", productCredentials.shortDescription);
+    myForm.set("productTitle", productTitle);
+    myForm.set("standardPrice", standardPrice);
+    myForm.set("shortDescription", shortDescription);
     // myForm.set("category", category);
-    myForm.set("productUnitCount", productCredentials.productUnitCount);
-    myForm.set("shippingCost", productCredentials.shippingCost);
+    myForm.set("productUnitCount", productUnitCount);
+    myForm.set("shippingCost", shippingCost);
     images.forEach((image) => {
       myForm.append("images", image);
     });
     dispatch(updateStoreProduct(myForm, productId));
-    resetHandler();
     navigate("/store/products/all");
   };
   const createProductImagesChange = (e) => {
@@ -129,28 +125,28 @@ function UpdateProduct() {
     });
   };
 
-  function handlechange(event) {
-    const { value, name } = event.target;
-    setProductCredentials((prevValue) => {
-      return {
-        ...prevValue,
-        [name]: value,
-      };
-    });
-  }
+  // function (e) => setPassword(e.target.value)(event) {
+  // const { value, name } = event.target;
+  // setProductCredentials((prevValue) => {
+  // return {
+  // ...prevValue,
+  // [name]: value,
+  // };
+  // });
+  // }
 
-  const resetHandler = () => {
-    setProductCredentials({
-      productTitle: "",
-      shortDescription: "",
-      productDetails: "",
-      discountedPrice: "",
-      price: "",
-      productUnitCount: "",
-      category: "",
-      shippingCost: businessInfo.shippingCost,
-    });
-  };
+  // const resetHandler = () => {
+
+  //  setproductTitle = ""
+  // setshortDescription = "",
+  // setproductDetails = "",
+  // setdiscountedPrice = "",
+  // setprice = "",
+  // setproductUnitCount= "",
+  // setcategory = ""
+  // setshippingCost = businessInfo.shippingCost,
+
+  //};
 
   const [open, setOpen] = useState(false);
   // const [enabled, setEnabled] = useState(false);
@@ -212,9 +208,9 @@ function UpdateProduct() {
                           Product title{" "}
                         </label>{" "}
                         <input
-                          onChange={handlechange}
+                          onChange={(e) => setproductTitle(e.target.value)}
                           name="productTitle"
-                          value={productCredentials.productTitle}
+                          value={productTitle}
                           className="border-2 h-10 outline-none pl-3"
                         />
                       </div>{" "}
@@ -223,9 +219,9 @@ function UpdateProduct() {
                           Short description{" "}
                         </label>{" "}
                         <input
-                          onChange={handlechange}
+                          onChange={(e) => setshortDescription(e.target.value)}
                           name="shortDescription"
-                          value={productCredentials.shortDescription}
+                          value={shortDescription}
                           className="border-2 h-10 outline-none pl-3"
                         />
                       </div>{" "}
@@ -234,31 +230,31 @@ function UpdateProduct() {
                           Product details{" "}
                         </label>{" "}
                         <textarea
-                          onChange={handlechange}
+                          onChange={(e) => setproductDetails(e.target.value)}
                           name="productDetails"
-                          value={productCredentials.productDetails}
+                          value={productDetails}
                           className="border-2 h-32 outline-none"
                         />
                       </div>{" "}
                     </div>{" "}
                     <div className="flex gap-5 flex-col lg:w-1/3">
                       {/* <div className="border-2 py-2"> */}
-                        {/* <h4 className="text-lg font-medium px-3 py-1"> */}
-                          {/* Publish product{" "} */}
-                        {/* </h4>{" "} */}
-                        {/* <div className="border-t-2 px-3 pt-3"> */}{" "}
-                        {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}{" "}
-                        {/* Product status */} {/* </p> */}{" "}
-                        {/* <div className="pb-5 flex gap-3"> */}{" "}
-                        {/* <Switch */} {/* // checked={enabled} */}{" "}
-                        {/* // onChange={setEnabled} */}{" "}
-                        {/* // className={`block bg-gray-400 rounded-full shadow border-2 border-transparent h-6 w-12 transition duration-200 ${ */}{" "}
-                        {/* // enabled ? "" : "justify-end bg-Dark-blue" */}{" "}
-                        {/* // }`} */} {/* // > */}{" "}
-                        {/* <span className="block h-full w-6 rounded-full bg-white" /> */}{" "}
-                        {/* </Switch> */} {/* <div> */}{" "}
-                        {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}{" "}
-                        {/* Draft */} {/* </p> */} {/* </div> */} {/* </div> */}{" "}
+                      {/* <h4 className="text-lg font-medium px-3 py-1"> */}
+                      {/* Publish product{" "} */}
+                      {/* </h4>{" "} */}
+                      {/* <div className="border-t-2 px-3 pt-3"> */}{" "}
+                      {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}{" "}
+                      {/* Product status */} {/* </p> */}{" "}
+                      {/* <div className="pb-5 flex gap-3"> */} {/* <Switch */}{" "}
+                      {/* // checked={enabled} */}{" "}
+                      {/* // onChange={setEnabled} */}{" "}
+                      {/* // className={`block bg-gray-400 rounded-full shadow border-2 border-transparent h-6 w-12 transition duration-200 ${ */}{" "}
+                      {/* // enabled ? "" : "justify-end bg-Dark-blue" */}{" "}
+                      {/* // }`} */} {/* // > */}{" "}
+                      {/* <span className="block h-full w-6 rounded-full bg-white" /> */}{" "}
+                      {/* </Switch> */} {/* <div> */}{" "}
+                      {/* <p className="text-lg font-normal text-Dark-grey mb-3"> */}{" "}
+                      {/* Draft */} {/* </p> */} {/* </div> */} {/* </div> */}{" "}
                       {/* </div>{" "} */}
                       <div className="flex justify-between mt-4">
                         {" "}
@@ -283,9 +279,9 @@ function UpdateProduct() {
                   <div className="flex">
                     <div className="border-2 p-2 text-Dark-grey"> $ </div>{" "}
                     <input
-                      onChange={handlechange}
+                      onChange={(e) => setstandardPrice(e.target.value)}
                       name="standardPrice"
-                      value={productCredentials.standardPrice}
+                      value={standardPrice}
                       placeholder="Standard price"
                       className="border-2 pl-4 lg:w-44 outline-none"
                     />
@@ -293,9 +289,9 @@ function UpdateProduct() {
                   <div className="flex">
                     <div className="border-2 p-2 text-Dark-grey"> $ </div>{" "}
                     <input
-                      onChange={handlechange}
+                      onChange={(e) => setdiscountedPrice(e.target.value)}
                       name="discountedPrice"
-                      value={productCredentials.discountedPrice}
+                      value={discountedPrice}
                       placeholder="Discounted price"
                       className="border-2 pl-4 lg:w-44 outline-none"
                     />
@@ -303,9 +299,10 @@ function UpdateProduct() {
                   <div className="flex">
                     <div className="border-2 p-2 text-Dark-grey"> $ </div>{" "}
                     <input
-                      onChange={handlechange}
+                      onChange={(e) => setprice(e.target.value)}
                       name="price"
-                      value={productCredentials.price}
+                      value={price}
+                      type="number"
                       placeholder="Cost price"
                       className="border-2 pl-4 lg:w-44 outline-none"
                     />
@@ -315,9 +312,10 @@ function UpdateProduct() {
                   <div className="flex flex-col">
                     <h4 className="text-lg font-medium"> Unit </h4>{" "}
                     <input
-                      onChange={handlechange}
+                      onChange={(e) => setproductUnitCount(e.target.value)}
+                      type="number"
                       name="productUnitCount"
-                      value={productCredentials.productUnitCount}
+                      value={productUnitCount}
                       placeholder="Product count"
                       className="border-2 lg:w-52 h-10 outline-none text-center"
                     />
@@ -367,12 +365,12 @@ function UpdateProduct() {
                     <img key={index} src={image} alt="Product Preview" />
                   ))}{" "}
                 </div>
-                <button
-                  onClick={resetHandler}
-                  className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white "
-                >
-                  RESET FIELDS{" "}
-                </button>{" "}
+                {/* <button */}
+                {/* onClick={resetHandler} */}
+                {/* className="border py-2 px-2 text-Dark-blue hover:bg-Dark-blue hover:text-white " */}
+                {/* > */}
+                {/* RESET FIELDS{" "} */}
+                {/* </button>{" "} */}
                 <footer className="text-muted">
                   Creating on - {new Date().toLocaleDateString()}{" "}
                 </footer>{" "}
