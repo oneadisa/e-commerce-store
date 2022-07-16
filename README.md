@@ -5,4 +5,4 @@ Hi! We are **E-Commerce LLC**, our goal is to power SMEs to achieve their growth
 
 ## Author
 
-**Twitter** Click [Here](https://twitter.com/oneadisaone) **@oneadisaone\_**
+**Twitter** Click [Here](https://twitter.com/oneadisaone) **@oneadisaone**
